@@ -1,0 +1,2 @@
+#include "paneldebuggingmodel.h"
+

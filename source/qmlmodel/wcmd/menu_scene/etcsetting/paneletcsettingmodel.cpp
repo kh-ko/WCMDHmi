@@ -1,0 +1,1 @@
+#include "paneletcsettingmodel.h"
