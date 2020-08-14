@@ -6,7 +6,7 @@
 #define QML_DB_CON "QML_DB_CON"
 #define INVALID_ULONGLONG 0xffffffffffffffff
 
-//#define BUILD_DONGNAM
+#define BUILD_DONGNAM
 
 #define MODEL "NSWCNSAMD480"
 #define VERSION "1.0.0"
