@@ -30,9 +30,28 @@ void PanelWCSettingInHomeModel::onCommandSetUnderWeight     (quint32 value)
 void PanelWCSettingInHomeModel::onCommandSetNormalWeight    (quint32 value)
 {
     setNormalWeight(value);
-    setUnderGap    (mNormalWeight - mUnderWeight);
-    setOverGap     (mOverWeight - mNormalWeight);
+
+    if((int)value < mUnderGap)
+    {
+        setUnderWeight (0);
+        setUnderGap    (mNormalWeight - mUnderWeight);
+    }
+    else
+    {
+        setUnderWeight (mNormalWeight - mUnderGap);
+    }
+
+    if(value + mOverGap > 99999900)
+    {
+        setOverWeight  (99999900);
+        setOverGap    (mOverWeight - mNormalWeight);
+    }
+    else
+    {
+        setOverWeight  (mNormalWeight + mOverGap);
+    }
 }
+
 void PanelWCSettingInHomeModel::onCommandSetOverWeight      (quint32 value)
 {
     setOverWeight  (value);
@@ -40,14 +59,33 @@ void PanelWCSettingInHomeModel::onCommandSetOverWeight      (quint32 value)
 }
 void PanelWCSettingInHomeModel::onCommandSetUnderGap        (qint32 value)
 {
-    setUnderGap    (value);
-    setUnderWeight(mNormalWeight - mUnderGap);
+    if((int)mNormalWeight < value)
+    {
+        setUnderWeight (0);
+        setUnderGap    (mNormalWeight - mUnderWeight);
+    }
+    else
+    {
+        setUnderGap    (value);
+        setUnderWeight(mNormalWeight - mUnderGap);
+    }
+
+
 }
 void PanelWCSettingInHomeModel::onCommandSetOverGap         (qint32 value)
 {
-    setOverGap    (value);
-    setOverWeight(mNormalWeight + mOverGap);
+    if(mNormalWeight + value > 99999900)
+    {
+        setOverWeight  (99999900);
+        setOverGap    (mOverWeight - mNormalWeight);
+    }
+    else
+    {
+        setOverGap    (value);
+        setOverWeight(mNormalWeight + mOverGap);
+    }
 }
+
 void PanelWCSettingInHomeModel::onCommandApply()
 {
     if(!(mUnderWeight < mNormalWeight && mNormalWeight < mOverWeight))
