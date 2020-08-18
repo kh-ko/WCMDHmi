@@ -1273,7 +1273,7 @@ UiPanel {
                  settingModel.isEditScaler              ||
                  settingModel.isEditStaticFactor        ||
                  settingModel.isEditDynamicFactor       ||
-                 settingModel.isEditStandardWeigh       ||
+                 settingModel.isEditStandardWeight      ||
                  settingModel.isEditRefWeight           ||
                  settingModel.isEditWCPhotoOn           ||
                  settingModel.isEditMode                ||
