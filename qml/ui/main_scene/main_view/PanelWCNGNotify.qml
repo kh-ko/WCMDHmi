@@ -85,6 +85,11 @@ Item {
         }
     }
 
+    MouseArea{
+        anchors.fill: parent
+        onCanceled: {}
+    }
+
     Rectangle
     {
         id: uiPanel
