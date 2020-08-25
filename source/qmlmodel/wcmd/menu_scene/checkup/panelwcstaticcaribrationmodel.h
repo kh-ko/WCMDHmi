@@ -82,23 +82,13 @@ public slots:
 
     void onSignalEventChangedDeviceStatus(quint16 deviceSeq, DeviceStatus ds)
     {
-        WCMDService * pWCMDService = WCMDService::getInstance();
-        DSPManager  * pDspManager  = pWCMDService->mMapDSPManager.first();
-
-        if(pDspManager == nullptr)
-        {
-            qDebug() << "PanelWCStaticCaribrationModel() : erro -> not exist dsp";
-           setCurrentWeight(0);
-           return;
-        }
-
-        if(pDspManager->mWCCurrWeight == 0)
+        if(ds.mCurrWeight == 0)
         {
             setCurrentWeight(0);
         }
         else
         {
-            setCurrentWeight(pDspManager->mWCCurrWeight + WCMDService::getInstance()->mProductSetting.mTareWeight);
+            setCurrentWeight(ds.mCurrWeight + WCMDService::getInstance()->mProductSetting.mTareWeight);
         }
     }
 

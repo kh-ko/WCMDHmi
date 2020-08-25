@@ -229,6 +229,9 @@ void MainViewModel::onSignalEventAddedEvent                   (quint16 deviceSeq
     setLastErrorTime (WCMDService::getInstance()->mLastErrorTime);
     setLastErrorValue(WCMDService::getInstance()->mLastErrorValue);
 
+    setWCCurrWeight      (dspManager->mWCCurrWeight     );
+    setWCCurrEventType   (dspManager->mWCCurrEventType  );
+
     if(dspManager->mListProductStatus.contains(productSeq) == false)
         return;
 
