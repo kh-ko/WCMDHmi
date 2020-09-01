@@ -379,6 +379,33 @@ UiPanel {
         }
     }
 
+    UiInputFloat{
+        id : inputDyniamicFactor
+        height: 60
+        anchors.right: divider.left
+        anchors.rightMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.top: inputTare.bottom
+        anchors.topMargin: 10
+
+        isDisable : panel.isViewMode
+        visible: !itemModel.isRemoved
+
+        bgColor: panel.bgColor
+        labelText : qsTr("· Dynamic factor")
+        inputWidth : width - 220
+        isHighlight: itemModel.isEditDynamicFactor
+        fixedN : 7
+
+        realValue: itemModel.dynamicFactor / 10000000.0
+
+        onSignalChangeValue:
+        {
+            itemModel.onCommandSetDynamicFactor((value * 10000000) + 0.5)
+        }
+    }
+
     /*
     UiInputNumber {
         id: inputAverageN
@@ -415,7 +442,7 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: inputTare.bottom
+        anchors.top: inputDyniamicFactor.bottom
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
@@ -570,7 +597,7 @@ UiPanel {
                  itemModel.isEditOverWeight         ||
                  itemModel.isEditTareWeight         ||
                  itemModel.isEditWCNGMotion         ||
-                 itemModel.isEditAverageN           ||
+                 itemModel.isEditDynamicFactor      ||
                  itemModel.isEditMDSenstivity       ||
                  itemModel.isEditMDNGMotion)        &&
                  !panel.isViewMode

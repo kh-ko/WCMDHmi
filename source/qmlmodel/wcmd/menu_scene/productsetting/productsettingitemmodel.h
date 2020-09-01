@@ -26,7 +26,7 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(quint32              overWeight                 READ getOverWeight                  NOTIFY signalEventChangedOverWeight               )
     Q_PROPERTY(quint32              tareWeight                 READ getTareWeight                  NOTIFY signalEventChangedTareWeight               )
     Q_PROPERTY(quint16              wcNGMotion                 READ getWCNGMotion                  NOTIFY signalEventChangedWCNGMotion               )
-    Q_PROPERTY(int                  averageN                   READ getAverageN                    NOTIFY signalEventChangedAverageN                 )
+    Q_PROPERTY(int                  dynamicFactor              READ getDynamicFactor               NOTIFY signalEventChangedDynamicFactor            )
     Q_PROPERTY(quint16              mdSenstivity               READ getMDSenstivity                NOTIFY signalEventChangedMDSenstivity             )
     Q_PROPERTY(quint16              mdNGMotion                 READ getMDNGMotion                  NOTIFY signalEventChangedMDNGMotion               )
 
@@ -42,7 +42,7 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(bool                 isEditOverWeight           READ getIsEditOverWeight            NOTIFY signalEventChangedIsEditOverWeight         )
     Q_PROPERTY(bool                 isEditTareWeight           READ getIsEditTareWeight            NOTIFY signalEventChangedIsEditTareWeight         )
     Q_PROPERTY(bool                 isEditWCNGMotion           READ getIsEditWCNGMotion            NOTIFY signalEventChangedIsEditWCNGMotion         )
-    Q_PROPERTY(bool                 isEditAverageN             READ getIsEditAverageN              NOTIFY signalEventChangedIsEditAverageN           )
+    Q_PROPERTY(bool                 isEditDynamicFactor        READ getIsEditDynamicFactor         NOTIFY signalEventChangedIsEditDynamicFactor      )
     Q_PROPERTY(bool                 isEditMDSenstivity         READ getIsEditMDSenstivity          NOTIFY signalEventChangedIsEditMDSenstivity       )
     Q_PROPERTY(bool                 isEditMDNGMotion           READ getIsEditMDNGMotion            NOTIFY signalEventChangedIsEditMDNGMotion         )
 
@@ -68,7 +68,7 @@ public:
     quint32 mOverWeight               ;
     quint32 mTareWeight               ;
     quint16 mWCNGMotion               ;
-    int     mAverageN                 ;
+    int     mDynamicFactor            ;
     quint16 mMDSenstivity             ;
     quint16 mMDNGMotion               ;
 
@@ -84,7 +84,7 @@ public:
     bool    mIsEditOverWeight         ;
     bool    mIsEditTareWeight         ;
     bool    mIsEditWCNGMotion         ;
-    bool    mIsEditAverageN           ;
+    bool    mIsEditDynamicFactor      ;
     bool    mIsEditMDSenstivity       ;
     bool    mIsEditMDNGMotion         ;
 
@@ -106,7 +106,7 @@ public:
     quint32 getOverWeight              (){return mOverWeight               ;}
     quint32 getTareWeight              (){return mTareWeight               ;}
     quint16 getWCNGMotion              (){return mWCNGMotion               ;}
-    int     getAverageN                (){return mAverageN                 ;}
+    int     getDynamicFactor           (){return mDynamicFactor            ;}
     quint16 getMDSenstivity            (){return mMDSenstivity             ;}
     quint16 getMDNGMotion              (){return mMDNGMotion               ;}
 
@@ -122,7 +122,7 @@ public:
     bool    getIsEditOverWeight        (){return mIsEditOverWeight         ;}
     bool    getIsEditTareWeight        (){return mIsEditTareWeight         ;}
     bool    getIsEditWCNGMotion        (){return mIsEditWCNGMotion         ;}
-    bool    getIsEditAverageN          (){return mIsEditAverageN           ;}
+    bool    getIsEditDynamicFactor     (){return mIsEditDynamicFactor      ;}
     bool    getIsEditMDSenstivity      (){return mIsEditMDSenstivity       ;}
     bool    getIsEditMDNGMotion        (){return mIsEditMDNGMotion         ;}
 
@@ -144,7 +144,7 @@ public:
     void setOverWeight              (quint32 value){ if(value == mOverWeight               ) return; mOverWeight               = value;  setIsEditOverWeight        (true); emit signalEventChangedOverWeight               (value);}
     void setTareWeight              (quint32 value){ if(value == mTareWeight               ) return; mTareWeight               = value;  setIsEditTareWeight        (true); emit signalEventChangedTareWeight               (value);}
     void setWCNGMotion              (quint16 value){ if(value == mWCNGMotion               ) return; mWCNGMotion               = value;  setIsEditWCNGMotion        (true); emit signalEventChangedWCNGMotion               (value);}
-    void setAverageN                (int     value){ if(value == mAverageN                 ) return; mAverageN                 = value;  setIsEditAverageN          (true); emit signalEventChangedAverageN                 (value);}
+    void setDynamicFactor           (int     value){ if(value == mDynamicFactor            ) return; mDynamicFactor            = value;  setIsEditDynamicFactor     (true); emit signalEventChangedDynamicFactor            (value);}
     void setMDSenstivity            (quint16 value){ if(value == mMDSenstivity             ) return; mMDSenstivity             = value;  setIsEditMDSenstivity      (true); emit signalEventChangedMDSenstivity             (value);}
     void setMDNGMotion              (quint16 value){ if(value == mMDNGMotion               ) return; mMDNGMotion               = value;  setIsEditMDNGMotion        (true); emit signalEventChangedMDNGMotion               (value);}
 
@@ -160,7 +160,7 @@ public:
     void setIsEditOverWeight        (bool    value){ if(value == mIsEditOverWeight         ) return; mIsEditOverWeight         = value; emit signalEventChangedIsEditOverWeight         (value);}
     void setIsEditTareWeight        (bool    value){ if(value == mIsEditTareWeight         ) return; mIsEditTareWeight         = value; emit signalEventChangedIsEditTareWeight         (value);}
     void setIsEditWCNGMotion        (bool    value){ if(value == mIsEditWCNGMotion         ) return; mIsEditWCNGMotion         = value; emit signalEventChangedIsEditWCNGMotion         (value);}
-    void setIsEditAverageN          (bool    value){ if(value == mIsEditAverageN           ) return; mIsEditAverageN           = value; emit signalEventChangedIsEditAverageN           (value);}
+    void setIsEditDynamicFactor     (bool    value){ if(value == mIsEditDynamicFactor      ) return; mIsEditDynamicFactor      = value; emit signalEventChangedIsEditDynamicFactor      (value);}
     void setIsEditMDSenstivity      (bool    value){ if(value == mIsEditMDSenstivity       ) return; mIsEditMDSenstivity       = value; emit signalEventChangedIsEditMDSenstivity       (value);}
     void setIsEditMDNGMotion        (bool    value){ if(value == mIsEditMDNGMotion         ) return; mIsEditMDNGMotion         = value; emit signalEventChangedIsEditMDNGMotion         (value);}
 
@@ -190,7 +190,7 @@ signals:
     void signalEventChangedOverWeight               (quint32 value);
     void signalEventChangedTareWeight               (quint32 value);
     void signalEventChangedWCNGMotion               (quint16 value);
-    void signalEventChangedAverageN                 (int     value);
+    void signalEventChangedDynamicFactor            (int     value);
     void signalEventChangedMDSenstivity             (quint16 value);
     void signalEventChangedMDNGMotion               (quint16 value);
 
@@ -206,7 +206,7 @@ signals:
     void signalEventChangedIsEditOverWeight         (bool    value);
     void signalEventChangedIsEditTareWeight         (bool    value);
     void signalEventChangedIsEditWCNGMotion         (bool    value);
-    void signalEventChangedIsEditAverageN           (bool    value);
+    void signalEventChangedIsEditDynamicFactor      (bool    value);
     void signalEventChangedIsEditMDSenstivity       (bool    value);
     void signalEventChangedIsEditMDNGMotion         (bool    value);
 
@@ -225,7 +225,7 @@ public slots:
     Q_INVOKABLE void onCommandSetOverWeight              (quint32 value){ setOverWeight        (value); setOverWarningWeight (value);}
     Q_INVOKABLE void onCommandSetTareWeight              (quint32 value){ setTareWeight        (value);}
     Q_INVOKABLE void onCommandSetWCNGMotion              (quint16 value){ setWCNGMotion        (value);}
-    Q_INVOKABLE void onCommandSetAverageN                (int     value){ setAverageN          (value);}
+    Q_INVOKABLE void onCommandSetDynamicFactor           (int     value){ setDynamicFactor     (value);}
     Q_INVOKABLE void onCommandSetMDSenstivity            (quint16 value){ setMDSenstivity      (value);}
     Q_INVOKABLE void onCommandSetMDNGMotion              (quint16 value){ setMDNGMotion        (value);}
 

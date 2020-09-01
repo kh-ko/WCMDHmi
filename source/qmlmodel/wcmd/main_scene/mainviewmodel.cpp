@@ -184,7 +184,7 @@ void MainViewModel::onSignalEventChangedSelectedProductSetting(ProductSetting va
     setWCUnderWarningWeight(WCMDService::getInstance()->mProductSetting.mUnderWarningWeight);
     setWCUnderWeight       (WCMDService::getInstance()->mProductSetting.mUnderWeight       );
     setWCTareWeight        (WCMDService::getInstance()->mProductSetting.mTareWeight        );
-    setWCAverageN          (WCMDService::getInstance()->mProductSetting.mAverageN          );
+    //setWCAverageN          (WCMDService::getInstance()->mProductSetting.mAverageN          );
 
     if(dspManager->mListProductStatus.contains(productSeq) == false)
         return;

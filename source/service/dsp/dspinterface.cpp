@@ -439,6 +439,6 @@ void DSPInterface::onCommandSendProductSetting(quint16 deviceSeq, ProductSetting
         return;
 
     mPacketBuilder.setProductSetting(value);
-    sendPacket(mPacketBuilder.createReqPacketProductSetting());
+    sendPacket(mPacketBuilder.createReqPacketTotalSetting());
     sendPacket(mPacketBuilder.createReqPacketReadAll());
 }

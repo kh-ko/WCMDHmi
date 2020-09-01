@@ -157,7 +157,7 @@ public:
          ||mWCPhotoIsOn                 != other->mWCPhotoIsOn
          ||mRejectorRunTimeRatio        != other->mRejectorRunTimeRatio
          ||mStaticFactor                != other->mStaticFactor
-         ||mDynamicFactor               != other->mDynamicFactor
+         //||mDynamicFactor               != other->mDynamicFactor
          ||mScaler                      != other->mScaler
          ||mDisplayStability            != other->mDisplayStability
          ||mMeasureCueSign              != other->mMeasureCueSign
@@ -186,7 +186,7 @@ public:
             qDebug() << "mWCPhotoIsOn            "   << mWCPhotoIsOn               << ": "<<other->mWCPhotoIsOn              ;
             qDebug() << "mRejectorRunTimeRatio   "   << mRejectorRunTimeRatio      << ": "<<other->mRejectorRunTimeRatio     ;
             qDebug() << "mStaticFactor           "   << mStaticFactor              << ": "<<other->mStaticFactor             ;
-            qDebug() << "mDynamicFactor          "   << mDynamicFactor             << ": "<<other->mDynamicFactor            ;
+            //qDebug() << "mDynamicFactor          "   << mDynamicFactor             << ": "<<other->mDynamicFactor            ;
             qDebug() << "mScaler                 "   << mScaler                    << ": "<<other->mScaler                   ;
             qDebug() << "mDisplayStability       "   << mDisplayStability          << ": "<<other->mDisplayStability         ;
             qDebug() << "mMeasureCueSign         "   << mMeasureCueSign            << ": "<<other->mMeasureCueSign           ;

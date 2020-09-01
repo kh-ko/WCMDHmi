@@ -295,7 +295,7 @@ EnumDefine::DatabaseErrorType   DatabaseHelper::addProductSetting(QString conNam
                                                   .arg(productSetting->mWCNGMotion)
                                                   .arg(productSetting->mMDSenstivity)
                                                   .arg(productSetting->mMDNGMotion)
-                                                  .arg(productSetting->mAverageN));
+                                                  .arg(productSetting->mDynamicFactor));
 
         if(queryInsert.lastError().isValid())
         {
@@ -367,7 +367,7 @@ EnumDefine::DatabaseErrorType   DatabaseHelper::editProductSetting(QString conNa
                                                   .arg(productSetting.mWCNGMotion)
                                                   .arg(productSetting.mMDSenstivity)
                                                   .arg(productSetting.mMDNGMotion)
-                                                  .arg(productSetting.mAverageN)
+                                                  .arg(productSetting.mDynamicFactor)
                                                   .arg(productSetting.mSeq));
 
         if(queryEdit.lastError().isValid())
@@ -641,7 +641,7 @@ ProductSetting DatabaseHelper::recordToProductSetting(QSqlRecord * record)
     ret.mWCNGMotion            = (EnumDefine::NGMotion)record->value("weight_ng_motion").toUInt();
     ret.mMDSenstivity          = record->value("metaldetector_senstivity").toUInt();
     ret.mMDNGMotion            = (EnumDefine::NGMotion)record->value("metaldetector_ng_motion").toUInt();
-    ret.mAverageN              = record->value("average_n").toInt();
+    ret.mDynamicFactor         = record->value("average_n").toInt();
 
     return ret;
 }
@@ -1362,7 +1362,7 @@ void DatabaseHelper::factoryReset(QString conName)
         ps.mOverWeight = 16000;
         ps.mTareWeight = 0;
         ps.mWCNGMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
-        ps.mAverageN = 1;
+        ps.mDynamicFactor = 9969342;
         ps.mMDSenstivity = 140;
         ps.mMDNGMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_01;
 

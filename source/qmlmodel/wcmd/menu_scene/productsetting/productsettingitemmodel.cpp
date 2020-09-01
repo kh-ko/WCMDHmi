@@ -22,7 +22,7 @@ ProductSetting ProductSettingItemModel::getModifiedProductSetting()
     ps.mOverWeight            =                       getOverWeight         ();
     ps.mTareWeight            =                       getTareWeight         ();
     ps.mWCNGMotion            = (EnumDefine::NGMotion)getWCNGMotion         ();
-    ps.mAverageN              =                       getAverageN           ();
+    ps.mDynamicFactor         =                       getDynamicFactor      ();
     ps.mMDSenstivity          =                       getMDSenstivity       ();
     ps.mMDNGMotion            = (EnumDefine::NGMotion)getMDNGMotion         ();
 
@@ -58,7 +58,7 @@ void ProductSettingItemModel::setNewSetting(ProductSetting ps)
     setOverWeight              (ps.mOverWeight           );
     setTareWeight              (ps.mTareWeight           );
     setWCNGMotion              (ps.mWCNGMotion           );
-    setAverageN                (ps.mAverageN             );
+    setDynamicFactor           (ps.mDynamicFactor        );
     setMDSenstivity            (ps.mMDSenstivity         );
     setMDNGMotion              (ps.mMDNGMotion           );
 
@@ -74,7 +74,7 @@ void ProductSettingItemModel::setNewSetting(ProductSetting ps)
     setIsEditOverWeight        (true);
     setIsEditTareWeight        (true);
     setIsEditWCNGMotion        (true);
-    setIsEditAverageN          (true);
+    setIsEditDynamicFactor     (true);
     setIsEditMDSenstivity      (true);
     setIsEditMDNGMotion        (true);
 
@@ -97,7 +97,7 @@ void ProductSettingItemModel::reset()
         setOverWeight              (0 );
         setTareWeight              (0 );
         setWCNGMotion              (0 );
-        setAverageN                (0 );
+        setDynamicFactor           (0 );
         setMDSenstivity            (0 );
         setMDNGMotion              (0 );
 
@@ -113,7 +113,7 @@ void ProductSettingItemModel::reset()
         setIsEditOverWeight        (false);
         setIsEditTareWeight        (false);
         setIsEditWCNGMotion        (false);
-        setIsEditAverageN          (false);
+        setIsEditDynamicFactor     (false);
         setIsEditMDSenstivity      (false);
         setIsEditMDNGMotion        (false);
     }
@@ -133,7 +133,7 @@ void ProductSettingItemModel::reset()
         setOverWeight              (mProductSetting.mOverWeight        );
         setTareWeight              (mProductSetting.mTareWeight        );
         setWCNGMotion              (mProductSetting.mWCNGMotion        );
-        setAverageN                (mProductSetting.mAverageN          );
+        setDynamicFactor           (mProductSetting.mDynamicFactor     );
         setMDSenstivity            (mProductSetting.mMDSenstivity      );
         setMDNGMotion              (mProductSetting.mMDNGMotion        );
 
@@ -149,7 +149,7 @@ void ProductSettingItemModel::reset()
         setIsEditOverWeight        (false);
         setIsEditTareWeight        (false);
         setIsEditWCNGMotion        (false);
-        setIsEditAverageN          (false);
+        setIsEditDynamicFactor     (false);
         setIsEditMDSenstivity      (false);
         setIsEditMDNGMotion        (false);
     }

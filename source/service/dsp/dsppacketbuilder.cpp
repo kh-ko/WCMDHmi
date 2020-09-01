@@ -81,7 +81,7 @@ void DspPacketBuilder::setDeviceSetting(DeviceSetting deviceSetting)
     mDataStore.mDeviceSetting.mWCPhotoIsOn             = deviceSetting.mWCPhotoIsOn ? 1 : 0;
     mDataStore.mDeviceSetting.mRejectorRunTimeRatio    = deviceSetting.mRejectorRunTimeRatio;
     mDataStore.mDeviceSetting.mStaticFactor            = deviceSetting.mStaticFactor;
-    mDataStore.mDeviceSetting.mDynamicFactor           = deviceSetting.mDynamicFactor;
+    //mDataStore.mDeviceSetting.mDynamicFactor           = deviceSetting.mDynamicFactor;
     mDataStore.mDeviceSetting.mScaler                  = deviceSetting.mScaler;
     mDataStore.mDeviceSetting.mDisplayStability        = deviceSetting.mDisplayStability;
     mDataStore.mDeviceSetting.mMeasureCueSign          = deviceSetting.mMeasureCueSign;
@@ -114,6 +114,8 @@ void DspPacketBuilder::setProductSetting(ProductSetting productSetting)
     mDataStore.mProductSetting.mWeightCheckerNGMotion   = productSetting.mWCNGMotion;
     mDataStore.mProductSetting.mMetalDetectorSenstivity = productSetting.mMDSenstivity;
     mDataStore.mProductSetting.mMetalDetectorNGMotion   = productSetting.mMDNGMotion;
+
+    mDataStore.mDeviceSetting.mDynamicFactor            = productSetting.mDynamicFactor;
 }
 
 bool DspPacketBuilder::setDeviceStatus(StDeviceStatus * deviceStatus)

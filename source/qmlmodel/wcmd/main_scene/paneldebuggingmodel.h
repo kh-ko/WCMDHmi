@@ -230,7 +230,7 @@ public:
     bool    getDiffWCPhotoIsOn            (){ return mDiffWCPhotoIsOn            ;}
     bool    getDiffRejectorRunTimeRatio   (){ return mDiffRejectorRunTimeRatio   ;}
     bool    getDiffStaticFactor           (){ return mDiffStaticFactor           ;}
-    bool    getDiffDynamicFactor          (){ return mDiffDynamicFactor          ;}
+    bool    getDiffDynamicFactor          (){ return false/*mDiffDynamicFactor*/ ;}
     bool    getDiffScaler                 (){ return mDiffScaler                 ;}
     bool    getDiffDisplayStability       (){ return mDiffDisplayStability       ;}
     bool    getDiffMeasureCueSign         (){ return mDiffMeasureCueSign         ;}
@@ -350,7 +350,7 @@ public:
         setDiffWCPhotoIsOn            (localDs.mWCPhotoIsOn              != remoteDs.mWCPhotoIsOn             );
         setDiffRejectorRunTimeRatio   (localDs.mRejectorRunTimeRatio     != remoteDs.mRejectorRunTimeRatio    );
         setDiffStaticFactor           (localDs.mStaticFactor             != remoteDs.mStaticFactor            );
-        setDiffDynamicFactor          (localDs.mDynamicFactor            != remoteDs.mDynamicFactor           );
+        setDiffDynamicFactor          (/*localDs.mDynamicFactor            != remoteDs.mDynamicFactor*/ false );
         setDiffScaler                 (localDs.mScaler                   != remoteDs.mScaler                  );
         setDiffDisplayStability       (localDs.mDisplayStability         != remoteDs.mDisplayStability        );
         setDiffMeasureCueSign         (localDs.mMeasureCueSign           != remoteDs.mMeasureCueSign          );
@@ -523,7 +523,8 @@ public slots:
         setDiffWCPhotoIsOn            (ds.mWCPhotoIsOn              != value.mWCPhotoIsOn             );
         setDiffRejectorRunTimeRatio   (ds.mRejectorRunTimeRatio     != value.mRejectorRunTimeRatio    );
         setDiffStaticFactor           (ds.mStaticFactor             != value.mStaticFactor            );
-        setDiffDynamicFactor          (ds.mDynamicFactor            != value.mDynamicFactor           );
+        setDiffDynamicFactor          (false);
+        //setDiffDynamicFactor          (ds.mDynamicFactor            != value.mDynamicFactor           );
         setDiffScaler                 (ds.mScaler                   != value.mScaler                  );
         setDiffDisplayStability       (ds.mDisplayStability         != value.mDisplayStability        );
         setDiffMeasureCueSign         (ds.mMeasureCueSign           != value.mMeasureCueSign          );

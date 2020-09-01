@@ -533,18 +533,18 @@ void WCMDService::onSignalEventAddedEvent                    (quint16 deviceSeq,
 
     if(value.mEventType == EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE   || value.mEventType == EnumDefine::EventType::WEIGHT_DYNAMIC_CARI_TYPE)
     {
-        DeviceSetting ds = mDeviceSetting;
-
         if(value.mEventType == EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE)
         {
+            DeviceSetting ds = mDeviceSetting;
             ds.mStaticFactor = value.mEventValue;
+            onCommandSaveDeviceSetting(this, ds);
         }
         else
         {
-            ds.mDynamicFactor = value.mEventValue;
+            ProductSetting ps = mProductSetting;
+            ps.mDynamicFactor = value.mEventValue;
+            onCommandSaveProductSetting(this, EnumDefine::DataBaseWriteMode::EDIT, ps);
         }
-
-        onCommandSaveDeviceSetting(this, ds);
     }
 }
 void WCMDService::onSignalEventAddedWeightCheckerGraph       (quint16 deviceSeq, WeightChekerGraphData value)

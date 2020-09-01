@@ -24,7 +24,7 @@ public:
     quint32                 mOverWeight           ;
     quint32                 mTareWeight           ;
     EnumDefine::NGMotion    mWCNGMotion           ;
-    int                     mAverageN             ;
+    int                     mDynamicFactor        ;
     quint16                 mMDSenstivity         ;
     EnumDefine::NGMotion    mMDNGMotion           ;
 
@@ -43,7 +43,7 @@ public:
         mOverWeight            = 320000;
         mTareWeight            = 10000;
         mWCNGMotion            = EnumDefine::NGMotion::NG_MOTION_REJECT_01;
-        mAverageN              = 1;
+        mDynamicFactor         = 9969342;
         mMDSenstivity          = 500;
         mMDNGMotion            = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
     }
@@ -63,7 +63,7 @@ public:
                           mOverWeight           (copy.mOverWeight           ),
                           mTareWeight           (copy.mTareWeight           ),
                           mWCNGMotion           (copy.mWCNGMotion           ),
-                          mAverageN             (copy.mAverageN             ),
+                          mDynamicFactor        (copy.mDynamicFactor        ),
                           mMDSenstivity         (copy.mMDSenstivity         ),
                           mMDNGMotion           (copy.mMDNGMotion           ){}
 
@@ -85,7 +85,7 @@ public:
         mOverWeight             = other.mOverWeight           ;
         mTareWeight             = other.mTareWeight           ;
         mWCNGMotion             = other.mWCNGMotion           ;
-        mAverageN               = other.mAverageN             ;
+        mDynamicFactor          = other.mDynamicFactor        ;
         mMDSenstivity           = other.mMDSenstivity         ;
         mMDNGMotion             = other.mMDNGMotion           ;
 

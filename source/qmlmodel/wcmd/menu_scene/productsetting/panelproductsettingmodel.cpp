@@ -76,6 +76,7 @@ void PanelProductSettingModel::onCommandAddProduct           (           )
 {
     ProductSetting newProduct = DatabaseHelper::getInstance()->newProductSetting("QML_DB_CON");
 
+    newProduct.mDynamicFactor = WCMDService::getInstance()->mDeviceSetting.mDynamicFactor;
     mEditViewItemModel.setNewSetting(newProduct);
     //mEditViewItemModel.setIsNew(true);
     //mEditViewItemModel.reset();
