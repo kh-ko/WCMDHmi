@@ -102,7 +102,7 @@ void DspPacketBuilder::setDeviceSetting(DeviceSetting deviceSetting)
 
 void DspPacketBuilder::setProductSetting(ProductSetting productSetting)
 {
-    mDataStore.mProductSetting.mProductSeq              = productSetting.mSeq;
+    mDataStore.mProductSetting.mProductSeq              = productSetting.mNo;
     mDataStore.mProductSetting.mLength                  = productSetting.mLength;
     mDataStore.mProductSetting.mSpeed                   = productSetting.mSpeed;
     mDataStore.mProductSetting.mMotorAccelerationTime   = productSetting.mMotorAccelerationTime;
@@ -249,7 +249,7 @@ ProductSetting    DspPacketBuilder::createSignalObjProductSetting       (StProdu
 {
     ProductSetting ps;
 
-    ps.mSeq                     = pstProductSetting->mProductSeq             ;
+    ps.mNo                      = pstProductSetting->mProductSeq             ;
     ps.mLength                  = pstProductSetting->mLength                 ;
     ps.mSpeed                   = pstProductSetting->mSpeed                  ;
     ps.mMotorAccelerationTime   = pstProductSetting->mMotorAccelerationTime  ;

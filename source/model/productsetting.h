@@ -94,7 +94,7 @@ public:
 
     bool remoteSettingCompare(ProductSetting * other)
     {
-        if(   mSeq                      != other->mSeq
+        if(   mNo                       != other->mNo
            || mLength                   != other->mLength
            || mSpeed                    != other->mSpeed
            || mMotorAccelerationTime    != other->mMotorAccelerationTime
@@ -109,7 +109,7 @@ public:
            || mMDNGMotion               != other->mMDNGMotion)
         {
             qDebug() << "Product setting missmatch";
-            qDebug() << "mSeq                   "       << mSeq                     << ": "<<other->mSeq;
+            qDebug() << "mNo                    "       << mNo                      << ": "<<other->mNo;
             qDebug() << "mLength                "       << mLength                  << ": "<<other->mLength                 ;
             qDebug() << "mSpeed                 "       << mSpeed                   << ": "<<other->mSpeed                  ;
             qDebug() << "mMotorAccelerationTime "       << mMotorAccelerationTime   << ": "<<other->mMotorAccelerationTime  ;

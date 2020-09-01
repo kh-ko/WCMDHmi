@@ -397,7 +397,7 @@ public:
         ProductSetting remotePs = pDsp->mRemoteProductSetting;
         ProductSetting localPs  = wcmdService->mProductSetting;
 
-        setDiffSeq                    (remotePs.mSeq                   != localPs.mSeq                 );
+        setDiffSeq                    (remotePs.mNo                    != localPs.mNo                  );
         setDiffLength                 (remotePs.mLength                != localPs.mLength              );
         setDiffSpeed                  (remotePs.mSpeed                 != localPs.mSpeed               );
         setDiffMotorAccelerationTime  (remotePs.mMotorAccelerationTime != localPs.mMotorAccelerationTime);
@@ -411,7 +411,7 @@ public:
         setDiffMDSenstivity           (remotePs.mMDSenstivity          != localPs.mMDSenstivity        );
         setDiffMDNGMotion             (remotePs.mMDNGMotion            != localPs.mMDNGMotion          );
 
-        setSeq                        (remotePs.mSeq                    );
+        setSeq                        (remotePs.mNo                     );
         setLength                     (remotePs.mLength                 );
         setSpeed                      (remotePs.mSpeed                  );
         setMotorAccelerationTime      (remotePs.mMotorAccelerationTime  );
@@ -574,7 +574,7 @@ public slots:
         WCMDService * wcmdService = WCMDService::getInstance();
         ProductSetting ps = wcmdService->mProductSetting;
 
-        setDiffSeq                    (ps.mSeq                   != value.mSeq                 );
+        setDiffSeq                    (ps.mNo                    != value.mNo                  );
         setDiffLength                 (ps.mLength                != value.mLength              );
         setDiffSpeed                  (ps.mSpeed                 != value.mSpeed               );
         setDiffMotorAccelerationTime  (ps.mMotorAccelerationTime != value.mMotorAccelerationTime);
@@ -588,7 +588,7 @@ public slots:
         setDiffMDSenstivity           (ps.mMDSenstivity          != value.mMDSenstivity        );
         setDiffMDNGMotion             (ps.mMDNGMotion            != value.mMDNGMotion          );
 
-        setSeq                        (value.mSeq                    );
+        setSeq                        (value.mNo                     );
         setLength                     (value.mLength                 );
         setSpeed                      (value.mSpeed                  );
         setMotorAccelerationTime      (value.mMotorAccelerationTime  );
