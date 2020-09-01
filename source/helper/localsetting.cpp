@@ -16,13 +16,14 @@ LocalSetting::LocalSetting  (QObject *parent) : QObject(parent)
     mpSettings = new QSettings("novasen", "WCMD", this);  mpSelf = this;
 
     QString oldVersion = mpSettings->value("information/HMIVersion" , "" ).toString();
-    mpSettings->setValue("information/HMIVersion" , "1.1.1" );
+    mpSettings->setValue("information/HMIVersion" , "1.1.2" );
 }
 LocalSetting::~LocalSetting ()                                  { qDebug() << "[LocalSetting] Delete";  }
 
 void LocalSetting::factoryReset()
 {
     mpSettings->clear();
+    mpSettings->setValue("information/HMIVersion" , "1.1.2" );
 }
 
 void LocalSetting::loggingReset()
