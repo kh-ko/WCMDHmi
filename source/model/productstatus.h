@@ -159,11 +159,11 @@ public:
         qDebug() << "product event cnt : "  << mWCTotalCnt;
         //qDebug() << "AvgWeight =[start]=:";
 
-        mAvgList.append(value.mEventValue);
+        //mAvgList.append(value.mEventValue);
 
-        mWCCurrAvgTotalWeight = mWCCurrAvgTotalWeight + value.mEventValue;
+        //mWCCurrAvgTotalWeight = mWCCurrAvgTotalWeight + value.mEventValue;
 
-        if(mAvgList.size() > mProductSetting.mAverageN)
+        /*if(mAvgList.size() > mProductSetting.mAverageN)
         {
             mWCCurrAvgTotalWeight = mWCCurrAvgTotalWeight - mAvgList.at(0);
             mAvgList.removeAt(0);
@@ -191,7 +191,7 @@ public:
         else
         {
             mWCCurrAvgEvent = EnumDefine::EventType::WEIGHT_NORMAL_TYPE;
-        }
+        }*/
     }
 };
 
