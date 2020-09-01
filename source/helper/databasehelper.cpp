@@ -1099,11 +1099,19 @@ void DatabaseHelper::backup(QString conName, DatabaseBackupState * backupState)
 
     restoreEventFromTempFile(conName);
 
-    if(QFile::exists("/dev/sda1") == false)
+    // usb 인식 시점은 df 명령으로 해당 dev가 나타날때이다.
+    QProcess process;
+    process.start("df -h");
+    process.waitForFinished(-1); // will wait forever until finished
+
+    QString output = process.readAllStandardOutput();
+
+    if(output.contains("/dev/sda1") == false)
     {
         backupState->setResult(EnumDefine::BackupResult::USB_ERROR);
         return;
     }
+    //
 
     QString currTime = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
     QString fileName = "/home/pi/usb/event_backup_%1.dat";
