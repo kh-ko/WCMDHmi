@@ -4,6 +4,7 @@
 DspPacketBuilder::DspPacketBuilder(QObject *parent) : QObject(parent)
 {
     memset(&mDataStore, 0x00, sizeof(StDataStore));
+    mDataStore.mEvent.mEventCnt = 0xffffffff;
 }
 
 bool DspPacketBuilder::compareDeviceSetting(StDeviceSetting * pDeviceSetting)
@@ -142,6 +143,15 @@ bool DspPacketBuilder::setDeviceInfo(StDeviceInfo * deviceInfo)
 
 int DspPacketBuilder::setEvent(StEventInfo * eventInfo)
 {
+    bool isFirst = mDataStore.mEvent.mEventCnt == 0xffffffff ? true : false;
+
+    // HMI만 재부팅될 경우 이전 이벤트가 중복되어 발생하여, 최초 이벤트 영역수신시에는 UI로 이벤트를 보내지 않는다.
+    if(isFirst)
+    {
+        memcpy(&mDataStore.mEvent, eventInfo, sizeof(StEventInfo));
+        return 0;
+    }
+
     int addedCnt = eventInfo->mEventCnt - mDataStore.mEvent.mEventCnt;
 
     if(addedCnt != 0)
