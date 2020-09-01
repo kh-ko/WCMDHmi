@@ -19,11 +19,20 @@ UiPanel {
 
     Component.onCompleted:
     {
+        var selectIdx = 0;
+
         for(var i = 0; i < productSettingModel.productCount; i ++)
         {
             var itemModel = productSettingModel.onCommandGetItemModel(i);
             listModel.append({"seq":itemModel.seq})
+
+            if(productSettingModel.selectedProductSeq === itemModel.seq)
+            {
+                selectIdx = i;
+            }
         }
+
+        productList.positionViewAtIndex(selectIdx, ListView.Beginning)
     }
 
     PanelProductSettingModel

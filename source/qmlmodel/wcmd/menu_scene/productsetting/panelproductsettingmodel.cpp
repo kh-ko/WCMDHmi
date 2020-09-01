@@ -25,7 +25,9 @@ PanelProductSettingModel::PanelProductSettingModel(QObject *parent) : QObject(pa
 
     setSelectedProductSeq(WCMDService::getInstance()->mProductSetting.mSeq);
 
-    if(listPs.size() > 0)
+    onCommandSetLookProduct(WCMDService::getInstance()->mProductSetting.mSeq);
+
+    /*if(listPs.size() > 0)
     {
         mEditViewItemModel.setData(listPs.at(0));
     }
@@ -33,7 +35,7 @@ PanelProductSettingModel::PanelProductSettingModel(QObject *parent) : QObject(pa
     {
         mEditViewItemModel.setIsRemoved(true);
         mEditViewItemModel.reset();
-    }
+    }*/
 }
 
 ProductSettingItemModel * PanelProductSettingModel::onCommandGetItemModel    (int idx)
