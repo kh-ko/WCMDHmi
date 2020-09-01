@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <iostream>
+#include <QApplication>
 
 NSDebug * NSDebug::mpSelf = nullptr;
 NSDebug::NSDebug(QObject *parent) : QObject(parent)
@@ -13,31 +14,33 @@ NSDebug::NSDebug(QObject *parent) : QObject(parent)
 
 void NSDebug::startService()
 {
+    QString applicationPath = QApplication::applicationDirPath();
+
     if(mpSelf == nullptr)
     {
         mpSelf = new NSDebug();
 
-        if (QDir("log").exists() == false)
+        if (QDir(QString("%1/log").arg(applicationPath)).exists() == false)
         {
-            QDir().mkdir("log");
+            QDir().mkdir(QString("%1/log").arg(applicationPath));
         }
         else
         {
-            QDir dir("log");
+            QDir dir(QString("%1/log").arg(applicationPath));
             QStringList fileList = dir.entryList(QStringList() << "*.txt",QDir::Files,QDir::SortFlag::Name);
 
             if(fileList.size() > 100)
             {
                 for(int i = 0; i < fileList.size() - 100; i++)
                 {
-                    QFile::remove(QString("log/%1").arg(fileList.at(i)));
+                    QFile::remove(QString("%1/log/%2").arg(applicationPath).arg(fileList.at(i)));
                 }
             }
         }
 
         QString currTime = QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
-        QString fileName = "log/log_%1.txt";
-        mpSelf->mfile.setFileName(fileName.arg(currTime));
+        QString fileName = "%1/log/log_%2.txt";
+        mpSelf->mfile.setFileName(fileName.arg(applicationPath).arg(currTime));
 
         mpSelf->mfile.open(QIODevice::WriteOnly | QIODevice::Text);
         if(mpSelf->mfile.isOpen() == false)
@@ -97,9 +100,11 @@ void NSDebug::factoryReset()
 {
     mpSelf->mutex.lock();
 
+    QString applicationPath = QApplication::applicationDirPath();
+
     mpSelf->mOut.setDevice(nullptr);
     mpSelf->mfile.close();
-    QDir("log").removeRecursively();
+    QDir(QString("%1/log").arg(applicationPath)).removeRecursively();
 
     mpSelf->mutex.unlock();
 }
