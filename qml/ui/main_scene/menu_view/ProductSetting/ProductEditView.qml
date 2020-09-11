@@ -19,7 +19,7 @@ UiPanel {
     width: 1023
     height: 947
 
-    type : itemModel.isNew || itemModel.isRemoved ?  EnumDefine.PANEL_TYPE_UP_PANEL : EnumDefine.PANEL_TYPE_SELECT
+    type : itemModel.seq === 0 ?  EnumDefine.PANEL_TYPE_UP_PANEL : EnumDefine.PANEL_TYPE_SELECT
 
     UiLabelContent{
         id: labelGeneral
@@ -31,7 +31,7 @@ UiPanel {
         anchors.left: parent.left
         anchors.leftMargin: 20
 
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         textValue: qsTr("General")
     }
@@ -46,7 +46,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         inputWidth: 150
@@ -73,7 +73,7 @@ UiPanel {
         anchors.verticalCenter: inputProductNumber.verticalCenter
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         labelText: qsTr("· Product Name")
@@ -97,7 +97,7 @@ UiPanel {
         anchors.left: parent.left
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         inputWidth: 150
@@ -125,7 +125,7 @@ UiPanel {
         anchors.verticalCenter: inputLength.verticalCenter
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         inputWidth: 200
@@ -151,7 +151,7 @@ UiPanel {
         anchors.verticalCenter: inputLength.verticalCenter
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         postfix: "s"
@@ -175,7 +175,7 @@ UiPanel {
         anchors.bottomMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
 
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
     }
 
     UiLabelContent {
@@ -186,7 +186,7 @@ UiPanel {
         anchors.topMargin: 40
         anchors.rightMargin: 20
 
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         textValue: qsTr("Weight checker")
         anchors.left: parent.left
@@ -204,7 +204,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -266,7 +266,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -328,7 +328,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -359,7 +359,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -390,7 +390,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor: panel.bgColor
         labelText : qsTr("· Dynamic factor")
@@ -446,7 +446,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         isUpMode: true
         bgColor : panel.bgColor
@@ -494,7 +494,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.left: divider.right
 
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         textValue: qsTr("Metal detector")
     }
@@ -510,7 +510,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
         labelText : qsTr("· Senstivity")
@@ -537,7 +537,7 @@ UiPanel {
         anchors.leftMargin: 20
 
         isDisable : panel.isViewMode
-        visible: !itemModel.isRemoved
+        visible: itemModel.seq !== 0 || itemModel.isNew
 
         isUpMode: true
         bgColor : panel.bgColor
@@ -640,7 +640,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible : !btnApply.visible && !itemModel.isRemoved && !panel.isViewMode
+        visible : !btnApply.visible && (itemModel.seq !== 0) && !panel.isViewMode
 
         type : EnumDefine.BUTTON_TYPE_UP_PANEL
         textValue: qsTr("Remove")

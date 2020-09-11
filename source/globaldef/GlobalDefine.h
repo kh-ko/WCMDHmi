@@ -2,14 +2,12 @@
 #define GLOBALDEFINE_H
 
 //#define SOCKET_DEBUG
-//#define OS_WINDOW
 #define QML_DB_CON "QML_DB_CON"
 #define INVALID_ULONGLONG 0xffffffffffffffff
 
-//#define BUILD_DONGNAM
-
-#define MODEL "NSWCNSAMD480"
-#define VERSION "1.0.0"
+//#define BUILD_COMPANY_DONGNAM
+#define BUILD_MODEL_NSWCNSAMD480
+#define BUILD_STR_VERSION "1.2.0"
 
 #define EVENT_PAGE_CNT_PER_SCREEN 9
 #define EVENT_LIST_CNT_PER_PAGE 26

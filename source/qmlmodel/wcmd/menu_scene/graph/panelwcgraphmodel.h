@@ -7,8 +7,8 @@
 #include <QDateTime>
 #include <QDir>
 
-#include "source/service/wcmdservice.h"
-#include "source/qmlmodel/wcmd/menu_scene/graph/metaldetectorgraphmodel.h"
+#include "source/service/coreservice.h"
+
 class PanelWCGraphModel : public QObject
 {
     Q_OBJECT
@@ -27,10 +27,10 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(int      runtimePointCnt      READ      getRuntimePointCnt          NOTIFY      signalEventChangedRuntimePointCnt        )
     Q_PROPERTY(int      timingPointCnt       READ      getTimingPointCnt           NOTIFY      signalEventChangedTimingPointCnt         )
 
-
 public:
-    QFile                   mGraphFile;
-    QTextStream             mGraphOut;
+    CoreService * mpCoreService;
+    DspStatusModel * mpDspStatus;
+    GuiSettingModel * mpGuiSetting;
 
     int                     mLastPointType     = 0;
     QList<quint32>          mRunTimeGraphPoints;
@@ -40,8 +40,8 @@ public:
 
     bool                    mIsRawGraphOn           = false;
     bool                    mIsPause                = false;
-    static int              mMinRange               ;//= 0;
-    static int              mMaxRange               ;//= 999999;
+    //int                     mMinRange               ;//= 0;
+    //int                     mMaxRange               ;//= 999999;
     quint32                 mEventValue             = 0;
     int                     mRange                  = 0;
     int                     mMeasuredStartIdx       = 0;
@@ -50,17 +50,17 @@ public:
     int                     mLineInterval           = 1000;
     int                     mTotalRuntimePointCnt   = 400;
 
-    bool    getIsRawGraphOn         (){return mIsRawGraphOn         ; }
-    bool    getIsPause              (){return mIsPause              ; }
-    int     getMinRange             (){return mMinRange             ; }
-    int     getMaxRange             (){return mMaxRange             ; }
-    quint32 getEventValue           (){return mEventValue           ; }
-    int     getRange                (){return mRange                ; }
-    int     getMeasuredStartIdx     (){return mMeasuredStartIdx     ; }
-    int     getMeasuredIdx          (){return mMeasuredIdx          ; }
-    int     getMeasuredEndIdx       (){return mMeasuredEndIdx       ; }
-    int     getLineInterval         (){return mLineInterval         ; }
-    int     getTotalRuntimePointCnt (){return mTotalRuntimePointCnt ; }
+    bool    getIsRawGraphOn         (){return mIsRawGraphOn                 ; }
+    bool    getIsPause              (){return mIsPause                      ; }
+    int     getMinRange             (){return mpGuiSetting->mWCGraphMinRange; }
+    int     getMaxRange             (){return mpGuiSetting->mWCGraphMaxRange; }
+    quint32 getEventValue           (){return mEventValue                   ; }
+    int     getRange                (){return mRange                        ; }
+    int     getMeasuredStartIdx     (){return mMeasuredStartIdx             ; }
+    int     getMeasuredIdx          (){return mMeasuredIdx                  ; }
+    int     getMeasuredEndIdx       (){return mMeasuredEndIdx               ; }
+    int     getLineInterval         (){return mLineInterval                 ; }
+    int     getTotalRuntimePointCnt (){return mTotalRuntimePointCnt         ; }
 
     int     getRuntimePointCnt (){return mRunTimeGraphPoints.size();}
     int     getTimingPointCnt  (){return mTimingGraphPoints.size();}
@@ -69,33 +69,34 @@ public:
     void setIsPause         (bool value){if(value == mIsPause         ) return; mIsPause          = value; emit signalEventChangedIsPause         (value);}
     void setMinRange        (int  value, bool force)
     {
-        if(value == mMinRange && force == false)
+        if(value == getMinRange() && force == false)
             return;
 
-        mMinRange = value;
+        mpGuiSetting->setWCGraphMinRange(value);
 
-        if(mMinRange > mMaxRange)
-            setMaxRange(mMinRange + 1, force);
+        if(getMinRange() > getMaxRange())
+            setMaxRange(getMinRange() + 1, force);
 
-        setLineInterval((mMaxRange - mMinRange) / 10);
+        setLineInterval((getMaxRange() - getMinRange()) / 10);
 
-        setRange(mMaxRange - mMinRange);
+        setRange(getMaxRange() - getMinRange());
 
         emit signalEventChangedMinRange(value);
     }
+
     void setMaxRange        (int  value, bool force)
     {
-        if(value == mMaxRange && force == false)
+        if(value == getMaxRange() && force == false)
             return;
 
-        mMaxRange = value;
+        mpGuiSetting->setWCGraphMaxRange(value);
 
-        if(mMaxRange < mMinRange)
-            setMinRange(mMaxRange-1, force);
+        if(getMaxRange() < getMinRange())
+            setMinRange(getMaxRange()-1, force);
 
-        setLineInterval((mMaxRange - mMinRange) / 10);
+        setLineInterval((getMaxRange() - getMinRange()) / 10);
 
-        setRange(mMaxRange - mMinRange);
+        setRange(getMaxRange() - getMinRange());
 
         emit signalEventChangedMaxRange(value);
     }
@@ -105,11 +106,6 @@ public:
     void setMeasuredIdx     (int     value){if(value == mMeasuredIdx     ) return; mMeasuredIdx      = value; emit signalEventChangedMeasuredIdx     (value);}
     void setMeasuredEndIdx  (int     value){if(value == mMeasuredEndIdx  ) return; mMeasuredEndIdx   = value; emit signalEventChangedMeasuredEndIdx  (value);}
     void setLineInterval    (int     value){if(value == mLineInterval    ) return; mLineInterval     = value; emit signalEventChangedLineInterval    (value);}
-    explicit PanelWCGraphModel(QObject *parent = nullptr);
-    ~PanelWCGraphModel();
-    void openGraphFile();
-    void closeGraphFile();
-    void writeGraphData(quint32 value);
 
 signals:
     void signalEventChangedIsRawGraphOn         (bool    value);
@@ -132,17 +128,106 @@ signals:
     void signalCommandSetWeightCheckerGraphOn( quint16 deviceSeq, bool value);
 
 public slots:
-    Q_INVOKABLE void                        onCommandRawGraphOn             (bool value);
-    Q_INVOKABLE void                        onCommandIsPause                (bool value);
-    Q_INVOKABLE void                        onCommandSetMinRange            (int  value);
-    Q_INVOKABLE void                        onCommandSetMaxRange            (int  value);
-    Q_INVOKABLE int                         onCommandGetTimingPointValue    (int  idx  );
-    Q_INVOKABLE int                         onCommandGetRuntimeRawPointValue(int  idx  );
-    Q_INVOKABLE int                         onCommandGetRuntimePointValue   (int  idx  );
+    Q_INVOKABLE void                        onCommandRawGraphOn             (bool value){setIsRawGraphOn(value);}
+    Q_INVOKABLE void                        onCommandIsPause                (bool value){setIsPause     (value);}
+    Q_INVOKABLE void                        onCommandSetMinRange            (int  value){setMinRange    (value, false);}
+    Q_INVOKABLE void                        onCommandSetMaxRange            (int  value){setMaxRange    (value, false);}
+    Q_INVOKABLE int                         onCommandGetTimingPointValue    (int  idx  )
+    {
+        return mTimingGraphPoints.at(idx) - getMinRange();
+    }
+    Q_INVOKABLE int                         onCommandGetRuntimeRawPointValue(int  idx  )
+    {
+        return mRunTimeRawGraphPoints.at(idx) - getMinRange();
+    }
+    Q_INVOKABLE int                         onCommandGetRuntimePointValue   (int  idx  )
+    {
+        return mRunTimeGraphPoints.at(idx) - getMinRange();
+    }
+public slots:
+    void onSignalEventChangedWCCurrWeight(quint32 value)
+    {
+        setEventValue(value);
+    }
 
-    void onSignalEventAddedEvent(quint16 deviceSeq, EventInfo eventInfo);
-    void onSignalEventAddedWeightCheckerGraph(quint16 deviceSeq, WeightChekerGraphData value);
+    void onSignalEventAddedWeightCheckerGraph(quint64 deviceSeq, WeightGraphDto value)
+    {
+        mTotalRuntimePointCnt = value.mData->mData.pointCnt * 40;
 
+        for(int i = 0; i < value.mData->mData.pointCnt; i ++)
+        {
+            if(value.mData->mData.points[i].mPointType == 4)
+            {
+                setMeasuredIdx(getMeasuredStartIdx() + value.mData->mData.points[i].mRawValue);
+                continue;
+            }
+
+            if(mTotalRuntimePointCnt == mRunTimeRawGraphPoints.size())
+            {
+                mRunTimeRawGraphPoints.removeAt(0);
+                mRunTimeGraphPoints.removeAt(0);
+            }
+            mRunTimeRawGraphPoints.append(value.mData->mData.points[i].mRawValue);
+            mRunTimeGraphPoints.append(value.mData->mData.points[i].mFilterValue);
+
+            if(value.mData->mData.points[i].mPointType != 0)
+            {
+                if(mLastPointType == 0)
+                {
+                    mTempTimingGraphPoints.clear();
+                }
+
+                mTempTimingGraphPoints.append(value.mData->mData.points[i].mFilterValue);
+
+                if(value.mData->mData.points[i].mPointType == 2)
+                {
+                    setMeasuredStartIdx(mTempTimingGraphPoints.size() - 1);
+                }
+
+                if(value.mData->mData.points[i].mPointType == 3)
+                {
+                    setMeasuredEndIdx(mTempTimingGraphPoints.size() - 1);
+                }
+            }
+            else if( mLastPointType != 0)
+            {
+                mTimingGraphPoints = mTempTimingGraphPoints;
+                emit signalEventChangedTimingGraph();
+            }
+
+            mLastPointType = value.mData->mData.points[i].mPointType;
+        }
+
+        if(getIsPause() == false)
+            emit signalEventChangedGraph();
+    }
+
+public :
+    explicit PanelWCGraphModel(QObject *parent = nullptr):QObject(parent)
+    {
+        mpCoreService = CoreService::getInstance();
+        mpDspStatus = mpCoreService->mMapDspStatus.first();
+        mpGuiSetting = &(mpCoreService->mLocalSettingService.mGuiSetting);
+        quint32 maxRange = (mpCoreService->mProductSettingServcie.mCurrentProductSetting.mOverWeight * 1.2);
+
+        if(getMaxRange() == 100000000)
+        {
+            maxRange = ((maxRange + 500) / 1000) * 1000;
+            setMaxRange(maxRange, true);
+        }
+        else
+        {
+            setMaxRange(getMaxRange(), true);
+        }
+        connect(mpCoreService, SIGNAL(signalEventAddedWeightCheckerGraph (quint64, WeightGraphDto)), this, SLOT(onSignalEventAddedWeightCheckerGraph(quint64, WeightGraphDto)));
+        connect(mpDspStatus  , SIGNAL(signalEventChangedWCCurrWeight     (quint32                )), this, SLOT(onSignalEventChangedWCCurrWeight    (quint32                )));
+
+        mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, true);
+    }
+    ~PanelWCGraphModel()
+    {
+        mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, false);
+    }
 };
 
 #endif // PANELWCGRAPHMODEL_H

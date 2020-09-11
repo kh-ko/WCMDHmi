@@ -2,8 +2,7 @@
 #define PANELDEBUGGINGMODEL_H
 
 #include <QObject>
-#include "source/service/wcmdservice.h"
-#include "source/service/dspmanager.h"
+#include "source/service/coreservice.h"
 
 class PanelDebuggingModel : public QObject
 {
@@ -88,6 +87,11 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffSensorCnt               READ getDiffSensorCnt                      NOTIFY signalEventChangedDiffSensorCnt                     );
 
 public:
+    ProductSettingModel *mpLocalProductSetting ;
+    ProductSettingModel *mpRemoteProductSetting;
+    DspSettingModel     *mpLocalDeviceSetting  ;
+    DspSettingModel     *mpRemoteDeviceSetting ;
+
     quint16 mSeq                        ;
     quint16 mLength                     ;
     quint16 mSpeed                      ;
@@ -326,106 +330,6 @@ public:
     void setDiffDynamicBaseWeight      (bool     value){ if( value == mDiffDynamicBaseWeight      ) return; mDiffDynamicBaseWeight      = value; emit signalEventChangedDiffDynamicBaseWeight             (value);}
     void setDiffSensorCnt              (bool     value){ if( value == mDiffSensorCnt              ) return; mDiffSensorCnt              = value; emit signalEventChangedDiffSensorCnt                     (value);}
 
-    explicit PanelDebuggingModel(QObject *parent = nullptr)
-    {
-        WCMDService * wcmdService = WCMDService::getInstance();
-
-        connect(wcmdService, SIGNAL(signalEventChangedRemoteDeviceSetting   (quint16, DeviceSetting)),      this, SLOT(onSignalEventChangedRemoteDeviceSetting (quint16, DeviceSetting))           );
-        connect(wcmdService, SIGNAL(signalEventChangedRemoteProductSetting  (quint16, ProductSetting)),     this, SLOT(onSignalEventChangedRemoteProductSetting(quint16, ProductSetting))          );
-
-        DSPManager * pDsp = wcmdService->mMapDSPManager.first();
-
-        DeviceSetting localDs = wcmdService->mDeviceSetting;
-        DeviceSetting remoteDs = pDsp->mRemoteDeviceSetting;
-
-        QList<DSPManager *> listDsp = wcmdService->getAllDSPManager();
-
-        setDiffLampTime               (localDs.mLampTime                 != remoteDs.mLampTime                );
-        setDiffBuzzerTime             (localDs.mBuzzerTime               != remoteDs.mBuzzerTime              );
-        setDiffSpeedConverter         (localDs.mSpeedConverter           != remoteDs.mSpeedConverter          );
-        setDiffMotorDirection         (localDs.mMotorDirection           != remoteDs.mMotorDirection          );
-        setDiffSensorLength           (localDs.mSensorLength             != remoteDs.mSensorLength            );
-        setDiffDistanceToRejector     (localDs.mDistanceToRejector       != remoteDs.mDistanceToRejector      );
-        setDiffMDPhotoIsOn            (localDs.mMDPhotoIsOn              != remoteDs.mMDPhotoIsOn             );
-        setDiffWCPhotoIsOn            (localDs.mWCPhotoIsOn              != remoteDs.mWCPhotoIsOn             );
-        setDiffRejectorRunTimeRatio   (localDs.mRejectorRunTimeRatio     != remoteDs.mRejectorRunTimeRatio    );
-        setDiffStaticFactor           (localDs.mStaticFactor             != remoteDs.mStaticFactor            );
-        setDiffDynamicFactor          (/*localDs.mDynamicFactor            != remoteDs.mDynamicFactor*/ false );
-        setDiffScaler                 (localDs.mScaler                   != remoteDs.mScaler                  );
-        setDiffDisplayStability       (localDs.mDisplayStability         != remoteDs.mDisplayStability        );
-        setDiffMeasureCueSign         (localDs.mMeasureCueSign           != remoteDs.mMeasureCueSign          );
-        setDiffMinStaticWeight        (localDs.mMinStaticWeight          != remoteDs.mMinStaticWeight         );
-        setDiffMinDynamicWeight       (localDs.mMinDynamicWeight         != remoteDs.mMinDynamicWeight        );
-        setDiffMode                   (localDs.mMode                     != remoteDs.mMode                    );
-        setDiffDistanceBtwSensor      (localDs.mDistanceBtwSensor        != remoteDs.mDistanceBtwSensor       );
-        setDiffDetectDetectTime       (localDs.mDetectDetectTime         != remoteDs.mDetectDetectTime        );
-        setDiffRunDetectTime          (localDs.mRunDetectTime            != remoteDs.mRunDetectTime           );
-        setDiffDistanceToWeightChecker(localDs.mDistanceToWeightChecker  != remoteDs.mDistanceToWeightChecker );
-        setDiffDistancePhotoToSensor  (localDs.mDistancePhotoToSensor    != remoteDs.mDistancePhotoToSensor   );
-        setDiffSignalDelayTime        (localDs.mSignalDelayTime          != remoteDs.mSignalDelayTime         );
-        setDiffStaticStandardWeight   (localDs.mStaticStandardWeight     != remoteDs.mStaticStandardWeight    );
-        setDiffDynamicBaseWeight      (localDs.mDynamicBaseWeight        != remoteDs.mDynamicBaseWeight       );
-        setDiffSensorCnt              (localDs.mSensorCnt                != remoteDs.mSensorCnt               );
-
-        setLampTime                   (remoteDs.mLampTime                );
-        setBuzzerTime                 (remoteDs.mBuzzerTime              );
-        setSpeedConverter             (remoteDs.mSpeedConverter          );
-        setMotorDirection             (remoteDs.mMotorDirection          );
-        setSensorLength               (remoteDs.mSensorLength            );
-        setDistanceToRejector         (remoteDs.mDistanceToRejector      );
-        setMDPhotoIsOn                (remoteDs.mMDPhotoIsOn             );
-        setWCPhotoIsOn                (remoteDs.mWCPhotoIsOn             );
-        setRejectorRunTimeRatio       (remoteDs.mRejectorRunTimeRatio    );
-        setStaticFactor               (remoteDs.mStaticFactor            );
-        setDynamicFactor              (remoteDs.mDynamicFactor           );
-        setScaler                     (remoteDs.mScaler                  );
-        setDisplayStability           (remoteDs.mDisplayStability        );
-        setMeasureCueSign             (remoteDs.mMeasureCueSign          );
-        setMinStaticWeight            (remoteDs.mMinStaticWeight         );
-        setMinDynamicWeight           (remoteDs.mMinDynamicWeight        );
-        setMode                       (remoteDs.mMode                    );
-        setDistanceBtwSensor          (remoteDs.mDistanceBtwSensor       );
-        setDetectDetectTime           (remoteDs.mDetectDetectTime        );
-        setRunDetectTime              (remoteDs.mRunDetectTime           );
-        setDistanceToWeightChecker    (remoteDs.mDistanceToWeightChecker );
-        setDistancePhotoToSensor      (remoteDs.mDistancePhotoToSensor   );
-        setSignalDelayTime            (remoteDs.mSignalDelayTime         );
-        setStaticStandardWeight       (remoteDs.mStaticStandardWeight    );
-        setDynamicBaseWeight          (remoteDs.mDynamicBaseWeight       );
-        setSensorCnt                  (remoteDs.mSensorCnt               );
-
-        ProductSetting remotePs = pDsp->mRemoteProductSetting;
-        ProductSetting localPs  = wcmdService->mProductSetting;
-
-        setDiffSeq                    (remotePs.mNo                    != localPs.mNo                  );
-        setDiffLength                 (remotePs.mLength                != localPs.mLength              );
-        setDiffSpeed                  (remotePs.mSpeed                 != localPs.mSpeed               );
-        setDiffMotorAccelerationTime  (remotePs.mMotorAccelerationTime != localPs.mMotorAccelerationTime);
-        setDiffUnderWeight            (remotePs.mUnderWeight           != localPs.mUnderWeight         );
-        setDiffUnderWarningWeight     (remotePs.mUnderWarningWeight    != localPs.mUnderWarningWeight  );
-        setDiffNormalWeight           (remotePs.mNormalWeight          != localPs.mNormalWeight        );
-        setDiffOverWarningWeight      (remotePs.mOverWarningWeight     != localPs.mOverWarningWeight   );
-        setDiffOverWeight             (remotePs.mOverWeight            != localPs.mOverWeight          );
-        setDiffTareWeight             (remotePs.mTareWeight            != localPs.mTareWeight          );
-        setDiffWCNGMotion             (remotePs.mWCNGMotion            != localPs.mWCNGMotion          );
-        setDiffMDSenstivity           (remotePs.mMDSenstivity          != localPs.mMDSenstivity        );
-        setDiffMDNGMotion             (remotePs.mMDNGMotion            != localPs.mMDNGMotion          );
-
-        setSeq                        (remotePs.mNo                     );
-        setLength                     (remotePs.mLength                 );
-        setSpeed                      (remotePs.mSpeed                  );
-        setMotorAccelerationTime      (remotePs.mMotorAccelerationTime  );
-        setUnderWeight                (remotePs.mUnderWeight            );
-        setUnderWarningWeight         (remotePs.mUnderWarningWeight     );
-        setNormalWeight               (remotePs.mNormalWeight           );
-        setOverWarningWeight          (remotePs.mOverWarningWeight      );
-        setOverWeight                 (remotePs.mOverWeight             );
-        setTareWeight                 (remotePs.mTareWeight             );
-        setWCNGMotion                 (remotePs.mWCNGMotion             );
-        setMDSenstivity               (remotePs.mMDSenstivity           );
-        setMDNGMotion                 (remotePs.mMDNGMotion             );
-    }
-
 signals:
     void signalEventChangedSeq                               (quint16  value);
     void signalEventChangedLength                            (quint16  value);
@@ -507,101 +411,72 @@ signals:
     void signalEventChangedDiffDynamicBaseWeight             (bool     value);
     void signalEventChangedDiffSensorCnt                     (bool     value);
 
+// down layer ================================================================================
 public slots:
-    void onSignalEventChangedRemoteDeviceSetting    (quint16 deviceSeq, DeviceSetting value)
+    void onSignalEventChangedRemoteProductSetting()
     {
-        WCMDService * wcmdService = WCMDService::getInstance();
-        DeviceSetting ds = wcmdService->mDeviceSetting;
-
-        setDiffLampTime               (ds.mLampTime                 != value.mLampTime                );
-        setDiffBuzzerTime             (ds.mBuzzerTime               != value.mBuzzerTime              );
-        setDiffSpeedConverter         (ds.mSpeedConverter           != value.mSpeedConverter          );
-        setDiffMotorDirection         (ds.mMotorDirection           != value.mMotorDirection          );
-        setDiffSensorLength           (ds.mSensorLength             != value.mSensorLength            );
-        setDiffDistanceToRejector     (ds.mDistanceToRejector       != value.mDistanceToRejector      );
-        setDiffMDPhotoIsOn            (ds.mMDPhotoIsOn              != value.mMDPhotoIsOn             );
-        setDiffWCPhotoIsOn            (ds.mWCPhotoIsOn              != value.mWCPhotoIsOn             );
-        setDiffRejectorRunTimeRatio   (ds.mRejectorRunTimeRatio     != value.mRejectorRunTimeRatio    );
-        setDiffStaticFactor           (ds.mStaticFactor             != value.mStaticFactor            );
-        setDiffDynamicFactor          (false);
-        //setDiffDynamicFactor          (ds.mDynamicFactor            != value.mDynamicFactor           );
-        setDiffScaler                 (ds.mScaler                   != value.mScaler                  );
-        setDiffDisplayStability       (ds.mDisplayStability         != value.mDisplayStability        );
-        setDiffMeasureCueSign         (ds.mMeasureCueSign           != value.mMeasureCueSign          );
-        setDiffMinStaticWeight        (ds.mMinStaticWeight          != value.mMinStaticWeight         );
-        setDiffMinDynamicWeight       (ds.mMinDynamicWeight         != value.mMinDynamicWeight        );
-        setDiffMode                   (ds.mMode                     != value.mMode                    );
-        setDiffDistanceBtwSensor      (ds.mDistanceBtwSensor        != value.mDistanceBtwSensor       );
-        setDiffDetectDetectTime       (ds.mDetectDetectTime         != value.mDetectDetectTime        );
-        setDiffRunDetectTime          (ds.mRunDetectTime            != value.mRunDetectTime           );
-        setDiffDistanceToWeightChecker(ds.mDistanceToWeightChecker  != value.mDistanceToWeightChecker );
-        setDiffDistancePhotoToSensor  (ds.mDistancePhotoToSensor    != value.mDistancePhotoToSensor   );
-        setDiffSignalDelayTime        (ds.mSignalDelayTime          != value.mSignalDelayTime         );
-        setDiffStaticStandardWeight   (ds.mStaticStandardWeight     != value.mStaticStandardWeight    );
-        setDiffDynamicBaseWeight      (ds.mDynamicBaseWeight        != value.mDynamicBaseWeight       );
-        setDiffSensorCnt              (ds.mSensorCnt                != value.mSensorCnt               );
-
-        setLampTime                   (value.mLampTime                );
-        setBuzzerTime                 (value.mBuzzerTime              );
-        setSpeedConverter             (value.mSpeedConverter          );
-        setMotorDirection             (value.mMotorDirection          );
-        setSensorLength               (value.mSensorLength            );
-        setDistanceToRejector         (value.mDistanceToRejector      );
-        setMDPhotoIsOn                (value.mMDPhotoIsOn             );
-        setWCPhotoIsOn                (value.mWCPhotoIsOn             );
-        setRejectorRunTimeRatio       (value.mRejectorRunTimeRatio    );
-        setStaticFactor               (value.mStaticFactor            );
-        setDynamicFactor              (value.mDynamicFactor           );
-        setScaler                     (value.mScaler                  );
-        setDisplayStability           (value.mDisplayStability        );
-        setMeasureCueSign             (value.mMeasureCueSign          );
-        setMinStaticWeight            (value.mMinStaticWeight         );
-        setMinDynamicWeight           (value.mMinDynamicWeight        );
-        setMode                       (value.mMode                    );
-        setDistanceBtwSensor          (value.mDistanceBtwSensor       );
-        setDetectDetectTime           (value.mDetectDetectTime        );
-        setRunDetectTime              (value.mRunDetectTime           );
-        setDistanceToWeightChecker    (value.mDistanceToWeightChecker );
-        setDistancePhotoToSensor      (value.mDistancePhotoToSensor   );
-        setSignalDelayTime            (value.mSignalDelayTime         );
-        setStaticStandardWeight       (value.mStaticStandardWeight    );
-        setDynamicBaseWeight          (value.mDynamicBaseWeight       );
-        setSensorCnt                  (value.mSensorCnt               );
+        setSeq                        (mpRemoteProductSetting->mNo                   ); setDiffSeq                    (mpRemoteProductSetting->mNo                    != mpLocalProductSetting->mNo                   );
+        setLength                     (mpRemoteProductSetting->mLength               ); setDiffLength                 (mpRemoteProductSetting->mLength                != mpLocalProductSetting->mLength               );
+        setSpeed                      (mpRemoteProductSetting->mSpeed                ); setDiffSpeed                  (mpRemoteProductSetting->mSpeed                 != mpLocalProductSetting->mSpeed                );
+        setMotorAccelerationTime      (mpRemoteProductSetting->mMotorAccelerationTime); setDiffMotorAccelerationTime  (mpRemoteProductSetting->mMotorAccelerationTime != mpLocalProductSetting->mMotorAccelerationTime);
+        setUnderWeight                (mpRemoteProductSetting->mUnderWeight          ); setDiffUnderWeight            (mpRemoteProductSetting->mUnderWeight           != mpLocalProductSetting->mUnderWeight          );
+        setUnderWarningWeight         (mpRemoteProductSetting->mUnderWarningWeight   ); setDiffUnderWarningWeight     (mpRemoteProductSetting->mUnderWarningWeight    != mpLocalProductSetting->mUnderWarningWeight   );
+        setNormalWeight               (mpRemoteProductSetting->mNormalWeight         ); setDiffNormalWeight           (mpRemoteProductSetting->mNormalWeight          != mpLocalProductSetting->mNormalWeight         );
+        setOverWarningWeight          (mpRemoteProductSetting->mOverWarningWeight    ); setDiffOverWarningWeight      (mpRemoteProductSetting->mOverWarningWeight     != mpLocalProductSetting->mOverWarningWeight    );
+        setOverWeight                 (mpRemoteProductSetting->mOverWeight           ); setDiffOverWeight             (mpRemoteProductSetting->mOverWeight            != mpLocalProductSetting->mOverWeight           );
+        setTareWeight                 (mpRemoteProductSetting->mTareWeight           ); setDiffTareWeight             (mpRemoteProductSetting->mTareWeight            != mpLocalProductSetting->mTareWeight           );
+        setWCNGMotion                 (mpRemoteProductSetting->mWCNGMotion           ); setDiffWCNGMotion             (mpRemoteProductSetting->mWCNGMotion            != mpLocalProductSetting->mWCNGMotion           );
+        setMDSenstivity               (mpRemoteProductSetting->mMDSenstivity         ); setDiffMDSenstivity           (mpRemoteProductSetting->mMDSenstivity          != mpLocalProductSetting->mMDSenstivity         );
+        setMDNGMotion                 (mpRemoteProductSetting->mMDNGMotion           ); setDiffMDNGMotion             (mpRemoteProductSetting->mMDNGMotion            != mpLocalProductSetting->mMDNGMotion           );
     }
 
-    void onSignalEventChangedRemoteProductSetting   (quint16 deviceSeq, ProductSetting value)
+    void onSignalEventChangedRemoteDeviceSetting()
     {
-        WCMDService * wcmdService = WCMDService::getInstance();
-        ProductSetting ps = wcmdService->mProductSetting;
+        setLampTime                   (mpRemoteDeviceSetting->mLampTime               ); setDiffLampTime               (mpRemoteDeviceSetting->mLampTime                != mpLocalDeviceSetting->mLampTime               );
+        setBuzzerTime                 (mpRemoteDeviceSetting->mBuzzerTime             ); setDiffBuzzerTime             (mpRemoteDeviceSetting->mBuzzerTime              != mpLocalDeviceSetting->mBuzzerTime             );
+        setSpeedConverter             (mpRemoteDeviceSetting->mSpeedConverter         ); setDiffSpeedConverter         (mpRemoteDeviceSetting->mSpeedConverter          != mpLocalDeviceSetting->mSpeedConverter         );
+        setMotorDirection             (mpRemoteDeviceSetting->mMotorDirection         ); setDiffMotorDirection         (mpRemoteDeviceSetting->mMotorDirection          != mpLocalDeviceSetting->mMotorDirection         );
+        setSensorLength               (mpRemoteDeviceSetting->mSensorLength           ); setDiffSensorLength           (mpRemoteDeviceSetting->mSensorLength            != mpLocalDeviceSetting->mSensorLength           );
+        setDistanceToRejector         (mpRemoteDeviceSetting->mDistanceToRejector     ); setDiffDistanceToRejector     (mpRemoteDeviceSetting->mDistanceToRejector      != mpLocalDeviceSetting->mDistanceToRejector     );
+        setMDPhotoIsOn                (mpRemoteDeviceSetting->mMDPhotoIsOn            ); setDiffMDPhotoIsOn            (mpRemoteDeviceSetting->mMDPhotoIsOn             != mpLocalDeviceSetting->mMDPhotoIsOn            );
+        setWCPhotoIsOn                (mpRemoteDeviceSetting->mWCPhotoIsOn            ); setDiffWCPhotoIsOn            (mpRemoteDeviceSetting->mWCPhotoIsOn             != mpLocalDeviceSetting->mWCPhotoIsOn            );
+        setRejectorRunTimeRatio       (mpRemoteDeviceSetting->mRejectorRunTimeRatio   ); setDiffRejectorRunTimeRatio   (mpRemoteDeviceSetting->mRejectorRunTimeRatio    != mpLocalDeviceSetting->mRejectorRunTimeRatio   );
+        setStaticFactor               (mpRemoteDeviceSetting->mStaticFactor           ); setDiffStaticFactor           (mpRemoteDeviceSetting->mStaticFactor            != mpLocalDeviceSetting->mStaticFactor           );
+        setDynamicFactor              (mpRemoteProductSetting->mDynamicFactor         ); setDiffDynamicFactor          (mpRemoteProductSetting->mDynamicFactor          != mpLocalProductSetting->mDynamicFactor         );
+        setScaler                     (mpRemoteDeviceSetting->mScaler                 ); setDiffScaler                 (mpRemoteDeviceSetting->mScaler                  != mpLocalDeviceSetting->mScaler                 );
+        setDisplayStability           (mpRemoteDeviceSetting->mDisplayStability       ); setDiffDisplayStability       (mpRemoteDeviceSetting->mDisplayStability        != mpLocalDeviceSetting->mDisplayStability       );
+        setMeasureCueSign             (mpRemoteDeviceSetting->mMeasureCueSign         ); setDiffMeasureCueSign         (mpRemoteDeviceSetting->mMeasureCueSign          != mpLocalDeviceSetting->mMeasureCueSign         );
+        setMinStaticWeight            (mpRemoteDeviceSetting->mMinStaticWeight        ); setDiffMinStaticWeight        (mpRemoteDeviceSetting->mMinStaticWeight         != mpLocalDeviceSetting->mMinStaticWeight        );
+        setMinDynamicWeight           (mpRemoteDeviceSetting->mMinDynamicWeight       ); setDiffMinDynamicWeight       (mpRemoteDeviceSetting->mMinDynamicWeight        != mpLocalDeviceSetting->mMinDynamicWeight       );
+        setMode                       (mpRemoteDeviceSetting->mMode                   ); setDiffMode                   (mpRemoteDeviceSetting->mMode                    != mpLocalDeviceSetting->mMode                   );
+        setDistanceBtwSensor          (mpRemoteDeviceSetting->mDistanceBtwSensor      ); setDiffDistanceBtwSensor      (mpRemoteDeviceSetting->mDistanceBtwSensor       != mpLocalDeviceSetting->mDistanceBtwSensor      );
+        setDetectDetectTime           (mpRemoteDeviceSetting->mDetectDetectTime       ); setDiffDetectDetectTime       (mpRemoteDeviceSetting->mDetectDetectTime        != mpLocalDeviceSetting->mDetectDetectTime       );
+        setRunDetectTime              (mpRemoteDeviceSetting->mRunDetectTime          ); setDiffRunDetectTime          (mpRemoteDeviceSetting->mRunDetectTime           != mpLocalDeviceSetting->mRunDetectTime          );
+        setDistanceToWeightChecker    (mpRemoteDeviceSetting->mDistanceToWeightChecker); setDiffDistanceToWeightChecker(mpRemoteDeviceSetting->mDistanceToWeightChecker != mpLocalDeviceSetting->mDistanceToWeightChecker);
+        setDistancePhotoToSensor      (mpRemoteDeviceSetting->mDistancePhotoToSensor  ); setDiffDistancePhotoToSensor  (mpRemoteDeviceSetting->mDistancePhotoToSensor   != mpLocalDeviceSetting->mDistancePhotoToSensor  );
+        setSignalDelayTime            (mpRemoteDeviceSetting->mSignalDelayTime        ); setDiffSignalDelayTime        (mpRemoteDeviceSetting->mSignalDelayTime         != mpLocalDeviceSetting->mSignalDelayTime        );
+        setStaticStandardWeight       (mpRemoteDeviceSetting->mStaticStandardWeight   ); setDiffStaticStandardWeight   (mpRemoteDeviceSetting->mStaticStandardWeight    != mpLocalDeviceSetting->mStaticStandardWeight   );
+        setDynamicBaseWeight          (mpRemoteDeviceSetting->mDynamicBaseWeight      ); setDiffDynamicBaseWeight      (mpRemoteDeviceSetting->mDynamicBaseWeight       != mpLocalDeviceSetting->mDynamicBaseWeight      );
+        setSensorCnt                  (mpRemoteDeviceSetting->mSensorCnt              ); setDiffSensorCnt              (mpRemoteDeviceSetting->mSensorCnt               != mpLocalDeviceSetting->mSensorCnt              );
+    }
 
-        setDiffSeq                    (ps.mNo                    != value.mNo                  );
-        setDiffLength                 (ps.mLength                != value.mLength              );
-        setDiffSpeed                  (ps.mSpeed                 != value.mSpeed               );
-        setDiffMotorAccelerationTime  (ps.mMotorAccelerationTime != value.mMotorAccelerationTime);
-        setDiffUnderWeight            (ps.mUnderWeight           != value.mUnderWeight         );
-        setDiffUnderWarningWeight     (ps.mUnderWarningWeight    != value.mUnderWarningWeight  );
-        setDiffNormalWeight           (ps.mNormalWeight          != value.mNormalWeight        );
-        setDiffOverWarningWeight      (ps.mOverWarningWeight     != value.mOverWarningWeight   );
-        setDiffOverWeight             (ps.mOverWeight            != value.mOverWeight          );
-        setDiffTareWeight             (ps.mTareWeight            != value.mTareWeight          );
-        setDiffWCNGMotion             (ps.mWCNGMotion            != value.mWCNGMotion          );
-        setDiffMDSenstivity           (ps.mMDSenstivity          != value.mMDSenstivity        );
-        setDiffMDNGMotion             (ps.mMDNGMotion            != value.mMDNGMotion          );
 
-        setSeq                        (value.mNo                     );
-        setLength                     (value.mLength                 );
-        setSpeed                      (value.mSpeed                  );
-        setMotorAccelerationTime      (value.mMotorAccelerationTime  );
-        setUnderWeight                (value.mUnderWeight            );
-        setUnderWarningWeight         (value.mUnderWarningWeight     );
-        setNormalWeight               (value.mNormalWeight           );
-        setOverWarningWeight          (value.mOverWarningWeight      );
-        setOverWeight                 (value.mOverWeight             );
-        setTareWeight                 (value.mTareWeight             );
-        setWCNGMotion                 (value.mWCNGMotion             );
-        setMDSenstivity               (value.mMDSenstivity           );
-        setMDNGMotion                 (value.mMDNGMotion             );
+// internal layer ===================================================================================
+public:
+    explicit PanelDebuggingModel(QObject *parent = nullptr):QObject(parent)
+    {
+        DspStatusModel *pDspStatus = CoreService::getInstance()->mMapDspStatus.first();
 
+        mpLocalProductSetting  = &(CoreService::getInstance()->mProductSettingServcie.mCurrentProductSetting);
+        mpRemoteProductSetting = &(pDspStatus->mProductSetting);
+        mpLocalDeviceSetting   = &(CoreService::getInstance()->mLocalSettingService.mDspSetting);
+        mpRemoteDeviceSetting  = &(pDspStatus->mDspSetting);
+
+        connect(pDspStatus, SIGNAL(signalEventChangedProductSetting()), this, SLOT(onSignalEventChangedRemoteProductSetting()));
+        connect(pDspStatus, SIGNAL(signalEventChangedDeviceSetting ()), this, SLOT(onSignalEventChangedRemoteDeviceSetting ()));
+
+        onSignalEventChangedRemoteProductSetting();
+        onSignalEventChangedRemoteDeviceSetting();
     }
 };
 

@@ -2,7 +2,7 @@
 #define PANELWCSETTINGINHOMEMODEL_H
 
 #include <QObject>
-#include "source/service/wcmdservice.h"
+#include "source/service/coreservice.h"
 
 class PanelWCSettingInHomeModel : public QObject
 {
@@ -20,6 +20,9 @@ class PanelWCSettingInHomeModel : public QObject
     Q_PROPERTY(bool     isEditOverGap      READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
 
 public:
+    CoreService         * mpCoreService     ;
+    ProductSettingModel * mpProductSetting  ;
+
     quint32  mUnderWeight ;
     quint32  mNormalWeight;
     quint32  mOverWeight  ;
@@ -54,8 +57,6 @@ public:
     void     setIsEditUnderGap    (bool    value){ if( value == mIsEditUnderGap     ) return; mIsEditUnderGap      = value; emit signalEventChangedIsEditUnderGap     (value);}
     void     setIsEditOverGap     (bool    value){ if( value == mIsEditOverGap      ) return; mIsEditOverGap       = value; emit signalEventChangedIsEditOverGap      (value);}
 
-    explicit PanelWCSettingInHomeModel(QObject *parent = nullptr);
-
 signals:
     void signalEventChangedUnderWeight       (quint32 value);
     void signalEventChangedNormalWeight      (quint32 value);
@@ -69,18 +70,128 @@ signals:
     void signalEventChangedIsEditOverGap     (bool    value);
     void signalEventResultSaveProductSetting (int     error);
 
-    void signalCommandSaveProductSetting(void * sender, int type, ProductSetting value);
-
 public slots:
-    Q_INVOKABLE void onCommandSetUnderWeight     (quint32 value);
-    Q_INVOKABLE void onCommandSetNormalWeight    (quint32 value);
-    Q_INVOKABLE void onCommandSetOverWeight      (quint32 value);
-    Q_INVOKABLE void onCommandSetUnderGap        (qint32  value);
-    Q_INVOKABLE void onCommandSetOverGap         (qint32  value);
-    Q_INVOKABLE void onCommandApply              (             );
+    Q_INVOKABLE void onCommandSetUnderWeight     (quint32 value)
+    {
+        setUnderWeight(value);
+        setUnderGap    (mNormalWeight - mUnderWeight);
+    }
+    Q_INVOKABLE void onCommandSetNormalWeight    (quint32 value)
+    {
+        setNormalWeight(value);
 
-    void onSignalEventChangedSelectedProductSetting       (ProductSetting       value);
-    void onSignalResultSaveProductSetting                 (void * sender, int error, ProductSetting       value);
+        if((int)value < mUnderGap)
+        {
+            setUnderWeight (0);
+            setUnderGap    (mNormalWeight - mUnderWeight);
+        }
+        else
+        {
+            setUnderWeight (mNormalWeight - mUnderGap);
+        }
+
+        if(value + mOverGap > 99999900)
+        {
+            setOverWeight  (99999900);
+            setOverGap    (mOverWeight - mNormalWeight);
+        }
+        else
+        {
+            setOverWeight  (mNormalWeight + mOverGap);
+        }
+    }
+    Q_INVOKABLE void onCommandSetOverWeight      (quint32 value)
+    {
+        setOverWeight  (value);
+        setOverGap     (mOverWeight - mNormalWeight);
+    }
+    Q_INVOKABLE void onCommandSetUnderGap        (qint32  value)
+    {
+        if((int)mNormalWeight < value)
+        {
+            setUnderWeight (0);
+            setUnderGap    (mNormalWeight - mUnderWeight);
+        }
+        else
+        {
+            setUnderGap    (value);
+            setUnderWeight(mNormalWeight - mUnderGap);
+        }
+    }
+    Q_INVOKABLE void onCommandSetOverGap         (qint32  value)
+    {
+        if(mNormalWeight + value > 99999900)
+        {
+            setOverWeight  (99999900);
+            setOverGap    (mOverWeight - mNormalWeight);
+        }
+        else
+        {
+            setOverGap    (value);
+            setOverWeight(mNormalWeight + mOverGap);
+        }
+    }
+    Q_INVOKABLE void onCommandApply              (             )
+    {
+
+        int ret = mpCoreService->onCommandEditProductSetting(mpProductSetting->mSeq                  ,
+                                                             mpProductSetting->mNo                   ,
+                                                             mpProductSetting->mName                 ,
+                                                             mpProductSetting->mLength               ,
+                                                             mpProductSetting->mSpeed                ,
+                                                             mpProductSetting->mMotorAccelerationTime,
+                                                             mUnderWeight                            ,
+                                                             mUnderWeight                            ,
+                                                             mNormalWeight                           ,
+                                                             mOverWeight                             ,
+                                                             mOverWeight                             ,
+                                                             mpProductSetting->mTareWeight           ,
+                                                             mpProductSetting->mWCNGMotion           ,
+                                                             mpProductSetting->mDynamicFactor        ,
+                                                             mpProductSetting->mMDSenstivity         ,
+                                                             mpProductSetting->mMDNGMotion           );
+        if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
+        {
+            setIsEditUnderWeight (false);
+            setIsEditNormalWeight(false);
+            setIsEditOverWeight  (false);
+            setIsEditUnderGap    (false);
+            setIsEditOverGap     (false);
+        }
+
+        emit signalEventResultSaveProductSetting(ret);
+    }
+
+// down layer =============================================================
+public slots:
+    void onSignalEventChangedUnderWeight          (quint32 value){ setUnderWeight (value); }
+    void onSignalEventChangedNormalWeight         (quint32 value){ setNormalWeight(value); }
+    void onSignalEventChangedOverWeight           (quint32 value){ setOverWeight  (value); }
+
+// internal layer =============================================================
+public:
+    explicit PanelWCSettingInHomeModel(QObject *parent = nullptr):QObject(parent)
+    {
+        mpCoreService    = CoreService::getInstance();
+        mpProductSetting = &(mpCoreService->mProductSettingServcie.mCurrentProductSetting);
+
+        connect(mpProductSetting, SIGNAL(signalEventChangedUnderWeight (quint32)), this, SLOT(onSignalEventChangedUnderWeight (quint32)));
+        connect(mpProductSetting, SIGNAL(signalEventChangedNormalWeight(quint32)), this, SLOT(onSignalEventChangedNormalWeight(quint32)));
+        connect(mpProductSetting, SIGNAL(signalEventChangedOverWeight  (quint32)), this, SLOT(onSignalEventChangedOverWeight  (quint32)));
+
+        onSignalEventChangedUnderWeight (mpProductSetting->mUnderWeight );
+        onSignalEventChangedNormalWeight(mpProductSetting->mNormalWeight);
+        onSignalEventChangedOverWeight  (mpProductSetting->mOverWeight  );
+
+        setUnderGap    (mNormalWeight - mUnderWeight);
+        setOverGap     (mOverWeight - mNormalWeight);
+
+        setIsEditUnderWeight (false);
+        setIsEditNormalWeight(false);
+        setIsEditOverWeight  (false);
+        setIsEditUnderGap    (false);
+        setIsEditOverGap     (false);
+    }
 };
 
 #endif // PANELWCSETTINGINHOMEMODEL_H

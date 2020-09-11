@@ -31,6 +31,12 @@ void LanguageHelper::setContext(QObject * context)
 
 void LanguageHelper::loadLanguage(EnumDefine::Language value)
 {
+    if(qApp == nullptr || QQmlEngine::contextForObject(mContext) == nullptr || QQmlEngine::contextForObject(mContext)->engine() == nullptr)
+    {
+        qDebug() << "[LanguageHelper::loadLanguage]not loaded pApp";
+        return;
+    }
+
     qDebug() << mLanguage << " to " << value;
     if(mLanguage == value)
     {

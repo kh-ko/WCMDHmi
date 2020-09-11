@@ -14,36 +14,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        source/helper/databasehelper.cpp \
         source/helper/languagehelper.cpp \
-        source/helper/localsetting.cpp \
         source/logger/nsdebug.cpp \
         source/main.cpp \
-        source/qmlmodel/wcmd/introscenemodel.cpp \
-        source/qmlmodel/wcmd/main_scene/mainviewmodel.cpp \
-        source/qmlmodel/wcmd/main_scene/panelbackupmodel.cpp \
-        source/qmlmodel/wcmd/main_scene/paneldebuggingmodel.cpp \
-        source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.cpp \
-        source/qmlmodel/wcmd/mainscenemodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/checkup/panelmdcheckupmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/devicesetting/paneldevicesettingmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/etcsetting/paneletcsettingmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/graph/metaldetectorgraphmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/graph/panelmdgraphmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.cpp \
-        source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.cpp \
-        source/service/dsp/dspinterface.cpp \
-        source/service/dsp/dsppacketbuilder.cpp \
-        source/service/dsp/dspservice.cpp \
-        source/service/dsp/myalloc.cpp \
-        source/service/dsp/sendpacketqueue.cpp \
-        source/service/dspmanager.cpp \
-        source/service/wcmdservice.cpp \
+        source/service/coreservice.cpp \
+        source/service/dspconnectioninfoservice.cpp \
+        source/service/eventservice.cpp \
+        source/service/localsettingservice.cpp \
+        source/service/productsettingservice.cpp \
+        source/thread/dsp/dspcommunitythread.cpp \
+        source/thread/dsp/dspinterface.cpp \
+        source/thread/dsp/dsppacketbuilder.cpp \
+        source/thread/dsp/sendpacketqueue.cpp \
+        source/thread/historybackupthread.cpp \
         source/util/etcutil.cpp \
-        source/util/mouseeventspy.cpp
+        source/util/eventchecker.cpp \
+        source/util/fileloaderthread.cpp \
+        source/util/filewriter.cpp \
+        source/util/mouseeventspy.cpp \
+        source/util/myalloc.cpp
 
 RESOURCES += qml/qml.qrc
 
@@ -61,23 +50,20 @@ INSTALLS += target
 HEADERS += \
     source/globaldef/EnumDefine.h \
     source/globaldef/GlobalDefine.h \
-    source/helper/databasehelper.h \
     source/helper/languagehelper.h \
-    source/helper/localsetting.h \
     source/logger/nsdebug.h \
-    source/model/Information.h \
-    source/model/databasebackupstate.h \
-    source/model/deviceconnectionInfo.h \
-    source/model/deviceinfo.h \
-    source/model/devicesetting.h \
-    source/model/devicestatus.h \
-    source/model/event.h \
-    source/model/eventinfo.h \
-    source/model/metaldetectorgraphdata.h \
-    source/model/productsetting.h \
-    source/model/productstatus.h \
-    source/model/wccaribrationinfo.h \
-    source/model/weightcheckergraphdata.h \
+    source/model/dspconnectionmodel.h \
+    source/model/dspsettingmodel.h \
+    source/model/dspstatusmodel.h \
+    source/model/eventmodel.h \
+    source/model/guisettingmodel.h \
+    source/model/hmisettingmodel.h \
+    source/model/informationmodel.h \
+    source/model/lasterrormodel.h \
+    source/model/procsettingmodel.h \
+    source/model/productsettingmodel.h \
+    source/model/productstatusmodel.h \
+    source/model/securitysettingmodel.h \
     source/qmlmodel/wcmd/introscenemodel.h \
     source/qmlmodel/wcmd/main_scene/FactoryResetViewModel.h \
     source/qmlmodel/wcmd/main_scene/mainviewmodel.h \
@@ -99,14 +85,30 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.h \
-    source/service/dsp/dspinterface.h \
-    source/service/dsp/dsppacketbuilder.h \
-    source/service/dsp/dspservice.h \
-    source/service/dsp/myalloc.h \
-    source/service/dsp/sendpacketqueue.h \
-    source/service/dspmanager.h \
-    source/service/wcmdservice.h \
+    source/service/coreservice.h \
+    source/service/dspconnectioninfoservice.h \
+    source/service/eventservice.h \
+    source/service/localsettingservice.h \
+    source/service/productsettingservice.h \
+    source/thread/dsp/dspcommunitythread.h \
+    source/thread/dsp/dspinterface.h \
+    source/thread/dsp/dsppacketbuilder.h \
+    source/thread/dsp/dto/dspaddressdto.h \
+    source/thread/dsp/dto/dspconnectiondto.h \
+    source/thread/dsp/dto/dspinfodto.h \
+    source/thread/dsp/dto/dspsettingdto.h \
+    source/thread/dsp/dto/dspstatusdto.h \
+    source/thread/dsp/dto/eventdto.h \
+    source/thread/dsp/dto/metalgraphdto.h \
+    source/thread/dsp/dto/productsettingdto.h \
+    source/thread/dsp/dto/weightgraphdto.h \
+    source/thread/dsp/sendpacketqueue.h \
+    source/thread/historybackupthread.h \
     source/util/etcutil.h \
-    source/util/mouseeventspy.h
+    source/util/eventchecker.h \
+    source/util/fileloaderthread.h \
+    source/util/filewriter.h \
+    source/util/mouseeventspy.h \
+    source/util/myalloc.h
 
 DISTFILES +=

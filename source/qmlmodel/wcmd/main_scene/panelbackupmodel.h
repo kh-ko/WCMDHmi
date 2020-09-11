@@ -2,8 +2,11 @@
 #define PANELBACKUPMODEL_H
 
 #include <QObject>
-#include "source/model/databasebackupstate.h"
-#include "source/globaldef/EnumDefine.h"
+
+#include "source/util/etcutil.h"
+#include "source/service/coreservice.h"
+#include "source/thread/historybackupthread.h"
+
 class PanelBackupModel : public QObject
 {
     Q_OBJECT
@@ -20,10 +23,11 @@ class PanelBackupModel : public QObject
     Q_PROPERTY(int      endDay           READ getEndDay           NOTIFY signalEventChangedEndDay         );
 
 public:
-    static void    procBackup();
-    static DatabaseBackupState      mBackupState;
+    CoreService         * mpCoreService     ;
+    ProcSettingModel    * mpProcSetting     ;
+    HistoryBackupThread   mBackupThread     ;
+    bool    mCancle             = false;
 
-    QThread *mThread            = nullptr;
     bool    mIsNeedBackup       = false;
     bool    mIsProc             = false;
     bool    mIsShowInterface    = false;
@@ -36,7 +40,7 @@ public:
     int     mEndMonth           = 0;
     int     mEndDay             = 0;
 
-    bool    getIsNeedBackup   (){return mIsNeedBackup         ;}
+    bool    getIsNeedBackup   (){return mIsNeedBackup   ;}
     bool    getIsProc         (){return mIsProc         ;}
     bool    getIsShowInterface(){return mIsShowInterface;}
     quint64 getTotalCnt       (){return mTotalCnt       ;}
@@ -60,9 +64,6 @@ public:
     void setEndMonth       (int      value){ if(value == mEndMonth       ) return; mEndMonth        = value; emit signalEventChangedEndMonth       (value);}
     void setEndDay         (int      value){ if(value == mEndDay         ) return; mEndDay          = value; emit signalEventChangedEndDay         (value);}
 
-    explicit PanelBackupModel(QObject *parent = nullptr);
-    int checkMaxDay(int year, int month);
-
 signals:
     void signalEventChangedIsNeedBackup   (bool     value);
     void signalEventChangedIsProc         (bool     value);
@@ -78,20 +79,131 @@ signals:
 
     void signalEventComplete              (int      error);
 
-    void signalCommandSetIsNeedBackup     (bool     value);
 
 public slots:
-    void onCommandShowInterface();
-    void onCommandCloseInterface();
-    void onCommandSetStartDate(int year, int month, int day);
-    void onCommandSetEndDate(int year, int month, int day);
-    void onCommandBackup();
-    void onCommandCancle();
-    void onCommandUpdate();
+    void onCommandShowInterface()
+    {
+        if(getIsProc())
+        {
+            setIsShowInterface(true);
+            return;
+        }
 
-    void onThreadFinish();
+        QDate endDate = QDate::currentDate();
 
+        int year;
+        int month;
+        int day;
 
+        year = mpProcSetting->mLastBackupYear;
+        month = mpProcSetting->mLastBackupMonth;
+        day = mpProcSetting->mLastBackupDay;
+
+        onCommandSetStartDate(year , month, day);
+        onCommandSetEndDate(endDate.year(), endDate.month(), endDate.day());
+
+        setIsShowInterface(true);
+    }
+    void onCommandCloseInterface()
+    {
+        setIsShowInterface(false);
+    }
+    void onCommandSetStartDate(int year, int month, int day)
+    {
+        int maxDay = EtcUtil::checkMaxDay(year, month);
+        int calDay = maxDay < day ? maxDay : day;
+
+        setStartYear(year);
+        setStartMonth(month);
+        setStartDay(calDay);
+
+        if((year > mEndYear) || (year == mEndYear && month > mEndMonth) || (year == mEndYear && month == mEndMonth && calDay > mEndDay) || (year == mEndYear && month == mEndMonth && calDay == mEndDay))
+        {
+            onCommandSetEndDate(year, month, calDay);
+        }
+    }
+    void onCommandSetEndDate(int year, int month, int day)
+    {
+        QDate date = QDate::currentDate();
+        int maxDay = EtcUtil::checkMaxDay(year, month);
+        int calDay = maxDay < day ? maxDay : day;
+
+        if((year > date.year()) || (year == date.year() && month > date.month()) || (year == date.year() && month == date.month() && calDay > date.day()))
+        {
+            setEndYear (date.year());
+            setEndMonth(date.month());
+            setEndDay  (date.day());
+
+            setStartYear (date.year() );
+            setStartMonth(date.month());
+            setStartDay  (date.day()  );
+        }
+        else
+        {
+            setEndYear(year);
+            setEndMonth(month);
+            setEndDay(calDay);
+
+            if((year < mStartYear) || (year == mStartYear && month < mStartMonth) || (year == mStartYear && month == mStartMonth && calDay < mStartDay) || (year == mStartYear && month == mStartMonth && calDay == mStartDay))
+            {
+                setStartYear(year);
+                setStartMonth(month);
+                setStartDay(calDay);
+            }
+        }
+    }
+    void onCommandBackup()
+    {
+        qDebug() << "onCommandBackup()";
+
+        if(getIsProc())
+        {
+            emit signalEventComplete(EnumDefine::BackupResult::BACKUP_ING);
+            return;
+        }
+
+        setIsProc(true);
+        setIsShowInterface(false);
+
+        int deviceNumber = mpCoreService->mLocalSettingService.mInformation.mDeviceNumber;
+        emit signalCommandBackup(deviceNumber, mStartYear, mStartMonth, mStartDay, mEndYear, mEndMonth, mEndDay, &mCancle);
+    }
+    void onCommandCancle()
+    {
+        mCancle = true;
+    }
+    void onCommandUpdate(){}
+
+// down layer =======================================================================================
+signals:
+    void signalCommandBackup(int deviceNumber, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, bool *pCancle);
+
+public slots:
+    void onSignalEventChangedIsProc         (bool    value){setIsProc       (value);}
+    void onSignalEventChangedTotalCnt       (quint64 value){setTotalCnt     (value);}
+    void onSignalEventChangedCurrentIdx     (quint64 value){setCurrentIdx   (value);}
+    void onSignalEventCompleted             (int     value)
+    {
+        if(value == EnumDefine::BackupResult::BACKUP_NONE_ERROR)
+            mpCoreService->mLocalSettingService.setProcBackupLastDate(mEndYear, mEndMonth, mEndDay);
+
+        emit signalEventComplete(value);
+    }
+
+//  internal layer ===================================================================================
+public:
+    explicit PanelBackupModel(QObject *parent = nullptr) : QObject(parent)
+    {
+        mpCoreService    = CoreService::getInstance();
+        mpProcSetting     = &(mpCoreService->mLocalSettingService.mProcSetting);
+
+        connect(this, SIGNAL(signalCommandBackup(int, int, int, int, int, int, int, bool *)), &mBackupThread, SLOT(onCommandBackup(int, int, int, int, int, int, int, bool *)));
+
+        connect(&mBackupThread, SIGNAL(signalEventCompleted        (int    )), this, SLOT(onSignalEventCompleted             (int    )));
+        connect(&mBackupThread, SIGNAL(signalEventChangedIsProc    (bool   )), this, SLOT(onSignalEventChangedIsProc         (bool   )));
+        connect(&mBackupThread, SIGNAL(signalEventChangedTotalCnt  (quint64)), this, SLOT(onSignalEventChangedTotalCnt       (quint64)));
+        connect(&mBackupThread, SIGNAL(signalEventChangedCurrentIdx(quint64)), this, SLOT(onSignalEventChangedCurrentIdx     (quint64)));
+    }
 };
 
 #endif // PANELBACKUPMODEL_H

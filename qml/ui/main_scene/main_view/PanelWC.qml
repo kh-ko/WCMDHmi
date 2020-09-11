@@ -10,8 +10,8 @@ import FontManager 1.0
 Item {
     property int  currWeight        : 9199000
     property int  currEventType     : EnumDefine.WEIGHT_OVER_TYPE
-    property int  avgWeight         : 9199000
-    property int  avgEventType      : EnumDefine.WEIGHT_OVER_TYPE
+    //property int  avgWeight         : 9199000
+    //property int  avgEventType      : EnumDefine.WEIGHT_OVER_TYPE
     property int  totalCnt          : 999999
     property int  tradeCnt          : 999999
     property int  overCnt           : 999999
@@ -27,7 +27,7 @@ Item {
     property int  etcErrorCnt       : 999999
     property var  tradeWeight       : 10000000000000
     property real tare              :  10999900
-    property int  averageNValue     : 10000
+    //property int  averageNValue     : 10000
     property int  lastNValue        : 1000
     property MainViewModel  mainViewModel
     property bool isDetail : false
@@ -120,7 +120,7 @@ Item {
 
         Text{
             id:labelCurrentWeight
-            width: 270
+            width: 330
             height: 55
 
             verticalAlignment: Text.AlignVCenter
@@ -151,6 +151,7 @@ Item {
             visible: mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_TRENDS
             color : "#FFFFFF"
             text: (panel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+            anchors.horizontalCenterOffset: 60
             anchors.bottom: wcView.top
             anchors.bottomMargin: -20
             anchors.horizontalCenter: wcView.horizontalCenter
@@ -204,14 +205,14 @@ Item {
                 isDevMode     : mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_DELTA
                 currWeight    : panel.currWeight
                 currEventType : panel.currEventType
-                avgWeight     : panel.avgWeight
-                avgEventType  : panel.avgEventType
+                //avgWeight     : panel.avgWeight
+                //avgEventType  : panel.avgEventType
                 under         : panel.underWeight
                 underWarning  : panel.underWarningWeight
                 normal        : panel.normalWeight
                 overWarning   : panel.overWarningWeight
                 over          : panel.overWeight
-                averageNValue : panel.averageNValue
+                //averageNValue : panel.averageNValue
 
             }
 

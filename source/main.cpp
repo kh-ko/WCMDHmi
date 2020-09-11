@@ -1,19 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QCursor>
 #include <QtQuickControls2/QQuickStyle>
+#include "source/globaldef/GlobalDefine.h"
 #include "source/logger/nsdebug.h"
 #include "source/qmlmodel/wcmd/mainmodel.h"
 #include "source/qmlmodel/wcmd/introscenemodel.h"
-#include "source/model/Information.h"
-#include "source/model/deviceconnectionInfo.h"
-#include "source/model/deviceinfo.h"
-#include "source/model/devicesetting.h"
-#include "source/model/devicestatus.h"
-#include "source/model/event.h"
-#include "source/model/eventinfo.h"
-#include "source/model/metaldetectorgraphdata.h"
-#include "source/model/productsetting.h"
-#include "source/model/weightcheckergraphdata.h"
 #include "source/qmlmodel/wcmd/mainscenemodel.h"
 #include "source/qmlmodel/wcmd/main_scene/mainviewmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/graph/metaldetectorgraphmodel.h"
@@ -33,7 +25,7 @@
 #include "source/qmlmodel/wcmd/menu_scene/clocksetting/panelclocksettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/checkup/panelwcdynamiccalibraionmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h"
-
+#include "source/service/coreservice.h"
 #include "source/util/mouseeventspy.h"
 
 int main(int argc, char *argv[])
@@ -54,7 +46,8 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-#ifdef OS_WINDOW
+#if defined(Q_OS_WIN)
+    //QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
 #else
     QGuiApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
@@ -69,16 +62,15 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<EnumDefine>("EnumDefine", 1, 0, "EnumDefine", "");
 
-    qRegisterMetaType<Information>();
-    qRegisterMetaType<DeviceConnectionInfo>();
-    qRegisterMetaType<DeviceInfo>();
-    qRegisterMetaType<DeviceSetting>();
-    qRegisterMetaType<DeviceStatus>();
-    qRegisterMetaType<Event>();
-    qRegisterMetaType<EventInfo>();
-    qRegisterMetaType<MetalDetectorGraphData>();
-    qRegisterMetaType<ProductSetting>();
-    qRegisterMetaType<WeightChekerGraphData>();
+
+    qRegisterMetaType<DspInfoDto>();
+    qRegisterMetaType<DspConnectionDto>();
+    qRegisterMetaType<DspSettingDto>();
+    qRegisterMetaType<DspStatusDto>();
+    qRegisterMetaType<EventDto>();
+    qRegisterMetaType<MetalGraphDto>();
+    qRegisterMetaType<ProductSettingDto>();
+    qRegisterMetaType<WeightGraphDto>();
 
     qmlRegisterType<MainModel>("MainModel", 1, 0, "MainModel");
     qmlRegisterType<IntroSceneModel>("IntroSceneModel", 1, 0, "IntroSceneModel");

@@ -11,6 +11,7 @@ public:
     EtcUtil();
     static qint64 getCurrentMSec();
     static char * toStringFromChar(QString str, int charBufferSize);
+    static int checkMaxDay(int year, int month);
 };
 
 #endif // ETCUTIL_H

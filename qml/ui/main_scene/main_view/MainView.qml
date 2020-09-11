@@ -142,8 +142,8 @@ Item {
         isDetail           : model.isDetail
         currWeight         : model.wcCurrWeight
         currEventType      : model.wcCurrEventType
-        avgWeight          : model.wcCurrAvgWeight
-        avgEventType       : model.wcCurrAvgEventType
+        //avgWeight          : model.wcCurrAvgWeight
+        //avgEventType       : model.wcCurrAvgEventType
         totalCnt           : model.wcTotalCnt
         tradeCnt           : model.wcTradeCnt
         overCnt            : model.wcOverCnt
@@ -159,7 +159,7 @@ Item {
         etcErrorCnt        : model.wcEtcErrorCnt
         tradeWeight        : model.wcTradeTotalWeight
         tare               : model.wcTareWeight
-        averageNValue      : model.wcAverageN
+        //averageNValue      : model.wcAverageN
         mainViewModel      : model
 
         PanelWCNGNotify{

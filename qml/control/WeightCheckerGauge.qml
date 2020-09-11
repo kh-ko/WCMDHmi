@@ -6,14 +6,14 @@ import EnumDefine 1.0
 Item {
 
     property int  eventType
-    property int  avgEventType
+    //property int  avgEventType
     property real under : 100
     property real underWarning : 200
     property real normal : 300
     property real overWarning : 450
     property real over : 800
     property real weight : 600
-    property real avgWeight : 700
+    //property real avgWeight : 700
 
     property real min : normal - under > over - normal ? under - ((normal - under) * 0.4):normal - ((over - normal) * 1.4)
     property real max : normal + (normal - min)

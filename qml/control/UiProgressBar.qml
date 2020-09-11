@@ -30,7 +30,7 @@ Item {
     Rectangle{
         id : hBar
         width: barLength < minimumSize ? minimumSize :
-               barLength > (bg.width - 5)       ? (bg.width - 5)       : barLength
+               barLength > (bg.width - 10)       ? (bg.width - 10)       : barLength
         color: control.barColor
         radius: control.radius
         anchors.left: bg.left
@@ -57,7 +57,7 @@ Item {
     Rectangle{
         id : vBar
         height: barLength < minimumSize ? minimumSize :
-                barLength > (bg.height - 5)      ? (bg.height - 5)       : barLength
+                barLength > (bg.height - 10)      ? (bg.height - 10)       : barLength
         color: control.barColor
         radius: control.radius
         anchors.left: bg.left

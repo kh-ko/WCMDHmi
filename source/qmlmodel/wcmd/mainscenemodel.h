@@ -2,9 +2,7 @@
 #define MAINSCENEMODEL_H
 
 #include <QObject>
-#include "source/service/wcmdservice.h"
-#include "source/model/Information.h"
-#include "source/model/devicestatus.h"
+#include "source/service/coreservice.h"
 
 class MainSceneModel : public QObject
 {
@@ -19,20 +17,21 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    IsMortorAlarm READ getIsMortorAlarm       NOTIFY signalEventChangedIsMortorAlarm)
     Q_PROPERTY(QString clock         READ getClock               NOTIFY signalEventChangedClock        )
 
-private:
-    QTimer mTimer;
-
 public:
-    QString mCompany;
-    QString mTel    ;
-    bool    mIsRun  ;
-    bool    mIsComm ;
-    bool    mIsAlarm;
-    bool    mIsSensorAlarm;
-    bool    mIsPhotoAlarm ;
-    bool    mIsMortorAlarm;
-    QString mClock  ;
-    QString mPassword;
+    CoreService         * mpCoreService ;
+    InformationModel    * mpInformation ;
+    DspStatusModel      * mpDspStatus   ;
+
+    QString mCompany       = "";
+    QString mTel           = "";
+    bool    mIsRun         = false;
+    bool    mIsComm        = false;
+    bool    mIsAlarm       = false;
+    bool    mIsSensorAlarm = false;
+    bool    mIsPhotoAlarm  = false;
+    bool    mIsMortorAlarm = false;
+    QString mClock         = "";
+    QString mPassword      = "";
 
     QString  getCompany      (){ return mCompany      ;}
     QString  getTel          (){ return mTel          ;}
@@ -52,7 +51,6 @@ public:
     void     setIsPhotoAlarm (bool    value){ if(value == mIsPhotoAlarm ) return; mIsPhotoAlarm  = value; emit signalEventChangedIsPhotoAlarm (value);}
     void     setIsMortorAlarm(bool    value){ if(value == mIsMortorAlarm) return; mIsMortorAlarm = value; emit signalEventChangedIsMortorAlarm(value);}
     void     setClock  (QString value){ if(value == getClock  ())return; mClock   = value; emit signalEventChangedClock  (value);}
-    explicit MainSceneModel(QObject *parent = nullptr);
 
 signals:
     void signalEventChangedCompany      (QString value);
@@ -65,22 +63,80 @@ signals:
     void signalEventChangedIsMortorAlarm(bool    value);
     void signalEventChangedClock        (QString value);
 
-    void signalCommandSetRun      (quint16 deviceSeq, quint16 value);
-
 public slots:
-    void onSignalEventChangedInformation            (Information value);
-    void onSignalEventChangedIsConnect              (quint16 deviceSeq, bool value);
-    void onSignalEventChangedRemoteDeviceSetting    (quint16 deviceSeq, DeviceSetting value);
-    void onSignalEventChangedRemoteProductSetting   (quint16 deviceSeq, ProductSetting value);
-    void onSignalEventChangedDeviceStatus           (quint16 deviceSeq, DeviceStatus value);
-    void onSignalEventChangedDsp                    (int type, DeviceConnectionInfo value);
+    Q_INVOKABLE bool onCommandComparePwd(QString value)
+    {
+        if(mpCoreService->mLocalSettingService.mSecuritySetting.mPassword == value)
+            return true;
 
-    void onUpdateTimer                    ();
+        return false;
+    }
 
+    Q_INVOKABLE bool onCommandCompareAdminPwd(QString value)
+    {
+        if(mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword == value)
+            return true;
+
+        return false;
+    }
+
+    Q_INVOKABLE void onCommandSetRun(bool value)
+    {
+        quint16 runValue = value == false ? EnumDefine::RunState::STOP : EnumDefine::RunState::RUN;
+
+        if(mpDspStatus->mRun == EnumDefine::RunState::STOP && value == false)
+            return;
+        else if(mpDspStatus->mRun != EnumDefine::RunState::STOP && value == true)
+            return;
+
+        if(value && mpCoreService->mLocalSettingService.mHmiSetting.mIsDebugMode)
+        {
+            runValue = EnumDefine::RunState::DETECT_OFF_RUN;
+        }
+
+        mpCoreService->onCommandSendRunCmd(mpDspStatus->mSeq, runValue);
+    }
+
+//  down layer ===================================================================================
 public slots:
-    Q_INVOKABLE bool onCommandComparePwd(QString value);
-    Q_INVOKABLE bool onCommandCompareAdminPwd(QString value);
-    Q_INVOKABLE void onCommandSetRun(bool value);
+    void onSignalEventChangedCompany      (QString value){ setCompany      ( value                              ); }
+    void onSignalEventChangedTel          (QString value){ setTel          ( value                              ); }
+    void onSignalEventChangedRun          (quint16 value){ setIsRun        ( value != EnumDefine::RunState::STOP); }
+    void onSignalEventChangedIsComm       (bool    value){ setIsComm       ( value                              ); }
+    void onSignalEventChangedIsAlarm      (bool    value){ setIsAlarm      ( value                              ); }
+    void onSignalEventChangedIsSensorAlarm(bool    value){ setIsSensorAlarm( value                              ); }
+    void onSignalEventChangedIsPhotoAlarm (bool    value){ setIsPhotoAlarm ( value                              ); }
+    void onSignalEventChangedIsMortorAlarm(bool    value){ setIsMortorAlarm( value                              ); }
+    void onSignalEventChangedClock        (QString value){ setClock        ( value                              ); }
+
+//  internal layer ===================================================================================
+public:
+    explicit MainSceneModel(QObject *parent = nullptr): QObject(parent)
+    {
+        mpCoreService = CoreService::getInstance();
+
+        mpDspStatus   = mpCoreService->mMapDspStatus.first();
+        mpInformation = &(mpCoreService->mLocalSettingService.mInformation);
+
+        connect(mpInformation,  SIGNAL(signalEventChangedCompany        (QString)),this, SLOT(onSignalEventChangedCompany       (QString)));
+        connect(mpInformation,  SIGNAL(signalEventChangedTel            (QString)),this, SLOT(onSignalEventChangedTel           (QString)));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedRun            (quint16)),this, SLOT(onSignalEventChangedRun           (quint16)));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedIsComm         (bool   )),this, SLOT(onSignalEventChangedIsComm        (bool   )));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedIsAlarm        (bool   )),this, SLOT(onSignalEventChangedIsAlarm       (bool   )));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedIsSensorAlarm  (bool   )),this, SLOT(onSignalEventChangedIsSensorAlarm (bool   )));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedIsPhotoAlarm   (bool   )),this, SLOT(onSignalEventChangedIsPhotoAlarm  (bool   )));
+        connect(mpDspStatus  ,  SIGNAL(signalEventChangedIsMortorAlarm  (bool   )),this, SLOT(onSignalEventChangedIsMortorAlarm (bool   )));
+        connect(mpCoreService,  SIGNAL(signalEventChangedClock          (QString)),this, SLOT(onSignalEventChangedClock         (QString)));
+
+        onSignalEventChangedCompany       (mpInformation->mCompany    );
+        onSignalEventChangedTel           (mpInformation->mTel        );
+        onSignalEventChangedRun           (mpDspStatus->mRun          );
+        onSignalEventChangedIsComm        (mpDspStatus->mIsComm       );
+        onSignalEventChangedIsAlarm       (mpDspStatus->mIsAlarm      );
+        onSignalEventChangedIsSensorAlarm (mpDspStatus->mIsSensorAlarm);
+        onSignalEventChangedIsPhotoAlarm  (mpDspStatus->mIsPhotoAlarm );
+        onSignalEventChangedIsMortorAlarm (mpDspStatus->mIsMortorAlarm);
+    }
 };
 
 #endif // MAINSCENEMODEL_H

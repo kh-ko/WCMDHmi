@@ -3,9 +3,7 @@
 
 #include <QObject>
 #include "source/globaldef/EnumDefine.h"
-#include "source/service/wcmdservice.h"
-#include "source/helper/databasehelper.h"
-#include "source/helper/localsetting.h"
+#include "source/service/coreservice.h"
 
 class PanelMDCheckupModel : public QObject
 {
@@ -21,6 +19,9 @@ class PanelMDCheckupModel : public QObject
     Q_PROPERTY(int     susStep03State    READ getSusStep03State   NOTIFY signalEventChangedSusStep03State  )
 
 public:
+    CoreService * mpCoreService = nullptr;
+    DspStatusModel * mpDspStatus = nullptr;
+
     int     mStep            = 0;
     QString mChekcupDateTime = "";
     bool    mIsPass          = false;
@@ -53,18 +54,18 @@ public:
 
     explicit PanelMDCheckupModel(QObject *parent = nullptr) : QObject(parent)
     {
-        WCMDService * pWCMDService = WCMDService::getInstance();
+        mpCoreService = CoreService::getInstance();
+        mpDspStatus = mpCoreService->mMapDspStatus.first();
 
-        connect(this, SIGNAL(signalCommandSetRun(quint16, quint16)), pWCMDService, SLOT(onCommandSetRun(quint16, quint16)));
-
-        connect(pWCMDService, SIGNAL(signalEventAddedEvent(quint16, EventInfo)), this, SLOT(onSignalEventAddEvent(quint16, EventInfo)));
+        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent(quint16, quint32)), this, SLOT(onSignalEventAddEvent(quint16, quint3)));
     }
 
     ~PanelMDCheckupModel()
     {
-        emit signalCommandSetRun(0xffff, (quint16)EnumDefine::RunState::STOP);
+        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
     }
-    void     reset()
+
+    void reset()
     {
         setStep           (0);
         setChekcupDateTime("");
@@ -88,17 +89,15 @@ signals:
     void    signalEventChangedSusStep03State (int      value);
 
     void    signalEventStepComplete();
-    void    signalCommandSetRun(quint16 deviceSeq, quint16 value);
 
 public slots:
     Q_INVOKABLE void onCommandStart()
     {
-        emit signalCommandSetRun(0xffff, (quint16)EnumDefine::RunState::CHECKUP_RUN);
+        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::CHECKUP_RUN);
     }
     Q_INVOKABLE void onCommandCancle()
     {
-        emit signalCommandSetRun(0xffff, (quint16)EnumDefine::RunState::STOP);
-        reset();
+        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
     }
     Q_INVOKABLE void onCommandStartNextStep()
     {
@@ -114,7 +113,7 @@ public slots:
         {
         case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP01:
             setFeStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
-            emit signalCommandSetRun(0xffff, (quint16)EnumDefine::RunState::CHECKUP_RUN);
+            mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::CHECKUP_RUN);
             break;
 
         case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP02:
@@ -138,7 +137,7 @@ public slots:
             break;
         case EnumDefine::MDCheckUpStep::CHECKUP_RESULT_STEP:
             {
-                Event event;
+                EventDto event;
                 QDateTime now = QDateTime::currentDateTime();
 
                 setIsPass(getFeStep01State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
@@ -150,60 +149,46 @@ public slots:
 
                 setChekcupDateTime(now.toString("yyyy/MM/dd hh:mm:ss"));
 
-                event.mYear               = now.date().year();
-                event.mMonth              = now.date().month();
-                event.mDay                = now.date().day();
-                event.mHour               = now.time().hour();
-                event.mMin                = now.time().minute();
-                event.mSec                = now.time().second();
-                event.mMsec               = now.time().msec();
-                event.mWorkStartYear      = WCMDService::getInstance()->mWorkStartYear;
-                event.mWorkStartMonth     = WCMDService::getInstance()->mWorkStartYear;
-                event.mWorkStartDay       = WCMDService::getInstance()->mWorkStartYear;
-                event.mEventType          = EnumDefine::EventType::METAL_CHECKUP_TYPE;
-                event.mProductSettingSeq  = WCMDService::getInstance()->mProductSetting.mSeq;
-                event.mProductNo          = WCMDService::getInstance()->mProductSetting.mNo;
-                event.mProductName        = WCMDService::getInstance()->mProductSetting.mName;
-                event.mWeight             = getIsPass() ? 0x01 : 0x00 ;
+                event.mEvent.mEventValue = getIsPass() ? (0x01 << 6) : 0x00 ;
 
                 if(getFeStep01State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 1);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 5);
                 }
 
                 if(getFeStep02State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 2);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 4);
                 }
 
                 if(getFeStep03State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 3);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 3);
                 }
 
                 if(getSusStep01State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 4);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 2);
                 }
 
                 if(getSusStep02State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 5);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 1);
                 }
 
                 if(getSusStep03State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
                 {
-                    event.mWeight = event.mWeight | (0x01 << 6);
+                    event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01);
                 }
 
-                DatabaseHelper::getInstance()->addEvent("CHECKUP_DB_CON", &event);
-                LocalSetting::getInstance()->setLastEventSeq(event.mSeq);
+                event.mEvent.mEventType = EnumDefine::EventType::METAL_CHECKUP_TYPE;
+
+                mpCoreService->onSignalEventAddedEvent(mpDspStatus->mSeq, event);
 
             }
-            emit signalCommandSetRun(0xffff, (quint16)EnumDefine::RunState::STOP);
+            mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
             break;
         }
-
     }
     Q_INVOKABLE void onCommandTimeout()
     {
@@ -239,20 +224,18 @@ public slots:
             emit signalEventStepComplete();
             break;
         }
-
-
     }
 
-    void onSignalEventAddEvent(quint16 deviceSeq, EventInfo event)
+    void onSignalEventAddEvent(quint16 eventType, quint32 eventValue)
     {
         EnumDefine::MDCheckUpState result;
 
-        if(event.mEventType == EnumDefine::EventType::METAL_DETECT_CHECK_TYPE)
+        if(eventType == EnumDefine::EventType::METAL_DETECT_CHECK_TYPE)
         {
             qDebug() << "MD CHECK UP PASS !";
             result = EnumDefine::MDCheckUpState::CHECKUP_PASS;
         }
-        else if(event.mEventType == EnumDefine::EventType::METAL_TRADE_CHECK_TYPE)
+        else if(eventType == EnumDefine::EventType::METAL_TRADE_CHECK_TYPE)
         {
             qDebug() << "MD CHECK UP FAIL !";
             result = EnumDefine::MDCheckUpState::CHECKUP_FAIL;

@@ -11,14 +11,14 @@ Item {
     property bool isDevMode     : false
     property int  currWeight    : 9199000
     property int  currEventType :EnumDefine.WEIGHT_OVER_TYPE
-    property int  avgWeight     : 9199000
-    property int  avgEventType  :EnumDefine.WEIGHT_OVER_TYPE
+    //property int  avgWeight     : 9199000
+    //property int  avgEventType  :EnumDefine.WEIGHT_OVER_TYPE
     property int  under         : 100
     property int  underWarning  : 200
     property int  normal        : 300
     property int  overWarning   : 450
     property int  over          : 800
-    property int  averageNValue : 1000
+    //property int  averageNValue : 1000
     property int  tare          : 1000
 
     id : panel
@@ -127,8 +127,8 @@ Item {
 
         weight       : panel.currWeight
         eventType    : panel.currEventType
-        avgWeight    : panel.avgWeight
-        avgEventType : panel.avgEventType
+        //avgWeight    : panel.avgWeight
+        //avgEventType : panel.avgEventType
         under        : panel.under
         underWarning : panel.underWarning
         normal       : panel.normal

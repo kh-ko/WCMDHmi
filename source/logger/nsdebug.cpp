@@ -83,9 +83,9 @@ void NSDebug::debugMessageHandler(QtMsgType type, const QMessageLogContext &cont
     else
     {
         if(mpSelf->mfile.isOpen())
-            mpSelf->mOut << "[" << currTime << "][" << function << "]"<< msg << "\n";
+            mpSelf->mOut << "[" << currTime << "]"<< msg << "\n";
 
-        consoleOut << "[" << currTime << "][" << function << "]"<< msg << "\n";
+        consoleOut << "[" << currTime << "]"<< msg << "\n";
     }
 
     if(mpSelf->mfile.isOpen())

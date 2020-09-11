@@ -2,26 +2,12 @@
 #define PANELDEVICESETTINGMODEL_H
 
 #include <QObject>
-#include "source/service/wcmdservice.h"
+#include "source/service/coreservice.h"
 
 class PanelDeviceSettingModel : public QObject
 {
     Q_OBJECT
 
-    //Q_PROPERTY(quint16 sensorLength                      READ getSensorLength                  NOTIFY  signalEventChangedSensorLength              )
-    //Q_PROPERTY(quint16 distanceToRejector                READ getDistanceToRejector            NOTIFY  signalEventChangedDistanceToRejector        )
-    //Q_PROPERTY(quint32 rejectorReadyTime                 READ getRejectorReadyTime             NOTIFY  signalEventChangedRejectorReadyTime         )
-    //Q_PROPERTY(bool    isEditsensorLength                READ getIsEditsensorLength                    NOTIFY  signalEventChangedIsEditsensorLength               )
-    //Q_PROPERTY(bool    isEditdistanceToRejector          READ getIsEditdistanceToRejector              NOTIFY  signalEventChangedIsEditdistanceToRejector         )
-    //Q_PROPERTY(bool    isEditrejectorReadyTime           READ getIsEditrejectorReadyTime               NOTIFY  signalEventChangedIsEditrejectorReadyTime          )
-    //Q_PROPERTY(quint16 distanceBtwSensor                 READ getDistanceBtwSensor             NOTIFY  signalEventChangedDistanceBtwSensor         )
-    //Q_PROPERTY(quint16 distanceToWeightChecker           READ getDistanceToWeightChecker       NOTIFY  signalEventChangedDistanceToWeightChecker   )
-    //Q_PROPERTY(quint16 distancePhotoToSensor             READ getDistancePhotoToSensor         NOTIFY  signalEventChangedDistancePhotoToSensor     )
-    //Q_PROPERTY(quint16 sensorCnt                         READ getSensorCnt                     NOTIFY  signalEventChangedSensorCnt                 )
-    //Q_PROPERTY(bool    sensorCnt                         READ getSensorCnt                             NOTIFY  signalEventChangedSensorCnt                 )
-    //Q_PROPERTY(bool    isEditDistanceToWeightChecker     READ getIsEditDistanceToWeightChecker         NOTIFY  signalEventChangedIsEditDistanceToWeightChecker    )
-    //Q_PROPERTY(bool    isEditDistancePhotoToSensor       READ getIsEditDistancePhotoToSensor           NOTIFY  signalEventChangedIsEditDistancePhotoToSensor      )
-    //Q_PROPERTY(bool    isEditDistanceBtwSensor           READ getIsEditDistanceBtwSensor               NOTIFY  signalEventChangedIsEditDistanceBtwSensor          )
     Q_PROPERTY(int     language                          READ getLanguage                      NOTIFY  signalEventChangedLanguage                  )
     Q_PROPERTY(QString password                          READ getPassword                      NOTIFY  signalEventChangedPassword                  )
     Q_PROPERTY(QString newPassword                       READ getNewPassword                   NOTIFY  signalEventChangedNewPassword               )
@@ -89,20 +75,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditSimpleSens05                READ getIsEditSimpleSens05                    NOTIFY  signalEventChangedIsEditSimpleSens05               )
 
 public:
-    //quint16  mSensorCnt                     ;
-    //quint16  mDistanceBtwSensor             ;
-    //quint16  mSensorLength                  ;
-    //quint16  mDistanceToRejector            ;
-    //quint32  mRejectorReadyTime             ;
-    //quint16  mDistanceToWeightChecker       ;
-    //quint16  mDistancePhotoToSensor         ;
-    //bool     mIsEditDistanceToWeightChecker ;
-    //bool     mIsEditDistancePhotoToSensor   ;
-    //bool     mIsEditDistanceBtwSensor       ;
-    //bool     mIsEditSensorLength            ;
-    //bool     mIsEditDistanceToRejector      ;
-    //bool     mIsEditrejectorReadyTime       ;
-    //bool     mSensorCnt                     ;
+    CoreService * mpCoreService;
 
     int      mLanguage                      ;
     QString  mPassword                      ;
@@ -302,8 +275,79 @@ public:
     void setIsEditSimpleSens04           (bool     value){ if(value == mIsEditSimpleSens04        ) return; mIsEditSimpleSens04         = value; emit signalEventChangedIsEditSimpleSens04        (value);}
     void setIsEditSimpleSens05           (bool     value){ if(value == mIsEditSimpleSens05        ) return; mIsEditSimpleSens05         = value; emit signalEventChangedIsEditSimpleSens05        (value);}
 
-    explicit PanelDeviceSettingModel(QObject *parent = nullptr);
-    void reset();
+    void reset()
+    {
+        setLanguage                     (mpCoreService->mLocalSettingService.mGuiSetting.mLanguage             );
+        setPassword                     (""                                                 );
+        setNewPassword                  (""                                                 );
+        setConfirmPassword              (""                                                 );
+        setIsDayMode                    (mpCoreService->mLocalSettingService.mHmiSetting.mIsDayMode     );
+        setIsDebugMode                  (mpCoreService->mLocalSettingService.mHmiSetting.mIsDebugMode          );
+        setLampTime                     (mpCoreService->mLocalSettingService.mDspSetting.mLampTime             );
+        setBuzzerTime                   (mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime           );
+        setSpeedConverter               (mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter       );
+        setMotorDirection               (mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection       );
+        setRejectorRunTimeRatio         (mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio );
+        setDisplayStability             (mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability     );
+        setMeasureCueSign               (mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign       );
+        setMinStaticWeight              (mpCoreService->mLocalSettingService.mDspSetting.mMinStaticWeight      );
+        setMinDynamicWeight             (mpCoreService->mLocalSettingService.mDspSetting.mMinDynamicWeight     );
+        setScaler                       (mpCoreService->mLocalSettingService.mDspSetting.mScaler               );
+        setStaticFactor                 (mpCoreService->mLocalSettingService.mDspSetting.mStaticFactor         );
+        setDynamicFactor                (mpCoreService->mLocalSettingService.mHmiSetting.mDynamicFactor        );
+        setStandardWeight               (mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight );
+        setRefWeight                    (mpCoreService->mLocalSettingService.mDspSetting.mDynamicBaseWeight    );
+        setWCPhotoOn                    (mpCoreService->mLocalSettingService.mDspSetting.mWCPhotoIsOn          );
+        setMode                         (mpCoreService->mLocalSettingService.mDspSetting.mMode                 );
+        setDetectDetectTime             (mpCoreService->mLocalSettingService.mDspSetting.mDetectDetectTime     );
+        setRunDetectTime                (mpCoreService->mLocalSettingService.mDspSetting.mRunDetectTime        );
+        setSignalDelayTime              (mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime      );
+        setMDPhotoOn                    (mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn          );
+        setSensorCnt                    (mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt            );
+        setSimpleSens01                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity01   );
+        setSimpleSens02                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity02   );
+        setSimpleSens03                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity03   );
+        setSimpleSens04                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity04   );
+        setSimpleSens05                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity05   );
+
+        setIsEditLanguage                     ( false );
+        setIsEditPassword                     ( false );
+        setIsEditNewPassword                  ( false );
+        setIsEditConfirmPassword              ( false );
+        setIsEditIsDayMode                    ( false );
+        setIsEditIsDebugMode                  ( false );
+        setIsEditLampTime                     ( false );
+        setIsEditBuzzerTime                   ( false );
+        setIsEditSpeedConverter               ( false );
+        setIsEditMotorDirection               ( false );
+        setIsEditRejectorRunTimeRatio         ( false );
+        setIsEditDisplayStability             ( false );
+        setIsEditMeasureCueSign               ( false );
+        setIsEditMinStaticWeight              ( false );
+        setIsEditMinDynamicWeight             ( false );
+        setIsEditScaler                       ( false );
+        setIsEditStaticFactor                 ( false );
+        setIsEditDynamicFactor                ( false );
+        setIsEditStandardWeight               ( false );
+        setIsEditRefWeight                    ( false );
+        setIsEditWCPhotoOn                    ( false );
+        setIsEditMode                         ( false );
+        setIsEditDetectDetectTime             ( false );
+        setIsEditRunDetectTime                ( false );
+        setIsEditSignalDelayTime              ( false );
+        setIsEditMDPhotoOn                    ( false );
+        setIsEditSensorCnt                    ( false );
+        setIsEditSimpleSens01                 ( false );
+        setIsEditSimpleSens02                 ( false );
+        setIsEditSimpleSens03                 ( false );
+        setIsEditSimpleSens04                 ( false );
+        setIsEditSimpleSens05                 ( false );
+    }
+    explicit PanelDeviceSettingModel(QObject *parent = nullptr):QObject(parent)
+    {
+        mpCoreService = CoreService::getInstance();
+        reset();
+    }
 
 signals:
     void signalEventChangedLanguage                     (int      value);
@@ -373,13 +417,59 @@ signals:
     void signalEventChangedIsEditSimpleSens05           (bool     value);
 
     void signalResultSaveDeviceSetting(int error);
-    void signalCommandSaveDeviceSetting(void * sender, DeviceSetting value);
 
 public slots:
-    void onSignalResultSaveDeviceSetting(void * sender, DeviceSetting value);
 
-    Q_INVOKABLE void onCommandSave();
-    Q_INVOKABLE void onCommandCancle();
+    Q_INVOKABLE void onCommandSave()
+    {
+        if(mIsEditPassword || mIsEditNewPassword || mIsEditConfirmPassword)
+        {
+            if(mPassword == mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword && mNewPassword == mConfirmPassword)
+            {
+
+            }
+            else if((mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mPassword || mNewPassword != mConfirmPassword))
+            {
+                emit signalResultSaveDeviceSetting((int)EnumDefine::DatabaseErrorType::PASSWORD_ERROR);
+                return;
+            }
+        }
+
+        mpCoreService->onCommandEditDspSetting(mLampTime                                                               ,
+                                               mBuzzerTime                                                             ,
+                                               mSpeedConverter                                                         ,
+                                               mMotorDirection                                                         ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorLength           ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector     ,
+                                               mMDPhotoOn                                                              ,
+                                               mWCPhotoOn                                                              ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorReadyTime      ,
+                                               mRejectorRunTimeRatio                                                   ,
+                                               mStaticFactor                                                           ,
+                                               mScaler                                                                 ,
+                                               mDisplayStability                                                       ,
+                                               mMeasureCueSign                                                         ,
+                                               mMinStaticWeight                                                        ,
+                                               mMinDynamicWeight                                                       ,
+                                               mMode                                                                   ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceBtwSensor      ,
+                                               mDetectDetectTime                                                       ,
+                                               mRunDetectTime                                                          ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToWeightChecker,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mDistancePhotoToSensor  ,
+                                               mSignalDelayTime                                                        ,
+                                               mStandardWeight                                                         ,
+                                               mRefWeight                                                              ,
+                                               mSensorCnt                                                              );
+        mpCoreService->mLocalSettingService.setGuiLanguage(mLanguage);
+        mpCoreService->mLocalSettingService.setSecuritySetting(mPassword, mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword);
+        mpCoreService->mLocalSettingService.setHmiSetting(mIsDayMode, mIsDebugMode, mDynamicFactor, mSimpleSens01, mSimpleSens02, mSimpleSens03, mSimpleSens04, mSimpleSens05);
+
+        reset();
+
+        emit signalResultSaveDeviceSetting((int)EnumDefine::DatabaseErrorType::DB_NONE_ERROR);
+    }
+    Q_INVOKABLE void onCommandCancle(){ reset(); }
 
     Q_INVOKABLE void onCommandSetLanguage                     (int      value){setLanguage                     (value);}
     Q_INVOKABLE void onCommandSetPassword                     (QString  value){setPassword                     (value);}

@@ -17,22 +17,29 @@ UiPanel {
     width : 1518
     height : 997
 
-    Component.onCompleted:
+    function loadList()
     {
         var selectIdx = 0;
+
+        listModel.clear()
 
         for(var i = 0; i < productSettingModel.productCount; i ++)
         {
             var itemModel = productSettingModel.onCommandGetItemModel(i);
-            listModel.append({"seq":itemModel.seq})
+            listModel.append({"productSeq":itemModel.seq,"productNo":itemModel.no,"productName":itemModel.name})
 
-            if(productSettingModel.selectedProductSeq === itemModel.seq)
+            if(productSettingModel.lookProductSeq === itemModel.seq)
             {
                 selectIdx = i;
             }
         }
 
         productList.positionViewAtIndex(selectIdx, ListView.Beginning)
+    }
+
+    Component.onCompleted:
+    {
+        loadList()
     }
 
     PanelProductSettingModel
@@ -80,30 +87,9 @@ UiPanel {
             }
             else
             {
+                loadList()
+
                 ViewManager.toast.show(qsTr("Your settings have been saved."))
-            }
-        }
-
-        onSignalEventRemoveProductSetting:
-        {
-            for(var i = 0; i < listModel.count; i ++)
-            {
-                if( listModel.get(i).seq === seq)
-                {
-                    listModel.remove(i);
-                    break;
-                }
-            }
-        }
-
-        onSignalEventAddProductSetting:
-        {
-            listModel.clear()
-
-            for(var i = 0; i < productSettingModel.productCount; i ++)
-            {
-                var itemModel = productSettingModel.onCommandGetItemModel(i);
-                listModel.append({"seq":itemModel.seq})
             }
         }
     }
@@ -122,18 +108,16 @@ UiPanel {
 
         delegate: UiPanel
         {
-            property ProductSettingItemModel itemModel : productSettingModel.onCommandFindItemModel(seq)
-
             height : 100
             width : 495
-            type : productSettingModel.lookProductSeq === itemModel.seq ? EnumDefine.PANEL_TYPE_SELECT : EnumDefine.PANEL_TYPE_NONE
+            type : productSettingModel.lookProductSeq === productSeq ? EnumDefine.PANEL_TYPE_SELECT : EnumDefine.PANEL_TYPE_NONE
 
             MouseArea{
                 anchors.fill: parent
 
                 onClicked:
                 {
-                    productSettingModel.onCommandSetLookProduct(itemModel.seq)
+                    productSettingModel.onCommandSetLookProduct(productSeq)
                 }
             }
 
@@ -146,11 +130,11 @@ UiPanel {
                 anchors.verticalCenter: parent.verticalCenter
 
                 textValue : ""
-                isSelect : productSettingModel.selectedProductSeq === itemModel.seq
+                isSelect : productSettingModel.selectedProductSeq === productSeq
 
                 onSignalEventClicked: {
-                    productSettingModel.onCommandSetSelectProduct(itemModel.seq)
-                    productSettingModel.onCommandSetLookProduct(itemModel.seq)
+                    productSettingModel.onCommandSetSelectProduct(productSeq)
+                    productSettingModel.onCommandSetLookProduct(productSeq)
                 }
             }
 
@@ -161,7 +145,7 @@ UiPanel {
                 anchors.leftMargin: 80
                 anchors.verticalCenter: parent.verticalCenter
 
-                textValue: ("000" + itemModel.no).slice(-3) + "  " + itemModel.name
+                textValue: ("000" + productNo).slice(-3) + "  " + productName
             }
         }
 

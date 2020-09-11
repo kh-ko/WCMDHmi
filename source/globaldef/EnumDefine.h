@@ -44,6 +44,9 @@ class EnumDefine: public QObject{
   Q_ENUMS(WCViewMode)
   Q_ENUMS(UserLevel)
   Q_ENUMS(Company)
+  Q_ENUMS(ServiceState)
+  Q_ENUMS(FactoryResetState)
+  Q_ENUMS(FileErrorType)
 
 
 public:
@@ -387,6 +390,29 @@ public:
   enum Company{
       COMPANY_NOVASEN = 0,
       COMPANY_DONGNAM = 1
+  };
+
+  enum ServiceState{
+      SERVICE_INIT     = 0,
+      SERVICE_STARTING = 1,
+      SERVICE_STARTED  = 2,
+      SERVICE_STOPPING = 3,
+      SERVICE_STOP     = 4
+  };
+
+  enum FactoryResetState{
+      FACTORYRESET_NONE           = 0,
+      FACTORYRESET_START_ALL      = 1,
+      FACTORYRESET_START_ONLY_HIS = 2,
+      FACTORYRESET_DSP_FOR_ALL    = 3,
+      FACTORYRESET_DSP_FOR_HIS    = 4,
+      FACTORYRESET_LOCAL          = 5,
+      FACTORYRESET_HISTORY        = 6,
+
+  };
+  enum FileErrorType{
+      FILE_ERROR_NONE       = 0,
+      FILE_ERROR_NOT_EXIST  = 1
   };
 };
 
