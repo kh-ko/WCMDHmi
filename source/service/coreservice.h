@@ -154,13 +154,12 @@ public slots:
 
 //  internal layer ===================================================================================
 signals:
-    void signalCommandWorkingHistoryLoadLine (QString path, QString fileName);
+    void signalCommandWorkingHistoryLoadLine (QString path, QString fileName, int lineCnt);
 
 public slots:
     void onSignalEventCompleteLoadProductSetting();
     void onSignalEventCompleteLoadDspConnection();
-    void onSignalEventCompleteInitEventService();
-    void onSignalEventLoadedLineWorkingHistory(QString content);
+    void onSignalEventLoadedLineWorkingHistory(QStringList lines);
     void onSignalEventEndOfLineWorkingHistory();
 public:
     explicit CoreService(QObject *parent = nullptr);

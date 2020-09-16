@@ -85,7 +85,7 @@ bool FileWriter::remove(QString path, QString fileName)
 
 void FileWriter::close()
 {
-    if(mFile.isOpen() == false)
+    if(mFile.isOpen())
         mFile.close();
 }
 

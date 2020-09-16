@@ -12,7 +12,7 @@ class LanguageHelper : public QObject
 public:
     static LanguageHelper * mpSelf;
 private:
-    QObject * mContext;
+    QObject * mContext = nullptr;
     EnumDefine::Language mLanguage = EnumDefine::Language::ENG;
     QTranslator mTranslator;
 

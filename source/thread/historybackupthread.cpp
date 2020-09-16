@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QProcess>
+#include <QDebug>
 
 #include "source/globaldef/EnumDefine.h"
 
@@ -24,6 +25,8 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
     QString applicationPath = QApplication::applicationDirPath();
     QString srcBaseFolder = QString("%1/database/history").arg(applicationPath);
     QString dstBaseFolder = QString("/home/pi/usb/novasen/backup/%1").arg(deviceNumber);
+
+    mkdirBackupFolder(QString("%1").arg(deviceNumber));
 
     quint64 startDateNumber = (startYear * 10000) + (startMonth * 100) + startDay;
     quint64 endDateNumber   = (endYear   * 10000) + (endMonth   * 100) + endDay  ;
@@ -77,8 +80,11 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
             break;
         }
 
-        if(QFile::copy(srcFileList.at(i),dstFileList.at(i)) == false)
+        QFile srcFile(srcFileList.at(i));
+
+        if(srcFile.copy(dstFileList.at(i)) == false)
         {
+            qDebug() << "[HistoryBackupThread::onCommandBackup] err = " << srcFile.errorString();
             ret = EnumDefine::BackupResult::BACKUP_UNKNOW_ERROR;
             break;
         }
@@ -88,4 +94,13 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
     setIsProc(false);
 
     emit signalEventCompleted(ret);
+}
+
+void HistoryBackupThread::mkdirBackupFolder(QString deviceNum)
+{
+    QDir("/home/pi/usb/novasen").removeRecursively();
+
+    QDir().mkdir("/home/pi/usb/novasen");
+    QDir().mkdir("/home/pi/usb/novasen/backup");
+    QDir().mkdir(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum));
 }

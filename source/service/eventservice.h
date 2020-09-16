@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSettings>
 #include "source/service/productsettingservice.h"
+#include "source/util/filereader.h"
 #include "source/util/eventchecker.h"
 #include "source/model/eventmodel.h"
 
@@ -73,17 +74,21 @@ class EventService : public QObject
 {
     Q_OBJECT
 public:
-    QSettings *             mpSettings = nullptr;
-    QString                 mLastTime;
+    QSettings *             mpSettings = nullptr      ;
+    bool                    mIsWorkingContinue = false;
+    QString                 mLastTime                 ;
+    QString                 mLastStartDate            ;
+    int                     mLastEventYear            ;
+    int                     mLastEventMonth           ;
+    int                     mLastEventDay             ;
+    QString                 mProductStatisticsFileName;
+    QString                 mProductHistoryFileName   ;
+    QString                 mEventHistoryFileName     ;
     ProductSettingService * mpProductSettingService;
 
-    QString mTodayProductStatisticsPath    ;
-    QString mTodayProductHistoryPath       ;
-    QString mTodayEventHistoryPath         ;
+
+    QString mDailyHistoryPath              ;
     QString mWorkingEventHistoryPath       ;
-    QString mTodayProductStatisticsFileName;
-    QString mTodayProductHistoryFileName   ;
-    QString mTodayEventHistoryFileName     ;
     QString mWorkingEventHistoryFileName   ;
 
     FileWriter mTodayProductStatisticsWriter;
@@ -91,15 +96,15 @@ public:
     FileWriter mTodayEventHistoryWriter     ;
     FileWriter mWorkingEventHistoryWriter   ;
 
-    FileLoaderThread mTodayProductStatisticsLoader;
-    FileLoaderThread mTodayProductHistoryLoader   ;
-
     ProductStatistics *        mpCurrentProductStatistics = nullptr;
     QList<ProductStatistics *> mListProductStatistics;
     QList<ProductSettingModel *> mListProductHistory;
 
     void init(ProductSettingService * ps);
+    void loadProductStatistics(QString content);
+    void loadProductHistory(QString content);
 
+    bool isWorkingContiune();
     void addEvent(quint64 dspSeq, quint16 eventType, quint32 value);
     void addProductHistory(ProductSettingModel * pProductSetting);
     void addProductSetting(ProductSettingModel * pProductSetting);
@@ -108,21 +113,6 @@ public:
     void setLastDateTime(QString dateTime);
     void factoryReset();
     void workReset();
-
-signals:
-    void signalEventCompleteInit();
-
-
-// down layer ===================================================
-signals:
-    void signalCommandProductStatisticsLoadLine(QString, QString);
-    void signalCommandProductHistoryLoadLine   (QString, QString);
-
-public slots:
-    void onSignalEventLoadedLineProductStatistics(QString content);
-    void onSignalEventEndOfLineProductStatistics (               );
-    void onSignalEventLoadedLineProductHistory   (QString content);
-    void onSignalEventEndOfLineProductHistory    (               );
 
 //internal layer ==================================================
 public:

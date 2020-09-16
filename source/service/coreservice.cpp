@@ -65,15 +65,9 @@ void CoreService::onSignalEventCompleteLoadDspConnection()
     }
 
     mEventService.init(&mProductSettingServcie);
-}
 
-
-void CoreService::onSignalEventCompleteInitEventService()
-{
-    qDebug() << "[CoreService::onSignalEventCompleteInitEventService]Event service is initialized";
-
-    if(mLocalSettingService.mHmiSetting.mIsDayMode)
-        emit signalCommandWorkingHistoryLoadLine(mEventService.mWorkingEventHistoryPath, mEventService.mWorkingEventHistoryFileName);//  signalEventLoadWorkingHistory(mEventService.mWorkingPath, mEventService.mWorkingFileName);
+    if(mLocalSettingService.mHmiSetting.mIsDayMode && mEventService.isWorkingContiune())
+        emit signalCommandWorkingHistoryLoadLine(mEventService.mWorkingEventHistoryPath, mEventService.mWorkingEventHistoryFileName, 1000);//  signalEventLoadWorkingHistory(mEventService.mWorkingPath, mEventService.mWorkingFileName);
     else
     {
         mEventService.workReset();
@@ -81,20 +75,23 @@ void CoreService::onSignalEventCompleteInitEventService()
     }
 }
 
-
-void CoreService::onSignalEventLoadedLineWorkingHistory(QString content)
+void CoreService::onSignalEventLoadedLineWorkingHistory(QStringList lines)
 {
     EventModel event;
-    event.setStringValue(content);
 
-    if(EventChecker::IsWeightOrMetal(event.mEventType))
+    for(int i = 0; i < lines.size(); i ++)
     {
-        DspStatusModel * pDspStatus = mMapDspStatus[event.mDspSeq];
-        pDspStatus->setSelectProductSetting(event.mProductSettingSeq);
-        pDspStatus->addEvent(event.mEventType, event.mValue, true);
+        event.setStringValue(lines.at(i));
+
+        if(EventChecker::isWeightOrMetal(event.mEventType))
+        {
+            DspStatusModel * pDspStatus = mMapDspStatus[event.mDspSeq];
+            pDspStatus->setSelectProductSetting(event.mProductSettingSeq);
+            pDspStatus->addEvent(event.mEventType, event.mValue, true);
+        }
     }
 
-    emit signalCommandWorkingHistoryLoadLine(mEventService.mWorkingEventHistoryPath, mEventService.mWorkingEventHistoryFileName);
+    emit signalCommandWorkingHistoryLoadLine(mEventService.mWorkingEventHistoryPath, mEventService.mWorkingEventHistoryFileName, 1000);
 }
 
 void CoreService::onSignalEventEndOfLineWorkingHistory()
@@ -115,8 +112,6 @@ void CoreService::onSignalEventEndOfLineWorkingHistory()
         DspSettingDto     dsDto(&mLocalSettingService.mDspSetting);
         emit signalCommandAddDSP(conDto, dsDto, psDto);
     }
-
-    mEventService.selectProductSetting(&mProductSettingServcie.mCurrentProductSetting);
 
     mEventService.addEvent(0, EnumDefine::EventType::APP_EXIT_TYPE, 0);
     mEventService.addEvent(0, EnumDefine::EventType::APP_START_TYPE, 0);
@@ -291,6 +286,13 @@ int CoreService::onCommandSelectProductSetting(quint64 seq)
         return ret;
 
     mEventService.selectProductSetting(&mProductSettingServcie.mCurrentProductSetting);
+
+    QList<quint64> keys = mMapDspStatus.keys();
+
+    for(int i = 0; i < keys.size(); i ++)
+    {
+        mMapDspStatus[keys[i]]->setSelectProductSetting(mProductSettingServcie.mCurrentProductSetting.mSeq);
+    }
 
     ProductSettingDto psDto(&mProductSettingServcie.mCurrentProductSetting);
     emit signalCommandSendProductSetting(INVALID_ULONGLONG, psDto);
@@ -490,10 +492,9 @@ CoreService::CoreService(QObject *parent) : QObject(parent)
     connect(&mTimer                   , SIGNAL(timeout()), this,SLOT(onUpdateTimer()));
     connect(&mProductSettingServcie   , SIGNAL(signalEventCompleteLoad(       )), this, SLOT(onSignalEventCompleteLoadProductSetting (       )));
     connect(&mDspConnectionInfoService, SIGNAL(signalEventCompleteLoad(       )), this, SLOT(onSignalEventCompleteLoadDspConnection  (       )));
-    connect(&mEventService            , SIGNAL(signalEventCompleteInit(       )), this, SLOT(onSignalEventCompleteInitEventService   (       )));
 
-    connect(this, SIGNAL(signalCommandWorkingHistoryLoadLine   (QString, QString)), &mWorkingHistoryLoader   , SLOT(onCommandLoadLine   (QString, QString)));
-    connect(&mWorkingHistoryLoader    , SIGNAL(signalEventLoadedLine  (QString)), this, SLOT(onSignalEventLoadedLineWorkingHistory   (QString)));
+    connect(this, SIGNAL(signalCommandWorkingHistoryLoadLine   (QString, QString, int)), &mWorkingHistoryLoader   , SLOT(onCommandLoadMultiLine   (QString, QString, int)));
+    connect(&mWorkingHistoryLoader    , SIGNAL(signalEventLoadedMultiLine(QStringList)), this, SLOT(onSignalEventLoadedLineWorkingHistory   (QStringList)));
     connect(&mWorkingHistoryLoader    , SIGNAL(signalEventEndOfLine   (       )), this, SLOT(onSignalEventEndOfLineWorkingHistory    (       )));
 
     connect(this, SIGNAL(signalCommandDspCommunityStop              (                          )), &mDspCommunityThread, SLOT(onCommandStopService                   (                          )));

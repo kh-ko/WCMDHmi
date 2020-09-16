@@ -46,8 +46,7 @@ UiPanel {
         id : btnBackup
         width: 164
         height: 80
-        anchors.topMargin: 20
-        anchors.top: parent.top
+        anchors.verticalCenter: inputStartDate.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 20
 
@@ -95,8 +94,8 @@ UiPanel {
         }
     }
 
-    UiComboBox{
-        id : comboDate
+    UiComboBox {
+        id: comboFilter
         z : 2
         height: 60
         anchors.topMargin: 115
@@ -104,104 +103,6 @@ UiPanel {
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.top: parent.top
-
-        bgColor: panel.bgColor
-        selIdx: loggingDataModel.selectOption
-        listModel: comboDateOption
-
-        ListModel{
-            id : comboDateOption
-
-            ListElement {
-                itemText : qsTr("Today")
-                itemIdx : 0
-            }
-            ListElement {
-                itemText : qsTr("Period")
-                itemIdx : 1
-            }
-        }
-
-        onSignalEventChangedSel: {
-            loggingDataModel.onCommandSetSelectOption(itemIdx)
-        }
-    }
-
-    UiInputDate
-    {
-        id : inputStartDate
-
-        width: 439
-        anchors.left: comboDate.right
-        anchors.leftMargin: 20
-        anchors.verticalCenter: comboDate.verticalCenter
-
-        isDisable: loggingDataModel.selectOption == EnumDefine.SEARCH_OPTION_TODAY
-        year : loggingDataModel.startYear
-        month : loggingDataModel.startMonth
-        day : loggingDataModel.startDay
-        hour : loggingDataModel.startHour
-
-        onSignalEventChangedDate:
-        {
-            loggingDataModel.onCommandSetStartDate(year, month, day, hour)
-        }
-    }
-
-    UiLabelSystem
-    {
-        id: labelFromTo
-        width : 20
-        height: 60
-        anchors.verticalCenter: inputStartDate.verticalCenter
-        anchors.left: inputStartDate.right
-        anchors.leftMargin: 20
-
-        textValue: "~"
-    }
-
-    UiInputDate {
-        id: inputEndDate
-        width: 439
-        anchors.leftMargin: 20
-        anchors.verticalCenter: labelFromTo.verticalCenter
-        anchors.left: labelFromTo.right
-
-        isDisable: loggingDataModel.selectOption == EnumDefine.SEARCH_OPTION_TODAY
-        year : loggingDataModel.endYear
-        month : loggingDataModel.endMonth
-        day : loggingDataModel.endDay
-        hour : loggingDataModel.endHour
-        onSignalEventChangedDate:
-        {
-            loggingDataModel.onCommandSetEndDate(year, month, day, hour)
-        }
-    }
-
-    UiButton{
-        id: btnSearch
-        width: 164
-        height: 60
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        textValue: qsTr("Search")
-        anchors.verticalCenter: inputEndDate.verticalCenter
-
-        onSignalEventClicked: {
-            loggingDataModel.onCommandSearch()
-        }
-
-    }
-
-    UiComboBox {
-        id: comboFilter
-        width: 270
-        height: 60
-        z: 1
-        anchors.topMargin: 20
-        anchors.top: comboDate.bottom
-        anchors.leftMargin: 20
-        anchors.left: parent.left
 
         bgColor: panel.bgColor
         selIdx: loggingDataModel.selectFilter
@@ -220,7 +121,46 @@ UiPanel {
 
         onSignalEventChangedSel: {
             loggingDataModel.onCommandSetSelectFilter(itemIdx)
+            loggingDataModel.onCommandSearch();
         }
+    }
+    UiInputDate
+    {
+        id : inputStartDate
+
+        width: 439
+        anchors.left: comboFilter.right
+        anchors.leftMargin: 20
+        anchors.verticalCenter: comboFilter.verticalCenter
+
+        //isDisable: true
+        isCalendarMode: true
+        isHourMode : false//isDisable: loggingDataModel.selectOption == EnumDefine.SEARCH_OPTION_TODAY
+        year : loggingDataModel.startYear
+        month : loggingDataModel.startMonth
+        day : loggingDataModel.startDay
+        //hour : loggingDataModel.startHour
+         //
+        onSignalEventChangedDate:
+        {
+            loggingDataModel.onCommandSetStartDate(year, month, day)
+        }
+    }
+
+    UiButton{
+        id: btnSearch
+        width: 164
+        height: 80
+        anchors.left: inputStartDate.right
+        anchors.leftMargin: 20
+        textValue: qsTr("Search")
+        anchors.verticalCenter: inputStartDate.verticalCenter
+
+        onSignalEventClicked: {
+            loggingDataModel.onCommandSearch()
+            //calendar.visible = true;
+        }
+
     }
 
     UiLabelContent{
@@ -244,8 +184,8 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: comboFilter.bottom
-        anchors.topMargin: 20
+        anchors.top: inputStartDate.bottom
+        anchors.topMargin: 100
     }
 
     RowLayout{
@@ -363,6 +303,34 @@ UiPanel {
             loggingDataModel.onCommandMovePage(pageIdx)
         }
     }
+   /*
+    MouseArea{
+        id: mouseArea00
+        anchors.fill: calendar
+        //hoverEnabled: true
+        propagateComposedEvents: true
+        //onHoveredChanged: {console.debug("" + containsMouse)}
+        onContainsMouseChanged: {
+            console.debug("" + containsMouse)
+        }
+    }
+
+
+    UiCalendar{
+        id : calendar
+        width: 500
+        height: 500
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        visible: false
+
+        onPressed: {}
+        onClicked: {
+            loggingDataModel.onCommandSetStartDate(date.getFullYear(), date.getMonth() + 1 , date.getDate())
+            loggingDataModel.onCommandSearch();
+            calendar.visible = false
+        }
+    }*/
 
     Item{
         id : busyIndi
@@ -387,6 +355,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:10;anchors_width:164}
 }
 ##^##*/

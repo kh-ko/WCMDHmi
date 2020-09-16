@@ -2,14 +2,14 @@
 #include <QDebug>
 #include "source/globaldef/EnumDefine.h"
 
-FileLoaderThread::FileLoaderThread(QObject *parent) : QObject(parent)
+FileLoakerThreadWorker::FileLoakerThreadWorker(QObject *parent) : QObject(parent)
 {
-    moveToThread(&mThread);
-    mThread.start();
+
 }
 
-FileLoaderThread::~FileLoaderThread()
+FileLoakerThreadWorker::~FileLoakerThreadWorker()
 {
+    qDebug() << "FileLoakerThreadWorker::delete";
     if(mpFile != nullptr)
     {
         if(mpOutStream != nullptr)
@@ -20,12 +20,9 @@ FileLoaderThread::~FileLoaderThread()
         delete mpFile;
         mpFile = nullptr;
     }
-
-    mThread.quit();
-    mThread.wait();
 }
 
-void FileLoaderThread::onCommandLoadAll(QString path, QString fileName)
+void FileLoakerThreadWorker::onCommandLoadAll(QString path, QString fileName)
 {
     int retError = EnumDefine::FileErrorType::FILE_ERROR_NONE;
     QStringList fileList;
@@ -71,7 +68,7 @@ void FileLoaderThread::onCommandLoadAll(QString path, QString fileName)
     emit signalEventCompleteLoad(retError);
 }
 
-void FileLoaderThread::onCommandLoadLine(QString path, QString fileName)
+void FileLoakerThreadWorker::onCommandLoadLine(QString path, QString fileName)
 {
     if(mpFile == nullptr)
     {
@@ -103,4 +100,48 @@ void FileLoaderThread::onCommandLoadLine(QString path, QString fileName)
     }
 
     emit signalEventLoadedLine(mpOutStream->readLine());
+}
+
+void FileLoakerThreadWorker::onCommandLoadMultiLine(QString path, QString fileName, int lineCnt)
+{
+    QStringList lines;
+
+    if(mpFile == nullptr)
+    {
+        mpFile = new QFile(QString("%1/%2.txt").arg(path).arg(fileName),this);
+        mpFile->open(QIODevice::ReadOnly | QIODevice::Text );
+
+        if(mpFile->isOpen() == false)
+        {
+            qDebug() << "[onCommandLoadLine] file name =" << QString("%1/%2").arg(path).arg(fileName) << ",occured exception, file name = " <<  mpFile->errorString();
+            delete mpFile;
+            mpFile = nullptr;
+            emit signalEventEndOfLine();
+            return;
+        }
+
+        mpOutStream = new QTextStream();
+        mpOutStream->setDevice(mpFile);
+    }
+
+    for(int i = 0; i < lineCnt; i ++)
+    {
+        if(mpOutStream->atEnd())
+            break;
+
+        lines.append(mpOutStream->readLine());
+    }
+
+    if(lines.size() == 0)
+    {
+        delete mpOutStream;
+        mpOutStream=nullptr;
+        mpFile->close();
+        delete mpFile;
+        mpFile = nullptr;
+        emit signalEventEndOfLine();
+        return;
+    }
+
+    emit signalEventLoadedMultiLine(lines);
 }

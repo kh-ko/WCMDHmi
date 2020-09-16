@@ -30,6 +30,7 @@ SOURCES += \
         source/util/etcutil.cpp \
         source/util/eventchecker.cpp \
         source/util/fileloaderthread.cpp \
+        source/util/filereader.cpp \
         source/util/filewriter.cpp \
         source/util/mouseeventspy.cpp \
         source/util/myalloc.cpp
@@ -107,6 +108,7 @@ HEADERS += \
     source/util/etcutil.h \
     source/util/eventchecker.h \
     source/util/fileloaderthread.h \
+    source/util/filereader.h \
     source/util/filewriter.h \
     source/util/mouseeventspy.h \
     source/util/myalloc.h

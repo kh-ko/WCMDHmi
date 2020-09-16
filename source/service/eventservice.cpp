@@ -4,45 +4,54 @@
 #include <QDebug>
 
 #define PROC_SETTIG_PATH_LAST_DATETIME "lasttime/lasttime"
+#define PROC_SETTIG_PATH_LAST_STARTDATE "lasttime/laststartdate"
 
 void EventService::init(ProductSettingService * ps)
 {
     qDebug() << "[EventService::init]";
 
+    QString today = QDateTime::currentDateTime().toString("yyyy-MM-dd");
+    mLastEventYear  = today.split("-")[0].toInt();
+    mLastEventMonth = today.split("-")[1].toInt();
+    mLastEventDay   = today.split("-")[2].toInt();
+
+    mProductStatisticsFileName = QString("%1-PS").arg(today);
+    mProductHistoryFileName    = QString("%1-PH").arg(today);
+    mEventHistoryFileName      = QString("%1-EH").arg(today);
+
+    mTodayProductStatisticsWriter.close();
+    mTodayProductHistoryWriter.close();
+    mTodayEventHistoryWriter.close();
+
+    for(int i = 0; i < mListProductStatistics.size(); i++)
+    {
+        delete mListProductStatistics.at(i);
+    }
+    mListProductStatistics.clear();
+
+    for(int i = 0; i < mListProductHistory.size(); i++)
+    {
+        delete mListProductHistory.at(i);
+    }
+    mListProductHistory.clear();
+
     mpProductSettingService = ps;
-    emit signalCommandProductStatisticsLoadLine(mTodayProductStatisticsPath, mTodayProductStatisticsFileName);
-}
 
-void EventService::onSignalEventLoadedLineProductStatistics(QString content)
-{
-    qDebug() << "[EventService::onSignalEventLoadedLineProductStatistics]" << content;
+    FileReader fr;
+    QStringList lines = fr.readAll(mDailyHistoryPath, mProductStatisticsFileName);
 
-    ProductStatistics * pProductStatistics = new ProductStatistics(this);
-    pProductStatistics->setStringValue(content);
-    pProductStatistics->mFileLineIdx = mListProductStatistics.size();
-    mListProductStatistics.append(pProductStatistics);
+    for(int i = 0; i < lines.size(); i ++)
+    {
+        loadProductStatistics(lines.at(i));
+    }
 
-    emit signalCommandProductStatisticsLoadLine(mTodayProductStatisticsPath, mTodayProductStatisticsFileName);
-}
+    lines = fr.readAll(mDailyHistoryPath, mProductHistoryFileName);
 
-void EventService::onSignalEventEndOfLineProductStatistics()
-{
-    emit signalCommandProductHistoryLoadLine(mTodayProductHistoryPath, mTodayProductHistoryFileName);
-}
+    for(int i = 0; i < lines.size(); i ++)
+    {
+        loadProductHistory(lines.at(i));
+    }
 
-void EventService::onSignalEventLoadedLineProductHistory(QString content)
-{
-    qDebug() << "[EventService::onSignalEventLoadedLineProductHistory]" << content;
-
-    ProductSettingModel * pProductSetting = new ProductSettingModel(this);
-    pProductSetting->setStringValue(content,",");
-    mListProductHistory.append(pProductSetting);
-
-    emit signalCommandProductHistoryLoadLine(mTodayProductHistoryPath, mTodayProductHistoryFileName);
-}
-
-void EventService::onSignalEventEndOfLineProductHistory()
-{
     for(int i = 0; i < mpProductSettingService->mListProductSetting.size(); i ++)
     {
         ProductSettingModel *pProductSetting = mpProductSettingService->mListProductSetting.at(i);
@@ -54,12 +63,40 @@ void EventService::onSignalEventEndOfLineProductHistory()
         }
     }
 
-    emit signalEventCompleteInit();
+    selectProductSetting(&mpProductSettingService->mCurrentProductSetting);
+}
+
+void EventService::loadProductStatistics(QString content)
+{
+    qDebug() << "[EventService::onSignalEventLoadedLineProductStatistics]" << content;
+
+    ProductStatistics * pProductStatistics = new ProductStatistics(this);
+    pProductStatistics->setStringValue(content);
+    pProductStatistics->mFileLineIdx = mListProductStatistics.size();
+    mListProductStatistics.append(pProductStatistics);
+}
+
+void EventService::loadProductHistory(QString content)
+{
+    qDebug() << "[EventService::onSignalEventLoadedLineProductHistory]" << content;
+
+    ProductSettingModel * pProductSetting = new ProductSettingModel(this);
+    pProductSetting->setStringValue(content,",");
+    mListProductHistory.append(pProductSetting);
 }
 
 void EventService::addEvent(quint64 dspSeq, quint16 eventType, quint32 value)
 {
-    EventModel event;
+    EventModel * event = new EventModel(this);
+    QDate currDate = QDateTime::currentDateTime().date();
+
+    event->createEvent(dspSeq, mpCurrentProductStatistics->mProductSettingSeq, mListProductHistory.size() - 1, eventType, value);
+
+    if(currDate.year() != mLastEventYear || currDate.month() != mLastEventMonth || currDate.day() != mLastEventDay)
+    {
+        init(mpProductSettingService);
+    }
+
     if(mpCurrentProductStatistics != nullptr)
     {
         switch(eventType)
@@ -80,24 +117,33 @@ void EventService::addEvent(quint64 dspSeq, quint16 eventType, quint32 value)
         qDebug() << "[EventService::addEvent]not set current product statistics";
     }
 
-    event.createEvent(dspSeq, mpCurrentProductStatistics->mProductSettingSeq, mListProductHistory.size() - 1, eventType, value);
-
     if(eventType == EnumDefine::EventType::APP_EXIT_TYPE)
     {
         if(mLastTime == "")
             return;
 
-        event.mDateTime = mLastTime;
+        event->mDateTime = mLastTime;
+
+        QString date = mLastTime.split(" ")[0];
+        QString fileName = QString("%1-%2-%3-EH").arg(date.split("/")[0]).arg(date.split("/")[1]).arg(date.split("/")[2]);
+
+        if(fileName != mEventHistoryFileName)
+        {
+            FileWriter fw;
+            fw.appendLine(mDailyHistoryPath,fileName,event->toString());
+            return;
+        }
     }
     else
     {
-        mpSettings->setValue(PROC_SETTIG_PATH_LAST_DATETIME, event.mDateTime);
+        mpSettings->setValue(PROC_SETTIG_PATH_LAST_DATETIME, event->mDateTime);
     }
 
-    // file write
-    mTodayProductStatisticsWriter.overWriteLine(mTodayProductStatisticsPath, mTodayProductStatisticsFileName, mpCurrentProductStatistics->toString(), 500 * mpCurrentProductStatistics->mFileLineIdx, 500);
-    mTodayEventHistoryWriter.appendLine(mTodayEventHistoryPath, mTodayEventHistoryFileName, event.toString());
-    mWorkingEventHistoryWriter.appendLine(mWorkingEventHistoryPath, mWorkingEventHistoryFileName,event.toString());
+    mTodayProductStatisticsWriter.overWriteLine(mDailyHistoryPath, mProductStatisticsFileName, mpCurrentProductStatistics->toString(), 500 * mpCurrentProductStatistics->mFileLineIdx, 500);
+    mTodayEventHistoryWriter.appendLine(mDailyHistoryPath, mEventHistoryFileName, event->toString());
+    mWorkingEventHistoryWriter.appendLine(mWorkingEventHistoryPath, mWorkingEventHistoryFileName,event->toString());
+
+    delete event;
 }
 
 void EventService::addProductHistory(ProductSettingModel * pProductSetting)
@@ -109,7 +155,7 @@ void EventService::addProductHistory(ProductSettingModel * pProductSetting)
     mListProductHistory.append(temp);
 
     // file write
-    mTodayProductHistoryWriter.appendLine(mTodayProductHistoryPath, mTodayProductHistoryFileName,temp->toString(","));
+    mTodayProductHistoryWriter.appendLine(mDailyHistoryPath, mProductHistoryFileName,temp->toString(","));
 }
 
 void EventService::addProductSetting(ProductSettingModel * pProductSetting)
@@ -123,7 +169,7 @@ void EventService::addProductSetting(ProductSettingModel * pProductSetting)
     mListProductStatistics.append(pProductStatistics);
 
     // file write
-    mTodayProductStatisticsWriter.overWriteLine(mTodayProductStatisticsPath, mTodayProductStatisticsFileName, pProductStatistics->toString(), 500 * pProductStatistics->mFileLineIdx, 500);
+    mTodayProductStatisticsWriter.overWriteLine(mDailyHistoryPath, mProductStatisticsFileName, pProductStatistics->toString(), 500 * pProductStatistics->mFileLineIdx, 500);
 }
 
 void EventService::editProductSetting(ProductSettingModel * pProductSetting)
@@ -162,7 +208,7 @@ void EventService::factoryReset()
     mTodayProductHistoryWriter.close();
     mTodayEventHistoryWriter.close();
     mWorkingEventHistoryWriter.close();
-    QDir(mTodayProductStatisticsPath).removeRecursively();
+    QDir(mDailyHistoryPath).removeRecursively();
 }
 
 void EventService::workReset()
@@ -185,31 +231,28 @@ ProductStatistics * EventService::findProductStatistics(quint64 productSettingSe
     return nullptr;
 }
 
+bool EventService::isWorkingContiune()
+{
+    return mIsWorkingContinue;
+}
+
 EventService::EventService(QObject *parent) : QObject(parent)
 {
     qDebug() << "[EventService::Create]";
-
-    QString today = QDateTime::currentDateTime().toString("yyyy-MM-dd");
+    QString today = QDateTime::currentDateTime().date().toString("yyyy/MM/dd");
     QString applicationPath = QApplication::applicationDirPath();
-
 
     mpSettings = new QSettings("novasen", "WCMD_LASTTIME", this);
     mLastTime = mpSettings->value(PROC_SETTIG_PATH_LAST_DATETIME, "").toString();
+    mLastStartDate = mpSettings->value(PROC_SETTIG_PATH_LAST_STARTDATE, "").toString();
 
-    mTodayProductStatisticsPath     = QString("%1/database/history"        ).arg(applicationPath);
-    mTodayProductHistoryPath        = QString("%1/database/history"        ).arg(applicationPath);
-    mTodayEventHistoryPath          = QString("%1/database/history"        ).arg(applicationPath);
+    mpSettings->setValue(PROC_SETTIG_PATH_LAST_STARTDATE, today);
+
+    mDailyHistoryPath               = QString("%1/database/history"        ).arg(applicationPath);
     mWorkingEventHistoryPath        = QString("%1/database/history/working").arg(applicationPath);
-    mTodayProductStatisticsFileName = QString("%1-PS").arg(today);
-    mTodayProductHistoryFileName    = QString("%1-PH").arg(today);
-    mTodayEventHistoryFileName      = QString("%1-EH").arg(today);
-    mWorkingEventHistoryFileName    = QString("%1-EH").arg(today);
 
-    connect(this, SIGNAL(signalCommandProductStatisticsLoadLine(QString, QString)), &mTodayProductStatisticsLoader, SLOT(onCommandLoadLine(QString, QString)));
-    connect(this, SIGNAL(signalCommandProductHistoryLoadLine   (QString, QString)), &mTodayProductHistoryLoader   , SLOT(onCommandLoadLine(QString, QString)));
+    mWorkingEventHistoryFileName    = QString("WORKING-EH");
 
-    connect(&mTodayProductStatisticsLoader, SIGNAL(signalEventLoadedLine(QString)), this, SLOT(onSignalEventLoadedLineProductStatistics(QString)));
-    connect(&mTodayProductStatisticsLoader, SIGNAL(signalEventEndOfLine (       )), this, SLOT(onSignalEventEndOfLineProductStatistics (       )));
-    connect(&mTodayProductHistoryLoader   , SIGNAL(signalEventLoadedLine(QString)), this, SLOT(onSignalEventLoadedLineProductHistory   (QString)));
-    connect(&mTodayProductHistoryLoader   , SIGNAL(signalEventEndOfLine (       )), this, SLOT(onSignalEventEndOfLineProductHistory    (       )));
+    if(mLastStartDate == today)
+        mIsWorkingContinue = true;
 }

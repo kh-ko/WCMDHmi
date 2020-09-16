@@ -1,16 +1,23 @@
 import QtQuick 2.0
+import ViewManager 1.0
 import "."
 
 Item {
     property color bgColor : "#232323"
     property bool isDisable : false
     property bool isHourMode : true
+    property bool isCalendarMode : false
     property int year : 2020
     property int month : 1
     property int day : 10
     property int hour : 10
 
     signal signalEventChangedDate(int year, int month, int day, int hour)
+
+    function setDate(inYear, inMonth, inDay)
+    {
+        signalEventChangedDate(inYear, inMonth, inDay, 0)
+    }
 
     id: control
     width :429
@@ -39,6 +46,15 @@ Item {
         onSignalChangeValue: {
             signalEventChangedDate(value, control.month, control.day, control.hour)
         }
+
+        MouseArea{
+            anchors.fill: parent
+            enabled: control.isCalendarMode
+
+            onClicked: {
+                ViewManager.calendar.showCalendar(control)
+            }
+        }
     }
 
     UiInputNumber{
@@ -63,6 +79,15 @@ Item {
 
         onSignalChangeValue: {
             signalEventChangedDate(control.year, value, control.day, control.hour)
+        }
+
+        MouseArea{
+            anchors.fill: parent
+            enabled: control.isCalendarMode
+
+            onClicked: {
+                ViewManager.calendar.showCalendar(control)
+            }
         }
     }
 
@@ -90,6 +115,14 @@ Item {
             control.signalEventChangedDate(control.year, control.month, value, control.hour)
         }
 
+        MouseArea{
+            anchors.fill: parent
+            enabled: control.isCalendarMode
+
+            onClicked: {
+                ViewManager.calendar.showCalendar(control)
+            }
+        }
 
         UiInputNumber{
             id : inputHour

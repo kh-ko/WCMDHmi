@@ -130,6 +130,11 @@ void DSPInterface::onRecevie()
         if(mPacketBuilder.compareCmdDeviceStatus(pDeviceStatus) == false)
         {
             qDebug() << "cmd device status missmatch";
+            qDebug() << "local wc g onoff : "  <<mPacketBuilder.mDataStore.mWCGraphOnOffCmd.mWCGraphOnOff;
+            qDebug() << "remote wc g onoff : " << pDeviceStatus->mIsWeightCheckerGraphOn;
+            qDebug() << "local md g onoff : "  << mPacketBuilder.mDataStore.mMDGraphOnOffCmd.mMDGraphOnOff;
+            qDebug() << "remote md g onoff : " << pDeviceStatus->mIsMetalDetectorGraphOn;
+
             sendPacket(mPacketBuilder.createReqPacketDeviceStatusCmd());
         }
 

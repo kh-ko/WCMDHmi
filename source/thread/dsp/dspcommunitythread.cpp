@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QDateTime>
 
-void DspCommunityThread::onStarted()
+void DspCommunityThreadWorker::onStarted()
 {
     qDebug() << "[DspCommunityThread::onStarted]";
 
@@ -15,11 +15,8 @@ void DspCommunityThread::onStarted()
 
     emit signalEventStarted();
 }
-void DspCommunityThread::onFinished()
-{
-    qDebug() << "[DspCommunityThread::onFinished]";
-}
-void DspCommunityThread::onTimeTick()
+
+void DspCommunityThreadWorker::onTimeTick()
 {
     for(int i = 0; i < mListDSPInterface.size(); i ++)
     {
@@ -27,7 +24,7 @@ void DspCommunityThread::onTimeTick()
     }
 }
 
-void DspCommunityThread::onCommandStopService()
+void DspCommunityThreadWorker::onCommandStopService()
 {
     qDebug() << "[DspCommunityThread::onCommandStopService]";
 
@@ -41,7 +38,7 @@ void DspCommunityThread::onCommandStopService()
     emit signalEventStopped();
 }
 
-void DspCommunityThread::onCommandAddDSP(DspConnectionDto connectionInfo, DspSettingDto ds, ProductSettingDto ps)
+void DspCommunityThreadWorker::onCommandAddDSP(DspConnectionDto connectionInfo, DspSettingDto ds, ProductSettingDto ps)
 {
     qDebug() << "[DspCommunityThread::onCommandAddDSP]ip =" << connectionInfo.mIp;
 
@@ -61,7 +58,7 @@ void DspCommunityThread::onCommandAddDSP(DspConnectionDto connectionInfo, DspSet
     dspInterface->onCommandStart();
 }
 
-void DspCommunityThread::onCommandRemoveDsp(quint64 deviceSeq)
+void DspCommunityThreadWorker::onCommandRemoveDsp(quint64 deviceSeq)
 {
     qDebug() << "[DspCommunityThread::onCommandRemoveDsp]deviceSeq =" << deviceSeq;
 
@@ -74,7 +71,7 @@ void DspCommunityThread::onCommandRemoveDsp(quint64 deviceSeq)
         }
     }
 }
-void DspCommunityThread::onCommandModifyDSP(DspConnectionDto connectionInfo)
+void DspCommunityThreadWorker::onCommandModifyDSP(DspConnectionDto connectionInfo)
 {
     qDebug() << "[DspCommunityThread::onCommandModifyDSP]";
 
@@ -88,7 +85,7 @@ void DspCommunityThread::onCommandModifyDSP(DspConnectionDto connectionInfo)
         }
     }
 }
-void DspCommunityThread::onCommandSendZeroCmd(quint64 deviceSeq)
+void DspCommunityThreadWorker::onCommandSendZeroCmd(quint64 deviceSeq)
 {
     qDebug() << "[DspCommunityThread::onCommandSendZeroCmd]";
 
@@ -102,7 +99,7 @@ void DspCommunityThread::onCommandSendZeroCmd(quint64 deviceSeq)
         }
     }
 }
-void DspCommunityThread::onCommandSendFactoryResetCmd(quint64 deviceSeq)
+void DspCommunityThreadWorker::onCommandSendFactoryResetCmd(quint64 deviceSeq)
 {
     qDebug() << "[DspCommunityThread::onCommandSendFactoryResetCmd]";
 
@@ -117,7 +114,7 @@ void DspCommunityThread::onCommandSendFactoryResetCmd(quint64 deviceSeq)
     }
 }
 
-void DspCommunityThread::onCommandSendWeightCaribCmd(quint64 deviceSeq, quint16 value)
+void DspCommunityThreadWorker::onCommandSendWeightCaribCmd(quint64 deviceSeq, quint16 value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendWeightCaribCmd]";
 
@@ -131,7 +128,7 @@ void DspCommunityThread::onCommandSendWeightCaribCmd(quint64 deviceSeq, quint16 
         }
     }
 }
-void DspCommunityThread::onCommandSendRunCmd(quint64 deviceSeq, quint16 value)
+void DspCommunityThreadWorker::onCommandSendRunCmd(quint64 deviceSeq, quint16 value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendRunCmd]";
 
@@ -145,7 +142,7 @@ void DspCommunityThread::onCommandSendRunCmd(quint64 deviceSeq, quint16 value)
         }
     }
 }
-void DspCommunityThread::onCommandSendWeightCheckerGraphOnCmd(quint64 deviceSeq, bool value)
+void DspCommunityThreadWorker::onCommandSendWeightCheckerGraphOnCmd(quint64 deviceSeq, bool value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendWeightCheckerGraphOnCmd]";
 
@@ -159,7 +156,7 @@ void DspCommunityThread::onCommandSendWeightCheckerGraphOnCmd(quint64 deviceSeq,
         }
     }
 }
-void DspCommunityThread::onCommandSendMetalDetectorGraphOnCmd       (quint64 deviceSeq, bool value)
+void DspCommunityThreadWorker::onCommandSendMetalDetectorGraphOnCmd       (quint64 deviceSeq, bool value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendMetalDetectorGraphOnCmd]";
 
@@ -173,7 +170,7 @@ void DspCommunityThread::onCommandSendMetalDetectorGraphOnCmd       (quint64 dev
         }
     }
 }
-void DspCommunityThread::onCommandSendDeviceIDCmd                   (quint64 deviceSeq, quint32 value)
+void DspCommunityThreadWorker::onCommandSendDeviceIDCmd                   (quint64 deviceSeq, quint32 value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendDeviceIDCmd] id = " << value;
 
@@ -187,7 +184,7 @@ void DspCommunityThread::onCommandSendDeviceIDCmd                   (quint64 dev
         }
     }
 }
-void DspCommunityThread::onCommandSendDspSetting                    (quint64 deviceSeq, DspSettingDto value)
+void DspCommunityThreadWorker::onCommandSendDspSetting                    (quint64 deviceSeq, DspSettingDto value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendDspSetting]";
 
@@ -201,7 +198,7 @@ void DspCommunityThread::onCommandSendDspSetting                    (quint64 dev
         }
     }
 }
-void DspCommunityThread::onCommandSendProductSetting                (quint64 deviceSeq, ProductSettingDto value)
+void DspCommunityThreadWorker::onCommandSendProductSetting                (quint64 deviceSeq, ProductSettingDto value)
 {
     qDebug() << "[DspCommunityThread::onCommandSendProductSetting]";
 
@@ -217,31 +214,24 @@ void DspCommunityThread::onCommandSendProductSetting                (quint64 dev
 }
 
 // dsp slot
-void DspCommunityThread::onSignalEventChangedIsConnect              (quint64 deviceSeq, bool value              ){emit signalEventChangedIsConnect           (deviceSeq, value);}
-void DspCommunityThread::onSignalEventCompletedFactoryReset         (quint64 deviceSeq                          ){emit signalEventCompletedFactoryReset      (deviceSeq       );}
-void DspCommunityThread::onSignalEventChangedRemoteDeviceSetting    (quint64 deviceSeq, DspSettingDto value     ){emit signalEventChangedRemoteDeviceSetting (deviceSeq, value);}
-void DspCommunityThread::onSignalEventChangedRemoteProductSetting   (quint64 deviceSeq, ProductSettingDto value ){emit signalEventChangedRemoteProductSetting(deviceSeq, value);}
-void DspCommunityThread::onSignalEventChangedDeviceStatus           (quint64 deviceSeq, DspStatusDto value      ){emit signalEventChangedDeviceStatus        (deviceSeq, value);}
-void DspCommunityThread::onSignalEventChangedDeviceInfo             (quint64 deviceSeq, DspInfoDto value        ){emit signalEventChangedDeviceInfo          (deviceSeq, value);}
-void DspCommunityThread::onSignalEventAddedEvent                    (quint64 deviceSeq, EventDto value          ){emit signalEventAddedEvent                 (deviceSeq, value);}
-void DspCommunityThread::onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, WeightGraphDto value    ){emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
-void DspCommunityThread::onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, MetalGraphDto value     ){emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventChangedIsConnect              (quint64 deviceSeq, bool value              ){emit signalEventChangedIsConnect           (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventCompletedFactoryReset         (quint64 deviceSeq                          ){emit signalEventCompletedFactoryReset      (deviceSeq       );}
+void DspCommunityThreadWorker::onSignalEventChangedRemoteDeviceSetting    (quint64 deviceSeq, DspSettingDto value     ){emit signalEventChangedRemoteDeviceSetting (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventChangedRemoteProductSetting   (quint64 deviceSeq, ProductSettingDto value ){emit signalEventChangedRemoteProductSetting(deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventChangedDeviceStatus           (quint64 deviceSeq, DspStatusDto value      ){emit signalEventChangedDeviceStatus        (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventChangedDeviceInfo             (quint64 deviceSeq, DspInfoDto value        ){emit signalEventChangedDeviceInfo          (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventAddedEvent                    (quint64 deviceSeq, EventDto value          ){emit signalEventAddedEvent                 (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, WeightGraphDto value    ){emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, MetalGraphDto value     ){emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
 
-DspCommunityThread::DspCommunityThread(QObject *parent) : QObject(parent)
+DspCommunityThreadWorker::DspCommunityThreadWorker(QObject *parent) : QObject(parent)
 {
     qDebug() << "[DspCommunityThread::Create]";
-
-    moveToThread(&mThread);
-    mThread.start();
-
-    connect(&mThread, SIGNAL(started()), this, SLOT(onStarted()));
-    connect(&mThread, SIGNAL(finished()), this, SLOT(onFinished()));
 }
 
-DspCommunityThread::~DspCommunityThread()
+DspCommunityThreadWorker::~DspCommunityThreadWorker()
 {
     qDebug() << "[DspCommunityThread::Delete]";
-
-    mThread.quit();
-    mThread.wait();
+    mpTimer->stop();
+    delete mpTimer;
 }

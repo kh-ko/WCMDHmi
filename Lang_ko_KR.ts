@@ -120,14 +120,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="215"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="275"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="216"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="276"/>
         <source>Please enter your password.</source>
         <translation>비밀번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="231"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="289"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="232"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="290"/>
         <source>Please check password</source>
         <oldsource>Invaild password</oldsource>
         <translation>비밀번호가 잘못되었습니다</translation>
@@ -267,6 +267,14 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelBackup.qml" line="250"/>
+        <source>Cancle</source>
+        <translation>취소</translation>
+    </message>
+</context>
+<context>
+    <name>PanelCalendar</name>
+    <message>
+        <location filename="qml/ui/main_scene/PanelCalendar.qml" line="59"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
@@ -936,12 +944,12 @@
         <translation>중량선별기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="55"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="54"/>
         <source>Backup</source>
         <translation>백업</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="72"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="71"/>
         <source>D/P count&lt;br&gt;reset</source>
         <oldsource>D/P count&lt;br&gt; reset</oldsource>
         <translation>화면표시&lt;br&gt;초기화</translation>
@@ -951,67 +959,65 @@
         <translation type="obsolete">화면에 표시되는 수치를 초기화 하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="73"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="72"/>
         <source>Do you want to reset display count?</source>
         <translation>화면에 표시되는 수치를 초기화 하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="90"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="89"/>
         <source>Logging&lt;br&gt;reset</source>
         <translation>운영이력&lt;br&gt;초기화</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="91"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="90"/>
         <source>Do you want to reset logging data?</source>
         <translation>운영이력을 초기화 하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="116"/>
         <source>Today</source>
-        <translation>오늘</translation>
+        <translation type="vanished">오늘</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="120"/>
         <source>Period</source>
-        <translation>기간</translation>
+        <translation type="vanished">기간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="187"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="156"/>
         <source>Search</source>
         <translation>검색</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="212"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="113"/>
         <source>Without Trade</source>
         <translation>정상이력제외</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="216"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="117"/>
         <source>Total</source>
         <translation>전체</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="237"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="177"/>
         <source>Total count : </source>
         <translation>전체 개수 : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="268"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="208"/>
         <source>Datetime</source>
         <translation>일시</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="276"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="216"/>
         <source>Product</source>
         <translation>제품</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="284"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="224"/>
         <source>Event</source>
         <translation>내용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="292"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="232"/>
         <source>Value</source>
         <translation>값</translation>
     </message>
@@ -1332,57 +1338,57 @@
         <translation type="obsolete">저장완료</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="38"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="54"/>
         <source>SQL error is occured.</source>
         <translation>SQL구문 오류가 발생하였습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="42"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="58"/>
         <source>This product dose not exist.</source>
         <translation>존재하지 않은 제품입니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="46"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="62"/>
         <source>The Product no already exists.</source>
         <translation>이미 존재하는 제품 번호입니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="50"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="66"/>
         <source>Please enter product no.</source>
         <translation>제품번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="54"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="70"/>
         <source>Invalid product length.</source>
         <translation>제품 길이가 잘못되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="58"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="74"/>
         <source>Invalid product speed.</source>
         <translation>제품 속도가 잘못 되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="62"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="78"/>
         <source>Invalid weight checker setting.</source>
         <translation>중량선별기 설정이 잘못 되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="66"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="82"/>
         <source>Invalid metal detector setting.</source>
         <translation>금속검출기 설정이 잘못되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="70"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="86"/>
         <source>can not remove selected product.</source>
         <translation>운전에 선택된 제품은 삭제할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="74"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="92"/>
         <source>Your settings have been saved.</source>
         <translation>설정이 저장되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="175"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="168"/>
         <source>New product</source>
         <translation>새 제품</translation>
     </message>
@@ -1500,22 +1506,22 @@
         <translation>현재중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="267"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="268"/>
         <source>Under</source>
         <translation>하한</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="289"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="290"/>
         <source>Normal</source>
         <translation>정량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="312"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="313"/>
         <source>Over</source>
         <translation>상한</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="425"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="426"/>
         <source>Etc</source>
         <translation>기타</translation>
     </message>
@@ -1982,6 +1988,36 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="647"/>
         <source>Do you want to remove this product?</source>
         <translation>제품설정정보를 삭제하시겠습니까?</translation>
+    </message>
+</context>
+<context>
+    <name>UiCalendar</name>
+    <message>
+        <location filename="qml/control/UiCalendar.qml" line="92"/>
+        <location filename="qml/control/UiCalendar.qml" line="97"/>
+        <source>S</source>
+        <translation>S</translation>
+    </message>
+    <message>
+        <location filename="qml/control/UiCalendar.qml" line="93"/>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
+        <location filename="qml/control/UiCalendar.qml" line="94"/>
+        <location filename="qml/control/UiCalendar.qml" line="96"/>
+        <source>T</source>
+        <translation>T</translation>
+    </message>
+    <message>
+        <location filename="qml/control/UiCalendar.qml" line="95"/>
+        <source>W</source>
+        <translation>W</translation>
+    </message>
+    <message>
+        <location filename="qml/control/UiCalendar.qml" line="97"/>
+        <source>F</source>
+        <translation>F</translation>
     </message>
 </context>
 <context>

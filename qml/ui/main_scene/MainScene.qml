@@ -94,6 +94,7 @@ Item {
         ViewManager.setMainScene(scene);
         ViewManager.setPopupTrendsOption(popupTrendsOption);
         ViewManager.setKeypad(keypad);
+        ViewManager.setCalendar(calendar);
         ViewManager.setToast(toast);
         ViewManager.setPopupConfirm(popupConfirm);
     }
@@ -312,6 +313,17 @@ Item {
         anchors.leftMargin: 0
         anchors.topMargin: 0
         anchors.fill: parent
+    }
+
+    PanelCalendar
+    {
+        id : calendar
+        anchors.rightMargin: 0
+        anchors.bottomMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: 0
+        anchors.fill: parent
+
     }
 
     PanelToastMessage

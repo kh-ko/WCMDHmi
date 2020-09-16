@@ -34,7 +34,7 @@ EventChecker::EventChecker()
 
 }
 
-bool EventChecker::IsWeightEvent(quint16 eventType)
+bool EventChecker::isWeightEvent(quint16 eventType)
 {
     switch(eventType)
     {
@@ -63,6 +63,19 @@ bool EventChecker::isWeightTrade(quint16 eventType)
     }
 }
 
+bool EventChecker::isTrade(quint16 eventType)
+{
+    switch(eventType)
+    {
+        case EnumDefine::EventType::WEIGHT_NORMAL_TYPE         :
+        case EnumDefine::EventType::WEIGHT_UNDER_WARNING_TYPE  :
+        case EnumDefine::EventType::WEIGHT_OVER_WARNING_TYPE   :
+        case EnumDefine::EventType::METAL_TRADE_TYPE           :
+            return true;
+        default: return false;
+    }
+}
+
 bool EventChecker::isWeightNGEvent(quint16 eventType)
 {
     switch(eventType)
@@ -84,7 +97,18 @@ bool EventChecker::isMetalDetectEvent(quint16 eventType)
     }
 }
 
-bool EventChecker::IsWeightOrMetal(quint16 eventType)
+bool EventChecker::isMetalEvent(quint16 eventType)
+{
+    switch(eventType)
+    {
+        case EnumDefine::EventType::METAL_TRADE_TYPE:
+        case EnumDefine::EventType::METAL_DETECT_TYPE: return true;
+        default: return false;
+    }
+}
+
+
+bool EventChecker::isWeightOrMetal(quint16 eventType)
 {
     switch(eventType)
     {
@@ -103,7 +127,17 @@ bool EventChecker::IsWeightOrMetal(quint16 eventType)
     }
 }
 
-bool EventChecker::IsNGEvent(quint16 eventType)
+bool EventChecker::isMetalCheckup(quint16 eventType)
+{
+    return eventType == EnumDefine::EventType::METAL_CHECKUP_TYPE;
+}
+
+bool EventChecker::isWeightCari(quint16 eventType)
+{
+    return (eventType == EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE || eventType == EnumDefine::EventType::WEIGHT_DYNAMIC_CARI_TYPE);
+}
+
+bool EventChecker::isNGEvent(quint16 eventType)
 {
     switch(eventType)
     {

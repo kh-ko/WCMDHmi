@@ -20,6 +20,7 @@ public:
 
     void setCanclePtr(bool * pCancle){mpCancle = pCancle;}
     bool getCancle(){ return * mpCancle;}
+    void mkdirBackupFolder(QString deviceNum);
     explicit HistoryBackupThread(QObject *parent = nullptr);
     ~HistoryBackupThread();
 

@@ -2,6 +2,7 @@
 #define PANELBACKUPMODEL_H
 
 #include <QObject>
+#include <QProcess>
 
 #include "source/util/etcutil.h"
 #include "source/service/coreservice.h"
@@ -26,6 +27,7 @@ public:
     CoreService         * mpCoreService     ;
     ProcSettingModel    * mpProcSetting     ;
     HistoryBackupThread   mBackupThread     ;
+    QString               mHistoryPath      ;
     bool    mCancle             = false;
 
     bool    mIsNeedBackup       = false;
@@ -165,6 +167,8 @@ public slots:
         setIsProc(true);
         setIsShowInterface(false);
 
+        mCancle = false;
+
         int deviceNumber = mpCoreService->mLocalSettingService.mInformation.mDeviceNumber;
         emit signalCommandBackup(deviceNumber, mStartYear, mStartMonth, mStartDay, mEndYear, mEndMonth, mEndDay, &mCancle);
     }
@@ -184,6 +188,9 @@ public slots:
     void onSignalEventChangedCurrentIdx     (quint64 value){setCurrentIdx   (value);}
     void onSignalEventCompleted             (int     value)
     {
+        setIsProc(false);
+        checkDisk();
+
         if(value == EnumDefine::BackupResult::BACKUP_NONE_ERROR)
             mpCoreService->mLocalSettingService.setProcBackupLastDate(mEndYear, mEndMonth, mEndDay);
 
@@ -192,10 +199,90 @@ public slots:
 
 //  internal layer ===================================================================================
 public:
+    void checkDisk()
+    {
+        QProcess process;
+        qint64 total;
+        qint64 available;
+        qint64 delSize;
+        qint64 warningSize;
+        process.start("df ");
+        process.waitForFinished(-1); // will wait forever until finished
+
+        QString output = process.readAllStandardOutput();
+        QStringList outputLine = output.split("\n");
+        QString root;
+
+        for(int i = 0; i < outputLine.size(); i ++)
+        {
+            if(outputLine.at(i).startsWith("/dev/root"))
+            {
+                root = outputLine.at(i);
+                break;
+            }
+        }
+
+        QStringList colList = root.split(QRegExp("[\r\n\t ]+"), QString::SkipEmptyParts);
+
+        total = colList.at(1).toDouble() * 1024;
+        available = colList.at(3).toDouble() * 1024;
+
+        delSize = total * 0.1 - available;
+        warningSize = total * 0.2 - available;
+
+        QStringList delFileList;
+        qint64 backupDateNumber = (mpProcSetting->mLastBackupYear * 10000) + (mpProcSetting->mLastBackupMonth * 100) + (mpProcSetting->mLastBackupDay);
+
+        setIsNeedBackup(false);
+
+        qDebug() << "[PanelBackupModel::checkDisk]total size = " << total;
+        qDebug() << "[PanelBackupModel::checkDisk]available  size = " << available;
+        qDebug() << "[PanelBackupModel::checkDisk]delSize = " << delSize;
+        qDebug() << "[PanelBackupModel::checkDisk]warningSize = " << warningSize;
+
+        if(warningSize > 0)
+        {
+            QDir dir(mHistoryPath);
+            QStringList fileList = dir.entryList(QStringList() << "*.txt",QDir::Files,QDir::SortFlag::Name);
+
+            for(int i = 0; i < fileList.size(); i ++)
+            {
+                QFileInfo fInfo(QString("%1/%2").arg(mHistoryPath).arg(fileList.at(i)));
+                qint64 dateNumber = (fInfo.fileName().split("-")[0].toLongLong() * 10000) + (fInfo.fileName().split("-")[1].toLongLong() * 100) + (fInfo.fileName().split("-")[2].toLongLong());
+
+                if(delSize > 0 )
+                {                    
+                    delSize = delSize - fInfo.size();
+                    delFileList.append(fInfo.fileName());
+
+                    qDebug() << "[PanelBackupModel::checkDisk]del file = " << fInfo.fileName() << ", remain del size =" << delSize;
+                }
+
+                if(warningSize > 0 )
+                {
+                    warningSize = warningSize - fInfo.size();
+
+                    qDebug() << "[PanelBackupModel::checkDisk]file dateNumber = " << dateNumber << ", backupDateNumber =" <<backupDateNumber << ", remain warningSize =" << warningSize;
+
+                    if(backupDateNumber < dateNumber)
+                        setIsNeedBackup(true);
+                }
+            }
+        }
+
+        for(int i = 0; i < delFileList.size(); i ++)
+        {
+            QFile::remove(QString("%1/%2").arg(mHistoryPath).arg(delFileList.at(i)));
+        }
+    }
+
     explicit PanelBackupModel(QObject *parent = nullptr) : QObject(parent)
     {
         mpCoreService    = CoreService::getInstance();
-        mpProcSetting     = &(mpCoreService->mLocalSettingService.mProcSetting);
+        mpProcSetting    = &(mpCoreService->mLocalSettingService.mProcSetting);
+        mHistoryPath     = mpCoreService->mEventService.mDailyHistoryPath;
+
+        checkDisk();
 
         connect(this, SIGNAL(signalCommandBackup(int, int, int, int, int, int, int, bool *)), &mBackupThread, SLOT(onCommandBackup(int, int, int, int, int, int, int, bool *)));
 

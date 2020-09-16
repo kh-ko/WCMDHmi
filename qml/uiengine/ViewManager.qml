@@ -6,6 +6,7 @@ Item {
     property MainScene mainScene : null
     property PopupTrendsOption popupTrendsOption : null
     property PanelVKeypad keypad : null
+    property PanelCalendar calendar : null
     property PanelToastMessage  toast : null
     property PopupConfirm popupConfirm : null
     property var locale : Qt.locale("en-US")
@@ -38,6 +39,11 @@ Item {
     function setKeypad(value)
     {
         keypad = value;
+    }
+
+    function setCalendar(value)
+    {
+        calendar = value;
     }
 
     function setToast(value)

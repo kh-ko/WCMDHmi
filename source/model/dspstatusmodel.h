@@ -60,7 +60,7 @@ public:
 
     void addEvent          (quint16 eventType, quint32 value, bool isSkipSignal)
     {
-        if(EventChecker::IsWeightEvent(eventType))
+        if(EventChecker::isWeightEvent(eventType))
         {
             if(mRun != EnumDefine::RunState::STOP)
             {
@@ -74,7 +74,7 @@ public:
             mTrends.mCount++;
         }
 
-        if(EventChecker::IsWeightOrMetal(eventType))
+        if(EventChecker::isWeightOrMetal(eventType))
         {
             mCurrentProductStatus.addEvent(eventType, value);
             mListProductStatus.at(mCurrentProductListIdx)->addEvent(eventType, value);
@@ -83,7 +83,7 @@ public:
         if(isSkipSignal)
             return;
 
-        if(EventChecker::IsNGEvent(eventType))
+        if(EventChecker::isNGEvent(eventType))
         {
             mLastError.setTime(QDateTime::currentDateTime().toString("hh:mm:ss"));
             mLastError.setEventType(eventType);
@@ -176,7 +176,9 @@ public:
         int idx = 0;
 
         if(mCurrentProductStatus.mProductSettingSeq == productSettingSeq)
+        {
             return;
+        }
 
         for(idx = 0; idx < mListProductStatus.size(); idx ++)
         {
@@ -184,11 +186,13 @@ public:
             {
                 mCurrentProductListIdx = idx;
                 mCurrentProductStatus = *mListProductStatus.at(idx);
+                break;
             }
         }
 
         if(idx == mListProductStatus.size())
         {
+
             ProductStatusModel * ps = new ProductStatusModel(this);
             ps->setProductSettingSeq(productSettingSeq);
 

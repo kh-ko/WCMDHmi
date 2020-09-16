@@ -90,8 +90,9 @@ public:
             if(row.contains(":") == false)
                 continue;
 
-            QString key = row.split(":")[0];
-            QString value = row.split(":")[1];
+            int splitIdx = row.indexOf(":");
+            QString key = row.left(splitIdx);
+            QString value = row.mid(splitIdx+1);
 
             if     (key == "DT"        ){ mDateTime             = value                   ;}
             else if(key == "DSP_SEQ"   ){ mDspSeq               = value.toULongLong()     ;}

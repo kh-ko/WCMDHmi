@@ -147,5 +147,9 @@
         <file>ui/main_scene/img/indicator/backup_off.png</file>
         <file>ui/main_scene/img/indicator/backup_on.png</file>
         <file>ui/intro_scene/novasen_logo.png</file>
+        <file>control/UiCalendar.qml</file>
+        <file>control/img_calendar/left.png</file>
+        <file>control/img_calendar/right.png</file>
+        <file>ui/main_scene/PanelCalendar.qml</file>
     </qresource>
 </RCC>
