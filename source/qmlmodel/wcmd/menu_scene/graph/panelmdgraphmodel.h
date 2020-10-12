@@ -67,8 +67,9 @@ public:
         mpDspStatus   = mpCoreService->mMapDspStatus.first();
 
         connect(&(mpCoreService->mProductSettingServcie.mCurrentProductSetting), SIGNAL(signalEventChangedMDSenstivity(quint16)), this, SLOT(onSignalEventChangedMDSenstivity(quint16)));
-        connect(mpCoreService, SIGNAL(signalEventAddedMetalDetectorGraph (quint64, MetalGraphDto)), this, SLOT(onSgnalEventAddedMetalDetectorGraph (quint64, MetalGraphDto)));
+        connect(mpCoreService, SIGNAL(signalEventAddedMetalDetectorGraph (quint64, QByteArray)), this, SLOT(onSgnalEventAddedMetalDetectorGraph (quint64, QByteArray)));
 
+        onSignalEventChangedMDSenstivity(0);
         mSimpleSens01 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity01;
         mSimpleSens02 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity02;
         mSimpleSens03 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity03;
@@ -179,20 +180,21 @@ public slots:
             mListMDGraphModel.at(i)->setSenstivity(mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMDSenstivity);
         }
     }
-    void onSgnalEventAddedMetalDetectorGraph(quint64 deviceSeq, MetalGraphDto value)
+    void onSgnalEventAddedMetalDetectorGraph(quint64 deviceSeq, QByteArray value)
     {
         int min = 0;
         int max = 0;
 
-        setSensorCnt(value.mData->mData.mSensorCnt);
+        StMetalDetectorGraph * pGData = (StMetalDetectorGraph *)value.data();
+        setSensorCnt(pGData->mSensorCnt);
 
-        for(int i = 0; i < value.mData->mData.mSensorCnt; i ++)
+        for(int i = 0; i < pGData->mSensorCnt; i ++)
         {
-            mListMDGraphModel.at(i)->addPoints(value.mData->mData.mPointCnt, &(value.mData->mData.mArrayPoints[(value.mData->mData.mPointCnt * 2) * i]));
+            mListMDGraphModel.at(i)->addPoints(pGData->mPointCnt, &(pGData->mArrayPoints[(pGData->mPointCnt * 2) * i]));
         }
 
 
-        for(int i = 0; i < value.mData->mData.mSensorCnt; i ++)
+        for(int i = 0; i < pGData->mSensorCnt; i ++)
         {
             if(min > mListMDGraphModel.at(i)->getMin())
             {

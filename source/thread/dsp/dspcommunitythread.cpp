@@ -50,9 +50,9 @@ void DspCommunityThreadWorker::onCommandAddDSP(DspConnectionDto connectionInfo, 
     connect(dspInterface, SIGNAL(signalEventChangedDeviceStatus             (quint64, DspStatusDto      )), this, SLOT(onSignalEventChangedDeviceStatus             (quint64, DspStatusDto      )));
     connect(dspInterface, SIGNAL(signalEventChangedDeviceInfo               (quint64, DspInfoDto        )), this, SLOT(onSignalEventChangedDeviceInfo               (quint64, DspInfoDto        )));
     connect(dspInterface, SIGNAL(signalEventAddedEvent                      (quint64, EventDto          )), this, SLOT(onSignalEventAddedEvent                      (quint64, EventDto          )));
-    connect(dspInterface, SIGNAL(signalEventAddedWeightCheckerGraph         (quint64, WeightGraphDto    )), this, SLOT(onSignalEventAddedWeightCheckerGraph         (quint64, WeightGraphDto    )));
-    connect(dspInterface, SIGNAL(signalEventAddedMetalDetectorGraph         (quint64, MetalGraphDto     )), this, SLOT(onSignalEventAddedMetalDetectorGraph         (quint64, MetalGraphDto     )));
-    connect(dspInterface, SIGNAL(signalEventCompletedFactoryReset            (quint64                   )), this, SLOT(onSignalEventCompletedFactoryReset            (quint64                    )));
+    connect(dspInterface, SIGNAL(signalEventAddedWeightCheckerGraph         (quint64, QByteArray        )), this, SLOT(onSignalEventAddedWeightCheckerGraph         (quint64, QByteArray        )));
+    connect(dspInterface, SIGNAL(signalEventAddedMetalDetectorGraph         (quint64, QByteArray        )), this, SLOT(onSignalEventAddedMetalDetectorGraph         (quint64, QByteArray        )));
+    connect(dspInterface, SIGNAL(signalEventCompletedFactoryReset           (quint64                    )), this, SLOT(onSignalEventCompletedFactoryReset           (quint64                    )));
 
     mListDSPInterface.append(dspInterface);
     dspInterface->onCommandStart();
@@ -221,8 +221,8 @@ void DspCommunityThreadWorker::onSignalEventChangedRemoteProductSetting   (quint
 void DspCommunityThreadWorker::onSignalEventChangedDeviceStatus           (quint64 deviceSeq, DspStatusDto value      ){emit signalEventChangedDeviceStatus        (deviceSeq, value);}
 void DspCommunityThreadWorker::onSignalEventChangedDeviceInfo             (quint64 deviceSeq, DspInfoDto value        ){emit signalEventChangedDeviceInfo          (deviceSeq, value);}
 void DspCommunityThreadWorker::onSignalEventAddedEvent                    (quint64 deviceSeq, EventDto value          ){emit signalEventAddedEvent                 (deviceSeq, value);}
-void DspCommunityThreadWorker::onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, WeightGraphDto value    ){emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
-void DspCommunityThreadWorker::onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, MetalGraphDto value     ){emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, QByteArray     value    ){emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
+void DspCommunityThreadWorker::onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, QByteArray value        ){emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
 
 DspCommunityThreadWorker::DspCommunityThreadWorker(QObject *parent) : QObject(parent)
 {

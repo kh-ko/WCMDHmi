@@ -57,7 +57,7 @@ public:
         mpCoreService = CoreService::getInstance();
         mpDspStatus = mpCoreService->mMapDspStatus.first();
 
-        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent(quint16, quint32)), this, SLOT(onSignalEventAddEvent(quint16, quint3)));
+        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent(quint16, quint32)), this, SLOT(onSignalEventAddEvent(quint16, quint32)));
     }
 
     ~PanelMDCheckupModel()
@@ -97,6 +97,7 @@ public slots:
     }
     Q_INVOKABLE void onCommandCancle()
     {
+        reset();
         mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
     }
     Q_INVOKABLE void onCommandStartNextStep()

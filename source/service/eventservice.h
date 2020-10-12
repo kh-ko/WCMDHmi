@@ -15,6 +15,8 @@ public:
     int     mFileLineIdx = 0;
 
     quint64 mProductSettingSeq = 0;
+    quint16 mProductNo         = 0;
+    QString mProductName       = "";
     int     mUnderCnt          = 0;
     int     mUnderWarningCnt   = 0;
     int     mNormalCnt         = 0;
@@ -40,6 +42,8 @@ public:
             QString value = row.split(":")[1];
 
             if     (key == "ProdcutSettingSeq"){ mProductSettingSeq = value.toULongLong();}
+            if     (key == "ProductName"      ){ mProductName       = value              ;}
+            if     (key == "ProductNo"        ){ mProductNo         = value.toUInt()     ;}
             else if(key == "U"                ){ mUnderCnt          = value.toUInt()     ;}
             else if(key == "UW"               ){ mUnderWarningCnt   = value.toUInt()     ;}
             else if(key == "N"                ){ mNormalCnt         = value.toUInt()     ;}
@@ -53,8 +57,10 @@ public:
     }
 
     QString toString(){
-        return QString("ProdcutSettingSeq:%1,U:%2,UW:%3,N:%4,OW:%5,O:%6,ETC:%7,WC MD F:%8,MD F:%9,MD P:%10")
+        return QString("ProdcutSettingSeq:%1,ProductName:%2,ProductNo:%3,U:%4,UW:%5,N:%6,OW:%7,O:%8,ETC:%9,WC MD F:%10,MD F:%11,MD P:%12")
                     .arg(mProductSettingSeq)
+                    .arg(mProductName      )
+                    .arg(mProductNo        )
                     .arg(mUnderCnt         )
                     .arg(mUnderWarningCnt  )
                     .arg(mNormalCnt        )

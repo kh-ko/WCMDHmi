@@ -14,7 +14,7 @@ public:
     QTextStream mStream;
 
     bool appendLine(QString path, QString fileName, QString content);
-    bool overWriteLine(QString path, QString fileName, QString content, qint64 startOffset, qint64 len);
+    bool overWriteLine(QString path, QString fileName, QString content, qint64 startOffset, int len);
     bool newWrite(QString path, QString fileName, QString content);
     bool remove(QString path, QString fileName);
     void close();

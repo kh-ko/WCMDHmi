@@ -30,8 +30,8 @@ signals:
     void signalEventChangedDeviceStatus             (quint64 deviceSeq, DspStatusDto value      );
     void signalEventChangedDeviceInfo               (quint64 deviceSeq, DspInfoDto value        );
     void signalEventAddedEvent                      (quint64 deviceSeq, EventDto value          );
-    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, WeightGraphDto value    );
-    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, MetalGraphDto value     );
+    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, QByteArray     value    );
+    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, QByteArray value        );
 
 public slots:
     void onCommandStopService                       ();
@@ -56,8 +56,8 @@ public slots:
     void onSignalEventChangedDeviceStatus           (quint64 deviceSeq, DspStatusDto value      );
     void onSignalEventChangedDeviceInfo             (quint64 deviceSeq, DspInfoDto value        );
     void onSignalEventAddedEvent                    (quint64 deviceSeq, EventDto value          );
-    void onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, WeightGraphDto value    );
-    void onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, MetalGraphDto value     );
+    void onSignalEventAddedWeightCheckerGraph       (quint64 deviceSeq, QByteArray     value    );
+    void onSignalEventAddedMetalDetectorGraph       (quint64 deviceSeq, QByteArray value        );
 
 
 // internal layer =========================================
@@ -94,8 +94,8 @@ public:
         connect(mpWorker, SIGNAL(signalEventChangedDeviceStatus        (quint64, DspStatusDto      )), this, SLOT(onSignalEventChangedDeviceStatus             (quint64, DspStatusDto      )));
         connect(mpWorker, SIGNAL(signalEventChangedDeviceInfo          (quint64, DspInfoDto        )), this, SLOT(onSignalEventChangedDeviceInfo               (quint64, DspInfoDto        )));
         connect(mpWorker, SIGNAL(signalEventAddedEvent                 (quint64, EventDto          )), this, SLOT(onSignalEventAddedEvent                      (quint64, EventDto          )));
-        connect(mpWorker, SIGNAL(signalEventAddedWeightCheckerGraph    (quint64, WeightGraphDto    )), this, SLOT(onSignalEventAddedWeightCheckerGraph         (quint64, WeightGraphDto    )));
-        connect(mpWorker, SIGNAL(signalEventAddedMetalDetectorGraph    (quint64, MetalGraphDto     )), this, SLOT(onSignalEventAddedMetalDetectorGraph         (quint64, MetalGraphDto     )));
+        connect(mpWorker, SIGNAL(signalEventAddedWeightCheckerGraph    (quint64, QByteArray        )), this, SLOT(onSignalEventAddedWeightCheckerGraph         (quint64, QByteArray        )));
+        connect(mpWorker, SIGNAL(signalEventAddedMetalDetectorGraph    (quint64, QByteArray        )), this, SLOT(onSignalEventAddedMetalDetectorGraph         (quint64, QByteArray        )));
 
         connect(this, SIGNAL(signalCommandStopService                (                          )), mpWorker, SLOT(onCommandStopService                (                          )));
         connect(this, SIGNAL(signalCommandAddDSP                     (DspConnectionDto, DspSettingDto, ProductSettingDto)), mpWorker, SLOT(onCommandAddDSP(DspConnectionDto, DspSettingDto, ProductSettingDto)));
@@ -129,8 +129,8 @@ signals:
     void signalEventChangedDeviceStatus             (quint64 deviceSeq, DspStatusDto value      );
     void signalEventChangedDeviceInfo               (quint64 deviceSeq, DspInfoDto value        );
     void signalEventAddedEvent                      (quint64 deviceSeq, EventDto value          );
-    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, WeightGraphDto value    );
-    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, MetalGraphDto value     );
+    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, QByteArray     value    );
+    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, QByteArray value        );
 
 public slots:
     void onCommandStopService                       (                                          ){ emit signalCommandStopService();}
@@ -158,8 +158,8 @@ public slots:
     void onSignalEventChangedDeviceStatus             (quint64 deviceSeq, DspStatusDto value      ){ emit signalEventChangedDeviceStatus        (deviceSeq, value);}
     void onSignalEventChangedDeviceInfo               (quint64 deviceSeq, DspInfoDto value        ){ emit signalEventChangedDeviceInfo          (deviceSeq, value);}
     void onSignalEventAddedEvent                      (quint64 deviceSeq, EventDto value          ){ emit signalEventAddedEvent                 (deviceSeq, value);}
-    void onSignalEventAddedWeightCheckerGraph         (quint64 deviceSeq, WeightGraphDto value    ){ emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
-    void onSignalEventAddedMetalDetectorGraph         (quint64 deviceSeq, MetalGraphDto value     ){ emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
+    void onSignalEventAddedWeightCheckerGraph         (quint64 deviceSeq, QByteArray value        ){ emit signalEventAddedWeightCheckerGraph    (deviceSeq, value);}
+    void onSignalEventAddedMetalDetectorGraph         (quint64 deviceSeq, QByteArray value        ){ emit signalEventAddedMetalDetectorGraph    (deviceSeq, value);}
 
 signals:
     void signalCommandStopService                       ();

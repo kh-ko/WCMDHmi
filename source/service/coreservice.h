@@ -15,6 +15,9 @@
 #include "source/service/dspconnectioninfoservice.h"
 #include "source/service/eventservice.h"
 #include "source/thread/dsp/dspcommunitythread.h"
+#include "source/thread/remoteconsole/deviceinfobrodcaster.h"
+#include "source/service/remoteconsole/syncserverservice.h"
+#include "source/service/remoteconsole/monitoringservice.h"
 
 class CoreService : public QObject
 {
@@ -34,7 +37,9 @@ public:
     EventService                mEventService;
     FileLoaderThread            mWorkingHistoryLoader;
     DspCommunityThread          mDspCommunityThread;
-
+    DeviceInfoBrodcaster        mDeviceInfoBrodcaster;
+    MonitoringService           mMonitoringService;
+    SyncServerService           mSyncServer;
     QString mClock              = "";
     int     mState              = EnumDefine::ServiceState::SERVICE_INIT;
     int     mFactoryResetState  = EnumDefine::FactoryResetState::FACTORYRESET_NONE;
@@ -121,8 +126,8 @@ signals:
     void signalEventChangedClock            (QString value);
     void signalEventChangedState            (int value    );
     void signalEventChangedFactoryResetState(int value    );
-    void signalEventAddedWeightCheckerGraph (quint64 dspSeq, WeightGraphDto    value);
-    void signalEventAddedMetalDetectorGraph (quint64 dspSeq, MetalGraphDto     value);
+    void signalEventAddedWeightCheckerGraph (quint64 dspSeq, QByteArray        value);
+    void signalEventAddedMetalDetectorGraph (quint64 dspSeq, QByteArray        value);
 
 // down layer
 signals:
@@ -148,9 +153,9 @@ public slots:
     void onSignalEventChangedDeviceStatus        (quint64 dspSeq, DspStatusDto      value);
     void onSignalEventChangedDeviceInfo          (quint64 dspSeq, DspInfoDto        value);
     void onSignalEventAddedEvent                 (quint64 dspSeq, EventDto          value);
-    void onSignalEventAddedWeightCheckerGraph    (quint64 dspSeq, WeightGraphDto    value);
-    void onSignalEventAddedMetalDetectorGraph    (quint64 dspSeq, MetalGraphDto     value);
-    void onSignalEventCompletedFactoryReset      (quint64 dspSeq                    );
+    void onSignalEventAddedWeightCheckerGraph    (quint64 dspSeq, QByteArray        value);
+    void onSignalEventAddedMetalDetectorGraph    (quint64 dspSeq, QByteArray        value);
+    void onSignalEventCompletedFactoryReset      (quint64 dspSeq                         );
 
 //  internal layer ===================================================================================
 signals:

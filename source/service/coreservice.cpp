@@ -116,6 +116,9 @@ void CoreService::onSignalEventEndOfLineWorkingHistory()
     mEventService.addEvent(0, EnumDefine::EventType::APP_EXIT_TYPE, 0);
     mEventService.addEvent(0, EnumDefine::EventType::APP_START_TYPE, 0);
 
+    mDeviceInfoBrodcaster.startBrodcast(&mLocalSettingService.mInformation);
+    mMonitoringService.startMonitoringService();
+
     setState(EnumDefine::ServiceState::SERVICE_STARTED);
 }
 
@@ -401,12 +404,12 @@ void CoreService::onSignalEventAddedEvent(quint64 dspSeq, EventDto value)
         mEventService.addEvent(dspSeq, value.mEvent.mEventType, value.mEvent.mEventValue);
 }
 
-void CoreService::onSignalEventAddedWeightCheckerGraph(quint64 dspSeq, WeightGraphDto value)
+void CoreService::onSignalEventAddedWeightCheckerGraph(quint64 dspSeq, QByteArray value)
 {
     emit signalEventAddedWeightCheckerGraph(dspSeq, value);
 }
 
-void CoreService::onSignalEventAddedMetalDetectorGraph(quint64 dspSeq, MetalGraphDto value)
+void CoreService::onSignalEventAddedMetalDetectorGraph(quint64 dspSeq, QByteArray value)
 {
     emit signalEventAddedMetalDetectorGraph(dspSeq, value);
 }
@@ -519,8 +522,8 @@ CoreService::CoreService(QObject *parent) : QObject(parent)
     connect(&mDspCommunityThread, SIGNAL(signalEventChangedDeviceStatus        (quint64, DspStatusDto      )), this, SLOT(onSignalEventChangedDeviceStatus        (quint64, DspStatusDto      )));
     connect(&mDspCommunityThread, SIGNAL(signalEventChangedDeviceInfo          (quint64, DspInfoDto        )), this, SLOT(onSignalEventChangedDeviceInfo          (quint64, DspInfoDto        )));
     connect(&mDspCommunityThread, SIGNAL(signalEventAddedEvent                 (quint64, EventDto          )), this, SLOT(onSignalEventAddedEvent                 (quint64, EventDto          )));
-    connect(&mDspCommunityThread, SIGNAL(signalEventAddedWeightCheckerGraph    (quint64, WeightGraphDto    )), this, SLOT(onSignalEventAddedWeightCheckerGraph    (quint64, WeightGraphDto    )));
-    connect(&mDspCommunityThread, SIGNAL(signalEventAddedMetalDetectorGraph    (quint64, MetalGraphDto     )), this, SLOT(onSignalEventAddedMetalDetectorGraph    (quint64, MetalGraphDto     )));
+    connect(&mDspCommunityThread, SIGNAL(signalEventAddedWeightCheckerGraph    (quint64, QByteArray        )), this, SLOT(onSignalEventAddedWeightCheckerGraph    (quint64, QByteArray        )));
+    connect(&mDspCommunityThread, SIGNAL(signalEventAddedMetalDetectorGraph    (quint64, QByteArray        )), this, SLOT(onSignalEventAddedMetalDetectorGraph    (quint64, QByteArray        )));
 
     mTimer.start(500);
 }

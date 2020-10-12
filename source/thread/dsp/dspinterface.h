@@ -47,8 +47,8 @@ signals:
     void signalEventChangedDeviceStatus             (quint64 deviceSeq, DspStatusDto value      );
     void signalEventChangedDeviceInfo               (quint64 deviceSeq, DspInfoDto value        );
     void signalEventAddedEvent                      (quint64 deviceSeq, EventDto value          );
-    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, WeightGraphDto value    );
-    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, MetalGraphDto value     );
+    void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, QByteArray value        );
+    void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, QByteArray value        );
     void signalEventCompletedFactoryReset           (quint64 deviceSeq                          );
 
 public:

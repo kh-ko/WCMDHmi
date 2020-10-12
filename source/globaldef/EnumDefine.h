@@ -414,6 +414,18 @@ public:
       FILE_ERROR_NONE       = 0,
       FILE_ERROR_NOT_EXIST  = 1
   };
+
+
+  enum RFuncCode{
+      FUNC_CODE_INFO                  = 1,
+      FUNC_CODE_RSYNC                 = 2,
+      FUNC_CODE_RSYNC_INIT            = 3,
+      FUNC_CODE_RSYNC_ALREADY_SYNCING = 4,
+      FUNC_CODE_RSYNC_FILE_INFO       = 5,
+      FUNC_CODE_RSYNC_FILE_CONTENT    = 6,
+      FUNC_CODE_RSYNC_COMPLETE        = 7,
+      FUNC_CODE_MONITOR_STATUS        = 8
+  };
 };
 
 #endif // ENUMDEFINE_H

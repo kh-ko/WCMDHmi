@@ -150,15 +150,17 @@ public slots:
         setEventValue(value);
     }
 
-    void onSignalEventAddedWeightCheckerGraph(quint64 deviceSeq, WeightGraphDto value)
+    void onSignalEventAddedWeightCheckerGraph(quint64 deviceSeq, QByteArray value)
     {
-        mTotalRuntimePointCnt = value.mData->mData.pointCnt * 40;
+        StWeightCheckerGraph * pGData = (StWeightCheckerGraph *)value.data();
 
-        for(int i = 0; i < value.mData->mData.pointCnt; i ++)
+        mTotalRuntimePointCnt = pGData->pointCnt * 40;
+
+        for(int i = 0; i < pGData->pointCnt; i ++)
         {
-            if(value.mData->mData.points[i].mPointType == 4)
+            if(pGData->points[i].mPointType == 4)
             {
-                setMeasuredIdx(getMeasuredStartIdx() + value.mData->mData.points[i].mRawValue);
+                setMeasuredIdx(getMeasuredStartIdx() + pGData->points[i].mRawValue);
                 continue;
             }
 
@@ -167,24 +169,24 @@ public slots:
                 mRunTimeRawGraphPoints.removeAt(0);
                 mRunTimeGraphPoints.removeAt(0);
             }
-            mRunTimeRawGraphPoints.append(value.mData->mData.points[i].mRawValue);
-            mRunTimeGraphPoints.append(value.mData->mData.points[i].mFilterValue);
+            mRunTimeRawGraphPoints.append(pGData->points[i].mRawValue);
+            mRunTimeGraphPoints.append(pGData->points[i].mFilterValue);
 
-            if(value.mData->mData.points[i].mPointType != 0)
+            if(pGData->points[i].mPointType != 0)
             {
                 if(mLastPointType == 0)
                 {
                     mTempTimingGraphPoints.clear();
                 }
 
-                mTempTimingGraphPoints.append(value.mData->mData.points[i].mFilterValue);
+                mTempTimingGraphPoints.append(pGData->points[i].mFilterValue);
 
-                if(value.mData->mData.points[i].mPointType == 2)
+                if(pGData->points[i].mPointType == 2)
                 {
                     setMeasuredStartIdx(mTempTimingGraphPoints.size() - 1);
                 }
 
-                if(value.mData->mData.points[i].mPointType == 3)
+                if(pGData->points[i].mPointType == 3)
                 {
                     setMeasuredEndIdx(mTempTimingGraphPoints.size() - 1);
                 }
@@ -195,7 +197,7 @@ public slots:
                 emit signalEventChangedTimingGraph();
             }
 
-            mLastPointType = value.mData->mData.points[i].mPointType;
+            mLastPointType = pGData->points[i].mPointType;
         }
 
         if(getIsPause() == false)
@@ -219,7 +221,7 @@ public :
         {
             setMaxRange(getMaxRange(), true);
         }
-        connect(mpCoreService, SIGNAL(signalEventAddedWeightCheckerGraph (quint64, WeightGraphDto)), this, SLOT(onSignalEventAddedWeightCheckerGraph(quint64, WeightGraphDto)));
+        connect(mpCoreService, SIGNAL(signalEventAddedWeightCheckerGraph (quint64, QByteArray)), this, SLOT(onSignalEventAddedWeightCheckerGraph(quint64, QByteArray)));
         connect(mpDspStatus  , SIGNAL(signalEventChangedWCCurrWeight     (quint32                )), this, SLOT(onSignalEventChangedWCCurrWeight    (quint32                )));
 
         mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, true);

@@ -424,15 +424,13 @@ public slots:
     {
         if(mIsEditPassword || mIsEditNewPassword || mIsEditConfirmPassword)
         {
-            if(mPassword == mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword && mNewPassword == mConfirmPassword)
-            {
-
-            }
-            else if((mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mPassword || mNewPassword != mConfirmPassword))
+            if((mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mPassword && mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword)|| mNewPassword != mConfirmPassword)
             {
                 emit signalResultSaveDeviceSetting((int)EnumDefine::DatabaseErrorType::PASSWORD_ERROR);
                 return;
             }
+
+            mpCoreService->mLocalSettingService.setSecuritySetting(mNewPassword, mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword);
         }
 
         mpCoreService->onCommandEditDspSetting(mLampTime                                                               ,
@@ -461,8 +459,7 @@ public slots:
                                                mStandardWeight                                                         ,
                                                mRefWeight                                                              ,
                                                mSensorCnt                                                              );
-        mpCoreService->mLocalSettingService.setGuiLanguage(mLanguage);
-        mpCoreService->mLocalSettingService.setSecuritySetting(mPassword, mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword);
+        mpCoreService->mLocalSettingService.setGuiLanguage(mLanguage);        
         mpCoreService->mLocalSettingService.setHmiSetting(mIsDayMode, mIsDebugMode, mDynamicFactor, mSimpleSens01, mSimpleSens02, mSimpleSens03, mSimpleSens04, mSimpleSens05);
 
         reset();

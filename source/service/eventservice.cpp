@@ -164,7 +164,8 @@ void EventService::addProductSetting(ProductSettingModel * pProductSetting)
 
     ProductStatistics * pProductStatistics = new ProductStatistics(this);
     pProductStatistics->mProductSettingSeq = pProductSetting->mSeq;
-
+    pProductStatistics->mProductName = pProductSetting->mName;
+    pProductStatistics->mProductNo   = pProductSetting->mNo;
     pProductStatistics->mFileLineIdx = mListProductStatistics.size();
     mListProductStatistics.append(pProductStatistics);
 

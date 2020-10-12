@@ -26,7 +26,7 @@ bool FileWriter::appendLine(QString path, QString fileName, QString content)
     return true;
 }
 
-bool FileWriter::overWriteLine(QString path, QString fileName, QString content, qint64 startOffset, qint64 len)
+bool FileWriter::overWriteLine(QString path, QString fileName, QString content, qint64 startOffset, int len)
 {
     mkdirRecursively(path);
 
@@ -43,10 +43,14 @@ bool FileWriter::overWriteLine(QString path, QString fileName, QString content, 
     }
 
     content.resize(len,' ');
-    content.replace(content.size()-1 ,1, '\n');
+
+    QByteArray temp = content.toUtf8();
+    temp.resize(len);
+    temp[len -1] = '\n';
+    //content.replace(content.size()-1 ,1, '\n');
 
     mFile.seek(startOffset);
-    mFile.write(content.toUtf8(), len);
+    mFile.write(temp, len);
     mFile.flush();
     return true;
 }

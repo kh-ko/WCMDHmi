@@ -576,7 +576,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="212"/>
         <source>· Debug mode</source>
-        <translation>· 검출끄기</translation>
+        <translation>· 테스트모드</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="268"/>

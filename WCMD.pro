@@ -22,14 +22,19 @@ SOURCES += \
         source/service/eventservice.cpp \
         source/service/localsettingservice.cpp \
         source/service/productsettingservice.cpp \
+        source/service/remoteconsole/monitoringservice.cpp \
+        source/service/remoteconsole/syncclient.cpp \
+        source/service/remoteconsole/syncserverservice.cpp \
         source/thread/dsp/dspcommunitythread.cpp \
         source/thread/dsp/dspinterface.cpp \
         source/thread/dsp/dsppacketbuilder.cpp \
         source/thread/dsp/sendpacketqueue.cpp \
         source/thread/historybackupthread.cpp \
+        source/thread/remoteconsole/deviceinfobrodcaster.cpp \
         source/util/etcutil.cpp \
         source/util/eventchecker.cpp \
         source/util/fileloaderthread.cpp \
+        source/util/fileloaderthreadex.cpp \
         source/util/filereader.cpp \
         source/util/filewriter.cpp \
         source/util/mouseeventspy.cpp \
@@ -91,6 +96,9 @@ HEADERS += \
     source/service/eventservice.h \
     source/service/localsettingservice.h \
     source/service/productsettingservice.h \
+    source/service/remoteconsole/monitoringservice.h \
+    source/service/remoteconsole/syncclient.h \
+    source/service/remoteconsole/syncserverservice.h \
     source/thread/dsp/dspcommunitythread.h \
     source/thread/dsp/dspinterface.h \
     source/thread/dsp/dsppacketbuilder.h \
@@ -105,9 +113,12 @@ HEADERS += \
     source/thread/dsp/dto/weightgraphdto.h \
     source/thread/dsp/sendpacketqueue.h \
     source/thread/historybackupthread.h \
+    source/thread/remoteconsole/deviceinfobrodcaster.h \
+    source/thread/remoteconsole/dto/devicesocketdto.h \
     source/util/etcutil.h \
     source/util/eventchecker.h \
     source/util/fileloaderthread.h \
+    source/util/fileloaderthreadex.h \
     source/util/filereader.h \
     source/util/filewriter.h \
     source/util/mouseeventspy.h \

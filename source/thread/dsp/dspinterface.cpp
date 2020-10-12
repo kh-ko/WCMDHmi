@@ -35,6 +35,13 @@ void DSPInterface::onRecevie()
         return;
     }
 
+    if(rcvBuffer.size() < (int)sizeof(StPacket))
+    {
+        qDebug() << " packet error header size";
+        qDebug() << "[ERROR PACKET] : "<< rcvBuffer.toHex();
+        return;
+    }
+
     if(rPacketData->mFuncCode == EnumDefine::FuncCode::NOTI_TYPE || rPacketData->mFuncCode == EnumDefine::FuncCode::READ_TYPE)
     {
         if(rcvBuffer.size() != (int)(sizeof(StPacket) + (rPacketData->mSize * 2)))
@@ -66,22 +73,35 @@ void DSPInterface::onRecevie()
         {
             case WeightCheckerGraphAddr:
             {
-                WeightGraphDto wcg((StWeightCheckerGraph *)rPacketData->mData,rPacketData->mSize);
+                QByteArray wcg((char *)rPacketData->mData, rPacketData->mSize * 2);
 
-                if(wcg.mData != nullptr)
+                int checkSize = ((StWeightCheckerGraph *)rPacketData->mData)->pointCnt * sizeof(StWeightCheckerGraphPoint);
+
+                if(rPacketData->mSize < 1 || ((rPacketData->mSize * 2) != (checkSize + 2)))
                 {
-                    emit signalEventAddedWeightCheckerGraph(mConnection.mDspSeq, wcg);
+                    qDebug() << "WC Graph size error : " << rPacketData->mSize << ", pointDataSize size :" << checkSize;
+                    return ;
                 }
+
+                emit signalEventAddedWeightCheckerGraph(mConnection.mDspSeq, wcg);
+
                 break;
             }
             case MetalDetectorGraphAddr:
             {
-                MetalGraphDto mdrg((StMetalDetectorGraph *)rPacketData->mData,rPacketData->mSize);
+                StMetalDetectorGraph * pTemp = (StMetalDetectorGraph *)rPacketData->mData;
+                QByteArray mdrg((char *)rPacketData->mData, rPacketData->mSize * 2);
 
-                if(mdrg.mData != nullptr)
+                int checkSize = (pTemp->mPointCnt * pTemp->mSensorCnt * sizeof(quint16) * 2);
+
+                if(rPacketData->mSize < 2 || ((rPacketData->mSize * 2) != (checkSize + 4)))
                 {
-                    emit signalEventAddedMetalDetectorGraph(mConnection.mDspSeq, mdrg);
+                    qDebug() << "MD Graph size error : " << rPacketData->mSize << ", checkSize size :" << checkSize;
+                    return ;
                 }
+
+                emit signalEventAddedMetalDetectorGraph(mConnection.mDspSeq, mdrg);
+
                 break;
             }
         }
