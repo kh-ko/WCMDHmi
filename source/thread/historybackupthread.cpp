@@ -91,6 +91,12 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
         setCurrentIdx(i+1);
     }
 
+    QString cmd;
+
+    cmd.sprintf("sudo umount /home/pi/usb");
+
+    system(cmd.toStdString().c_str());
+
     setIsProc(false);
 
     emit signalEventCompleted(ret);
