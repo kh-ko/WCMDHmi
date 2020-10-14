@@ -38,6 +38,7 @@ class MainViewModel : public QObject
     Q_PROPERTY(int     wcUnderWarningCnt      READ getWCUnderWarningCnt       NOTIFY signalEventChangedWCUnderWarningCnt   )
     Q_PROPERTY(int     wcUnderCnt             READ getWCUnderCnt              NOTIFY signalEventChangedWCUnderCnt          )
     Q_PROPERTY(int     wcEtcErrorCnt          READ getWCEtcErrorCnt           NOTIFY signalEventChangedWCEtcErrorCnt       )
+    Q_PROPERTY(int     wCEtcMDErrorCnt        READ getWCEtcMDErrorCnt         NOTIFY signalEventChangedWCEtcMDErrorCnt     )
     Q_PROPERTY(quint64 wcTradeTotalWeight     READ getWCTradeTotalWeight      NOTIFY signalEventChangedWCTradeTotalWeight  )
     Q_PROPERTY(quint16 lastErrorType          READ getLastErrorType           NOTIFY signalEventChangedLastErrorType       )
     Q_PROPERTY(QString lastErrorTime          READ getLastErrorTime           NOTIFY signalEventChangedLastErrorTime       )
@@ -88,6 +89,7 @@ public:
     int     mWCUnderWarningCnt   ;
     int     mWCUnderCnt          ;
     int     mWCEtcErrorCnt       ;
+    int     mWCEtcMDErrorCnt     ;
     quint64 mWCTradeTotalWeight  ;
     quint16 mLastErrorType       ;
     QString mLastErrorTime       ;
@@ -123,6 +125,7 @@ public:
     int     getWCUnderWarningCnt   (){ return mWCUnderWarningCnt   ;}
     int     getWCUnderCnt          (){ return mWCUnderCnt          ;}
     int     getWCEtcErrorCnt       (){ return mWCEtcErrorCnt       ;}
+    int     getWCEtcMDErrorCnt     (){ return mWCEtcMDErrorCnt     ;}
     quint64 getWCTradeTotalWeight  (){ return mWCTradeTotalWeight  ;}
     quint16 getLastErrorType       (){ return mLastErrorType       ;}
     QString getLastErrorTime       (){ return mLastErrorTime       ;}
@@ -158,6 +161,7 @@ public:
     void setWCUnderWarningCnt   (int     value){ if(mWCUnderWarningCnt    == value)return; mWCUnderWarningCnt    = value; emit signalEventChangedWCUnderWarningCnt   (value);}
     void setWCUnderCnt          (int     value){ if(mWCUnderCnt           == value)return; mWCUnderCnt           = value; emit signalEventChangedWCUnderCnt          (value);}
     void setWCEtcErrorCnt       (int     value){ if(mWCEtcErrorCnt        == value)return; mWCEtcErrorCnt        = value; emit signalEventChangedWCEtcErrorCnt       (value);}
+    void setWCEtcMDErrorCnt     (int     value){ if(mWCEtcMDErrorCnt      == value)return; mWCEtcMDErrorCnt      = value; emit signalEventChangedWCEtcMDErrorCnt     (value);}
     void setWCTradeTotalWeight  (quint64 value){ if(mWCTradeTotalWeight   == value)return; mWCTradeTotalWeight   = value; emit signalEventChangedWCTradeTotalWeight  (value);}
     void setLastErrorType       (quint16 value){ if(mLastErrorType        == value)return; mLastErrorType        = value; emit signalEventChangedLastErrorType       (value);}
     void setLastErrorTime       (QString value){ if(mLastErrorTime        == value)return; mLastErrorTime        = value; emit signalEventChangedLastErrorTime       (value);}
@@ -194,6 +198,7 @@ signals:
     void signalEventChangedWCUnderWarningCnt   (int     value);
     void signalEventChangedWCUnderCnt          (int     value);
     void signalEventChangedWCEtcErrorCnt       (int     value);
+    void signalEventChangedWCEtcMDErrorCnt     (int     value);
     void signalEventChangedWCTradeTotalWeight  (quint64 value);
     void signalEventChangedLastErrorType       (quint16 value);
     void signalEventChangedLastErrorTime       (QString value);
@@ -376,6 +381,7 @@ public slots:
     void onSignalEventChangedWCUnderWarningCnt     (int     value){ setWCUnderWarningCnt   (value);}
     void onSignalEventChangedWCUnderCnt            (int     value){ setWCUnderCnt          (value);}
     void onSignalEventChangedWCEtcErrorCnt         (int     value){ setWCEtcErrorCnt       (value);}
+    void onSignalEventChangedWCEtcMDErrorCnt       (int     value){ setWCEtcMDErrorCnt     (value);}
     void onSignalEventChangedWCTradeTotalWeight    (quint64 value){ setWCTradeTotalWeight  (value);}
     void onSignalEventChangedLastErrorType         (quint16 value){ setLastErrorType       (value);}
     void onSignalEventChangedLastErrorTime         (QString value){ setLastErrorTime       (value);}
@@ -426,6 +432,7 @@ public:
         connect(mpProductStatus     , SIGNAL(signalEventChangedWCUnderWarningCnt    (int    )), this, SLOT(onSignalEventChangedWCUnderWarningCnt   (int    )));
         connect(mpProductStatus     , SIGNAL(signalEventChangedWCUnderCnt           (int    )), this, SLOT(onSignalEventChangedWCUnderCnt          (int    )));
         connect(mpProductStatus     , SIGNAL(signalEventChangedWCEtcErrorCnt        (int    )), this, SLOT(onSignalEventChangedWCEtcErrorCnt       (int    )));
+        connect(mpProductStatus     , SIGNAL(signalEventChangedWCEtcMDErrorCnt      (int    )), this, SLOT(onSignalEventChangedWCEtcMDErrorCnt     (int    )));
         connect(mpProductStatus     , SIGNAL(signalEventChangedWCTradeTotalWeight   (quint64)), this, SLOT(onSignalEventChangedWCTradeTotalWeight  (quint64)));
 
 
@@ -466,6 +473,7 @@ public:
         onSignalEventChangedWCUnderWarningCnt     (mpProductStatus->mWCUnderWarningCnt  );
         onSignalEventChangedWCUnderCnt            (mpProductStatus->mWCUnderCnt         );
         onSignalEventChangedWCEtcErrorCnt         (mpProductStatus->mWCEtcErrorCnt      );
+        onSignalEventChangedWCEtcMDErrorCnt       (mpProductStatus->mWCEtcMDErrorCnt    );
         onSignalEventChangedWCTradeTotalWeight    (mpProductStatus->mWCTradeTotalWeight );
 
         onSignalEventChangedLastErrorType         (mpLastError->mEventType              );

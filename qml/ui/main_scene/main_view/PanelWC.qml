@@ -25,6 +25,7 @@ Item {
     property int  underWarningWeight: 999999
     property int  overWarningWeight : 999999
     property int  etcErrorCnt       : 999999
+    property int  etcMDErrCnt       : 0
     property var  tradeWeight       : 10000000000000
     property real tare              :  10999900
     //property int  averageNValue     : 10000
@@ -426,7 +427,7 @@ Item {
                 title         : qsTr("Etc")
                 value01       : ""
                 total         : panel.totalCnt
-                value02       : panel.etcErrorCnt
+                value02       : panel.etcErrorCnt - panel.etcMDErrCnt
                 bgColor       : "#59000000"
                 graphColor    : "#333333"
 

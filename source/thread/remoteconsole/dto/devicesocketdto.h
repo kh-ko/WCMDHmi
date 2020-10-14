@@ -42,6 +42,7 @@ struct StPacketRStatusRes{
     int      mWCOverWaringCnt   ;
     int      mWCOverCnt         ;
     int      mWCEtcErrCnt       ;
+    int      mWCEtcMDErrCnt     ;
 
     quint64  mTradeTotalWeight  ;
 };

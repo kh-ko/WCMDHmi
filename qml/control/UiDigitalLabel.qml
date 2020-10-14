@@ -4,9 +4,9 @@ import FontManager 1.0
 import ViewManager 1.0
 
 Item {
-    property bool   visibleNet : true
     property int    fontSize :  100
     property int    eventType :EnumDefine.WEIGHT_OVER_TYPE
+    property bool   visibleNet : eventType !== EnumDefine.WEIGHT_ETCERROR_TYPE && eventType !== EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE
     property bool   isCenter : true
     property real    value : 9910.0
     property string postFix : "g"
@@ -31,7 +31,6 @@ Item {
     }
 
     Text {
-
         id: textContent
         height: control.fontSize
         verticalAlignment: Text.AlignVCenter
@@ -44,12 +43,25 @@ Item {
         font.family: FontManager.nanumGothicBName
         font.bold: true
 
+        visible: control.visibleNet
         color: eventType == EnumDefine.WEIGHT_OVER_TYPE ? "#F59A23" : "#D9001B"
-        /*eventType == EnumDefine.WEIGHT_OVER_TYPE || eventType == EnumDefine.WEIGHT_UNDER_TYPE ? "#D9001B"
-               : eventType == EnumDefine.WEIGHT_OVER_WARNING_TYPE || eventType == EnumDefine.WEIGHT_UNDER_WARNING_TYPE ? "#F59A23"
-               : "#FFFFFF"*/
 
         text : (control.value / 1000).toLocaleString(ViewManager.locale, 'f', 1)
+    }
+
+    Text {
+        id :textEtcError
+
+        visible: !control.visibleNet
+        color : "#535353"
+        text: eventType === EnumDefine.WEIGHT_ETCERROR_TYPE ? qsTr("Etc error") : qsTr("Metal detect")
+        font.pixelSize: 100
+        fontSizeMode: Text.HorizontalFit
+        anchors.rightMargin: 80
+        anchors.leftMargin: 80
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        anchors.fill: parent
     }
 
     Text {
@@ -80,6 +92,7 @@ Item {
         font.pixelSize : control.fontSize * 0.25
         font.family: FontManager.nanumGothicName
 
+        visible: control.visibleNet
         color: "#ACACAC"
 
         text : control.postFix

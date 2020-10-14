@@ -62,12 +62,13 @@ Item {
         anchors.left: panelProductName.right
         anchors.leftMargin: 10
 
-        isDetail    : model.isDetail
-        mdNGCnt     : model.mdDetectCnt
-        wcNGCnt     : model.wcNGCnt
-        totalCnt    : model.wcTotalCnt
-        tradeCnt    : model.wcTradeCnt
-        tradeWeight : model.wcTradeTotalWeight
+        isDetail     : model.isDetail
+        mdNGCnt      : model.mdDetectCnt
+        wcEtcMDErrCnt: model.wCEtcMDErrorCnt
+        wcNGCnt      : model.wcNGCnt
+        totalCnt     : model.wcTotalCnt
+        tradeCnt     : model.wcTradeCnt
+        tradeWeight  : model.wcTradeTotalWeight
 
         onSignalEventClicked :
         {
@@ -157,6 +158,7 @@ Item {
         underWarningWeight : model.wcUnderWarningWeight
         overWarningWeight  : model.wcOverWarningWeight
         etcErrorCnt        : model.wcEtcErrorCnt
+        etcMDErrCnt        : model.wCEtcMDErrorCnt
         tradeWeight        : model.wcTradeTotalWeight
         tare               : model.wcTareWeight
         //averageNValue      : model.wcAverageN

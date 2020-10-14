@@ -20,6 +20,7 @@ public:
     int      mWCUnderWarningCnt  = 0;
     int      mWCUnderCnt         = 0;
     int      mWCEtcErrorCnt      = 0;
+    int      mWCEtcMDErrorCnt    = 0;
     quint64  mWCTradeTotalWeight = 0;
 
     void setProductSettingSeq (quint64 value){ if(mProductSettingSeq  == value) return; mProductSettingSeq  = value; emit signalEventChangedProductSettingSeq (mProductSettingSeq );}
@@ -34,6 +35,7 @@ public:
     void setWCUnderWarningCnt (int     value){ if(mWCUnderWarningCnt  == value) return; mWCUnderWarningCnt  = value; emit signalEventChangedWCUnderWarningCnt (mWCUnderWarningCnt );}
     void setWCUnderCnt        (int     value){ if(mWCUnderCnt         == value) return; mWCUnderCnt         = value; emit signalEventChangedWCUnderCnt        (mWCUnderCnt        );}
     void setWCEtcErrorCnt     (int     value){ if(mWCEtcErrorCnt      == value) return; mWCEtcErrorCnt      = value; emit signalEventChangedWCEtcErrorCnt     (mWCEtcErrorCnt     );}
+    void setWCEtcMDErrorCnt   (int     value){ if(mWCEtcMDErrorCnt    == value) return; mWCEtcMDErrorCnt    = value; emit signalEventChangedWCEtcMDErrorCnt   (mWCEtcMDErrorCnt   );}
     void setWCTradeTotalWeight(quint64 value){ if(mWCTradeTotalWeight == value) return; mWCTradeTotalWeight = value; emit signalEventChangedWCTradeTotalWeight(mWCTradeTotalWeight);}
 
 signals:
@@ -49,6 +51,7 @@ signals:
     void signalEventChangedWCUnderWarningCnt (int     value);
     void signalEventChangedWCUnderCnt        (int     value);
     void signalEventChangedWCEtcErrorCnt     (int     value);
+    void signalEventChangedWCEtcMDErrorCnt   (int     value);
     void signalEventChangedWCTradeTotalWeight(quint64 value);
 
 public:
@@ -66,6 +69,7 @@ public:
         setWCUnderWarningCnt  (other.mWCUnderWarningCnt );
         setWCUnderCnt         (other.mWCUnderCnt        );
         setWCEtcErrorCnt      (other.mWCEtcErrorCnt     );
+        setWCEtcMDErrorCnt    (other.mWCEtcMDErrorCnt   );
         setWCTradeTotalWeight (other.mWCTradeTotalWeight);
 
         return *this;
@@ -81,7 +85,7 @@ public:
             case EnumDefine::EventType::WEIGHT_UNDER_TYPE          :setWCTotalCnt(mWCTotalCnt + 1); setWCNGCnt   (mWCNGCnt    + 1); setWCUnderCnt       (mWCUnderCnt        + 1); break;
             case EnumDefine::EventType::WEIGHT_OVER_TYPE           :setWCTotalCnt(mWCTotalCnt + 1); setWCNGCnt   (mWCNGCnt    + 1); setWCOverCnt        (mWCOverCnt         + 1); break;
             case EnumDefine::EventType::WEIGHT_ETCERROR_TYPE       :setWCTotalCnt(mWCTotalCnt + 1); setWCNGCnt   (mWCNGCnt    + 1); setWCEtcErrorCnt    (mWCEtcErrorCnt     + 1); break;
-            case EnumDefine::EventType::WEIGHT_ETC_METAL_ERROR_TYPE:setWCTotalCnt(mWCTotalCnt + 1); setWCNGCnt   (mWCNGCnt    + 1); setWCEtcErrorCnt    (mWCEtcErrorCnt     + 1); break;
+            case EnumDefine::EventType::WEIGHT_ETC_METAL_ERROR_TYPE:setWCTotalCnt(mWCTotalCnt + 1); setWCNGCnt   (mWCNGCnt    + 1); setWCEtcErrorCnt    (mWCEtcErrorCnt     + 1); setWCEtcMDErrorCnt(mWCEtcMDErrorCnt + 1); break;
             case EnumDefine::EventType::METAL_DETECT_TYPE          :setMDDetectCnt(mMDDetectCnt + 1);break;
         }
     }
@@ -99,6 +103,7 @@ public:
         setWCUnderWarningCnt  (0);
         setWCUnderCnt         (0);
         setWCEtcErrorCnt      (0);
+        setWCEtcMDErrorCnt    (0);
         setWCTradeTotalWeight (0);
     }
     explicit ProductStatusModel(QObject *parent = nullptr) : QObject(parent){}

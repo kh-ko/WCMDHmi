@@ -1422,27 +1422,27 @@
         <translation type="obsolete">오 중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="59"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="60"/>
         <source>Total</source>
         <translation>전체</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="83"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="84"/>
         <source>Metal NG</source>
         <translation>금속NG</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="107"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="108"/>
         <source>Weight NG</source>
         <translation>중량NG</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="144"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="145"/>
         <source>Trade total</source>
         <translation>정상 총중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="167"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="168"/>
         <source>Trade average</source>
         <translation>정상 평균중량</translation>
     </message>
@@ -1491,37 +1491,37 @@
 <context>
     <name>PanelWC</name>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="80"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="81"/>
         <source>Weight checker</source>
         <translation>중량선별기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="90"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="91"/>
         <source>ZERO</source>
         <translation>영점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="134"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="135"/>
         <source>Current weight</source>
         <translation>현재중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="268"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="269"/>
         <source>Under</source>
         <translation>하한</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="290"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="291"/>
         <source>Normal</source>
         <translation>정량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="313"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="314"/>
         <source>Over</source>
         <translation>상한</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="426"/>
+        <location filename="qml/ui/main_scene/main_view/PanelWC.qml" line="427"/>
         <source>Etc</source>
         <translation>기타</translation>
     </message>
@@ -2018,6 +2018,19 @@
         <location filename="qml/control/UiCalendar.qml" line="97"/>
         <source>F</source>
         <translation>F</translation>
+    </message>
+</context>
+<context>
+    <name>UiDigitalLabel</name>
+    <message>
+        <location filename="qml/control/UiDigitalLabel.qml" line="57"/>
+        <source>Etc error</source>
+        <translation>중량 기타 오류</translation>
+    </message>
+    <message>
+        <location filename="qml/control/UiDigitalLabel.qml" line="57"/>
+        <source>Metal detect</source>
+        <translation>금속검출</translation>
     </message>
 </context>
 <context>

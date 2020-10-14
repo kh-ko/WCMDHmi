@@ -6,12 +6,13 @@ import EnumDefine 1.0
 import ViewManager 1.0
 
 Item {
-    property bool isDetail    : false
-    property int  mdNGCnt     : 999999
-    property int  wcNGCnt     : 999999
-    property int  totalCnt    : 999999
-    property var  tradeWeight : 0
-    property int  tradeCnt    : 0
+    property bool isDetail     : false
+    property int  mdNGCnt      : 999999
+    property int  wcNGCnt      : 999999
+    property int  wcEtcMDErrCnt: 0
+    property int  totalCnt     : 999999
+    property var  tradeWeight  : 0
+    property int  tradeCnt     : 0
 
     property string tradeWeightPostFix : panel.tradeWeight > 999999999 ? " t" :
                                          panel.tradeWeight > 999999    ? " kg": " g"
@@ -116,7 +117,7 @@ Item {
             anchors.verticalCenter: labelWCNG.verticalCenter
 
             horizontalAlignment : Text.AlignRight
-            textValue : panel.wcNGCnt.toLocaleString(ViewManager.locale, 'f', 0) + " pcs"
+            textValue : (panel.wcNGCnt - panel.wcEtcMDErrCnt).toLocaleString(ViewManager.locale, 'f', 0) + " pcs"
         }
 
 

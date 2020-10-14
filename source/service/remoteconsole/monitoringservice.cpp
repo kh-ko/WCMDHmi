@@ -69,6 +69,7 @@ void MonitoringService::onReceive()
     resPacket.mWCOverWaringCnt   = mpProductStatus->mWCOverWarningCnt;
     resPacket.mWCOverCnt         = mpProductStatus->mWCOverCnt;
     resPacket.mWCEtcErrCnt       = mpProductStatus->mWCEtcErrorCnt;
+    resPacket.mWCEtcMDErrCnt     = mpProductStatus->mWCEtcMDErrorCnt;
     resPacket.mTradeTotalWeight  = mpProductStatus->mWCTradeTotalWeight;
 
     qDebug() << "[MonitoringService::onReceive]send";
