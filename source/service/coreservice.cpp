@@ -116,6 +116,7 @@ void CoreService::onSignalEventEndOfLineWorkingHistory()
     mEventService.addEvent(0, EnumDefine::EventType::APP_EXIT_TYPE, 0);
     mEventService.addEvent(0, EnumDefine::EventType::APP_START_TYPE, 0);
 
+    mSyncServer.startSyncService(&mLocalSettingService.mInformation);
     mDeviceInfoBrodcaster.startBrodcast(&mLocalSettingService.mInformation);
     mMonitoringService.startMonitoringService();
 

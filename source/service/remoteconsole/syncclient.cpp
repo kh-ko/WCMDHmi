@@ -33,6 +33,7 @@ void SyncClient::sendPacket(int funcCode, QByteArray *pContent)
     StRConsolePacket packetHeader;
     QByteArray packetBuf;
 
+    packetHeader.mDeviceNum = mDeviceNum;
     packetHeader.mFuncCode = funcCode;
 
 
@@ -106,10 +107,10 @@ void SyncClient::start()
     onReceive();
 }
 
-SyncClient::SyncClient(QTcpSocket * pSock, QObject *parent): QObject(parent)
+SyncClient::SyncClient(QTcpSocket * pSock, int deviceNum, QObject *parent): QObject(parent)
 {
     mpClient = pSock;
-
+    mDeviceNum = deviceNum;
     mTimer.setInterval(5000);
     connect(&mTimer, SIGNAL(timeout()), this, SLOT(onTimeout()));
 }

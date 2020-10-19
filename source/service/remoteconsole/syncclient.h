@@ -22,6 +22,7 @@ public:
     QStringList        mSyncFileList;
     qint64             mSentSize = 0;
     FileLoaderThreadEx mFileRThread;
+    int                mDeviceNum = 0;
 
     void sendAleadySync();
     void sendTotalSize(qint64 value);
@@ -33,7 +34,7 @@ public:
 
     void start();
     explicit SyncClient(QObject *parent = nullptr): QObject(parent){}
-    SyncClient(QTcpSocket * pSock, QObject *parent);
+    SyncClient(QTcpSocket * pSock, int deviceNum, QObject *parent);
     ~SyncClient();
 
 signals:

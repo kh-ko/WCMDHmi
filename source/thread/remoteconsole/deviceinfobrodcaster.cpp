@@ -26,6 +26,7 @@ void DeviceInfoBrodcastWorker::onTimeTick()
     temp.mSize = 0;
     temp.mFuncCode = EnumDefine::RFuncCode::FUNC_CODE_INFO;
     temp.mDeviceNum = mDeviceNum;
+
     mpSocket->writeDatagram((char *)&temp, sizeof(StRConsolePacket), QHostAddress::Broadcast, 10022);
     //mpSocket->writeDatagram(temp02, QHostAddress::Broadcast, 10022);
 }

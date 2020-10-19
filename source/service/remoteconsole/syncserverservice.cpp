@@ -11,7 +11,7 @@ void SyncServerService::onSignalEventNewConnection()
         if(pClient == nullptr)
             break;
 
-        SyncClient * pSyncClient = new SyncClient(pClient, this);
+        SyncClient * pSyncClient = new SyncClient(pClient, mpInformation->mDeviceNumber, this);
 
         if(mpSyncClient != nullptr)
         {
@@ -31,6 +31,14 @@ void SyncServerService::onSignalEventNewConnection()
 void SyncServerService::onSignalEventFinishedSync()
 {
     closeSyncClient();
+}
+
+void SyncServerService::startSyncService(InformationModel * pInformation)
+{
+    mpInformation = pInformation;
+    connect(&mServer, SIGNAL(newConnection()), this, SLOT(onSignalEventNewConnection()));
+
+    mServer.listen(QHostAddress::Any, 10024);
 }
 
 void SyncServerService::openSyncClient(SyncClient * pSyncClient)
@@ -53,9 +61,7 @@ void SyncServerService::closeSyncClient()
 
 SyncServerService::SyncServerService(QObject *parent) : QObject(parent)
 {
-    connect(&mServer, SIGNAL(newConnection()), this, SLOT(onSignalEventNewConnection()));
 
-    mServer.listen(QHostAddress::Any, 10024);
 }
 
 SyncServerService::~SyncServerService()

@@ -72,8 +72,6 @@ void MonitoringService::onReceive()
     resPacket.mWCEtcMDErrCnt     = mpProductStatus->mWCEtcMDErrorCnt;
     resPacket.mTradeTotalWeight  = mpProductStatus->mWCTradeTotalWeight;
 
-    qDebug() << "[MonitoringService::onReceive]send";
-
     mpSocket->writeDatagram((char*)&resPacket, sizeof(StPacketRStatusRes), sender, senderPort);
 }
 
