@@ -224,6 +224,7 @@ public :
         connect(mpCoreService, SIGNAL(signalEventAddedWeightCheckerGraph (quint64, QByteArray)), this, SLOT(onSignalEventAddedWeightCheckerGraph(quint64, QByteArray)));
         connect(mpDspStatus  , SIGNAL(signalEventChangedWCCurrWeight     (quint32                )), this, SLOT(onSignalEventChangedWCCurrWeight    (quint32                )));
 
+        onSignalEventChangedWCCurrWeight(mpDspStatus->mWCCurrWeight);
         mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, true);
     }
     ~PanelWCGraphModel()

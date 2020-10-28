@@ -11,14 +11,17 @@ class DeviceInfoBrodcastWorker : public QObject
 {
     Q_OBJECT
 public:
+    QTimer      *mpTimer;
+    QHostAddress mGroupAddress;
+    quint16      mPort    = 31072;
     int         mDeviceNum;
     QUdpSocket *mpSocket = nullptr;
-    QTimer     *mpTimer  = nullptr;
 
 public slots:
     void onStart();
-    void onTimeTick();
     void onSockError(QAbstractSocket::SocketError error);
+    void onReceive();
+    void onTimeTick();
     void onSignalEventChangedDeviceNumber(int deviceNumber);
 public :
 

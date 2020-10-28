@@ -9,7 +9,7 @@ bool FileWriter::appendLine(QString path, QString fileName, QString content)
     if(mFile.isOpen() == false)
     {
         mFile.setFileName(QString("%1/%2.txt").arg(path).arg(fileName));
-        mFile.open(QIODevice::ReadWrite | QIODevice::Append);
+        mFile.open(QIODevice::ReadWrite);
 
         if(mFile.isOpen() == false)
         {
@@ -17,11 +17,29 @@ bool FileWriter::appendLine(QString path, QString fileName, QString content)
             return false;
         }
 
-        mStream.setDevice(&mFile);
+        //mStream.setDevice(&mFile);
     }
 
-    mStream << content << "\n";
-    mStream.flush();
+    content.resize(content.length() + 1,'\n');
+
+    QByteArray temp = content.toUtf8();
+
+    qDebug() << "[debug]appendLineFile" << QString("%1/%2.txt").arg(path).arg(fileName);
+    qDebug() << "[debug]appendLineText" << content;
+    qDebug() << "[debug]appendLineHex" << temp.toHex();
+    qDebug() << "[debug]atEnd" << mFile.atEnd();
+    qDebug() << "[debug]size" << mFile.size();
+
+    if(mFile.atEnd() == false)
+    {
+        mFile.seek(mFile.size());
+    }
+    mFile.write(temp);
+    mFile.flush();
+
+
+    //mStream << content << "\n";
+    //mStream.flush();
 
     return true;
 }
@@ -68,9 +86,15 @@ bool FileWriter::newWrite(QString path, QString fileName, QString content)
         return false;
     }
 
-    mStream.setDevice(&mFile);
-    mStream << content;
-    mStream.flush();
+    QByteArray temp = content.toUtf8();
+
+    mFile.write(temp);
+    mFile.flush();
+    mFile.close();
+
+    //mStream.setDevice(&mFile);
+    //mStream << content;
+    //mStream.flush();
 
     return true;
 }

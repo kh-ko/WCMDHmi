@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QDateTime>
+#include <QNetworkInterface>
 
 void DspCommunityThreadWorker::onStarted()
 {
@@ -227,6 +228,42 @@ void DspCommunityThreadWorker::onSignalEventAddedMetalDetectorGraph       (quint
 DspCommunityThreadWorker::DspCommunityThreadWorker(QObject *parent) : QObject(parent)
 {
     qDebug() << "[DspCommunityThread::Create]";
+
+    QNetworkInterface ethInterface;
+    QNetworkInterface wlanInterface;
+    QList<QNetworkInterface> interfaceList = QNetworkInterface::allInterfaces();
+
+    for(int idx = 0; idx < interfaceList.size(); idx ++)
+    {
+        QNetworkInterface iface = interfaceList.at(idx);
+
+        if(iface.flags().testFlag(QNetworkInterface::InterfaceFlag::CanBroadcast)        &&
+           iface.flags().testFlag(QNetworkInterface::InterfaceFlag::IsLoopBack) == false   )
+        {
+            if(iface.name() == "wlan0")
+            {
+                wlanInterface = iface;
+            }
+            else if(iface.name() == "eth0")
+            {
+                ethInterface = iface;
+            }
+        }
+    }
+
+    qDebug() << "[debug]iface name = " << ethInterface.name();
+
+    for(int i = 0; i < ethInterface.allAddresses().size(); i++)
+    {
+        qDebug() << "[debug] iface addr = " << ethInterface.allAddresses()[i].toString();
+    }
+
+    qDebug() << "[debug]iface name = " << wlanInterface.name();
+
+    for(int i = 0; i < wlanInterface.addressEntries().size(); i++)
+    {
+        qDebug() << "[debug] iface addr = " << wlanInterface.allAddresses()[i].toString();
+    }
 }
 
 DspCommunityThreadWorker::~DspCommunityThreadWorker()

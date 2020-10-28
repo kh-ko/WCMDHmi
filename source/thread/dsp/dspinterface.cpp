@@ -46,7 +46,7 @@ void DSPInterface::onRecevie()
     {
         if(rcvBuffer.size() != (int)(sizeof(StPacket) + (rPacketData->mSize * 2)))
         {
-            qDebug() << "[PACKET SEQ ERROR OR CONTENT SIZE] : "<< rcvBuffer.toHex();
+            qDebug() << "[PACKET MISMATCH SIZE] : "<< rcvBuffer.toHex();
             return;
         }
     }
@@ -318,6 +318,7 @@ void DSPInterface::connectDevice()
     mHostAddr.setAddress(mConnection.mIp);
     mpSock = new QUdpSocket();
     mpSock->connectToHost(mHostAddr, mConnection.mPort);
+
     connect(mpSock, SIGNAL(readyRead()), this, SLOT(onRecevie()));
     connect(mpSock,SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onSockError(QAbstractSocket::SocketError)));
     sendPacket(mPacketBuilder.createReqPacketTotalSetting(), true);
