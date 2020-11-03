@@ -46,6 +46,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mStaticStandardWeight        READ getStaticStandardWeight               NOTIFY signalEventChangedStaticStandardWeight              );
     Q_PROPERTY(quint32 mDynamicBaseWeight           READ getDynamicBaseWeight                  NOTIFY signalEventChangedDynamicBaseWeight                 );
     Q_PROPERTY(quint16 mSensorCnt                   READ getSensorCnt                          NOTIFY signalEventChangedSensorCnt                         );
+    Q_PROPERTY(quint32 mRejectorOpenTime            READ getRejectorOpenTime                   NOTIFY signalEventChangedRejectorOpenTime                  );
     Q_PROPERTY(bool    mDiffSeq                     READ getDiffSeq                            NOTIFY signalEventChangedDiffSeq                           );
     Q_PROPERTY(bool    mDiffLength                  READ getDiffLength                         NOTIFY signalEventChangedDiffLength                        );
     Q_PROPERTY(bool    mDiffSpeed                   READ getDiffSpeed                          NOTIFY signalEventChangedDiffSpeed                         );
@@ -85,6 +86,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffStaticStandardWeight    READ getDiffStaticStandardWeight           NOTIFY signalEventChangedDiffStaticStandardWeight          );
     Q_PROPERTY(bool    mDiffDynamicBaseWeight       READ getDiffDynamicBaseWeight              NOTIFY signalEventChangedDiffDynamicBaseWeight             );
     Q_PROPERTY(bool    mDiffSensorCnt               READ getDiffSensorCnt                      NOTIFY signalEventChangedDiffSensorCnt                     );
+    Q_PROPERTY(bool    mDiffRejectorOpenTime        READ getDiffRejectorOpenTime               NOTIFY signalEventChangedDiffRejectorOpenTime              );
 
 public:
     ProductSettingModel *mpLocalProductSetting ;
@@ -131,6 +133,7 @@ public:
     quint32 mStaticStandardWeight       ;
     quint32 mDynamicBaseWeight          ;
     quint16 mSensorCnt                  ;
+    quint32 mRejectorOpenTime           ;
 
     bool    mDiffSeq                    ;
     bool    mDiffLength                 ;
@@ -171,6 +174,7 @@ public:
     bool    mDiffStaticStandardWeight   ;
     bool    mDiffDynamicBaseWeight      ;
     bool    mDiffSensorCnt              ;
+    bool    mDiffRejectorOpenTime       ;
 
     quint16 getSeq                        (){ return mSeq                        ;}
     quint16 getLength                     (){ return mLength                     ;}
@@ -211,6 +215,7 @@ public:
     quint32 getStaticStandardWeight       (){ return mStaticStandardWeight       ;}
     quint32 getDynamicBaseWeight          (){ return mDynamicBaseWeight          ;}
     quint16 getSensorCnt                  (){ return mSensorCnt                  ;}
+    quint32 getRejectorOpenTime           (){ return mRejectorOpenTime           ;}
     bool    getDiffSeq                    (){ return mDiffSeq                    ;}
     bool    getDiffLength                 (){ return mDiffLength                 ;}
     bool    getDiffSpeed                  (){ return mDiffSpeed                  ;}
@@ -250,6 +255,7 @@ public:
     bool    getDiffStaticStandardWeight   (){ return mDiffStaticStandardWeight   ;}
     bool    getDiffDynamicBaseWeight      (){ return mDiffDynamicBaseWeight      ;}
     bool    getDiffSensorCnt              (){ return mDiffSensorCnt              ;}
+    bool    getDiffRejectorOpenTime       (){ return mDiffRejectorOpenTime       ;}
 
     void setSeq                        (quint16  value){ if( value == mSeq                        ) return; mSeq                        = value; emit signalEventChangedSeq                               (value);}
     void setLength                     (quint16  value){ if( value == mLength                     ) return; mLength                     = value; emit signalEventChangedLength                            (value);}
@@ -290,6 +296,7 @@ public:
     void setStaticStandardWeight       (quint32  value){ if( value == mStaticStandardWeight       ) return; mStaticStandardWeight       = value; emit signalEventChangedStaticStandardWeight              (value);}
     void setDynamicBaseWeight          (quint32  value){ if( value == mDynamicBaseWeight          ) return; mDynamicBaseWeight          = value; emit signalEventChangedDynamicBaseWeight                 (value);}
     void setSensorCnt                  (quint16  value){ if( value == mSensorCnt                  ) return; mSensorCnt                  = value; emit signalEventChangedSensorCnt                         (value);}
+    void setRejectorOpenTime           (quint32  value){ if( value == mRejectorOpenTime           ) return; mRejectorOpenTime           = value; emit signalEventChangedRejectorOpenTime                  (value);}
     void setDiffSeq                    (bool     value){ if( value == mDiffSeq                    ) return; mDiffSeq                    = value; emit signalEventChangedDiffSeq                           (value);}
     void setDiffLength                 (bool     value){ if( value == mDiffLength                 ) return; mDiffLength                 = value; emit signalEventChangedDiffLength                        (value);}
     void setDiffSpeed                  (bool     value){ if( value == mDiffSpeed                  ) return; mDiffSpeed                  = value; emit signalEventChangedDiffSpeed                         (value);}
@@ -329,6 +336,7 @@ public:
     void setDiffStaticStandardWeight   (bool     value){ if( value == mDiffStaticStandardWeight   ) return; mDiffStaticStandardWeight   = value; emit signalEventChangedDiffStaticStandardWeight          (value);}
     void setDiffDynamicBaseWeight      (bool     value){ if( value == mDiffDynamicBaseWeight      ) return; mDiffDynamicBaseWeight      = value; emit signalEventChangedDiffDynamicBaseWeight             (value);}
     void setDiffSensorCnt              (bool     value){ if( value == mDiffSensorCnt              ) return; mDiffSensorCnt              = value; emit signalEventChangedDiffSensorCnt                     (value);}
+    void setDiffRejectorOpenTime       (bool     value){ if( value == mDiffRejectorOpenTime       ) return; mDiffRejectorOpenTime       = value; emit signalEventChangedDiffRejectorOpenTime              (value);}
 
 signals:
     void signalEventChangedSeq                               (quint16  value);
@@ -370,6 +378,7 @@ signals:
     void signalEventChangedStaticStandardWeight              (quint32  value);
     void signalEventChangedDynamicBaseWeight                 (quint32  value);
     void signalEventChangedSensorCnt                         (quint16  value);
+    void signalEventChangedRejectorOpenTime                  (quint32  value);
 
     void signalEventChangedDiffSeq                           (bool     value);
     void signalEventChangedDiffLength                        (bool     value);
@@ -410,6 +419,7 @@ signals:
     void signalEventChangedDiffStaticStandardWeight          (bool     value);
     void signalEventChangedDiffDynamicBaseWeight             (bool     value);
     void signalEventChangedDiffSensorCnt                     (bool     value);
+    void signalEventChangedDiffRejectorOpenTime              (bool     value);
 
 // down layer ================================================================================
 public slots:
@@ -458,6 +468,7 @@ public slots:
         setStaticStandardWeight       (mpRemoteDeviceSetting->mStaticStandardWeight   ); setDiffStaticStandardWeight   (mpRemoteDeviceSetting->mStaticStandardWeight    != mpLocalDeviceSetting->mStaticStandardWeight   );
         setDynamicBaseWeight          (mpRemoteDeviceSetting->mDynamicBaseWeight      ); setDiffDynamicBaseWeight      (mpRemoteDeviceSetting->mDynamicBaseWeight       != mpLocalDeviceSetting->mDynamicBaseWeight      );
         setSensorCnt                  (mpRemoteDeviceSetting->mSensorCnt              ); setDiffSensorCnt              (mpRemoteDeviceSetting->mSensorCnt               != mpLocalDeviceSetting->mSensorCnt              );
+        setRejectorOpenTime           (mpRemoteDeviceSetting->mRejectorOpenTime       ); setDiffRejectorOpenTime       (mpRemoteDeviceSetting->mRejectorOpenTime        != mpLocalDeviceSetting->mRejectorOpenTime       );
     }
 
 

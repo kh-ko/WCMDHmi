@@ -115,7 +115,6 @@ void DSPInterface::onRecevie()
         StDeviceInfo                * pDeviceInfo     = nullptr;
         StEventInfo                 * pEvent          = nullptr;
 
-
         if(rPacketData->mStartAddress == DeviceSettingAddr)
         {
             StReadAllContent *pContent  = (StReadAllContent*)(rPacketData->mData);
@@ -198,7 +197,7 @@ void DSPInterface::onCommandTimeTick()
     mSentChecker ++;
     mTickTimer ++;
 
-    if(mSentChecker > 3)
+    if(mSentChecker > 10)
     {
         setIsConnect(false);
         connectDevice();
@@ -307,7 +306,7 @@ void DSPInterface::connectDevice()
         if(mpSock->isOpen())
             mpSock->close();
 
-        delete mpSock;
+        mpSock->deleteLater();
 
         mpSock = nullptr;
     }
@@ -315,9 +314,25 @@ void DSPInterface::connectDevice()
     mSendQueue.clear();
     mPacketSeq = 0;
     mSentChecker = 0;
+
+
     mHostAddr.setAddress(mConnection.mIp);
     mpSock = new QUdpSocket();
     mpSock->connectToHost(mHostAddr, mConnection.mPort);
+
+    if(mpSock->localAddress().toString().contains("0.0.0.0"))
+    {
+        if(mpSock->isOpen())
+            mpSock->close();
+
+        mpSock->deleteLater();
+
+        mpSock = nullptr;
+
+        qDebug() << "null ip ";
+
+        return;
+    }
 
     connect(mpSock, SIGNAL(readyRead()), this, SLOT(onRecevie()));
     connect(mpSock,SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onSockError(QAbstractSocket::SocketError)));
@@ -331,6 +346,12 @@ void DSPInterface::sendPacket(StPacket * packet, bool isForce)
 
     if(packet == NULL || packet == nullptr)
     {
+        return;
+    }
+
+    if(mpSock == nullptr)
+    {
+        MyAlloc::myFree(packet);
         return;
     }
 
@@ -362,6 +383,9 @@ void DSPInterface::sendPacket(StPacket * packet, bool isForce)
         MyAlloc::myFree(packet);
         return;
     }
+
+    //qDebug() << "[debug]send packet size="<< packetSize;
+    //qDebug() << "[debug]send addr size="<< packet->mSize;
 
     if(mpSock->writeDatagram((char *)packet, packetSize, mHostAddr, mConnection.mPort) < 1)
     {

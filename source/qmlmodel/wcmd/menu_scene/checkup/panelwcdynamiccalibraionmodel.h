@@ -90,7 +90,8 @@ public slots:
                                                mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime        ,
                                                mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight   ,
                                                value                                                                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt              );
+                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt              ,
+                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime       );
         setRefWeight(value);
     }
 

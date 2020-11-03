@@ -32,13 +32,6 @@ int main(int argc, char *argv[])
 {
     int resultExec = 0;
 
-    int height = 500;
-    float weight = 199;
-    float minWeight = 100;
-    float weightSize = 100;
-    height =  height - (height * ((weight - minWeight) / weightSize));
-
-
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
 

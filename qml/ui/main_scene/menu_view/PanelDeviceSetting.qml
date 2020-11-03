@@ -464,7 +464,7 @@ UiPanel {
         //visible: panel.isAdmin
         isHighlight: settingModel.isEditRejectorRunTimeRatio
         bgColor: panel.bgColor
-        labelText : qsTr("· Rejector run time ratio")
+        labelText : qsTr("· Rejector return time")
         postfix: "%"
         inputWidth: 170
 
@@ -475,11 +475,35 @@ UiPanel {
         }
     }
 
+    UiInputNumber{
+        id : inputRejectorOpenTime
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputRuntimeRatio.bottom
+        anchors.leftMargin: 20
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditRejectorOpenTime
+        bgColor: panel.bgColor
+        labelText : qsTr("· Rejector opening time")
+        postfix: "ms"
+        inputWidth: 170
+
+        numberValue: settingModel.rejectorOpenTime
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetRejectorOpenTime(value)
+        }
+    }
+
     UiInputFloat{
         id : inputDisplayStability
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputRuntimeRatio.bottom
+        anchors.top: panel.isAdmin ? inputRejectorOpenTime.bottom : inputRuntimeRatio.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -643,6 +667,7 @@ UiPanel {
         }
     }
 
+    /*
     UiInputFloat{
         id : inputStandardWeight
         height: 60
@@ -690,12 +715,12 @@ UiPanel {
             settingModel.onCommandSetRefWeight((value * 1000) + 0.5)
         }
     }
-
+*/
     UiLabelSystem{
         id : inputWeightPhotoOn
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputRefWeight.bottom
+        anchors.top: inputSDyniamicFactor.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -1282,6 +1307,7 @@ UiPanel {
                  settingModel.isEditSignalDelayTime     ||
                  settingModel.isEditMDPhotoOn           ||
                  settingModel.isEditSensorCnt           ||
+                 settingModel.isEditRejectorOpenTime    ||
                  settingModel.isEditSimpleSens01        ||
                  settingModel.isEditSimpleSens02        ||
                  settingModel.isEditSimpleSens03        ||

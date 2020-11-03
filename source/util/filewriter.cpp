@@ -4,7 +4,118 @@
 
 bool FileWriter::appendLine(QString path, QString fileName, QString content)
 {
+    QFile file;
+
+    mkdirRecursively(path);
+
+    file.setFileName(QString("%1/%2.txt").arg(path).arg(fileName));
+    file.open(QFile::WriteOnly | QFile::Append);
+
+    if(file.isOpen() == false)
+    {
+        qDebug() << "[FileWriter::appendLine]can not appendLine : " << path << "/" << fileName  ;
+        return false;
+    }
+
+    content.resize(content.length() + 1,'\n');
+
+    QByteArray temp = content.toUtf8();
+
+    file.write(temp);
+    file.flush();
+    file.close();
+
+    return true;
+}
+
+bool FileWriter::overWriteLine(QString path, QString fileName, QString content, qint64 startOffset, int len)
+{
+    QFile file;
+
+    mkdirRecursively(path);
+
+    file.setFileName(QString("%1/%2.txt").arg(path).arg(fileName));
+    file.open(QFile::QIODevice::ReadWrite);
+
+    if(file.isOpen() == false)
+    {
+        qDebug() << "[FileWriter::overWriteLine]can not overWriteLine : " << path << "/" << fileName  ;
+        return false;
+    }
+
+    qDebug() << "[FileWriter::overWriteLine]: " << file.fileName() << ", offset = " << startOffset;
+
+    content.resize(len,' ');
+
+    QByteArray temp = content.toUtf8();
+    temp[len -1] = '\n';
+
+    file.seek(startOffset);
+    file.write(temp.data(), len);
+    file.flush();
+    file.close();
+
+    return true;
+}
+
+bool FileWriter::newWrite(QString path, QString fileName, QString content)
+{
+    QFile file;
+
+    mkdirRecursively(path);
+
+    file.setFileName(QString("%1/%2.txt").arg(path).arg(fileName));
+    file.open(QFile::WriteOnly);
+
+    if(file.isOpen() == false)
+    {
+        qDebug() << "[FileWriter::newWrite]can not newWrite : " << path << "/" << fileName  ;
+        return false;
+    }
+
+    QByteArray temp = content.toUtf8();
+
+    file.write(temp);
+    file.flush();
+    file.close();
+
+    return true;
+}
+
+bool FileWriter::remove(QString path, QString fileName)
+{
+    if(QFile::exists(QString("%1/%2.txt").arg(path).arg(fileName)) == false)
+    {
+        qDebug() << "[FileWriter::appendLine]can not remove : " << path << "/" << fileName  ;
+        return false;
+    }
+
+    return QFile::remove(QString("%1/%2.txt").arg(path).arg(fileName));
+    return true;
+}
+
+void FileWriter::close()
+{
+    //if(mFile.isOpen())
+    //    mFile.close();
+}
+
+FileWriter::FileWriter(QObject *parent) : QObject(parent)
+{
+
+}
+
+FileWriter::~FileWriter()
+{
+    //if(mFile.isOpen())
+    //    mFile.close();
+}
+
+/*
+bool FileWriter::appendLine(QString path, QString fileName, QString content)
+{
      mkdirRecursively(path);
+
 
     if(mFile.isOpen() == false)
     {
@@ -127,6 +238,7 @@ FileWriter::~FileWriter()
     if(mFile.isOpen())
         mFile.close();
 }
+*/
 
 void FileWriter::mkdirRecursively(QString path)
 {

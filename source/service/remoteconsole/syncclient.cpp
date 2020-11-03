@@ -1,5 +1,6 @@
 #include "syncclient.h"
 
+#include "source/service/coreservice.h"
 
 void SyncClient::sendAleadySync()
 {
@@ -65,6 +66,8 @@ qint64 SyncClient::makeSyncFileList(QString lastSyncDate)
                        : lastSyncDate.split(".")[0].toInt() * 10000
                        + lastSyncDate.split(".")[1].toInt() * 100
                        + lastSyncDate.split(".")[2].toInt();
+
+    mSyncReqDate = QDate::currentDate();
 
     QDir dir(QString("%1/database/history").arg(QApplication::applicationDirPath()));
     QFileInfoList fileList = dir.entryInfoList(QStringList() << "*.txt",QDir::Files, QDir::SortFlag::Name);
@@ -179,6 +182,7 @@ void SyncClient::onWritten(qint64 value)
 
         if(mSyncFileList.size() == 0)
         {
+            CoreService::getInstance()->mLocalSettingService.setProcBackupLastDate(mSyncReqDate.year(), mSyncReqDate.month(), mSyncReqDate.day());
             sendSyncComplete();
             emit signalEventFinishedSync();
         }

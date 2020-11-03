@@ -12,6 +12,7 @@ Item {
     signal signalEventStopClicked()
     signal signalEventMenuClicked()
     signal signalEventLockClicked()
+    signal signalEventShutdownClicked()
 
     id : panel
 
@@ -74,6 +75,19 @@ Item {
                 isImage: true
                 onSignalEventClicked: {
                     panel.signalEventMenuClicked()
+                }
+            }
+
+            UiButtonConfirm{
+                id: btnShutdown
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                imageSource: "img/main_btn/power_blue.png"
+                isImage: true
+                textConfirmMsg: qsTr("Do you want power off ?")
+                onSignalEventClicked: {
+                    panel.signalEventShutdownClicked();
                 }
             }
 

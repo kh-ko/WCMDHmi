@@ -151,5 +151,7 @@
         <file>control/img_calendar/left.png</file>
         <file>control/img_calendar/right.png</file>
         <file>ui/main_scene/PanelCalendar.qml</file>
+        <file>ui/main_scene/img/main_btn/power.png</file>
+        <file>ui/main_scene/img/main_btn/power_blue.png</file>
     </qresource>
 </RCC>

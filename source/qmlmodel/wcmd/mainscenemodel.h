@@ -97,6 +97,15 @@ public slots:
         mpCoreService->onCommandSendRunCmd(mpDspStatus->mSeq, runValue);
     }
 
+    Q_INVOKABLE void onCommandShutdown()
+    {
+        QString cmd;
+
+        cmd.sprintf("sudo shutdown now");
+
+        system(cmd.toStdString().c_str());
+    }
+
 //  down layer ===================================================================================
 public slots:
     void onSignalEventChangedCompany      (QString value){ setCompany      ( value                              ); }

@@ -177,6 +177,16 @@ void EventService::editProductSetting(ProductSettingModel * pProductSetting)
 {
     qDebug() << "[EventService::editProductSetting]";
 
+    ProductStatistics * pStats = findProductStatistics(pProductSetting->mSeq);
+
+    if(pStats != nullptr)
+    {
+        pStats->mProductNo = pProductSetting->mNo;
+        pStats->mProductName = pProductSetting->mName;
+
+        mTodayProductStatisticsWriter.overWriteLine(mDailyHistoryPath, mProductStatisticsFileName, pStats->toString(), 500 * pStats->mFileLineIdx, 500);
+    }
+
     if(pProductSetting->mSeq == mpCurrentProductStatistics->mProductSettingSeq)
     {
         addProductHistory(pProductSetting);

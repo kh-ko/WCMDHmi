@@ -35,6 +35,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint32 signalDelayTime                   READ getSignalDelayTime               NOTIFY  signalEventChangedSignalDelayTime           )
     Q_PROPERTY(bool    mdPhotoOn                         READ getMDPhotoOn                     NOTIFY  signalEventChangedMDPhotoOn                 )
     Q_PROPERTY(quint16 sensorCnt                         READ getSensorCnt                     NOTIFY  signalEventChangedSensorCnt                 )
+    Q_PROPERTY(quint32 rejectorOpenTime                  READ getRejectorOpenTime              NOTIFY  signalEventChangedRejectorOpenTime          )
     Q_PROPERTY(quint16 simpleSens01                      READ getSimpleSens01                  NOTIFY  signalEventChangedSimpleSens01              )
     Q_PROPERTY(quint16 simpleSens02                      READ getSimpleSens02                  NOTIFY  signalEventChangedSimpleSens02              )
     Q_PROPERTY(quint16 simpleSens03                      READ getSimpleSens03                  NOTIFY  signalEventChangedSimpleSens03              )
@@ -68,6 +69,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditSignalDelayTime             READ getIsEditSignalDelayTime                 NOTIFY  signalEventChangedIsEditSignalDelayTime            )
     Q_PROPERTY(bool    isEditMDPhotoOn                   READ getIsEditMDPhotoOn                       NOTIFY  signalEventChangedIsEditMDPhotoOn                  )
     Q_PROPERTY(bool    isEditSensorCnt                   READ getIsEditSensorCnt                       NOTIFY  signalEventChangedIsEditSensorCnt                  )
+    Q_PROPERTY(bool    isEditRejectorOpenTime            READ getIsEditRejectorOpenTime                NOTIFY  signalEventChangedIsEditRejectorOpenTime           )
     Q_PROPERTY(bool    isEditSimpleSens01                READ getIsEditSimpleSens01                    NOTIFY  signalEventChangedIsEditSimpleSens01               )
     Q_PROPERTY(bool    isEditSimpleSens02                READ getIsEditSimpleSens02                    NOTIFY  signalEventChangedIsEditSimpleSens02               )
     Q_PROPERTY(bool    isEditSimpleSens03                READ getIsEditSimpleSens03                    NOTIFY  signalEventChangedIsEditSimpleSens03               )
@@ -104,6 +106,7 @@ public:
     quint32  mSignalDelayTime               ;
     bool     mMDPhotoOn                     ;
     quint16  mSensorCnt                     ;
+    quint32  mRejectorOpenTime              ;
     quint16  mSimpleSens01                  ;
     quint16  mSimpleSens02                  ;
     quint16  mSimpleSens03                  ;
@@ -137,6 +140,7 @@ public:
     bool     mIsEditSignalDelayTime         ;
     bool     mIsEditMDPhotoOn               ;
     bool     mIsEditSensorCnt               ;
+    bool     mIsEditRejectorOpenTime        ;
     bool     mIsEditSimpleSens01            ;
     bool     mIsEditSimpleSens02            ;
     bool     mIsEditSimpleSens03            ;
@@ -170,6 +174,7 @@ public:
     quint32  getSignalDelayTime              (){ return mSignalDelayTime               ;}
     bool     getMDPhotoOn                    (){ return mMDPhotoOn                     ;}
     quint16  getSensorCnt                    (){ return mSensorCnt                     ;}
+    quint32  getRejectorOpenTime             (){ return mRejectorOpenTime              ;}
     quint16  getSimpleSens01                 (){ return mSimpleSens01                  ;}
     quint16  getSimpleSens02                 (){ return mSimpleSens02                  ;}
     quint16  getSimpleSens03                 (){ return mSimpleSens03                  ;}
@@ -203,6 +208,7 @@ public:
     bool     getIsEditSignalDelayTime        (){ return mIsEditSignalDelayTime         ;}
     bool     getIsEditMDPhotoOn              (){ return mIsEditMDPhotoOn               ;}
     bool     getIsEditSensorCnt              (){ return mIsEditSensorCnt               ;}
+    bool     getIsEditRejectorOpenTime       (){ return mIsEditRejectorOpenTime        ;}
     bool     getIsEditSimpleSens01           (){ return mIsEditSimpleSens01            ;}
     bool     getIsEditSimpleSens02           (){ return mIsEditSimpleSens02            ;}
     bool     getIsEditSimpleSens03           (){ return mIsEditSimpleSens03            ;}
@@ -236,6 +242,7 @@ public:
     void setSignalDelayTime              (quint32  value){ if(value == mSignalDelayTime           ) return; mSignalDelayTime            = value; setIsEditSignalDelayTime        (true);  emit signalEventChangedSignalDelayTime           (value);}
     void setMDPhotoOn                    (bool     value){ if(value == mMDPhotoOn                 ) return; mMDPhotoOn                  = value; setIsEditMDPhotoOn              (true);  emit signalEventChangedMDPhotoOn                 (value);}
     void setSensorCnt                    (quint16  value){ if(value == mSensorCnt                 ) return; mSensorCnt                  = value; setIsEditSensorCnt              (true);  emit signalEventChangedSensorCnt                 (value);}
+    void setRejectorOpenTime             (quint32  value){ if(value == mRejectorOpenTime          ) return; mRejectorOpenTime           = value; setIsEditRejectorOpenTime       (true);  emit signalEventChangedRejectorOpenTime          (value);}
     void setSimpleSens01                 (quint16  value){ if(value == mSimpleSens01              ) return; mSimpleSens01               = value; setIsEditSimpleSens01           (true);  emit signalEventChangedSimpleSens01              (value);}
     void setSimpleSens02                 (quint16  value){ if(value == mSimpleSens02              ) return; mSimpleSens02               = value; setIsEditSimpleSens02           (true);  emit signalEventChangedSimpleSens02              (value);}
     void setSimpleSens03                 (quint16  value){ if(value == mSimpleSens03              ) return; mSimpleSens03               = value; setIsEditSimpleSens03           (true);  emit signalEventChangedSimpleSens03              (value);}
@@ -269,6 +276,7 @@ public:
     void setIsEditSignalDelayTime        (bool     value){ if(value == mIsEditSignalDelayTime     ) return; mIsEditSignalDelayTime      = value; emit signalEventChangedIsEditSignalDelayTime     (value);}
     void setIsEditMDPhotoOn              (bool     value){ if(value == mIsEditMDPhotoOn           ) return; mIsEditMDPhotoOn            = value; emit signalEventChangedIsEditMDPhotoOn           (value);}
     void setIsEditSensorCnt              (bool     value){ if(value == mIsEditSensorCnt           ) return; mIsEditSensorCnt            = value; emit signalEventChangedIsEditSensorCnt           (value);}
+    void setIsEditRejectorOpenTime       (bool     value){ if(value == mIsEditRejectorOpenTime    ) return; mIsEditRejectorOpenTime     = value; emit signalEventChangedIsEditRejectorOpenTime    (value);}
     void setIsEditSimpleSens01           (bool     value){ if(value == mIsEditSimpleSens01        ) return; mIsEditSimpleSens01         = value; emit signalEventChangedIsEditSimpleSens01        (value);}
     void setIsEditSimpleSens02           (bool     value){ if(value == mIsEditSimpleSens02        ) return; mIsEditSimpleSens02         = value; emit signalEventChangedIsEditSimpleSens02        (value);}
     void setIsEditSimpleSens03           (bool     value){ if(value == mIsEditSimpleSens03        ) return; mIsEditSimpleSens03         = value; emit signalEventChangedIsEditSimpleSens03        (value);}
@@ -304,6 +312,7 @@ public:
         setSignalDelayTime              (mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime      );
         setMDPhotoOn                    (mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn          );
         setSensorCnt                    (mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt            );
+        setRejectorOpenTime             (mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime     );
         setSimpleSens01                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity01   );
         setSimpleSens02                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity02   );
         setSimpleSens03                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity03   );
@@ -337,6 +346,7 @@ public:
         setIsEditSignalDelayTime              ( false );
         setIsEditMDPhotoOn                    ( false );
         setIsEditSensorCnt                    ( false );
+        setIsEditRejectorOpenTime             ( false );
         setIsEditSimpleSens01                 ( false );
         setIsEditSimpleSens02                 ( false );
         setIsEditSimpleSens03                 ( false );
@@ -377,6 +387,7 @@ signals:
     void signalEventChangedSignalDelayTime              (quint32  value);
     void signalEventChangedMDPhotoOn                    (bool     value);
     void signalEventChangedSensorCnt                    (quint16  value);
+    void signalEventChangedRejectorOpenTime             (quint32  value);
     void signalEventChangedSimpleSens01                 (quint16  value);
     void signalEventChangedSimpleSens02                 (quint16  value);
     void signalEventChangedSimpleSens03                 (quint16  value);
@@ -410,6 +421,7 @@ signals:
     void signalEventChangedIsEditSignalDelayTime        (bool     value);
     void signalEventChangedIsEditMDPhotoOn              (bool     value);
     void signalEventChangedIsEditSensorCnt              (bool     value);
+    void signalEventChangedIsEditRejectorOpenTime       (bool     value);
     void signalEventChangedIsEditSimpleSens01           (bool     value);
     void signalEventChangedIsEditSimpleSens02           (bool     value);
     void signalEventChangedIsEditSimpleSens03           (bool     value);
@@ -458,7 +470,8 @@ public slots:
                                                mSignalDelayTime                                                        ,
                                                mStandardWeight                                                         ,
                                                mRefWeight                                                              ,
-                                               mSensorCnt                                                              );
+                                               mSensorCnt                                                              ,
+                                               mRejectorOpenTime                                                        );
         mpCoreService->mLocalSettingService.setGuiLanguage(mLanguage);        
         mpCoreService->mLocalSettingService.setHmiSetting(mIsDayMode, mIsDebugMode, mDynamicFactor, mSimpleSens01, mSimpleSens02, mSimpleSens03, mSimpleSens04, mSimpleSens05);
 
@@ -495,6 +508,7 @@ public slots:
     Q_INVOKABLE void onCommandSetSignalDelayTime              (quint32  value){setSignalDelayTime              (value);}
     Q_INVOKABLE void onCommandSetMDPhotoOn                    (bool     value){setMDPhotoOn                    (value);}
     Q_INVOKABLE void onCommandSetSensorCnt                    (quint16  value){setSensorCnt                    (value);}
+    Q_INVOKABLE void onCommandSetRejectorOpenTime             (quint32  value){setRejectorOpenTime             (value);}
     Q_INVOKABLE void onCommandSetSimpleSens01                 (quint16  value){setSimpleSens01                 (value);}
     Q_INVOKABLE void onCommandSetSimpleSens02                 (quint16  value){setSimpleSens02                 (value);}
     Q_INVOKABLE void onCommandSetSimpleSens03                 (quint16  value){setSimpleSens03                 (value);}

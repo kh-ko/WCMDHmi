@@ -34,6 +34,7 @@ public:
     quint32 mStaticStandardWeight   ;
     quint32 mDynamicBaseWeight      ;
     quint16 mSensorCnt              ;
+    quint32 mRejectorOpenTime       ;
 
     void setLampTime               (quint32 value){ if( mLampTime                == value) return; mLampTime                = value; emit signalEventChangedLampTime               (mLampTime               );}
     void setBuzzerTime             (quint32 value){ if( mBuzzerTime              == value) return; mBuzzerTime              = value; emit signalEventChangedBuzzerTime             (mBuzzerTime             );}
@@ -61,7 +62,7 @@ public:
     void setStaticStandardWeight   (quint32 value){ if( mStaticStandardWeight    == value) return; mStaticStandardWeight    = value; emit signalEventChangedStaticStandardWeight   (mStaticStandardWeight   );}
     void setDynamicBaseWeight      (quint32 value){ if( mDynamicBaseWeight       == value) return; mDynamicBaseWeight       = value; emit signalEventChangedDynamicBaseWeight      (mDynamicBaseWeight      );}
     void setSensorCnt              (quint16 value){ if( mSensorCnt               == value) return; mSensorCnt               = value; emit signalEventChangedSensorCnt              (mSensorCnt              );}
-
+    void setRejectorOpenTime       (quint32 value){ if( mRejectorOpenTime        == value) return; mRejectorOpenTime        = value; emit signalEventChangedRejectorOpenTime       (mRejectorOpenTime       );}
 signals:
     void signalEventChangedLampTime               (quint32 value);
     void signalEventChangedBuzzerTime             (quint32 value);
@@ -89,6 +90,7 @@ signals:
     void signalEventChangedStaticStandardWeight   (quint32 value);
     void signalEventChangedDynamicBaseWeight      (quint32 value);
     void signalEventChangedSensorCnt              (quint16 value);
+    void signalEventChangedRejectorOpenTime       (quint32 value);
 
 public:
     DspSettingModel& operator=(DspSettingModel * other)
@@ -119,6 +121,7 @@ public:
         setStaticStandardWeight   (other->mStaticStandardWeight   );
         setDynamicBaseWeight      (other->mDynamicBaseWeight      );
         setSensorCnt              (other->mSensorCnt              );
+        setRejectorOpenTime       (other->mRejectorOpenTime       );
 
         return *this;
     }
@@ -149,7 +152,8 @@ public:
            mSignalDelayTime         == value->mSignalDelayTime        &&
            mStaticStandardWeight    == value->mStaticStandardWeight   &&
            mDynamicBaseWeight       == value->mDynamicBaseWeight      &&
-           mSensorCnt               == value->mSensorCnt              )
+           mSensorCnt               == value->mSensorCnt              &&
+           mRejectorOpenTime        == value->mRejectorOpenTime         )
             return true;
 
         return false;

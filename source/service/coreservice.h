@@ -87,7 +87,8 @@ public:
                                                      quint32 signalDelayTime        ,
                                                      quint32 staticStandardWeight   ,
                                                      quint32 dynamicBaseWeight      ,
-                                                     quint16 sensorCnt              );
+                                                     quint16 sensorCnt              ,
+                                                     quint32 rejectorOpenTime       );
     int  onCommandAddProductSetting                 (quint64 *outSeq              ,
                                                      quint16 no                   ,
                                                      QString name                 ,

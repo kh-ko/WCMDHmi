@@ -2,6 +2,7 @@
 #define SYNCCLIENT_H
 
 #include <QObject>
+#include <QDate>
 #include <QTimer>
 #include <QTcpSocket>
 #include <QApplication>
@@ -16,6 +17,7 @@ class SyncClient : public QObject
     Q_OBJECT
 
 public:
+    QDate              mSyncReqDate;
     QTimer             mTimer;
     QTcpSocket        *mpClient = nullptr;
     QByteArray         mRcvBuffer;

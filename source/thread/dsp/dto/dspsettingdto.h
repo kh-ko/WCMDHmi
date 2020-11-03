@@ -47,6 +47,7 @@ public:
         mDeviceSetting.mStaticStandardWeight    = copy->mStaticStandardWeight   ;
         mDeviceSetting.mDynamicBaseWeight       = copy->mDynamicBaseWeight      ;
         mDeviceSetting.mSensorCnt               = copy->mSensorCnt              ;
+        mDeviceSetting.mRejectorOpenTime        = copy->mRejectorOpenTime       ;
     }
     ~DspSettingDto(){}
 
@@ -90,6 +91,7 @@ public:
         mDeviceSetting.mStaticStandardWeight    = other->mStaticStandardWeight   ;
         mDeviceSetting.mDynamicBaseWeight       = other->mDynamicBaseWeight      ;
         mDeviceSetting.mSensorCnt               = other->mSensorCnt              ;
+        mDeviceSetting.mRejectorOpenTime        = other->mRejectorOpenTime       ;
         return *this;
     }
 
@@ -121,6 +123,7 @@ public:
         pTemp->setStaticStandardWeight   (mDeviceSetting.mStaticStandardWeight   );
         pTemp->setDynamicBaseWeight      (mDeviceSetting.mDynamicBaseWeight      );
         pTemp->setSensorCnt              (mDeviceSetting.mSensorCnt              );
+        pTemp->setRejectorOpenTime       (mDeviceSetting.mRejectorOpenTime       );
 
         return pTemp;
     }

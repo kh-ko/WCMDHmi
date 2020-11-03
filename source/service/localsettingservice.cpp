@@ -66,6 +66,7 @@ QString STR_MODEL    = "NSWCNSAMD"              ;
 #define DSP_SETTING_PATH_STATIC_STANDARD_WEIGHT "dspsetting/StaticStandardWeight"
 #define DSP_SETTING_PATH_DYNAMIC_BASE_WEIGHT    "dspsetting/DynamicBaseWeight"
 #define DSP_SETTING_PATH_SENSOR_CNT             "dspsetting/SensorCnt"
+#define DSP_SETTING_PATH_REJECTOR_OPEN_TIME     "dspsetting/RejectorOpenTime"
 
 #define HMI_SETTING_PATH_IS_DAYMODE             "hmisetting/IsDayMode"
 #define HMI_SETTING_PATH_IS_DEBUGMODE           "hmisetting/IsDebugMode"
@@ -203,23 +204,24 @@ void LocalSettingService::loadDspSetting()
     mDspSetting.setMDPhotoIsOn            (mpSettings->value(DSP_SETTING_PATH_MD_PHOTO_ON           , true                                                      ).toBool());
     mDspSetting.setWCPhotoIsOn            (mpSettings->value(DSP_SETTING_PATH_WC_PHOTO_ON           , true                                                      ).toBool());
     mDspSetting.setRejectorReadyTime      (mpSettings->value(DSP_SETTING_PATH_REJECTOR_READY_TIME   , 100                                                       ).toInt ());
-    mDspSetting.setRejectorRunTimeRatio   (mpSettings->value(DSP_SETTING_PATH_REJECTOR_RUNTIME_RATIO, 500                                                       ).toInt ());
-    mDspSetting.setStaticFactor           (mpSettings->value(DSP_SETTING_PATH_STATIC_FACTOR         , 3028163                                                   ).toInt ());
+    mDspSetting.setRejectorRunTimeRatio   (mpSettings->value(DSP_SETTING_PATH_REJECTOR_RUNTIME_RATIO, 1500                                                       ).toInt ());
+    mDspSetting.setStaticFactor           (mpSettings->value(DSP_SETTING_PATH_STATIC_FACTOR         , 998932                                                   ).toInt ());
     mDspSetting.setScaler                 (mpSettings->value(DSP_SETTING_PATH_SCALER                , 200                                                       ).toInt ());
     mDspSetting.setDisplayStability       (mpSettings->value(DSP_SETTING_PATH_DP_STABILITY          , 1                                                         ).toInt ());
     mDspSetting.setMeasureCueSign         (mpSettings->value(DSP_SETTING_PATH_MEASURE_CUE_SIGN      , 300                                                       ).toInt ());
-    mDspSetting.setMinStaticWeight        (mpSettings->value(DSP_SETTING_PATH_MIN_STATIC_WEIGHT     , 3000                                                      ).toInt ());
-    mDspSetting.setMinDynamicWeight       (mpSettings->value(DSP_SETTING_PATH_MIN_DYNAMIC_WEIGHT    , 5000                                                      ).toInt ());
+    mDspSetting.setMinStaticWeight        (mpSettings->value(DSP_SETTING_PATH_MIN_STATIC_WEIGHT     , 5000                                                      ).toInt ());
+    mDspSetting.setMinDynamicWeight       (mpSettings->value(DSP_SETTING_PATH_MIN_DYNAMIC_WEIGHT    , 10000                                                      ).toInt ());
     mDspSetting.setMode                   (mpSettings->value(DSP_SETTING_PATH_MD_SENSOR_MODE        , EnumDefine::SensorMode::INDEPENDENT                       ).toInt ());
     mDspSetting.setDistanceBtwSensor      (mpSettings->value(DSP_SETTING_PATH_DISTANCE_BTW_SENSOR   , 180                                                       ).toInt ());
     mDspSetting.setDetectDetectTime       (mpSettings->value(DSP_SETTING_PATH_DETECT_DETECT_TIME    , 500                                                       ).toInt ());
     mDspSetting.setRunDetectTime          (mpSettings->value(DSP_SETTING_PATH_RUN_DETECT_TIME       , 1000                                                      ).toInt ());
-    mDspSetting.setDistanceToWeightChecker(mpSettings->value(DSP_SETTING_PATH_DIST_TO_WEIGHTCHECKER , 350                                                       ).toInt ());
+    mDspSetting.setDistanceToWeightChecker(mpSettings->value(DSP_SETTING_PATH_DIST_TO_WEIGHTCHECKER , 650                                                       ).toInt ());
     mDspSetting.setDistancePhotoToSensor  (mpSettings->value(DSP_SETTING_PATH_DIST_PHOTO_TO_SENSOR  , 250                                                       ).toInt ());
     mDspSetting.setSignalDelayTime        (mpSettings->value(DSP_SETTING_PATH_SIGNAL_DELAY_TIME     , 0                                                         ).toInt ());
     mDspSetting.setStaticStandardWeight   (mpSettings->value(DSP_SETTING_PATH_STATIC_STANDARD_WEIGHT, 10000                                                     ).toInt ());
     mDspSetting.setDynamicBaseWeight      (mpSettings->value(DSP_SETTING_PATH_DYNAMIC_BASE_WEIGHT   , 10000                                                     ).toInt ());
     mDspSetting.setSensorCnt              (mpSettings->value(DSP_SETTING_PATH_SENSOR_CNT            , 1                                                         ).toInt ());
+    mDspSetting.setRejectorOpenTime       (mpSettings->value(DSP_SETTING_PATH_REJECTOR_OPEN_TIME    , 400                                                       ).toInt ());
 }
 
 void LocalSettingService::setDspSetting(quint32 lampTime               ,
@@ -247,7 +249,8 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
                                         quint32 signalDelayTime        ,
                                         quint32 staticStandardWeight   ,
                                         quint32 dynamicBaseWeight      ,
-                                        quint16 sensorCnt              )
+                                        quint16 sensorCnt              ,
+                                        quint32 rejectorOpenTime       )
 {
     mpSettings->setValue(DSP_SETTING_PATH_LAMPTIME              , lampTime               );
     mpSettings->setValue(DSP_SETTING_PATH_BUZZERTIME            , buzzerTime             );
@@ -275,6 +278,7 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
     mpSettings->setValue(DSP_SETTING_PATH_STATIC_STANDARD_WEIGHT, staticStandardWeight   );
     mpSettings->setValue(DSP_SETTING_PATH_DYNAMIC_BASE_WEIGHT   , dynamicBaseWeight      );
     mpSettings->setValue(DSP_SETTING_PATH_SENSOR_CNT            , sensorCnt              );
+    mpSettings->setValue(DSP_SETTING_PATH_REJECTOR_OPEN_TIME    , rejectorOpenTime       );
 
     mDspSetting.setLampTime               (lampTime               );
     mDspSetting.setBuzzerTime             (buzzerTime             );
@@ -302,6 +306,7 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
     mDspSetting.setStaticStandardWeight   (staticStandardWeight   );
     mDspSetting.setDynamicBaseWeight      (dynamicBaseWeight      );
     mDspSetting.setSensorCnt              (sensorCnt              );
+    mDspSetting.setRejectorOpenTime       (rejectorOpenTime       );
 }
 
 void LocalSettingService::loadHmiSetting()
@@ -403,7 +408,8 @@ LocalSettingService::LocalSettingService(QObject *parent) : QObject(parent)
                   mDspSetting.mSignalDelayTime        ,
                   mDspSetting.mStaticStandardWeight   ,
                   mDspSetting.mDynamicBaseWeight      ,
-                  mDspSetting.mSensorCnt              );
+                  mDspSetting.mSensorCnt              ,
+                  mDspSetting.mRejectorOpenTime       );
 
     setHmiSetting(mHmiSetting.mIsDayMode         ,
                   mHmiSetting.mIsDebugMode       ,

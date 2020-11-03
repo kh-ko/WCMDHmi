@@ -219,13 +219,13 @@ void CoreService::onCommandEditDspSetting(quint32 lampTime, quint32 buzzerTime, 
                                           bool mdPhotoIsOn, bool wcPhotoIsOn, quint32 rejectorReadyTime, quint32 rejectorRunTimeRatio, quint32 staticFactor, quint32 scaler,
                                           quint32 displayStability, quint32 measureCueSign, quint32 minStaticWeight, quint32 minDynamicWeight, quint16 mode, quint16 distanceBtwSensor,
                                           quint32 detectDetectTime, quint32 runDetectTime, quint16 distanceToWeightChecker, quint16 distancePhotoToSensor, quint32 signalDelayTime,
-                                          quint32 staticStandardWeight, quint32 dynamicBaseWeight, quint16 sensorCnt)
+                                          quint32 staticStandardWeight, quint32 dynamicBaseWeight, quint16 sensorCnt, quint32 rejectorOpenTime)
 {
     qDebug() << "[CoreService::onCommandEditDspSetting]";
 
     mLocalSettingService.setDspSetting(lampTime, buzzerTime, speedConverter, motorDirection, sensorLength, distanceToRejector, mdPhotoIsOn, wcPhotoIsOn, rejectorReadyTime, rejectorRunTimeRatio,
                                        staticFactor, scaler, displayStability, measureCueSign, minStaticWeight, minDynamicWeight, mode, distanceBtwSensor, detectDetectTime, runDetectTime,
-                                       distanceToWeightChecker, distancePhotoToSensor, signalDelayTime, staticStandardWeight, dynamicBaseWeight, sensorCnt);
+                                       distanceToWeightChecker, distancePhotoToSensor, signalDelayTime, staticStandardWeight, dynamicBaseWeight, sensorCnt, rejectorOpenTime);
 
     DspSettingDto dspDto(&mLocalSettingService.mDspSetting);
     emit signalCommandSendDspSetting(INVALID_ULONGLONG, dspDto);
@@ -396,7 +396,8 @@ void CoreService::onSignalEventAddedEvent(quint64 dspSeq, EventDto value)
                                 mLocalSettingService.mDspSetting.mSignalDelayTime        ,
                                 mLocalSettingService.mDspSetting.mStaticStandardWeight   ,
                                 mLocalSettingService.mDspSetting.mDynamicBaseWeight      ,
-                                mLocalSettingService.mDspSetting.mSensorCnt              );
+                                mLocalSettingService.mDspSetting.mSensorCnt              ,
+                                mLocalSettingService.mDspSetting.mRejectorOpenTime       );
     }
 
     mMapDspStatus[dspSeq]->addEvent(value.mEvent.mEventType, value.mEvent.mEventValue, false);

@@ -66,7 +66,7 @@ void ProductSettingService::onSignalEventCompleteLoadProductSetting  (int error)
         quint16 wcNgMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
         quint16 mdNgMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
 
-        addProductSetting(&seq, 1,"product", 250, 40, 0, 90000, 90000, 92000, 94000, 94000, 0, wcNgMotion, 10000000, 9999, mdNgMotion);
+        addProductSetting(&seq, 1,"product", 250, 40, 1000, 90000, 90000, 92000, 94000, 94000, 0, wcNgMotion, 10000000, 9999, mdNgMotion);
     }
 
     emit signalCommandSelectSeqLoad(mSelectSeqPath,mSelectSeqFileName);

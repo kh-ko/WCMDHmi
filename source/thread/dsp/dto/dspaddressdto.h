@@ -56,6 +56,7 @@ struct StDeviceSetting{
     unsigned int   mStaticStandardWeight   ;
     unsigned int   mDynamicBaseWeight      ;
     unsigned short mSensorCnt              ;
+    unsigned int   mRejectorOpenTime       ;
 };
 struct StProductSetting{
     unsigned short mProductSeq             ;

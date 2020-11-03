@@ -192,6 +192,11 @@ Item {
 
             popupSelMenu.visible = true;
         }
+
+        onSignalEventShutdownClicked: {
+            model.onCommandShutdown();
+        }
+
 /*
         onSignalEventLockClicked: {
 
