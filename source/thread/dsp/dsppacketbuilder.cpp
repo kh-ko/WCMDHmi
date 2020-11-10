@@ -48,15 +48,15 @@ void DspPacketBuilder::setDeviceIdCmd(quint32 value)
 }
 void DspPacketBuilder::setDeviceSetting(DspSettingDto deviceSetting)
 {
-    unsigned int preDynamicFactor = mDataStore.mDeviceSetting.mDynamicFactor;
+    //unsigned int preDynamicFactor = mDataStore.mDeviceSetting.mDynamicFactor;
     memcpy(&mDataStore.mDeviceSetting, &deviceSetting.mDeviceSetting, sizeof(StDeviceSetting));
-    mDataStore.mDeviceSetting.mDynamicFactor = preDynamicFactor;
+    //mDataStore.mDeviceSetting.mDynamicFactor = preDynamicFactor;
 }
 
 void DspPacketBuilder::setProductSetting(ProductSettingDto productSetting)
 {
     memcpy(&mDataStore.mProductSetting, &productSetting.mProductSetting, sizeof(StProductSetting));
-    mDataStore.mDeviceSetting.mDynamicFactor            = productSetting.mDynamicFactor;
+    //mDataStore.mDeviceSetting.mDynamicFactor            = productSetting.mDynamicFactor;
 }
 
 bool DspPacketBuilder::setDeviceStatus(StDeviceStatus * deviceStatus)

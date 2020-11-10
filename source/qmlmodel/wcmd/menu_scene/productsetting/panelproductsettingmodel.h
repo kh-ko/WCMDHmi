@@ -100,6 +100,17 @@ public slots:
         int ret;
         quint64 outSeq;
 
+        if(mEditViewItemModel.mModel.mWCEnableEtcError == 0)
+        {
+            mEditViewItemModel.setUnderWeight       (100     );
+            mEditViewItemModel.setUnderWarningWeight(100     );
+            mEditViewItemModel.setNormalWeight      (200     );
+            mEditViewItemModel.setOverWarningWeight (99999900);
+            mEditViewItemModel.setOverWeight        (99999900);
+            mEditViewItemModel.setTareWeight        (0       );
+        }
+
+
         if(mEditViewItemModel.getIsNew())
         {
 
@@ -116,6 +127,7 @@ public slots:
                                                             mEditViewItemModel.mModel.mOverWeight           ,
                                                             mEditViewItemModel.mModel.mTareWeight           ,
                                                             mEditViewItemModel.mModel.mWCNGMotion           ,
+                                                            mEditViewItemModel.mModel.mWCEnableEtcError     ,
                                                             mEditViewItemModel.mModel.mDynamicFactor        ,
                                                             mEditViewItemModel.mModel.mMDSenstivity         ,
                                                             mEditViewItemModel.mModel.mMDNGMotion           );
@@ -136,6 +148,7 @@ public slots:
                                                              mEditViewItemModel.mModel.mOverWeight           ,
                                                              mEditViewItemModel.mModel.mTareWeight           ,
                                                              mEditViewItemModel.mModel.mWCNGMotion           ,
+                                                             mEditViewItemModel.mModel.mWCEnableEtcError     ,
                                                              mEditViewItemModel.mModel.mDynamicFactor        ,
                                                              mEditViewItemModel.mModel.mMDSenstivity         ,
                                                              mEditViewItemModel.mModel.mMDNGMotion           );
@@ -152,6 +165,7 @@ public slots:
     }
     Q_INVOKABLE void onCommandCancleProduct()
     {
+        mEditViewItemModel.setData(0);
         onCommandSetLookProduct(getLookProductSeq());
     }
     Q_INVOKABLE void onCommandRemoveProduct()

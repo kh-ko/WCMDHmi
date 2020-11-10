@@ -12,6 +12,10 @@ public:
     quint32 mBuzzerTime             ;
     quint32 mSpeedConverter         ;
     quint16 mMotorDirection         ;
+    quint16 mMotorType              ;
+    quint16 mMotorMDRatio           ;
+    quint16 mMotorWCRatio           ;
+    quint16 mMotorRJRatio           ;
     quint16 mSensorLength           ;
     quint16 mDistanceToRejector     ;
     bool    mMDPhotoIsOn            ;
@@ -40,6 +44,10 @@ public:
     void setBuzzerTime             (quint32 value){ if( mBuzzerTime              == value) return; mBuzzerTime              = value; emit signalEventChangedBuzzerTime             (mBuzzerTime             );}
     void setSpeedConverter         (quint32 value){ if( mSpeedConverter          == value) return; mSpeedConverter          = value; emit signalEventChangedSpeedConverter         (mSpeedConverter         );}
     void setMotorDirection         (quint16 value){ if( mMotorDirection          == value) return; mMotorDirection          = value; emit signalEventChangedMotorDirection         (mMotorDirection         );}
+    void setMotorType              (quint16 value){ if( mMotorType               == value) return; mMotorType               = value; emit signalEventChangedMotorType              (mMotorType              );}
+    void setMotorMDRatio           (quint16 value){ if( mMotorMDRatio            == value) return; mMotorMDRatio            = value; emit signalEventChangedMotorMDRatio           (mMotorMDRatio           );}
+    void setMotorWCRatio           (quint16 value){ if( mMotorWCRatio            == value) return; mMotorWCRatio            = value; emit signalEventChangedMotorWCRatio           (mMotorWCRatio           );}
+    void setMotorRJRatio           (quint16 value){ if( mMotorRJRatio            == value) return; mMotorRJRatio            = value; emit signalEventChangedMotorRJRatio           (mMotorRJRatio           );}
     void setSensorLength           (quint16 value){ if( mSensorLength            == value) return; mSensorLength            = value; emit signalEventChangedSensorLength           (mSensorLength           );}
     void setDistanceToRejector     (quint16 value){ if( mDistanceToRejector      == value) return; mDistanceToRejector      = value; emit signalEventChangedDistanceToRejector     (mDistanceToRejector     );}
     void setMDPhotoIsOn            (bool    value){ if( mMDPhotoIsOn             == value) return; mMDPhotoIsOn             = value; emit signalEventChangedMDPhotoIsOn            (mMDPhotoIsOn            );}
@@ -68,6 +76,10 @@ signals:
     void signalEventChangedBuzzerTime             (quint32 value);
     void signalEventChangedSpeedConverter         (quint32 value);
     void signalEventChangedMotorDirection         (quint16 value);
+    void signalEventChangedMotorType              (quint16 value);
+    void signalEventChangedMotorMDRatio           (quint16 value);
+    void signalEventChangedMotorWCRatio           (quint16 value);
+    void signalEventChangedMotorRJRatio           (quint16 value);
     void signalEventChangedSensorLength           (quint16 value);
     void signalEventChangedDistanceToRejector     (quint16 value);
     void signalEventChangedMDPhotoIsOn            (bool    value);
@@ -99,6 +111,10 @@ public:
         setBuzzerTime             (other->mBuzzerTime             );
         setSpeedConverter         (other->mSpeedConverter         );
         setMotorDirection         (other->mMotorDirection         );
+        setMotorType              (other->mMotorType              );
+        setMotorMDRatio           (other->mMotorMDRatio           );
+        setMotorWCRatio           (other->mMotorWCRatio           );
+        setMotorRJRatio           (other->mMotorRJRatio           );
         setSensorLength           (other->mSensorLength           );
         setDistanceToRejector     (other->mDistanceToRejector     );
         setMDPhotoIsOn            (other->mMDPhotoIsOn            );
@@ -132,6 +148,10 @@ public:
            mBuzzerTime              == value->mBuzzerTime             &&
            mSpeedConverter          == value->mSpeedConverter         &&
            mMotorDirection          == value->mMotorDirection         &&
+           mMotorType               == value->mMotorType              &&
+           mMotorMDRatio            == value->mMotorMDRatio           &&
+           mMotorWCRatio            == value->mMotorWCRatio           &&
+           mMotorRJRatio            == value->mMotorRJRatio           &&
            mSensorLength            == value->mSensorLength           &&
            mDistanceToRejector      == value->mDistanceToRejector     &&
            mMDPhotoIsOn             == value->mMDPhotoIsOn            &&

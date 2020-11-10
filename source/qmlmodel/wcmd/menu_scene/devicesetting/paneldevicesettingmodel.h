@@ -18,6 +18,10 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint32 buzzerTime                        READ getBuzzerTime                    NOTIFY  signalEventChangedBuzzerTime                )
     Q_PROPERTY(quint32 speedConverter                    READ getSpeedConverter                NOTIFY  signalEventChangedSpeedConverter            )
     Q_PROPERTY(quint16 motorDirection                    READ getMotorDirection                NOTIFY  signalEventChangedMotorDirection            )
+    Q_PROPERTY(quint16 motorType                         READ getMotorType                     NOTIFY  signalEventChangedMotorType                 )
+    Q_PROPERTY(quint16 motorMDRatio                      READ getMotorMDRatio                  NOTIFY  signalEventChangedMotorMDRatio              )
+    Q_PROPERTY(quint16 motorWCRatio                      READ getMotorWCRatio                  NOTIFY  signalEventChangedMotorWCRatio              )
+    Q_PROPERTY(quint16 motorRJRatio                      READ getMotorRJRatio                  NOTIFY  signalEventChangedMotorRJRatio              )
     Q_PROPERTY(quint32 rejectorRunTimeRatio              READ getRejectorRunTimeRatio          NOTIFY  signalEventChangedRejectorRunTimeRatio      )
     Q_PROPERTY(quint32 displayStability                  READ getDisplayStability              NOTIFY  signalEventChangedDisplayStability          )
     Q_PROPERTY(quint32 measureCueSign                    READ getMeasureCueSign                NOTIFY  signalEventChangedMeasureCueSign            )
@@ -52,6 +56,10 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditBuzzerTime                  READ getIsEditBuzzerTime                      NOTIFY  signalEventChangedIsEditBuzzerTime                 )
     Q_PROPERTY(bool    isEditSpeedConverter              READ getIsEditSpeedConverter                  NOTIFY  signalEventChangedIsEditSpeedConverter             )
     Q_PROPERTY(bool    isEditMotorDirection              READ getIsEditMotorDirection                  NOTIFY  signalEventChangedIsEditMotorDirection             )
+    Q_PROPERTY(bool    isEditMotorType                   READ getIsEditMotorType                       NOTIFY  signalEventChangedIsEditMotorType                  )
+    Q_PROPERTY(bool    isEditMotorMDRatio                READ getIsEditMotorMDRatio                    NOTIFY  signalEventChangedIsEditMotorMDRatio               )
+    Q_PROPERTY(bool    isEditMotorWCRatio                READ getIsEditMotorWCRatio                    NOTIFY  signalEventChangedIsEditMotorWCRatio               )
+    Q_PROPERTY(bool    isEditMotorRJRatio                READ getIsEditMotorRJRatio                    NOTIFY  signalEventChangedIsEditMotorRJRatio               )
     Q_PROPERTY(bool    isEditRejectorRunTimeRatio        READ getIsEditRejectorRunTimeRatio            NOTIFY  signalEventChangedIsEditRejectorRunTimeRatio       )
     Q_PROPERTY(bool    isEditDisplayStability            READ getIsEditDisplayStability                NOTIFY  signalEventChangedIsEditDisplayStability           )
     Q_PROPERTY(bool    isEditMeasureCueSign              READ getIsEditMeasureCueSign                  NOTIFY  signalEventChangedIsEditMeasureCueSign             )
@@ -89,6 +97,10 @@ public:
     quint32  mBuzzerTime                    ;
     quint32  mSpeedConverter                ;
     quint16  mMotorDirection                ;
+    quint16  mMotorType                     ;
+    quint16  mMotorMDRatio                  ;
+    quint16  mMotorWCRatio                  ;
+    quint16  mMotorRJRatio                  ;
     quint32  mRejectorRunTimeRatio          ;
     quint32  mDisplayStability              ;
     quint32  mMeasureCueSign                ;
@@ -123,6 +135,10 @@ public:
     bool     mIsEditBuzzerTime              ;
     bool     mIsEditSpeedConverter          ;
     bool     mIsEditMotorDirection          ;
+    bool     mIsEditMotorType               ;
+    bool     mIsEditMotorMDRatio            ;
+    bool     mIsEditMotorWCRatio            ;
+    bool     mIsEditMotorRJRatio            ;
     bool     mIsEditRejectorRunTimeRatio    ;
     bool     mIsEditDisplayStability        ;
     bool     mIsEditMeasureCueSign          ;
@@ -157,6 +173,10 @@ public:
     quint32  getBuzzerTime                   (){ return mBuzzerTime                    ;}
     quint32  getSpeedConverter               (){ return mSpeedConverter                ;}
     quint16  getMotorDirection               (){ return mMotorDirection                ;}
+    quint16  getMotorType                    (){ return mMotorType                     ;}
+    quint16  getMotorMDRatio                 (){ return mMotorMDRatio                  ;}
+    quint16  getMotorWCRatio                 (){ return mMotorWCRatio                  ;}
+    quint16  getMotorRJRatio                 (){ return mMotorRJRatio                  ;}
     quint32  getRejectorRunTimeRatio         (){ return mRejectorRunTimeRatio          ;}
     quint32  getDisplayStability             (){ return mDisplayStability              ;}
     quint32  getMeasureCueSign               (){ return mMeasureCueSign                ;}
@@ -191,6 +211,10 @@ public:
     bool     getIsEditBuzzerTime             (){ return mIsEditBuzzerTime              ;}
     bool     getIsEditSpeedConverter         (){ return mIsEditSpeedConverter          ;}
     bool     getIsEditMotorDirection         (){ return mIsEditMotorDirection          ;}
+    bool     getIsEditMotorType              (){ return mIsEditMotorType               ;}
+    bool     getIsEditMotorMDRatio           (){ return mIsEditMotorMDRatio            ;}
+    bool     getIsEditMotorWCRatio           (){ return mIsEditMotorWCRatio            ;}
+    bool     getIsEditMotorRJRatio           (){ return mIsEditMotorRJRatio            ;}
     bool     getIsEditRejectorRunTimeRatio   (){ return mIsEditRejectorRunTimeRatio    ;}
     bool     getIsEditDisplayStability       (){ return mIsEditDisplayStability        ;}
     bool     getIsEditMeasureCueSign         (){ return mIsEditMeasureCueSign          ;}
@@ -225,6 +249,10 @@ public:
     void setBuzzerTime                   (quint32  value){ if(value == mBuzzerTime                ) return; mBuzzerTime                 = value; setIsEditBuzzerTime             (true);  emit signalEventChangedBuzzerTime                (value);}
     void setSpeedConverter               (quint32  value){ if(value == mSpeedConverter            ) return; mSpeedConverter             = value; setIsEditSpeedConverter         (true);  emit signalEventChangedSpeedConverter            (value);}
     void setMotorDirection               (quint16  value){ if(value == mMotorDirection            ) return; mMotorDirection             = value; setIsEditMotorDirection         (true);  emit signalEventChangedMotorDirection            (value);}
+    void setMotorType                    (quint16  value){ if(value == mMotorType                 ) return; mMotorType                  = value; setIsEditMotorType              (true);  emit signalEventChangedMotorType                 (value);}
+    void setMotorMDRatio                 (quint16  value){ if(value == mMotorMDRatio              ) return; mMotorMDRatio               = value; setIsEditMotorMDRatio           (true);  emit signalEventChangedMotorMDRatio              (value);}
+    void setMotorWCRatio                 (quint16  value){ if(value == mMotorWCRatio              ) return; mMotorWCRatio               = value; setIsEditMotorWCRatio           (true);  emit signalEventChangedMotorWCRatio              (value);}
+    void setMotorRJRatio                 (quint16  value){ if(value == mMotorRJRatio              ) return; mMotorRJRatio               = value; setIsEditMotorRJRatio           (true);  emit signalEventChangedMotorRJRatio              (value);}
     void setRejectorRunTimeRatio         (quint32  value){ if(value == mRejectorRunTimeRatio      ) return; mRejectorRunTimeRatio       = value; setIsEditRejectorRunTimeRatio   (true);  emit signalEventChangedRejectorRunTimeRatio      (value);}
     void setDisplayStability             (quint32  value){ if(value == mDisplayStability          ) return; mDisplayStability           = value; setIsEditDisplayStability       (true);  emit signalEventChangedDisplayStability          (value);}
     void setMeasureCueSign               (quint32  value){ if(value == mMeasureCueSign            ) return; mMeasureCueSign             = value; setIsEditMeasureCueSign         (true);  emit signalEventChangedMeasureCueSign            (value);}
@@ -259,6 +287,10 @@ public:
     void setIsEditBuzzerTime             (bool     value){ if(value == mIsEditBuzzerTime          ) return; mIsEditBuzzerTime           = value; emit signalEventChangedIsEditBuzzerTime          (value);}
     void setIsEditSpeedConverter         (bool     value){ if(value == mIsEditSpeedConverter      ) return; mIsEditSpeedConverter       = value; emit signalEventChangedIsEditSpeedConverter      (value);}
     void setIsEditMotorDirection         (bool     value){ if(value == mIsEditMotorDirection      ) return; mIsEditMotorDirection       = value; emit signalEventChangedIsEditMotorDirection      (value);}
+    void setIsEditMotorType              (bool     value){ if(value == mIsEditMotorType           ) return; mIsEditMotorType            = value; emit signalEventChangedIsEditMotorType           (value);}
+    void setIsEditMotorMDRatio           (bool     value){ if(value == mIsEditMotorMDRatio        ) return; mIsEditMotorMDRatio         = value; emit signalEventChangedIsEditMotorMDRatio        (value);}
+    void setIsEditMotorWCRatio           (bool     value){ if(value == mIsEditMotorWCRatio        ) return; mIsEditMotorWCRatio         = value; emit signalEventChangedIsEditMotorWCRatio        (value);}
+    void setIsEditMotorRJRatio           (bool     value){ if(value == mIsEditMotorRJRatio        ) return; mIsEditMotorRJRatio         = value; emit signalEventChangedIsEditMotorRJRatio        (value);}
     void setIsEditRejectorRunTimeRatio   (bool     value){ if(value == mIsEditRejectorRunTimeRatio) return; mIsEditRejectorRunTimeRatio = value; emit signalEventChangedIsEditRejectorRunTimeRatio(value);}
     void setIsEditDisplayStability       (bool     value){ if(value == mIsEditDisplayStability    ) return; mIsEditDisplayStability     = value; emit signalEventChangedIsEditDisplayStability    (value);}
     void setIsEditMeasureCueSign         (bool     value){ if(value == mIsEditMeasureCueSign      ) return; mIsEditMeasureCueSign       = value; emit signalEventChangedIsEditMeasureCueSign      (value);}
@@ -295,6 +327,10 @@ public:
         setBuzzerTime                   (mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime           );
         setSpeedConverter               (mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter       );
         setMotorDirection               (mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection       );
+        setMotorType                    (mpCoreService->mLocalSettingService.mDspSetting.mMotorType            );
+        setMotorMDRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorMDRatio         );
+        setMotorWCRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorWCRatio         );
+        setMotorRJRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorRJRatio         );
         setRejectorRunTimeRatio         (mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio );
         setDisplayStability             (mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability     );
         setMeasureCueSign               (mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign       );
@@ -329,6 +365,10 @@ public:
         setIsEditBuzzerTime                   ( false );
         setIsEditSpeedConverter               ( false );
         setIsEditMotorDirection               ( false );
+        setIsEditMotorType                    ( false );
+        setIsEditMotorMDRatio                 ( false );
+        setIsEditMotorWCRatio                 ( false );
+        setIsEditMotorRJRatio                 ( false );
         setIsEditRejectorRunTimeRatio         ( false );
         setIsEditDisplayStability             ( false );
         setIsEditMeasureCueSign               ( false );
@@ -370,6 +410,10 @@ signals:
     void signalEventChangedBuzzerTime                   (quint32  value);
     void signalEventChangedSpeedConverter               (quint32  value);
     void signalEventChangedMotorDirection               (quint16  value);
+    void signalEventChangedMotorType                    (quint16  value);
+    void signalEventChangedMotorMDRatio                 (quint16  value);
+    void signalEventChangedMotorWCRatio                 (quint16  value);
+    void signalEventChangedMotorRJRatio                 (quint16  value);
     void signalEventChangedRejectorRunTimeRatio         (quint32  value);
     void signalEventChangedDisplayStability             (quint32  value);
     void signalEventChangedMeasureCueSign               (quint32  value);
@@ -404,6 +448,10 @@ signals:
     void signalEventChangedIsEditBuzzerTime             (bool     value);
     void signalEventChangedIsEditSpeedConverter         (bool     value);
     void signalEventChangedIsEditMotorDirection         (bool     value);
+    void signalEventChangedIsEditMotorType              (bool     value);
+    void signalEventChangedIsEditMotorMDRatio           (bool     value);
+    void signalEventChangedIsEditMotorWCRatio           (bool     value);
+    void signalEventChangedIsEditMotorRJRatio           (bool     value);
     void signalEventChangedIsEditRejectorRunTimeRatio   (bool     value);
     void signalEventChangedIsEditDisplayStability       (bool     value);
     void signalEventChangedIsEditMeasureCueSign         (bool     value);
@@ -449,6 +497,10 @@ public slots:
                                                mBuzzerTime                                                             ,
                                                mSpeedConverter                                                         ,
                                                mMotorDirection                                                         ,
+                                               mMotorType                                                              ,
+                                               mMotorMDRatio                                                           ,
+                                               mMotorWCRatio                                                           ,
+                                               mMotorRJRatio                                                           ,
                                                mpCoreService->mLocalSettingService.mDspSetting.mSensorLength           ,
                                                mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector     ,
                                                mMDPhotoOn                                                              ,
@@ -491,6 +543,10 @@ public slots:
     Q_INVOKABLE void onCommandSetBuzzerTime                   (quint32  value){setBuzzerTime                   (value);}
     Q_INVOKABLE void onCommandSetSpeedConverter               (quint32  value){setSpeedConverter               (value);}
     Q_INVOKABLE void onCommandSetMotorDirection               (quint16  value){setMotorDirection               (value);}
+    Q_INVOKABLE void onCommandSetMotorType                    (quint16  value){setMotorType                    (value);}
+    Q_INVOKABLE void onCommandSetMotorMDRatio                 (quint16  value){setMotorMDRatio                 (value);}
+    Q_INVOKABLE void onCommandSetMotorWCRatio                 (quint16  value){setMotorWCRatio                 (value);}
+    Q_INVOKABLE void onCommandSetMotorRJRatio                 (quint16  value){setMotorRJRatio                 (value);}
     Q_INVOKABLE void onCommandSetRejectorRunTimeRatio         (quint32  value){setRejectorRunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetDisplayStability             (quint32  value){setDisplayStability             (value);}
     Q_INVOKABLE void onCommandSetMeasureCueSign               (quint32  value){setMeasureCueSign               (value);}

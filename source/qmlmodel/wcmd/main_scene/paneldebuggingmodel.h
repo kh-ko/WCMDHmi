@@ -18,12 +18,17 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mOverWeight                  READ getOverWeight                         NOTIFY signalEventChangedOverWeight                        );
     Q_PROPERTY(quint32 mTareWeight                  READ getTareWeight                         NOTIFY signalEventChangedTareWeight                        );
     Q_PROPERTY(quint16 mWCNGMotion                  READ getWCNGMotion                         NOTIFY signalEventChangedWCNGMotion                        );
+    Q_PROPERTY(quint16 mWCEnableEtcError            READ getWCEnableEtcError                   NOTIFY signalEventChangedWCEnableEtcError                  );
     Q_PROPERTY(quint16 mMDSenstivity                READ getMDSenstivity                       NOTIFY signalEventChangedMDSenstivity                      );
     Q_PROPERTY(quint16 mMDNGMotion                  READ getMDNGMotion                         NOTIFY signalEventChangedMDNGMotion                        );
     Q_PROPERTY(quint32 mLampTime                    READ getLampTime                           NOTIFY signalEventChangedLampTime                          );
     Q_PROPERTY(quint32 mBuzzerTime                  READ getBuzzerTime                         NOTIFY signalEventChangedBuzzerTime                        );
     Q_PROPERTY(quint32 mSpeedConverter              READ getSpeedConverter                     NOTIFY signalEventChangedSpeedConverter                    );
     Q_PROPERTY(quint16 mMotorDirection              READ getMotorDirection                     NOTIFY signalEventChangedMotorDirection                    );
+    Q_PROPERTY(quint16 mMotorType                   READ getMotorType                          NOTIFY signalEventChangedMotorType                         );
+    Q_PROPERTY(quint16 mMotorMDRatio                READ getMotorMDRatio                       NOTIFY signalEventChangedMotorMDRatio                      );
+    Q_PROPERTY(quint16 mMotorWCRatio                READ getMotorWCRatio                       NOTIFY signalEventChangedMotorWCRatio                      );
+    Q_PROPERTY(quint16 mMotorRJRatio                READ getMotorRJRatio                       NOTIFY signalEventChangedMotorRJRatio                      );
     Q_PROPERTY(quint16 mSensorLength                READ getSensorLength                       NOTIFY signalEventChangedSensorLength                      );
     Q_PROPERTY(quint16 mDistanceToRejector          READ getDistanceToRejector                 NOTIFY signalEventChangedDistanceToRejector                );
     Q_PROPERTY(bool    mMDPhotoIsOn                 READ getMDPhotoIsOn                        NOTIFY signalEventChangedMDPhotoIsOn                       );
@@ -58,12 +63,17 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffOverWeight              READ getDiffOverWeight                     NOTIFY signalEventChangedDiffOverWeight                    );
     Q_PROPERTY(bool    mDiffTareWeight              READ getDiffTareWeight                     NOTIFY signalEventChangedDiffTareWeight                    );
     Q_PROPERTY(bool    mDiffWCNGMotion              READ getDiffWCNGMotion                     NOTIFY signalEventChangedDiffWCNGMotion                    );
+    Q_PROPERTY(bool    mDiffWCEnableEtcError        READ getDiffWCEnableEtcError               NOTIFY signalEventChangedDiffWCEnableEtcError              );
     Q_PROPERTY(bool    mDiffMDSenstivity            READ getDiffMDSenstivity                   NOTIFY signalEventChangedDiffMDSenstivity                  );
     Q_PROPERTY(bool    mDiffMDNGMotion              READ getDiffMDNGMotion                     NOTIFY signalEventChangedDiffMDNGMotion                    );
     Q_PROPERTY(bool    mDiffLampTime                READ getDiffLampTime                       NOTIFY signalEventChangedDiffLampTime                      );
     Q_PROPERTY(bool    mDiffBuzzerTime              READ getDiffBuzzerTime                     NOTIFY signalEventChangedDiffBuzzerTime                    );
     Q_PROPERTY(bool    mDiffSpeedConverter          READ getDiffSpeedConverter                 NOTIFY signalEventChangedDiffSpeedConverter                );
     Q_PROPERTY(bool    mDiffMotorDirection          READ getDiffMotorDirection                 NOTIFY signalEventChangedDiffMotorDirection                );
+    Q_PROPERTY(bool    mDiffMotorType               READ getDiffMotorType                      NOTIFY signalEventChangedDiffMotorType                     );
+    Q_PROPERTY(bool    mDiffMotorMDRatio            READ getDiffMotorMDRatio                   NOTIFY signalEventChangedDiffMotorMDRatio                  );
+    Q_PROPERTY(bool    mDiffMotorWCRatio            READ getDiffMotorWCRatio                   NOTIFY signalEventChangedDiffMotorWCRatio                  );
+    Q_PROPERTY(bool    mDiffMotorRJRatio            READ getDiffMotorRJRatio                   NOTIFY signalEventChangedDiffMotorRJRatio                  );
     Q_PROPERTY(bool    mDiffMDPhotoIsOn             READ getDiffMDPhotoIsOn                    NOTIFY signalEventChangedDiffMDPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffWCPhotoIsOn             READ getDiffWCPhotoIsOn                    NOTIFY signalEventChangedDiffWCPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffSensorLength            READ getDiffSensorLength                   NOTIFY signalEventChangedDiffSensorLength                  );
@@ -105,12 +115,17 @@ public:
     quint32 mOverWeight                 ;
     quint32 mTareWeight                 ;
     quint16 mWCNGMotion                 ;
+    quint16 mWCEnableEtcError           ;
     quint16 mMDSenstivity               ;
     quint16 mMDNGMotion                 ;
     quint32 mLampTime                   ;
     quint32 mBuzzerTime                 ;
     quint32 mSpeedConverter             ;
     quint16 mMotorDirection             ;
+    quint16 mMotorType                  ;
+    quint16 mMotorMDRatio               ;
+    quint16 mMotorWCRatio               ;
+    quint16 mMotorRJRatio               ;
     quint16 mSensorLength               ;
     quint16 mDistanceToRejector         ;
     bool    mMDPhotoIsOn                ;
@@ -146,12 +161,17 @@ public:
     bool    mDiffOverWeight             ;
     bool    mDiffTareWeight             ;
     bool    mDiffWCNGMotion             ;
+    bool    mDiffWCEnableEtcError       ;
     bool    mDiffMDSenstivity           ;
     bool    mDiffMDNGMotion             ;
     bool    mDiffLampTime               ;
     bool    mDiffBuzzerTime             ;
     bool    mDiffSpeedConverter         ;
     bool    mDiffMotorDirection         ;
+    bool    mDiffMotorType              ;
+    bool    mDiffMotorMDRatio           ;
+    bool    mDiffMotorWCRatio           ;
+    bool    mDiffMotorRJRatio           ;
     bool    mDiffSensorLength           ;
     bool    mDiffDistanceToRejector     ;
     bool    mDiffMDPhotoIsOn            ;
@@ -187,12 +207,17 @@ public:
     quint32 getOverWeight                 (){ return mOverWeight                 ;}
     quint32 getTareWeight                 (){ return mTareWeight                 ;}
     quint16 getWCNGMotion                 (){ return mWCNGMotion                 ;}
+    quint16 getWCEnableEtcError           (){ return mWCEnableEtcError           ;}
     quint16 getMDSenstivity               (){ return mMDSenstivity               ;}
     quint16 getMDNGMotion                 (){ return mMDNGMotion                 ;}
     quint32 getLampTime                   (){ return mLampTime                   ;}
     quint32 getBuzzerTime                 (){ return mBuzzerTime                 ;}
     quint32 getSpeedConverter             (){ return mSpeedConverter             ;}
     quint16 getMotorDirection             (){ return mMotorDirection             ;}
+    quint16 getMotorType                  (){ return mMotorType                  ;}
+    quint16 getMotorMDRatio               (){ return mMotorMDRatio               ;}
+    quint16 getMotorWCRatio               (){ return mMotorWCRatio               ;}
+    quint16 getMotorRJRatio               (){ return mMotorRJRatio               ;}
     quint16 getSensorLength               (){ return mSensorLength               ;}
     quint16 getDistanceToRejector         (){ return mDistanceToRejector         ;}
     bool    getMDPhotoIsOn                (){ return mMDPhotoIsOn                ;}
@@ -227,12 +252,17 @@ public:
     bool    getDiffOverWeight             (){ return mDiffOverWeight             ;}
     bool    getDiffTareWeight             (){ return mDiffTareWeight             ;}
     bool    getDiffWCNGMotion             (){ return mDiffWCNGMotion             ;}
+    bool    getDiffWCEnableEtcError       (){ return mDiffWCEnableEtcError       ;}
     bool    getDiffMDSenstivity           (){ return mDiffMDSenstivity           ;}
     bool    getDiffMDNGMotion             (){ return mDiffMDNGMotion             ;}
     bool    getDiffLampTime               (){ return mDiffLampTime               ;}
     bool    getDiffBuzzerTime             (){ return mDiffBuzzerTime             ;}
     bool    getDiffSpeedConverter         (){ return mDiffSpeedConverter         ;}
     bool    getDiffMotorDirection         (){ return mDiffMotorDirection         ;}
+    bool    getDiffMotorType              (){ return mDiffMotorType              ;}
+    bool    getDiffMotorMDRatio           (){ return mDiffMotorMDRatio           ;}
+    bool    getDiffMotorWCRatio           (){ return mDiffMotorWCRatio           ;}
+    bool    getDiffMotorRJRatio           (){ return mDiffMotorRJRatio           ;}
     bool    getDiffSensorLength           (){ return mDiffSensorLength           ;}
     bool    getDiffDistanceToRejector     (){ return mDiffDistanceToRejector     ;}
     bool    getDiffMDPhotoIsOn            (){ return mDiffMDPhotoIsOn            ;}
@@ -268,12 +298,17 @@ public:
     void setOverWeight                 (quint32  value){ if( value == mOverWeight                 ) return; mOverWeight                 = value; emit signalEventChangedOverWeight                        (value);}
     void setTareWeight                 (quint32  value){ if( value == mTareWeight                 ) return; mTareWeight                 = value; emit signalEventChangedTareWeight                        (value);}
     void setWCNGMotion                 (quint16  value){ if( value == mWCNGMotion                 ) return; mWCNGMotion                 = value; emit signalEventChangedWCNGMotion                        (value);}
+    void setWCEnableEtcError           (quint16  value){ if( value == mWCEnableEtcError           ) return; mWCEnableEtcError           = value; emit signalEventChangedWCEnableEtcError                  (value);}
     void setMDSenstivity               (quint16  value){ if( value == mMDSenstivity               ) return; mMDSenstivity               = value; emit signalEventChangedMDSenstivity                      (value);}
     void setMDNGMotion                 (quint16  value){ if( value == mMDNGMotion                 ) return; mMDNGMotion                 = value; emit signalEventChangedMDNGMotion                        (value);}
     void setLampTime                   (quint32  value){ if( value == mLampTime                   ) return; mLampTime                   = value; emit signalEventChangedLampTime                          (value);}
     void setBuzzerTime                 (quint32  value){ if( value == mBuzzerTime                 ) return; mBuzzerTime                 = value; emit signalEventChangedBuzzerTime                        (value);}
     void setSpeedConverter             (quint32  value){ if( value == mSpeedConverter             ) return; mSpeedConverter             = value; emit signalEventChangedSpeedConverter                    (value);}
     void setMotorDirection             (quint16  value){ if( value == mMotorDirection             ) return; mMotorDirection             = value; emit signalEventChangedMotorDirection                    (value);}
+    void setMotorType                  (quint16  value){ if( value == mMotorType                  ) return; mMotorType                  = value; emit signalEventChangedMotorType                         (value);}
+    void setMotorMDRatio               (quint16  value){ if( value == mMotorMDRatio               ) return; mMotorMDRatio               = value; emit signalEventChangedMotorMDRatio                      (value);}
+    void setMotorWCRatio               (quint16  value){ if( value == mMotorWCRatio               ) return; mMotorWCRatio               = value; emit signalEventChangedMotorWCRatio                      (value);}
+    void setMotorRJRatio               (quint16  value){ if( value == mMotorRJRatio               ) return; mMotorRJRatio               = value; emit signalEventChangedMotorRJRatio                      (value);}
     void setSensorLength               (quint16  value){ if( value == mSensorLength               ) return; mSensorLength               = value; emit signalEventChangedSensorLength                      (value);}
     void setDistanceToRejector         (quint16  value){ if( value == mDistanceToRejector         ) return; mDistanceToRejector         = value; emit signalEventChangedDistanceToRejector                (value);}
     void setMDPhotoIsOn                (bool     value){ if( value == mMDPhotoIsOn                ) return; mMDPhotoIsOn                = value; emit signalEventChangedMDPhotoIsOn                       (value);}
@@ -308,12 +343,17 @@ public:
     void setDiffOverWeight             (bool     value){ if( value == mDiffOverWeight             ) return; mDiffOverWeight             = value; emit signalEventChangedDiffOverWeight                    (value);}
     void setDiffTareWeight             (bool     value){ if( value == mDiffTareWeight             ) return; mDiffTareWeight             = value; emit signalEventChangedDiffTareWeight                    (value);}
     void setDiffWCNGMotion             (bool     value){ if( value == mDiffWCNGMotion             ) return; mDiffWCNGMotion             = value; emit signalEventChangedDiffWCNGMotion                    (value);}
+    void setDiffWCEnableEtcError       (bool     value){ if( value == mDiffWCEnableEtcError       ) return; mDiffWCEnableEtcError       = value; emit signalEventChangedDiffWCEnableEtcError              (value);}
     void setDiffMDSenstivity           (bool     value){ if( value == mDiffMDSenstivity           ) return; mDiffMDSenstivity           = value; emit signalEventChangedDiffMDSenstivity                  (value);}
     void setDiffMDNGMotion             (bool     value){ if( value == mDiffMDNGMotion             ) return; mDiffMDNGMotion             = value; emit signalEventChangedDiffMDNGMotion                    (value);}
     void setDiffLampTime               (bool     value){ if( value == mDiffLampTime               ) return; mDiffLampTime               = value; emit signalEventChangedDiffLampTime                      (value);}
     void setDiffBuzzerTime             (bool     value){ if( value == mDiffBuzzerTime             ) return; mDiffBuzzerTime             = value; emit signalEventChangedDiffBuzzerTime                    (value);}
     void setDiffSpeedConverter         (bool     value){ if( value == mDiffSpeedConverter         ) return; mDiffSpeedConverter         = value; emit signalEventChangedDiffSpeedConverter                (value);}
     void setDiffMotorDirection         (bool     value){ if( value == mDiffMotorDirection         ) return; mDiffMotorDirection         = value; emit signalEventChangedDiffMotorDirection                (value);}
+    void setDiffMotorType              (bool     value){ if( value == mDiffMotorType              ) return; mDiffMotorType              = value; emit signalEventChangedDiffMotorType                     (value);}
+    void setDiffMotorMDRatio           (bool     value){ if( value == mDiffMotorMDRatio           ) return; mDiffMotorMDRatio           = value; emit signalEventChangedDiffMotorMDRatio                  (value);}
+    void setDiffMotorWCRatio           (bool     value){ if( value == mDiffMotorWCRatio           ) return; mDiffMotorWCRatio           = value; emit signalEventChangedDiffMotorWCRatio                  (value);}
+    void setDiffMotorRJRatio           (bool     value){ if( value == mDiffMotorRJRatio           ) return; mDiffMotorRJRatio           = value; emit signalEventChangedDiffMotorRJRatio                  (value);}
     void setDiffSensorLength           (bool     value){ if( value == mDiffSensorLength           ) return; mDiffSensorLength           = value; emit signalEventChangedDiffSensorLength                  (value);}
     void setDiffDistanceToRejector     (bool     value){ if( value == mDiffDistanceToRejector     ) return; mDiffDistanceToRejector     = value; emit signalEventChangedDiffDistanceToRejector            (value);}
     void setDiffMDPhotoIsOn            (bool     value){ if( value == mDiffMDPhotoIsOn            ) return; mDiffMDPhotoIsOn            = value; emit signalEventChangedDiffMDPhotoIsOn                   (value);}
@@ -350,12 +390,17 @@ signals:
     void signalEventChangedOverWeight                        (quint32  value);
     void signalEventChangedTareWeight                        (quint32  value);
     void signalEventChangedWCNGMotion                        (quint16  value);
+    void signalEventChangedWCEnableEtcError                  (quint16  value);
     void signalEventChangedMDSenstivity                      (quint16  value);
     void signalEventChangedMDNGMotion                        (quint16  value);
     void signalEventChangedLampTime                          (quint32  value);
     void signalEventChangedBuzzerTime                        (quint32  value);
     void signalEventChangedSpeedConverter                    (quint32  value);
     void signalEventChangedMotorDirection                    (quint16  value);
+    void signalEventChangedMotorType                         (quint16  value);
+    void signalEventChangedMotorMDRatio                      (quint16  value);
+    void signalEventChangedMotorWCRatio                      (quint16  value);
+    void signalEventChangedMotorRJRatio                      (quint16  value);
     void signalEventChangedSensorLength                      (quint16  value);
     void signalEventChangedDistanceToRejector                (quint16  value);
     void signalEventChangedMDPhotoIsOn                       (bool     value);
@@ -391,12 +436,17 @@ signals:
     void signalEventChangedDiffOverWeight                    (bool     value);
     void signalEventChangedDiffTareWeight                    (bool     value);
     void signalEventChangedDiffWCNGMotion                    (bool     value);
+    void signalEventChangedDiffWCEnableEtcError              (bool     value);
     void signalEventChangedDiffMDSenstivity                  (bool     value);
     void signalEventChangedDiffMDNGMotion                    (bool     value);
     void signalEventChangedDiffLampTime                      (bool     value);
     void signalEventChangedDiffBuzzerTime                    (bool     value);
     void signalEventChangedDiffSpeedConverter                (bool     value);
     void signalEventChangedDiffMotorDirection                (bool     value);
+    void signalEventChangedDiffMotorType                     (bool     value);
+    void signalEventChangedDiffMotorMDRatio                  (bool     value);
+    void signalEventChangedDiffMotorWCRatio                  (bool     value);
+    void signalEventChangedDiffMotorRJRatio                  (bool     value);
     void signalEventChangedDiffSensorLength                  (bool     value);
     void signalEventChangedDiffDistanceToRejector            (bool     value);
     void signalEventChangedDiffMDPhotoIsOn                   (bool     value);
@@ -436,8 +486,10 @@ public slots:
         setOverWeight                 (mpRemoteProductSetting->mOverWeight           ); setDiffOverWeight             (mpRemoteProductSetting->mOverWeight            != mpLocalProductSetting->mOverWeight           );
         setTareWeight                 (mpRemoteProductSetting->mTareWeight           ); setDiffTareWeight             (mpRemoteProductSetting->mTareWeight            != mpLocalProductSetting->mTareWeight           );
         setWCNGMotion                 (mpRemoteProductSetting->mWCNGMotion           ); setDiffWCNGMotion             (mpRemoteProductSetting->mWCNGMotion            != mpLocalProductSetting->mWCNGMotion           );
+        setWCEnableEtcError           (mpRemoteProductSetting->mWCEnableEtcError     ); setDiffWCEnableEtcError       (mpRemoteProductSetting->mWCEnableEtcError      != mpLocalProductSetting->mWCEnableEtcError     );
         setMDSenstivity               (mpRemoteProductSetting->mMDSenstivity         ); setDiffMDSenstivity           (mpRemoteProductSetting->mMDSenstivity          != mpLocalProductSetting->mMDSenstivity         );
         setMDNGMotion                 (mpRemoteProductSetting->mMDNGMotion           ); setDiffMDNGMotion             (mpRemoteProductSetting->mMDNGMotion            != mpLocalProductSetting->mMDNGMotion           );
+        setDynamicFactor              (mpRemoteProductSetting->mDynamicFactor        ); setDiffDynamicFactor          (mpRemoteProductSetting->mDynamicFactor         != mpLocalProductSetting->mDynamicFactor        );
     }
 
     void onSignalEventChangedRemoteDeviceSetting()
@@ -446,13 +498,16 @@ public slots:
         setBuzzerTime                 (mpRemoteDeviceSetting->mBuzzerTime             ); setDiffBuzzerTime             (mpRemoteDeviceSetting->mBuzzerTime              != mpLocalDeviceSetting->mBuzzerTime             );
         setSpeedConverter             (mpRemoteDeviceSetting->mSpeedConverter         ); setDiffSpeedConverter         (mpRemoteDeviceSetting->mSpeedConverter          != mpLocalDeviceSetting->mSpeedConverter         );
         setMotorDirection             (mpRemoteDeviceSetting->mMotorDirection         ); setDiffMotorDirection         (mpRemoteDeviceSetting->mMotorDirection          != mpLocalDeviceSetting->mMotorDirection         );
+        setMotorType                  (mpRemoteDeviceSetting->mMotorType              ); setDiffMotorType              (mpRemoteDeviceSetting->mMotorType               != mpLocalDeviceSetting->mMotorType              );
+        setMotorMDRatio               (mpRemoteDeviceSetting->mMotorMDRatio           ); setDiffMotorMDRatio           (mpRemoteDeviceSetting->mMotorMDRatio            != mpLocalDeviceSetting->mMotorMDRatio           );
+        setMotorWCRatio               (mpRemoteDeviceSetting->mMotorWCRatio           ); setDiffMotorWCRatio           (mpRemoteDeviceSetting->mMotorWCRatio            != mpLocalDeviceSetting->mMotorWCRatio           );
+        setMotorRJRatio               (mpRemoteDeviceSetting->mMotorRJRatio           ); setDiffMotorRJRatio           (mpRemoteDeviceSetting->mMotorRJRatio            != mpLocalDeviceSetting->mMotorRJRatio           );
         setSensorLength               (mpRemoteDeviceSetting->mSensorLength           ); setDiffSensorLength           (mpRemoteDeviceSetting->mSensorLength            != mpLocalDeviceSetting->mSensorLength           );
         setDistanceToRejector         (mpRemoteDeviceSetting->mDistanceToRejector     ); setDiffDistanceToRejector     (mpRemoteDeviceSetting->mDistanceToRejector      != mpLocalDeviceSetting->mDistanceToRejector     );
         setMDPhotoIsOn                (mpRemoteDeviceSetting->mMDPhotoIsOn            ); setDiffMDPhotoIsOn            (mpRemoteDeviceSetting->mMDPhotoIsOn             != mpLocalDeviceSetting->mMDPhotoIsOn            );
         setWCPhotoIsOn                (mpRemoteDeviceSetting->mWCPhotoIsOn            ); setDiffWCPhotoIsOn            (mpRemoteDeviceSetting->mWCPhotoIsOn             != mpLocalDeviceSetting->mWCPhotoIsOn            );
         setRejectorRunTimeRatio       (mpRemoteDeviceSetting->mRejectorRunTimeRatio   ); setDiffRejectorRunTimeRatio   (mpRemoteDeviceSetting->mRejectorRunTimeRatio    != mpLocalDeviceSetting->mRejectorRunTimeRatio   );
         setStaticFactor               (mpRemoteDeviceSetting->mStaticFactor           ); setDiffStaticFactor           (mpRemoteDeviceSetting->mStaticFactor            != mpLocalDeviceSetting->mStaticFactor           );
-        setDynamicFactor              (mpRemoteProductSetting->mDynamicFactor         ); setDiffDynamicFactor          (mpRemoteProductSetting->mDynamicFactor          != mpLocalProductSetting->mDynamicFactor         );
         setScaler                     (mpRemoteDeviceSetting->mScaler                 ); setDiffScaler                 (mpRemoteDeviceSetting->mScaler                  != mpLocalDeviceSetting->mScaler                 );
         setDisplayStability           (mpRemoteDeviceSetting->mDisplayStability       ); setDiffDisplayStability       (mpRemoteDeviceSetting->mDisplayStability        != mpLocalDeviceSetting->mDisplayStability       );
         setMeasureCueSign             (mpRemoteDeviceSetting->mMeasureCueSign         ); setDiffMeasureCueSign         (mpRemoteDeviceSetting->mMeasureCueSign          != mpLocalDeviceSetting->mMeasureCueSign         );
@@ -469,6 +524,37 @@ public slots:
         setDynamicBaseWeight          (mpRemoteDeviceSetting->mDynamicBaseWeight      ); setDiffDynamicBaseWeight      (mpRemoteDeviceSetting->mDynamicBaseWeight       != mpLocalDeviceSetting->mDynamicBaseWeight      );
         setSensorCnt                  (mpRemoteDeviceSetting->mSensorCnt              ); setDiffSensorCnt              (mpRemoteDeviceSetting->mSensorCnt               != mpLocalDeviceSetting->mSensorCnt              );
         setRejectorOpenTime           (mpRemoteDeviceSetting->mRejectorOpenTime       ); setDiffRejectorOpenTime       (mpRemoteDeviceSetting->mRejectorOpenTime        != mpLocalDeviceSetting->mRejectorOpenTime       );
+
+        qDebug() << "RemoteDeviceSetting->mLampTime                :" << mpRemoteDeviceSetting->mLampTime                << ",local = " << mpLocalDeviceSetting->mLampTime               ;
+        qDebug() << "RemoteDeviceSetting->mBuzzerTime              :" << mpRemoteDeviceSetting->mBuzzerTime              << ",local = " << mpLocalDeviceSetting->mBuzzerTime             ;
+        qDebug() << "RemoteDeviceSetting->mSpeedConverter          :" << mpRemoteDeviceSetting->mSpeedConverter          << ",local = " << mpLocalDeviceSetting->mSpeedConverter         ;
+        qDebug() << "RemoteDeviceSetting->mMotorDirection          :" << mpRemoteDeviceSetting->mMotorDirection          << ",local = " << mpLocalDeviceSetting->mMotorDirection         ;
+        qDebug() << "RemoteDeviceSetting->mMotorType               :" << mpRemoteDeviceSetting->mMotorType               << ",local = " << mpLocalDeviceSetting->mMotorType              ;
+        qDebug() << "RemoteDeviceSetting->mMotorMDRatio            :" << mpRemoteDeviceSetting->mMotorMDRatio            << ",local = " << mpLocalDeviceSetting->mMotorMDRatio           ;
+        qDebug() << "RemoteDeviceSetting->mMotorWCRatio            :" << mpRemoteDeviceSetting->mMotorWCRatio            << ",local = " << mpLocalDeviceSetting->mMotorWCRatio           ;
+        qDebug() << "RemoteDeviceSetting->mMotorRJRatio            :" << mpRemoteDeviceSetting->mMotorRJRatio            << ",local = " << mpLocalDeviceSetting->mMotorRJRatio           ;
+        qDebug() << "RemoteDeviceSetting->mSensorLength            :" << mpRemoteDeviceSetting->mSensorLength            << ",local = " << mpLocalDeviceSetting->mSensorLength           ;
+        qDebug() << "RemoteDeviceSetting->mDistanceToRejector      :" << mpRemoteDeviceSetting->mDistanceToRejector      << ",local = " << mpLocalDeviceSetting->mDistanceToRejector     ;
+        qDebug() << "RemoteDeviceSetting->mMDPhotoIsOn             :" << mpRemoteDeviceSetting->mMDPhotoIsOn             << ",local = " << mpLocalDeviceSetting->mMDPhotoIsOn            ;
+        qDebug() << "RemoteDeviceSetting->mWCPhotoIsOn             :" << mpRemoteDeviceSetting->mWCPhotoIsOn             << ",local = " << mpLocalDeviceSetting->mWCPhotoIsOn            ;
+        qDebug() << "RemoteDeviceSetting->mRejectorRunTimeRatio    :" << mpRemoteDeviceSetting->mRejectorRunTimeRatio    << ",local = " << mpLocalDeviceSetting->mRejectorRunTimeRatio   ;
+        qDebug() << "RemoteDeviceSetting->mStaticFactor            :" << mpRemoteDeviceSetting->mStaticFactor            << ",local = " << mpLocalDeviceSetting->mStaticFactor           ;
+        qDebug() << "RemoteDeviceSetting->mScaler                  :" << mpRemoteDeviceSetting->mScaler                  << ",local = " << mpLocalDeviceSetting->mScaler                 ;
+        qDebug() << "RemoteDeviceSetting->mDisplayStability        :" << mpRemoteDeviceSetting->mDisplayStability        << ",local = " << mpLocalDeviceSetting->mDisplayStability       ;
+        qDebug() << "RemoteDeviceSetting->mMeasureCueSign          :" << mpRemoteDeviceSetting->mMeasureCueSign          << ",local = " << mpLocalDeviceSetting->mMeasureCueSign         ;
+        qDebug() << "RemoteDeviceSetting->mMinStaticWeight         :" << mpRemoteDeviceSetting->mMinStaticWeight         << ",local = " << mpLocalDeviceSetting->mMinStaticWeight        ;
+        qDebug() << "RemoteDeviceSetting->mMinDynamicWeight        :" << mpRemoteDeviceSetting->mMinDynamicWeight        << ",local = " << mpLocalDeviceSetting->mMinDynamicWeight       ;
+        qDebug() << "RemoteDeviceSetting->mMode                    :" << mpRemoteDeviceSetting->mMode                    << ",local = " << mpLocalDeviceSetting->mMode                   ;
+        qDebug() << "RemoteDeviceSetting->mDistanceBtwSensor       :" << mpRemoteDeviceSetting->mDistanceBtwSensor       << ",local = " << mpLocalDeviceSetting->mDistanceBtwSensor      ;
+        qDebug() << "RemoteDeviceSetting->mDetectDetectTime        :" << mpRemoteDeviceSetting->mDetectDetectTime        << ",local = " << mpLocalDeviceSetting->mDetectDetectTime       ;
+        qDebug() << "RemoteDeviceSetting->mRunDetectTime           :" << mpRemoteDeviceSetting->mRunDetectTime           << ",local = " << mpLocalDeviceSetting->mRunDetectTime          ;
+        qDebug() << "RemoteDeviceSetting->mDistanceToWeightChecker :" << mpRemoteDeviceSetting->mDistanceToWeightChecker << ",local = " << mpLocalDeviceSetting->mDistanceToWeightChecker;
+        qDebug() << "RemoteDeviceSetting->mDistancePhotoToSensor   :" << mpRemoteDeviceSetting->mDistancePhotoToSensor   << ",local = " << mpLocalDeviceSetting->mDistancePhotoToSensor  ;
+        qDebug() << "RemoteDeviceSetting->mSignalDelayTime         :" << mpRemoteDeviceSetting->mSignalDelayTime         << ",local = " << mpLocalDeviceSetting->mSignalDelayTime        ;
+        qDebug() << "RemoteDeviceSetting->mStaticStandardWeight    :" << mpRemoteDeviceSetting->mStaticStandardWeight    << ",local = " << mpLocalDeviceSetting->mStaticStandardWeight   ;
+        qDebug() << "RemoteDeviceSetting->mDynamicBaseWeight       :" << mpRemoteDeviceSetting->mDynamicBaseWeight       << ",local = " << mpLocalDeviceSetting->mDynamicBaseWeight      ;
+        qDebug() << "RemoteDeviceSetting->mSensorCnt               :" << mpRemoteDeviceSetting->mSensorCnt               << ",local = " << mpLocalDeviceSetting->mSensorCnt              ;
+        qDebug() << "RemoteDeviceSetting->mRejectorOpenTime        :" << mpRemoteDeviceSetting->mRejectorOpenTime        << ",local = " << mpLocalDeviceSetting->mRejectorOpenTime       ;
     }
 
 

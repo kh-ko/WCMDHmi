@@ -10,14 +10,14 @@ class ProductSettingDto
 {
 public:
     StProductSetting mProductSetting;
-    quint32          mDynamicFactor;
+    //quint32          mDynamicFactor;
 
     ProductSettingDto(){}
-    ProductSettingDto(const ProductSettingDto& copy) : mDynamicFactor(copy.mDynamicFactor)
+    ProductSettingDto(const ProductSettingDto& copy)
     {
         memcpy(&mProductSetting, &(copy.mProductSetting), sizeof(StProductSetting));
     }
-    ProductSettingDto(StProductSetting * copy, quint32 dynamicFactor) : mDynamicFactor(dynamicFactor)
+    ProductSettingDto(StProductSetting * copy)
     {
         memcpy(&mProductSetting, copy, sizeof(StProductSetting));
     }
@@ -34,16 +34,17 @@ public:
         mProductSetting.mOverWeight              = copy->mOverWeight           ;
         mProductSetting.mTareWeight              = copy->mTareWeight           ;
         mProductSetting.mWeightCheckerNGMotion   = copy->mWCNGMotion           ;
+        mProductSetting.mWCEnableEtcError        = copy->mWCEnableEtcError     ;
         mProductSetting.mMetalDetectorSenstivity = copy->mMDSenstivity         ;
         mProductSetting.mMetalDetectorNGMotion   = copy->mMDNGMotion           ;
-        mDynamicFactor                           = copy->mDynamicFactor        ;
+        mProductSetting.mDynamicFactor           = copy->mDynamicFactor        ;
     }
     ~ProductSettingDto(){}
 
     ProductSettingDto& operator=(const ProductSettingDto& other)
     {
         memcpy(&mProductSetting, &(other.mProductSetting), sizeof(StProductSetting));
-        mDynamicFactor = other.mDynamicFactor;
+        //mDynamicFactor = other.mDynamicFactor;
         return *this;
     }
 
@@ -60,9 +61,10 @@ public:
         mProductSetting.mOverWeight              = other->mOverWeight           ;
         mProductSetting.mTareWeight              = other->mTareWeight           ;
         mProductSetting.mWeightCheckerNGMotion   = other->mWCNGMotion           ;
+        mProductSetting.mWCEnableEtcError        = other->mWCEnableEtcError     ;
         mProductSetting.mMetalDetectorSenstivity = other->mMDSenstivity         ;
         mProductSetting.mMetalDetectorNGMotion   = other->mMDNGMotion           ;
-        mDynamicFactor                           = other->mDynamicFactor        ;
+        mProductSetting.mDynamicFactor           = other->mDynamicFactor        ;
         return *this;
     }
 
@@ -81,9 +83,10 @@ public:
         pTemp->setOverWeight            (mProductSetting.mOverWeight             );
         pTemp->setTareWeight            (mProductSetting.mTareWeight             );
         pTemp->setWCNGMotion            (mProductSetting.mWeightCheckerNGMotion  );
+        pTemp->setWCEnableEtcError      (mProductSetting.mWCEnableEtcError       );
         pTemp->setMDSenstivity          (mProductSetting.mMetalDetectorSenstivity);
         pTemp->setMDNGMotion            (mProductSetting.mMetalDetectorNGMotion  );
-        pTemp->setDynamicFactor         (mDynamicFactor                          );
+        pTemp->setDynamicFactor         (mProductSetting.mDynamicFactor          );
 
         return pTemp;
     }

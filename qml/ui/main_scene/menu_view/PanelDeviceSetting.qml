@@ -36,7 +36,7 @@ UiPanel {
         height: 60
         anchors.right: dividerGeneralWeightChecker.left
         anchors.rightMargin: 20
-        anchors.top: btnApply.bottom
+        anchors.top: parent.top
         anchors.topMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
@@ -324,26 +324,12 @@ UiPanel {
         }
     }
 
-    UiLabelSystem{
-        id : labelMotorDirection
-        height: 60
-        anchors.topMargin: 10
-        anchors.top: inputSpeedConverter.bottom
-        anchors.leftMargin: 20
-        anchors.left: parent.left
-        anchors.right: dividerGeneralWeightChecker.left
-        anchors.rightMargin: 20
-
-        visible: panel.isAdmin
-        textValue: qsTr("· Transfer direction")
-    }
-
     UiComboBox {
         id: comboMotorDirection
         height: 60
         z: 1
-        anchors.topMargin: 0
-        anchors.top: labelMotorDirection.bottom
+        anchors.topMargin: 10
+        anchors.top: inputSpeedConverter.bottom
         anchors.leftMargin: 20
         anchors.left: parent.left
         anchors.right: dividerGeneralWeightChecker.left
@@ -353,18 +339,19 @@ UiPanel {
         isHighlight: settingModel.isEditMotorDirection
         isUpMode : true
 
+        labelText: qsTr("· Transfer")
         bgColor: panel.bgColor
-        comboWidth : -1
+        comboWidth : 254
         selIdx: settingModel.motorDirection
         listModel: comboDirectionOption
         ListModel {
             id : comboDirectionOption
             ListElement {
-                itemText : qsTr("Left <- right")
+                itemText : qsTr("Left ← right")
                 itemIdx : 0
             }
             ListElement {
-                itemText : qsTr("Left -> right")
+                itemText : qsTr("Left → right")
                 itemIdx : 1
             }
         }
@@ -374,8 +361,127 @@ UiPanel {
         }
     }
 
+    UiComboBox {
+        id: comboMotorType
+        height: 60
+        z: 1
+        anchors.top: comboMotorDirection.bottom
+        anchors.topMargin: 10
+        anchors.leftMargin: 20
+        anchors.left: parent.left
+        anchors.right: dividerGeneralWeightChecker.left
+        anchors.rightMargin: 20
 
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditMotorType
+        isUpMode : true
 
+        labelText: qsTr("· Motor type")
+        bgColor: panel.bgColor
+        comboWidth : 254
+        selIdx: settingModel.motorType
+        listModel: comboMotorTypeOption
+        ListModel {
+            id : comboMotorTypeOption
+            ListElement {
+                itemText : qsTr("3-phase")
+                itemIdx : 0
+            }
+            ListElement {
+                itemText : qsTr("BLDC")
+                itemIdx : 1
+            }
+        }
+
+        onSignalEventChangedSel: {
+            settingModel.onCommandSetMotorType(itemIdx)
+        }
+    }
+
+    UiLabelSystem{
+        id : labelMotorRPMRatio
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: comboMotorType.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.right: dividerGeneralWeightChecker.left
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin
+        textValue: qsTr("· Motor RPM ratio ( MD : WC : RJ)")
+    }
+
+    RowLayout{
+        height: 60
+        anchors.topMargin: 0
+        anchors.top: labelMotorRPMRatio.bottom
+        spacing: 10
+        anchors.leftMargin: 20
+        anchors.left: parent.left
+        anchors.right: dividerGeneralWeightChecker.left
+        anchors.rightMargin: 20
+
+        UiInputFloat{
+            id : inputMotorMDRatio
+            height: 60
+
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            visible: panel.isAdmin
+            isHighlight: settingModel.isEditMotorMDRatio
+            fixedN: 2
+            bgColor: panel.bgColor
+
+            realValue: settingModel.motorMDRatio / 100
+
+            onSignalChangeValue: {
+                settingModel.onCommandSetMotorMDRatio((value * 100))
+            }
+        }
+
+        UiInputFloat{
+            id : inputMotorWCRatio
+            height: 60
+
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            visible: panel.isAdmin
+            isHighlight: settingModel.isEditMotorWCRatio
+            fixedN: 2
+            bgColor: panel.bgColor
+
+            realValue: settingModel.motorWCRatio / 100
+
+            onSignalChangeValue: {
+                settingModel.onCommandSetMotorWCRatio((value * 100))
+            }
+        }
+
+        UiInputFloat{
+            id : inputMotorRJRatio
+            height: 60
+
+            Layout.preferredHeight: 1
+            Layout.preferredWidth: 1
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            visible: panel.isAdmin
+            isHighlight: settingModel.isEditMotorRJRatio
+            fixedN: 2
+            bgColor: panel.bgColor
+
+            realValue: settingModel.motorRJRatio / 100
+
+            onSignalChangeValue: {
+                settingModel.onCommandSetMotorRJRatio((value * 100))
+            }
+        }
+    }
 
     UiDivider
     {
@@ -1290,6 +1396,10 @@ UiPanel {
                  settingModel.isEditBuzzerTime          ||
                  settingModel.isEditSpeedConverter      ||
                  settingModel.isEditMotorDirection      ||
+                 settingModel.isEditMotorType           ||
+                 settingModel.isEditMotorMDRatio        ||
+                 settingModel.isEditMotorWCRatio        ||
+                 settingModel.isEditMotorRJRation       ||
                  settingModel.isEditRejectorRunTimeRatio||
                  settingModel.isEditDisplayStability    ||
                  settingModel.isEditMeasureCueSign      ||

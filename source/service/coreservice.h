@@ -66,6 +66,10 @@ public:
                                                      quint32 buzzerTime             ,
                                                      quint32 speedConverter         ,
                                                      quint16 motorDirection         ,
+                                                     quint16 motorType              ,
+                                                     quint16 motorMDRatio           ,
+                                                     quint16 motorWCRatio           ,
+                                                     quint16 motorRJRatio           ,
                                                      quint16 sensorLength           ,
                                                      quint16 distanceToRejector     ,
                                                      bool    mdPhotoIsOn            ,
@@ -102,6 +106,7 @@ public:
                                                      quint32 overWeight           ,
                                                      quint32 tareWeight           ,
                                                      quint16 wcNGMotion           ,
+                                                     quint16 wcEnableEtcError     ,
                                                      quint32 dynamicFactor        ,
                                                      quint16 mdSenstivity         ,
                                                      quint16 mdNGMotion           );
@@ -119,6 +124,7 @@ public:
                                                      quint32 overWeight           ,
                                                      quint32 tareWeight           ,
                                                      quint16 wcNGMotion           ,
+                                                     quint16 wcEnableEtcError     ,
                                                      quint32 dynamicFactor        ,
                                                      quint16 mdSenstivity         ,
                                                      quint16 mdNGMotion           );

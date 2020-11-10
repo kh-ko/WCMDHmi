@@ -147,6 +147,7 @@ public slots:
                                                              mOverWeight                             ,
                                                              mpProductSetting->mTareWeight           ,
                                                              mpProductSetting->mWCNGMotion           ,
+                                                             mpProductSetting->mWCEnableEtcError     ,
                                                              mpProductSetting->mDynamicFactor        ,
                                                              mpProductSetting->mMDSenstivity         ,
                                                              mpProductSetting->mMDNGMotion           );

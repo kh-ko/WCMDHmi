@@ -483,7 +483,64 @@ UiPanel {
         }
     }
 
+    UiLabelSystem{
+        id : inputEnableEtcError
+        height: 60
+        anchors.right: divider.left
+        anchors.rightMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.top: comboWCNGMotion.bottom
+        anchors.topMargin: 10
 
+        visible: itemModel.seq !== 0 || itemModel.isNew
+        textValue: qsTr("· Error detect")
+
+        UiRadioBtn{
+            id: radioWCEtcErrorOn
+            width : 120
+            anchors.right: radioWCEtcErrorOff.left
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditWCEnableEtcError && isSelect
+            isSelect: itemModel.wcEnableEtcError === 1 ? true : false
+
+            textValue : qsTr("ON")
+
+            onSignalEventClicked:
+            {
+                console.debug("[debug] click on" + itemModel.wcEnableEtcError + ", sel = " +isSelect)
+                itemModel.onCommandSetWCEnableEtcError(true);
+            }
+        }
+
+        UiRadioBtn{
+            id: radioWCEtcErrorOff
+            width : 120
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditWCEnableEtcError && isSelect
+            isSelect: itemModel.wcEnableEtcError === 0? true : false
+            textValue : qsTr("OFF")
+
+            onSignalEventClicked:
+            {
+                console.debug("[debug] click on" + itemModel.wcEnableEtcError + ", sel = " +isSelect)
+                itemModel.onCommandSetWCEnableEtcError(false)
+            }
+        }
+    }
     UiLabelContent {
         id: labelMetalDetector
         height: 30
@@ -597,6 +654,7 @@ UiPanel {
                  itemModel.isEditOverWeight         ||
                  itemModel.isEditTareWeight         ||
                  itemModel.isEditWCNGMotion         ||
+                 itemModel.isEditWCEnableEtcError   ||
                  itemModel.isEditDynamicFactor      ||
                  itemModel.isEditMDSenstivity       ||
                  itemModel.isEditMDNGMotion)        &&
@@ -655,6 +713,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}D{i:31;anchors_height:80}
+    D{i:0;formeditorZoom:0.8999999761581421}
 }
 ##^##*/

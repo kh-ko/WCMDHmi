@@ -66,7 +66,7 @@ void ProductSettingService::onSignalEventCompleteLoadProductSetting  (int error)
         quint16 wcNgMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
         quint16 mdNgMotion = EnumDefine::NGMotion::NG_MOTION_REJECT_02;
 
-        addProductSetting(&seq, 1,"product", 250, 40, 1000, 90000, 90000, 92000, 94000, 94000, 0, wcNgMotion, 10000000, 9999, mdNgMotion);
+        addProductSetting(&seq, 1,"product", 250, 40, 1000, 90000, 90000, 92000, 94000, 94000, 0, wcNgMotion, 1, 10000000, 9999, mdNgMotion);
     }
 
     emit signalCommandSelectSeqLoad(mSelectSeqPath,mSelectSeqFileName);
@@ -122,6 +122,7 @@ int  ProductSettingService::addProductSetting(quint64 *seq                 ,
                                               quint32 overWeight           ,
                                               quint32 tareWeight           ,
                                               quint16 wcNGMotion           ,
+                                              quint16 wcEnableEtcError     ,
                                               quint32 dynamicFactor        ,
                                               quint16 mdSenstivity         ,
                                               quint16 mdNGMotion           )
@@ -152,6 +153,7 @@ int  ProductSettingService::addProductSetting(quint64 *seq                 ,
     ps->mOverWeight            = overWeight           ;
     ps->mTareWeight            = tareWeight           ;
     ps->mWCNGMotion            = wcNGMotion           ;
+    ps->mWCEnableEtcError      = wcEnableEtcError     ;
     ps->mDynamicFactor         = dynamicFactor        ;
     ps->mMDSenstivity          = mdSenstivity         ;
     ps->mMDNGMotion            = mdNGMotion           ;
@@ -197,6 +199,7 @@ int  ProductSettingService::editProductSetting(quint64 seq                  ,
                                                quint32 overWeight           ,
                                                quint32 tareWeight           ,
                                                quint16 wcNGMotion           ,
+                                               quint16 wcEnableEtcError     ,
                                                quint32 dynamicFactor        ,
                                                quint16 mdSenstivity         ,
                                                quint16 mdNGMotion           )
@@ -233,6 +236,7 @@ int  ProductSettingService::editProductSetting(quint64 seq                  ,
     tempPs->mOverWeight            = overWeight           ;
     tempPs->mTareWeight            = tareWeight           ;
     tempPs->mWCNGMotion            = wcNGMotion           ;
+    tempPs->mWCEnableEtcError      = wcEnableEtcError     ;
     tempPs->mDynamicFactor         = dynamicFactor        ;
     tempPs->mMDSenstivity          = mdSenstivity         ;
     tempPs->mMDNGMotion            = mdNGMotion           ;
@@ -252,6 +256,7 @@ int  ProductSettingService::editProductSetting(quint64 seq                  ,
         ps->setOverWeight           (overWeight           );
         ps->setTareWeight           (tareWeight           );
         ps->setWCNGMotion           (wcNGMotion           );
+        ps->setWCEnableEtcError     (wcEnableEtcError     );
         ps->setDynamicFactor        (dynamicFactor        );
         ps->setMDSenstivity         (mdSenstivity         );
         ps->setMDNGMotion           (mdNGMotion           );
@@ -363,6 +368,7 @@ ProductSettingModel * ProductSettingService::newProductSetting()
     newProduct->setOverWeight           (mListProductSetting.at(mListProductSetting.size() - 1)->mOverWeight           );
     newProduct->setTareWeight           (mListProductSetting.at(mListProductSetting.size() - 1)->mTareWeight           );
     newProduct->setWCNGMotion           (mListProductSetting.at(mListProductSetting.size() - 1)->mWCNGMotion           );
+    newProduct->setWCEnableEtcError     (mListProductSetting.at(mListProductSetting.size() - 1)->mWCEnableEtcError     );
     newProduct->setDynamicFactor        (mListProductSetting.at(mListProductSetting.size() - 1)->mDynamicFactor        );
     newProduct->setMDSenstivity         (mListProductSetting.at(mListProductSetting.size() - 1)->mMDSenstivity         );
     newProduct->setMDNGMotion           (mListProductSetting.at(mListProductSetting.size() - 1)->mMDNGMotion           );

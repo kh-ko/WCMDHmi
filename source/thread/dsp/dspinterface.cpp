@@ -28,6 +28,8 @@ void DSPInterface::onRecevie()
     mpSock->readDatagram(rcvBuffer.data(), rcvBuffer.size(), &sender, &senderPort);
     rPacketData = (StPacket *)rcvBuffer.data();
 
+    //qDebug() << "[debug]rcv packet : "<< rcvBuffer.toHex();
+
     if(rPacketData->mFuncCode == EnumDefine::FuncCode::ERROR_ACK_TYPE)
     {
         qDebug() << " packet error ack";
@@ -137,12 +139,13 @@ void DSPInterface::onRecevie()
         if(pDeviceSetting != nullptr)
         {
             DspSettingDto dspDto(pDeviceSetting);
+
             emit signalEventChangedRemoteDeviceSetting(mConnection.mDspSeq, dspDto);
         }
 
         if(pProductSetting != nullptr)
         {
-            ProductSettingDto productSettingDto(pProductSetting, pDeviceSetting->mDynamicFactor);
+            ProductSettingDto productSettingDto(pProductSetting/*, pDeviceSetting->mDynamicFactor*/);
             emit signalEventChangedRemoteProductSetting(mConnection.mDspSeq, productSettingDto);
         }
 
@@ -386,6 +389,8 @@ void DSPInterface::sendPacket(StPacket * packet, bool isForce)
 
     //qDebug() << "[debug]send packet size="<< packetSize;
     //qDebug() << "[debug]send addr size="<< packet->mSize;
+    //QByteArray qByteArray((char *)(packet), packetSize);
+    //qDebug() << "[debug]send packet="<< qByteArray.toHex();
 
     if(mpSock->writeDatagram((char *)packet, packetSize, mHostAddr, mConnection.mPort) < 1)
     {

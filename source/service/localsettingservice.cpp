@@ -44,6 +44,10 @@ QString STR_MODEL    = "NSWCNSAMD"              ;
 #define DSP_SETTING_PATH_BUZZERTIME             "dspsetting/BuzzerTime"
 #define DSP_SETTING_PATH_SPEEDCONVERTOR         "dspsetting/SpeedConverter"
 #define DSP_SETTING_PATH_MOTORDIRECTION         "dspsetting/MotorDirection"
+#define DSP_SETTING_PATH_MOTORTYPE              "dspsetting/MotorType"
+#define DSP_SETTING_PATH_MOTORMDRATIO           "dspsetting/MotorMDRatio"
+#define DSP_SETTING_PATH_MOTORWCRATIO           "dspsetting/MotorWCRatio"
+#define DSP_SETTING_PATH_MOTORRJRATIO           "dspsetting/MotorRJRatio"
 #define DSP_SETTING_PATH_SENSORLENGTH           "dspsetting/SensorLength"
 #define DSP_SETTING_PATH_DIST_TO_REJECTOR       "dspsetting/DistanceToRejector"
 #define DSP_SETTING_PATH_MD_PHOTO_ON            "dspsetting/MDPhotoIsOn"
@@ -199,13 +203,17 @@ void LocalSettingService::loadDspSetting()
     mDspSetting.setBuzzerTime             (mpSettings->value(DSP_SETTING_PATH_BUZZERTIME            , 1000                                                      ).toInt ());
     mDspSetting.setSpeedConverter         (mpSettings->value(DSP_SETTING_PATH_SPEEDCONVERTOR        , 2070000                                                   ).toInt ());
     mDspSetting.setMotorDirection         (mpSettings->value(DSP_SETTING_PATH_MOTORDIRECTION        , EnumDefine::MOTOR_DIRECTION::MOTOR_DIRECTION_RIGHT_TO_LEFT).toInt ());
+    mDspSetting.setMotorType              (mpSettings->value(DSP_SETTING_PATH_MOTORTYPE             , EnumDefine::MotorType::MOTOR_3_PHASE                      ).toInt ());
+    mDspSetting.setMotorMDRatio           (mpSettings->value(DSP_SETTING_PATH_MOTORMDRATIO          , 100                                                       ).toInt ());
+    mDspSetting.setMotorWCRatio           (mpSettings->value(DSP_SETTING_PATH_MOTORWCRATIO          , 100                                                       ).toInt ());
+    mDspSetting.setMotorRJRatio           (mpSettings->value(DSP_SETTING_PATH_MOTORRJRATIO          , 100                                                       ).toInt ());
     mDspSetting.setSensorLength           (mpSettings->value(DSP_SETTING_PATH_SENSORLENGTH          , 540                                                       ).toInt ());
     mDspSetting.setDistanceToRejector     (mpSettings->value(DSP_SETTING_PATH_DIST_TO_REJECTOR      , 720                                                       ).toInt ());
     mDspSetting.setMDPhotoIsOn            (mpSettings->value(DSP_SETTING_PATH_MD_PHOTO_ON           , true                                                      ).toBool());
     mDspSetting.setWCPhotoIsOn            (mpSettings->value(DSP_SETTING_PATH_WC_PHOTO_ON           , true                                                      ).toBool());
     mDspSetting.setRejectorReadyTime      (mpSettings->value(DSP_SETTING_PATH_REJECTOR_READY_TIME   , 100                                                       ).toInt ());
-    mDspSetting.setRejectorRunTimeRatio   (mpSettings->value(DSP_SETTING_PATH_REJECTOR_RUNTIME_RATIO, 1500                                                       ).toInt ());
-    mDspSetting.setStaticFactor           (mpSettings->value(DSP_SETTING_PATH_STATIC_FACTOR         , 998932                                                   ).toInt ());
+    mDspSetting.setRejectorRunTimeRatio   (mpSettings->value(DSP_SETTING_PATH_REJECTOR_RUNTIME_RATIO, 1500                                                      ).toInt ());
+    mDspSetting.setStaticFactor           (mpSettings->value(DSP_SETTING_PATH_STATIC_FACTOR         , 998932                                                    ).toInt ());
     mDspSetting.setScaler                 (mpSettings->value(DSP_SETTING_PATH_SCALER                , 200                                                       ).toInt ());
     mDspSetting.setDisplayStability       (mpSettings->value(DSP_SETTING_PATH_DP_STABILITY          , 1                                                         ).toInt ());
     mDspSetting.setMeasureCueSign         (mpSettings->value(DSP_SETTING_PATH_MEASURE_CUE_SIGN      , 300                                                       ).toInt ());
@@ -228,6 +236,10 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
                                         quint32 buzzerTime             ,
                                         quint32 speedConverter         ,
                                         quint16 motorDirection         ,
+                                        quint16 motorType              ,
+                                        quint16 motorMDRatio           ,
+                                        quint16 motorWCRatio           ,
+                                        quint16 motorRJRatio           ,
                                         quint16 sensorLength           ,
                                         quint16 distanceToRejector     ,
                                         bool    mdPhotoIsOn            ,
@@ -256,6 +268,10 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
     mpSettings->setValue(DSP_SETTING_PATH_BUZZERTIME            , buzzerTime             );
     mpSettings->setValue(DSP_SETTING_PATH_SPEEDCONVERTOR        , speedConverter         );
     mpSettings->setValue(DSP_SETTING_PATH_MOTORDIRECTION        , motorDirection         );
+    mpSettings->setValue(DSP_SETTING_PATH_MOTORTYPE             , motorType              );
+    mpSettings->setValue(DSP_SETTING_PATH_MOTORMDRATIO          , motorMDRatio           );
+    mpSettings->setValue(DSP_SETTING_PATH_MOTORWCRATIO          , motorWCRatio           );
+    mpSettings->setValue(DSP_SETTING_PATH_MOTORRJRATIO          , motorRJRatio           );
     mpSettings->setValue(DSP_SETTING_PATH_SENSORLENGTH          , sensorLength           );
     mpSettings->setValue(DSP_SETTING_PATH_DIST_TO_REJECTOR      , distanceToRejector     );
     mpSettings->setValue(DSP_SETTING_PATH_MD_PHOTO_ON           , mdPhotoIsOn            );
@@ -284,6 +300,10 @@ void LocalSettingService::setDspSetting(quint32 lampTime               ,
     mDspSetting.setBuzzerTime             (buzzerTime             );
     mDspSetting.setSpeedConverter         (speedConverter         );
     mDspSetting.setMotorDirection         (motorDirection         );
+    mDspSetting.setMotorType              (motorType              );
+    mDspSetting.setMotorMDRatio           (motorMDRatio           );
+    mDspSetting.setMotorWCRatio           (motorWCRatio           );
+    mDspSetting.setMotorRJRatio           (motorRJRatio           );
     mDspSetting.setSensorLength           (sensorLength           );
     mDspSetting.setDistanceToRejector     (distanceToRejector     );
     mDspSetting.setMDPhotoIsOn            (mdPhotoIsOn            );
@@ -387,6 +407,10 @@ LocalSettingService::LocalSettingService(QObject *parent) : QObject(parent)
                   mDspSetting.mBuzzerTime             ,
                   mDspSetting.mSpeedConverter         ,
                   mDspSetting.mMotorDirection         ,
+                  mDspSetting.mMotorType              ,
+                  mDspSetting.mMotorMDRatio           ,
+                  mDspSetting.mMotorWCRatio           ,
+                  mDspSetting.mMotorRJRatio           ,
                   mDspSetting.mSensorLength           ,
                   mDspSetting.mDistanceToRejector     ,
                   mDspSetting.mMDPhotoIsOn            ,

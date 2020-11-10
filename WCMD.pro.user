@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2020-11-03T09:18:05. -->
+<!-- Written by QtCreator 4.13.2, 2020-11-06T22:34:47. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -325,8 +325,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Work/02.AluScanWeightCheckerIntegratedTouch/04.Source/20201009-v-1-2-0/WCMDHmi/WCMD.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Work/02.AluScanWeightCheckerIntegratedTouch/04.Source/20201009-v-1-2-0/WCMDHmi/WCMD.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Work/02.AluScanWeightCheckerIntegratedTouch/04.Source/20201105-v-1-2-4/WCMDHmi/WCMD.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Work/02.AluScanWeightCheckerIntegratedTouch/04.Source/20201105-v-1-2-4/WCMDHmi/WCMD.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

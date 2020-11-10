@@ -47,6 +47,7 @@ class EnumDefine: public QObject{
   Q_ENUMS(ServiceState)
   Q_ENUMS(FactoryResetState)
   Q_ENUMS(FileErrorType)
+  Q_ENUMS(MotorType)
 
 
 public:
@@ -343,6 +344,11 @@ public:
   enum MOTOR_DIRECTION{
       MOTOR_DIRECTION_RIGHT_TO_LEFT = 0,
       MOTOR_DIRECTION_LEFT_TO_RIGHT = 1,
+  };
+
+  enum MotorType{
+      MOTOR_3_PHASE = 0,
+      MOTOR_BLDC    = 1,
   };
 
   enum RUN_MODE{

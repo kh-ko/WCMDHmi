@@ -26,6 +26,10 @@ public:
         mDeviceSetting.mBuzzerTime              = copy->mBuzzerTime             ;
         mDeviceSetting.mSpeedConverter          = copy->mSpeedConverter         ;
         mDeviceSetting.mMotorDirection          = copy->mMotorDirection         ;
+        mDeviceSetting.mMotorType               = copy->mMotorType              ;
+        mDeviceSetting.mMotorMDRatio            = copy->mMotorMDRatio           ;
+        mDeviceSetting.mMotorWCRatio            = copy->mMotorWCRatio           ;
+        mDeviceSetting.mMotorRJRatio            = copy->mMotorRJRatio           ;
         mDeviceSetting.mSensorLength            = copy->mSensorLength           ;
         mDeviceSetting.mDistanceToRejector      = copy->mDistanceToRejector     ;
         mDeviceSetting.mMDPhotoIsOn             = copy->mMDPhotoIsOn            ;
@@ -70,6 +74,10 @@ public:
         mDeviceSetting.mBuzzerTime              = other->mBuzzerTime             ;
         mDeviceSetting.mSpeedConverter          = other->mSpeedConverter         ;
         mDeviceSetting.mMotorDirection          = other->mMotorDirection         ;
+        mDeviceSetting.mMotorType               = other->mMotorType              ;
+        mDeviceSetting.mMotorMDRatio            = other->mMotorMDRatio           ;
+        mDeviceSetting.mMotorWCRatio            = other->mMotorWCRatio           ;
+        mDeviceSetting.mMotorRJRatio            = other->mMotorRJRatio           ;
         mDeviceSetting.mSensorLength            = other->mSensorLength           ;
         mDeviceSetting.mDistanceToRejector      = other->mDistanceToRejector     ;
         mDeviceSetting.mMDPhotoIsOn             = other->mMDPhotoIsOn            ;
@@ -102,6 +110,10 @@ public:
         pTemp->setBuzzerTime             (mDeviceSetting.mBuzzerTime             );
         pTemp->setSpeedConverter         (mDeviceSetting.mSpeedConverter         );
         pTemp->setMotorDirection         (mDeviceSetting.mMotorDirection         );
+        pTemp->setMotorType              (mDeviceSetting.mMotorType              );
+        pTemp->setMotorMDRatio           (mDeviceSetting.mMotorMDRatio           );
+        pTemp->setMotorWCRatio           (mDeviceSetting.mMotorWCRatio           );
+        pTemp->setMotorRJRatio           (mDeviceSetting.mMotorRJRatio           );
         pTemp->setSensorLength           (mDeviceSetting.mSensorLength           );
         pTemp->setDistanceToRejector     (mDeviceSetting.mDistanceToRejector     );
         pTemp->setMDPhotoIsOn            (mDeviceSetting.mMDPhotoIsOn            );

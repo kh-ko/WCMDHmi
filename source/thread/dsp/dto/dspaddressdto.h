@@ -40,7 +40,7 @@ struct StDeviceSetting{
     unsigned short mWCPhotoIsOn            ;
     unsigned int   mRejectorRunTimeRatio   ;
     unsigned int   mStaticFactor           ;
-    unsigned int   mDynamicFactor          ;
+    unsigned int   mDummy                  ;
     unsigned int   mScaler                 ;
     unsigned int   mDisplayStability       ;
     unsigned int   mMeasureCueSign         ;
@@ -57,6 +57,10 @@ struct StDeviceSetting{
     unsigned int   mDynamicBaseWeight      ;
     unsigned short mSensorCnt              ;
     unsigned int   mRejectorOpenTime       ;
+    unsigned short mMotorType              ;
+    unsigned short mMotorMDRatio           ;
+    unsigned short mMotorWCRatio           ;
+    unsigned short mMotorRJRatio           ;
 };
 struct StProductSetting{
     unsigned short mProductSeq             ;
@@ -72,6 +76,8 @@ struct StProductSetting{
     unsigned short mWeightCheckerNGMotion  ;
     unsigned short mMetalDetectorSenstivity;
     unsigned short mMetalDetectorNGMotion  ;
+    unsigned int   mDynamicFactor          ;
+    unsigned short mWCEnableEtcError       ;
 };
 struct StDeviceStatus{
     unsigned short mWait                           ;

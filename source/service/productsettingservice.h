@@ -40,6 +40,7 @@ public:
                            quint32 overWeight           ,
                            quint32 tareWeight           ,
                            quint16 wcNGMotion           ,
+                           quint16 wcEnableEtcError     ,
                            quint32 dynamicFactor        ,
                            quint16 mdSenstivity         ,
                            quint16 mdNGMotion           );
@@ -57,6 +58,7 @@ public:
                             quint32 overWeight           ,
                             quint32 tareWeight           ,
                             quint16 wcNGMotion           ,
+                            quint16 wcEnableEtcError     ,
                             quint32 dynamicFactor        ,
                             quint16 mdSenstivity         ,
                             quint16 mdNGMotion           );

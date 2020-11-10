@@ -215,15 +215,16 @@ void CoreService::onCommandSendDeviceIDCmd(quint64  dspSeq, quint32 value)
     emit signalCommandSendDeviceIDCmd(dspSeq, value);
 }
 
-void CoreService::onCommandEditDspSetting(quint32 lampTime, quint32 buzzerTime, quint32 speedConverter, quint16 motorDirection, quint16 sensorLength, quint16 distanceToRejector,
-                                          bool mdPhotoIsOn, bool wcPhotoIsOn, quint32 rejectorReadyTime, quint32 rejectorRunTimeRatio, quint32 staticFactor, quint32 scaler,
+void CoreService::onCommandEditDspSetting(quint32 lampTime, quint32 buzzerTime, quint32 speedConverter, quint16 motorDirection, quint16 motorType, quint16 motorMDRatio, quint16 motorWCRatio, quint16 motorRJRatio,
+                                          quint16 sensorLength, quint16 distanceToRejector, bool mdPhotoIsOn, bool wcPhotoIsOn, quint32 rejectorReadyTime, quint32 rejectorRunTimeRatio, quint32 staticFactor, quint32 scaler,
                                           quint32 displayStability, quint32 measureCueSign, quint32 minStaticWeight, quint32 minDynamicWeight, quint16 mode, quint16 distanceBtwSensor,
                                           quint32 detectDetectTime, quint32 runDetectTime, quint16 distanceToWeightChecker, quint16 distancePhotoToSensor, quint32 signalDelayTime,
                                           quint32 staticStandardWeight, quint32 dynamicBaseWeight, quint16 sensorCnt, quint32 rejectorOpenTime)
 {
     qDebug() << "[CoreService::onCommandEditDspSetting]";
 
-    mLocalSettingService.setDspSetting(lampTime, buzzerTime, speedConverter, motorDirection, sensorLength, distanceToRejector, mdPhotoIsOn, wcPhotoIsOn, rejectorReadyTime, rejectorRunTimeRatio,
+    mLocalSettingService.setDspSetting(lampTime, buzzerTime, speedConverter, motorDirection, motorType, motorMDRatio, motorWCRatio, motorRJRatio,
+                                       sensorLength, distanceToRejector, mdPhotoIsOn, wcPhotoIsOn, rejectorReadyTime, rejectorRunTimeRatio,
                                        staticFactor, scaler, displayStability, measureCueSign, minStaticWeight, minDynamicWeight, mode, distanceBtwSensor, detectDetectTime, runDetectTime,
                                        distanceToWeightChecker, distancePhotoToSensor, signalDelayTime, staticStandardWeight, dynamicBaseWeight, sensorCnt, rejectorOpenTime);
 
@@ -232,13 +233,13 @@ void CoreService::onCommandEditDspSetting(quint32 lampTime, quint32 buzzerTime, 
 }
 
 int CoreService::onCommandAddProductSetting(quint64 *outSeq, quint16 no, QString name, quint16 length, quint16 speed, quint32 motorAccelerationTime, quint32 underWeight, quint32 underWarningWeight,
-                                                 quint32 normalWeight, quint32 overWarningWeight, quint32 overWeight, quint32 tareWeight, quint16 wcNGMotion, quint32 dynamicFactor,
+                                                 quint32 normalWeight, quint32 overWarningWeight, quint32 overWeight, quint32 tareWeight, quint16 wcNGMotion, quint16 wcEnableEtcError, quint32 dynamicFactor,
                                                  quint16 mdSenstivity, quint16 mdNGMotion)
 {
     qDebug() << "[CoreService::onCommandAddProductSetting]";
 
     int ret = mProductSettingServcie.addProductSetting(outSeq, no, name, length, speed, motorAccelerationTime, underWeight, underWarningWeight, normalWeight, overWarningWeight, overWeight,
-                                                       tareWeight, wcNGMotion, dynamicFactor, mdSenstivity, mdNGMotion);
+                                                       tareWeight, wcNGMotion, wcEnableEtcError, dynamicFactor, mdSenstivity, mdNGMotion);
 
     if(ret != EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
         return ret;
@@ -254,13 +255,13 @@ int CoreService::onCommandRemoveProductSetting(quint64 seq)
     return mProductSettingServcie.removeProductSetting(seq);
 }
 int CoreService::onCommandEditProductSetting(quint64 seq, quint16 no, QString name, quint16 length, quint16 speed, quint32 motorAccelerationTime, quint32 underWeight, quint32 underWarningWeight,
-                                 quint32 normalWeight, quint32 overWarningWeight, quint32 overWeight, quint32 tareWeight, quint16 wcNGMotion, quint32 dynamicFactor,
+                                 quint32 normalWeight, quint32 overWarningWeight, quint32 overWeight, quint32 tareWeight, quint16 wcNGMotion, quint16 wcEnableEtcError, quint32 dynamicFactor,
                                  quint16 mdSenstivity, quint16 mdNGMotion)
 {
     qDebug() << "[CoreService::onCommandEditProductSetting]";
 
     int ret = mProductSettingServcie.editProductSetting(seq, no, name, length, speed, motorAccelerationTime, underWeight, underWarningWeight, normalWeight, overWarningWeight, overWeight,
-                                                        tareWeight, wcNGMotion, dynamicFactor, mdSenstivity, mdNGMotion);
+                                                        tareWeight, wcNGMotion, wcEnableEtcError, dynamicFactor, mdSenstivity, mdNGMotion);
 
     if(ret != EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
         return ret;
@@ -365,6 +366,7 @@ void CoreService::onSignalEventAddedEvent(quint64 dspSeq, EventDto value)
                                     mProductSettingServcie.mCurrentProductSetting.mOverWeight           ,
                                     mProductSettingServcie.mCurrentProductSetting.mTareWeight           ,
                                     mProductSettingServcie.mCurrentProductSetting.mWCNGMotion           ,
+                                    mProductSettingServcie.mCurrentProductSetting.mWCEnableEtcError     ,
                                     value.mEvent.mEventValue                                            ,
                                     mProductSettingServcie.mCurrentProductSetting.mMDSenstivity         ,
                                     mProductSettingServcie.mCurrentProductSetting.mMDNGMotion           );
@@ -375,6 +377,10 @@ void CoreService::onSignalEventAddedEvent(quint64 dspSeq, EventDto value)
                                 mLocalSettingService.mDspSetting.mBuzzerTime             ,
                                 mLocalSettingService.mDspSetting.mSpeedConverter         ,
                                 mLocalSettingService.mDspSetting.mMotorDirection         ,
+                                mLocalSettingService.mDspSetting.mMotorType              ,
+                                mLocalSettingService.mDspSetting.mMotorMDRatio           ,
+                                mLocalSettingService.mDspSetting.mMotorWCRatio           ,
+                                mLocalSettingService.mDspSetting.mMotorRJRatio           ,
                                 mLocalSettingService.mDspSetting.mSensorLength           ,
                                 mLocalSettingService.mDspSetting.mDistanceToRejector     ,
                                 mLocalSettingService.mDspSetting.mMDPhotoIsOn            ,

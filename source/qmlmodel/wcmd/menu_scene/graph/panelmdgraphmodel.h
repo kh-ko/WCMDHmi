@@ -163,6 +163,7 @@ public slots:
                                                              mpCoreService->mProductSettingServcie.mCurrentProductSetting.mOverWeight           ,
                                                              mpCoreService->mProductSettingServcie.mCurrentProductSetting.mTareWeight           ,
                                                              mpCoreService->mProductSettingServcie.mCurrentProductSetting.mWCNGMotion           ,
+                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mWCEnableEtcError     ,
                                                              mpCoreService->mProductSettingServcie.mCurrentProductSetting.mDynamicFactor        ,
                                                              mSenstivity                                                                        ,
                                                              mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMDNGMotion           );

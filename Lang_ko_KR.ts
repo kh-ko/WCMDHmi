@@ -594,12 +594,11 @@
         <translation>· m/min → Hz</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="338"/>
         <source>· Transfer direction</source>
-        <translation>· 이송방향</translation>
+        <translation type="vanished">· 이송방향</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="610"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="717"/>
         <source>· Display unit</source>
         <translation>· 표시단위</translation>
     </message>
@@ -612,53 +611,53 @@
         <translation type="vanished">· 동보정 기준중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="730"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="960"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="837"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1067"/>
         <source>· Photo mode</source>
         <translation>· 포토모드</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="796"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="903"/>
         <source>Metal detecotor</source>
         <translation>금속검출기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="832"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="939"/>
         <source>Independent</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="836"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="943"/>
         <source>noise reduction</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1017"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1124"/>
         <source>· Sensor count</source>
         <translation>· 채널갯수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1041"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1148"/>
         <source>· Metal Senstivity 01</source>
         <translation>금속 검출 감도 01</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1065"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1172"/>
         <source>· Metal Senstivity 02</source>
         <translation>금속 검출 감도 02</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1089"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1196"/>
         <source>· Metal Senstivity 03</source>
         <translation>금속 검출 감도 03</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1113"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1220"/>
         <source>· Metal Senstivity 04</source>
         <translation>금속 검출 감도 04</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1137"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1244"/>
         <source>· Metal Senstivity 05</source>
         <translation>금속 검출 감도 05</translation>
     </message>
@@ -667,17 +666,17 @@
         <translation type="vanished">HMI종료</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1251"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1358"/>
         <source>HMI out</source>
         <translation>HMI나가기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1267"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1374"/>
         <source>Factory&lt;br&gt;reset</source>
         <translation>공장&lt;br&gt;초기화</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1268"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1375"/>
         <source>Do you want factory reset ?</source>
         <translation>공장초기화를 진행하시겠습니까?</translation>
     </message>
@@ -694,102 +693,135 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="172"/>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="227"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="745"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="975"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="852"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1082"/>
         <source>ON</source>
         <translation>켜기</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="192"/>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="247"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="765"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="995"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="872"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1102"/>
         <source>OFF</source>
         <translation>끄기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="363"/>
         <source>Left &lt;- right</source>
-        <translation>왼쪽 ← 오른족</translation>
+        <translation type="vanished">왼쪽 ← 오른족</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="367"/>
         <source>Left -&gt; right</source>
-        <translation>왼쪽 → 오른족</translation>
+        <translation type="vanished">왼쪽 → 오른족</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="401"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="342"/>
+        <source>· Transfer</source>
+        <translation>· 이송방향</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="350"/>
+        <source>Left ← right</source>
+        <translation>왼쪽 ← 오른쪽</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="354"/>
+        <source>Left → right</source>
+        <translation>왼쪽 → 오른쪽</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="380"/>
+        <source>· Motor type</source>
+        <translation>· 모터타입</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="388"/>
+        <source>3-phase</source>
+        <translation>3상 인버터</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="392"/>
+        <source>BLDC</source>
+        <translation>BLDC</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="413"/>
+        <source>· Motor RPM ratio ( MD : WC : RJ)</source>
+        <translation>· 모터 RPM 비율 (금검 : 중량 : 리젝터)</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="508"/>
         <source>Weight checker</source>
         <translation>중량선별기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="467"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="574"/>
         <source>· Rejector return time</source>
         <oldsource>· Rejector return time(%)</oldsource>
         <translation>· 리젝터 Time_return(%)</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="491"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="598"/>
         <source>· Rejector opening time</source>
         <translation>· 리젝터 Time_open</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="515"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="622"/>
         <source>· Display stability</source>
         <translation>· 표시안정도</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="539"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="646"/>
         <source>· Measure cue sign</source>
         <translation>· 측정시점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="563"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="670"/>
         <source>· Min static weight</source>
         <translation>· 정지영점중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="587"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="694"/>
         <source>· Min dynamic weight</source>
         <translation>· 동적영점중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="635"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="742"/>
         <source>· Static factor</source>
         <translation>· 정중량계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="659"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="766"/>
         <source>· Dynamic factor</source>
         <translation>· 동중량계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="810"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="917"/>
         <source>· Sensor mode</source>
         <translation>· 센서모드</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="889"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="996"/>
         <source>· Detect-Detect time</source>
         <translation>· 검출-검출시간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="913"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1020"/>
         <source>· Run-Detect time</source>
         <translation>· 운전-검출시간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="937"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1044"/>
         <source>· Signal delay time</source>
         <translation>· 신호지연시간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1318"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1429"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1338"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1449"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>

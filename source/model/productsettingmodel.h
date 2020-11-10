@@ -21,6 +21,7 @@ public:
     quint32 mOverWeight           ;
     quint32 mTareWeight           ;
     quint16 mWCNGMotion           ;
+    quint16 mWCEnableEtcError     =1;
     quint32 mDynamicFactor        ;
     quint16 mMDSenstivity         ;
     quint16 mMDNGMotion           ;
@@ -38,6 +39,7 @@ public:
     void setOverWeight           (quint32 value){ if( mOverWeight            == value) return; mOverWeight            = value; emit signalEventChangedOverWeight           (mOverWeight           );}
     void setTareWeight           (quint32 value){ if( mTareWeight            == value) return; mTareWeight            = value; emit signalEventChangedTareWeight           (mTareWeight           );}
     void setWCNGMotion           (quint16 value){ if( mWCNGMotion            == value) return; mWCNGMotion            = value; emit signalEventChangedWCNGMotion           (mWCNGMotion           );}
+    void setWCEnableEtcError     (quint16 value){ if( mWCEnableEtcError      == value) return; mWCEnableEtcError      = value; emit signalEventChangedWCEnableEtcError     (mWCEnableEtcError     );}
     void setDynamicFactor        (quint32 value){ if( mDynamicFactor         == value) return; mDynamicFactor         = value; emit signalEventChangedDynamicFactor        (mDynamicFactor        );}
     void setMDSenstivity         (quint16 value){ if( mMDSenstivity          == value) return; mMDSenstivity          = value; emit signalEventChangedMDSenstivity         (mMDSenstivity         );}
     void setMDNGMotion           (quint16 value){ if( mMDNGMotion            == value) return; mMDNGMotion            = value; emit signalEventChangedMDNGMotion           (mMDNGMotion           );}
@@ -69,13 +71,14 @@ public:
             else if(key == "OverWeight"           ){ mOverWeight            = value.toUInt()     ;}
             else if(key == "TareWeight"           ){ mTareWeight            = value.toUInt()     ;}
             else if(key == "WCNGMotion"           ){ mWCNGMotion            = value.toUInt()     ;}
+            else if(key == "WCEnableEtcError"     ){ mWCEnableEtcError      = value.toUInt()     ;}
             else if(key == "DynamicFactor"        ){ mDynamicFactor         = value.toUInt()     ;}
             else if(key == "MDSenstivity"         ){ mMDSenstivity          = value.toUInt()     ;}
             else if(key == "MDNGMotion"           ){ mMDNGMotion            = value.toUInt()     ;}
         }
     }
     QString toString(QString divider){
-        return QString("Seq:%1%2No:%3%4Name:%5%6Length:%7%8Speed:%9%10MotorAccelerationTime:%11%12UnderWeight:%13%14UnderWarningWeight:%15%16NormalWeight:%17%18OverWarningWeight:%19%20OverWeight:%21%22TareWeight:%23%24WCNGMotion:%25%26DynamicFactor:%27%28MDSenstivity:%29%30MDNGMotion:%31")
+        return QString("Seq:%1%2No:%3%4Name:%5%6Length:%7%8Speed:%9%10MotorAccelerationTime:%11%12UnderWeight:%13%14UnderWarningWeight:%15%16NormalWeight:%17%18OverWarningWeight:%19%20OverWeight:%21%22TareWeight:%23%24WCNGMotion:%25%26WCEnableEtcError:%27%28DynamicFactor:%29%30MDSenstivity:%31%32MDNGMotion:%33")
                 .arg(mSeq                  ).arg(divider)
                 .arg(mNo                   ).arg(divider)
                 .arg(mName                 ).arg(divider)
@@ -89,6 +92,7 @@ public:
                 .arg(mOverWeight           ).arg(divider)
                 .arg(mTareWeight           ).arg(divider)
                 .arg(mWCNGMotion           ).arg(divider)
+                .arg(mWCEnableEtcError     ).arg(divider)
                 .arg(mDynamicFactor        ).arg(divider)
                 .arg(mMDSenstivity         ).arg(divider)
                 .arg(mMDNGMotion           );
@@ -107,6 +111,7 @@ signals:
     void signalEventChangedOverWeight           (quint32 value);
     void signalEventChangedTareWeight           (quint32 value);
     void signalEventChangedWCNGMotion           (quint16 value);
+    void signalEventChangedWCEnableEtcError     (quint16 value);
     void signalEventChangedDynamicFactor        (quint32 value);
     void signalEventChangedMDSenstivity         (quint16 value);
     void signalEventChangedMDNGMotion           (quint16 value);
@@ -127,6 +132,7 @@ public:
         setOverWeight           (other->mOverWeight           );
         setTareWeight           (other->mTareWeight           );
         setWCNGMotion           (other->mWCNGMotion           );
+        setWCEnableEtcError     (other->mWCEnableEtcError     );
         setDynamicFactor        (other->mDynamicFactor        );
         setMDSenstivity         (other->mMDSenstivity         );
         setMDNGMotion           (other->mMDNGMotion           );
@@ -147,6 +153,7 @@ public:
            mOverWeight            == value->mOverWeight            &&
            mTareWeight            == value->mTareWeight            &&
            mWCNGMotion            == value->mWCNGMotion            &&
+           mWCEnableEtcError      == value->mWCEnableEtcError      &&
            mDynamicFactor         == value->mDynamicFactor         &&
            mMDSenstivity          == value->mMDSenstivity          &&
            mMDNGMotion            == value->mMDNGMotion            )
