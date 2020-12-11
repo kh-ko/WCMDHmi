@@ -1,10 +1,11 @@
 #include "syncclient.h"
 
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
 void SyncClient::sendAleadySync()
 {
-    sendPacket(EnumDefine::RFuncCode::FUNC_CODE_RSYNC_ALREADY_SYNCING, nullptr);
+    sendPacket(RemoteEnumDef::RFUNC_CODE_RSYNC_ALREADY_SYNCING, nullptr);
 }
 
 void SyncClient::sendTotalSize(qint64 value)
@@ -12,21 +13,21 @@ void SyncClient::sendTotalSize(qint64 value)
     QByteArray content;
 
     content.append((char *)&value, sizeof(qint64));
-    sendPacket(EnumDefine::RFuncCode::FUNC_CODE_RSYNC_INIT, &content);
+    sendPacket(RemoteEnumDef::RFUNC_CODE_RSYNC_INIT, &content);
 }
 void SyncClient::sendFileName(QString value)
 {
     QByteArray content = value.toUtf8();
-    sendPacket(EnumDefine::RFuncCode::FUNC_CODE_RSYNC_FILE_INFO, &content);
+    sendPacket(RemoteEnumDef::RFUNC_CODE_RSYNC_FILE_INFO, &content);
 }
 
 void SyncClient::sendFileContent(QByteArray content)
 {
-    sendPacket(EnumDefine::RFuncCode::FUNC_CODE_RSYNC_FILE_CONTENT, &content);
+    sendPacket(RemoteEnumDef::RFUNC_CODE_RSYNC_FILE_CONTENT, &content);
 }
 void SyncClient::sendSyncComplete()
 {
-    sendPacket(EnumDefine::RFuncCode::FUNC_CODE_RSYNC_COMPLETE, nullptr);
+    sendPacket(RemoteEnumDef::RFUNC_CODE_RSYNC_COMPLETE, nullptr);
 }
 
 void SyncClient::sendPacket(int funcCode, QByteArray *pContent)
@@ -69,7 +70,7 @@ qint64 SyncClient::makeSyncFileList(QString lastSyncDate)
 
     mSyncReqDate = QDate::currentDate();
 
-    QDir dir(QString("%1/database/history").arg(QApplication::applicationDirPath()));
+    QDir dir(FileDef::HISTORY_DIR());
     QFileInfoList fileList = dir.entryInfoList(QStringList() << "*.txt",QDir::Files, QDir::SortFlag::Name);
 
     qint64 totalSize = 0;
@@ -136,6 +137,9 @@ SyncClient::~SyncClient()
 
 void SyncClient::onReceive()
 {
+    if(mpClient == nullptr)
+            return;
+
     int headerSize = sizeof(StRConsolePacket);
     int availableSize = mpClient->bytesAvailable();
 
@@ -157,7 +161,7 @@ void SyncClient::onReceive()
 
     pHeader = (StRConsolePacket *)mRcvBuffer.data();
 
-    if(pHeader->mFuncCode != EnumDefine::RFuncCode::FUNC_CODE_RSYNC)
+    if(pHeader->mFuncCode != RemoteEnumDef::RFUNC_CODE_RSYNC)
     {
         emit signalEventFinishedSync();
         return;
@@ -182,13 +186,13 @@ void SyncClient::onWritten(qint64 value)
 
         if(mSyncFileList.size() == 0)
         {
-            CoreService::getInstance()->mLocalSettingService.setProcBackupLastDate(mSyncReqDate.year(), mSyncReqDate.month(), mSyncReqDate.day());
+            pLSettingSP->setBackupLastDate(mSyncReqDate);
             sendSyncComplete();
             emit signalEventFinishedSync();
         }
         else
         {
-            mFileRThread.onCommandReadBytes(QString("%1/database/history").arg(QApplication::applicationDirPath()), mSyncFileList[0], 3000);
+            mFileRThread.onCommandReadBytes(FileDef::HISTORY_DIR(), mSyncFileList[0], 3000);
         }
     }
 }

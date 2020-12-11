@@ -128,6 +128,7 @@ public :
             mRawPoints   [endIdx] = points[i * 2];
             mFilterPoints[endIdx] = points[i * 2 + 1];
             endIdx = (endIdx + 1) % mPointBuffWidth;
+
         }
 
         mPointCnt = mPointCnt + pointCnt;

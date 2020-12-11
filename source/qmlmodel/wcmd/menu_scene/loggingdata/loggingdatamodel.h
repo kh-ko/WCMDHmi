@@ -5,8 +5,12 @@
 #include <QThread>
 #include <QMutex>
 
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 #include "source/util/etcutil.h"
+
+#define EVENT_PAGE_CNT_PER_SCREEN 9
+#define EVENT_LIST_CNT_PER_PAGE 26
 
 class LoggingDataItem
 {
@@ -32,27 +36,28 @@ class LoggingDataModel : public QObject
     Q_PROPERTY(int     setIdx         READ getSelIdx                                      NOTIFY signalEventChangedSelIdx)
 
 public:
-    CoreService * mpCoreService;
-    FileLoaderThread mFileLoader;
+    QThread       *mpLoaderThread = nullptr;
+    FileReaderEx  *mpFileLoader   = nullptr;
+
     QString mFileName;
     LoggingDataItem  mListItem[1000000];
 
-    int     mTotalCnt      ;
-    int     mTotalPage     ;
-    int     mCurrentPageIdx;
-    bool    mIsWeightEvent ;
-    int     mSelectOption  ;
-    int     mSelectFilter  ;
-    int     mStartYear     ;
-    int     mStartMonth    ;
-    int     mStartDay      ;
-    int     mStartHour     ;
-    int     mEndYear       ;
-    int     mEndMonth      ;
-    int     mEndDay        ;
-    int     mEndHour       ;
-    bool    mSearching     ;
-    int     mSelIdx        ;
+    int         mTotalCnt      ;
+    int         mTotalPage     ;
+    int         mCurrentPageIdx;
+    bool        mIsWeightEvent ;
+    int         mSelectOption  ;
+    int         mSelectFilter  ;
+    int         mStartYear     ;
+    int         mStartMonth    ;
+    int         mStartDay      ;
+    int         mStartHour     ;
+    int         mEndYear       ;
+    int         mEndMonth      ;
+    int         mEndDay        ;
+    int         mEndHour       ;
+    bool        mSearching     ;
+    int         mSelIdx        ;
 
     int         getTotalCnt      (){return mTotalCnt      ;}
     int         getTotalPage     (){return mTotalPage     ;}
@@ -106,8 +111,8 @@ public slots:
         QString monty = QString::number(mStartMonth).rightJustified(2, '0');
         QString day   = QString::number(mStartDay).rightJustified(2, '0');
 
-        mFileName = QString("%1-%2-%3-EH").arg(year).arg(monty).arg(day);
-        emit signalCommandLoadLine(mpCoreService->mEventService.mDailyHistoryPath, mFileName, 3000);
+        openFile(QString("%1-%2-%3-EH.txt").arg(year).arg(monty).arg(day));
+        readFile();
     }
     Q_INVOKABLE void onCommandSetSelectFilter(int value)
     {
@@ -150,12 +155,12 @@ public slots:
 
         quint16 eventType = mListItem[listIdx].mEventType;
 
-        ProductSettingModel * ps =  mpCoreService->mProductSettingServcie.findProductSettingBySeq(mListItem[listIdx].mProductSeq);
+        PDSettingDto *pPDSetting = pProductSP->findPD(mListItem[listIdx].mProductSeq);
 
-        if(ps == nullptr || (!EventChecker::isWeightOrMetal(eventType) && !EventChecker::isWeightCari(eventType) && !EventChecker::isMetalCheckup(eventType)))
+        if(pPDSetting == nullptr || (!EventDto::isWeightOrMetal(eventType) && !EventDto::isWeightCarib(eventType) && !EventDto::isMetalCheckup(eventType)))
             return "";
 
-        return ps->mName;
+        return pPDSetting->mName;
     }
     Q_INVOKABLE int onCommandGetEventItem(int idx)
     {
@@ -175,16 +180,16 @@ public slots:
 
         quint16 eventType = mListItem[listIdx].mEventType;
 
-        if(EventChecker::isWeightEvent(eventType))
+        if(EventDto::isWCEvent(eventType))
         {
             QString fmt("%1%2");
             return fmt.arg(QString::number((float)mListItem[listIdx].mValue / 1000.0, 'f', 1)).arg(" g");
         }
-        else if(EventChecker::isMetalCheckup(eventType))
+        else if(EventDto::isMetalCheckup(eventType))
         {
             return (mListItem[listIdx].mValue & (0x01 << 6)) == 0 ? "FAIL" : "PASS";
         }
-        else if(EventChecker::isMetalDetectEvent(eventType))
+        else if(EventDto::isMetalDetectEvent(eventType))
         {
             QString fmt("%1%2");
             return fmt.arg(QString::number(mListItem[listIdx].mValue)).arg(" mv");
@@ -198,61 +203,66 @@ public slots:
     }
     Q_INVOKABLE void    onCommandResetStatistics()
     {
-        mpCoreService->onCommandWorkReset();
+        pWorkSP->clearStats();
     }
 
 signals:
-    void signalCommandLoadLine        (QString path, QString fileName, int lineCnt);
+    void signalCommandOpen(QString path, QString fileName);
+    void signalCommandReadMultiLine(int lineCnt);
 
 public  slots:
-    void onSignalEventLoadedLine(QStringList lines)
+    void onReadMultiLine(QStringList lines)
     {
-        EventModel event;
+        if(sender() == nullptr)
+            return;
 
         for(int i = 0; i < lines.size(); i ++)
         {
             if(mTotalCnt > 999999)
                 break;
 
-            event.setStringValue(lines.at(i));
-
-            if(EventChecker::isCheckEvent(event.mEventType))
+            EventDto event;
+            if(event.setValue(lines.at(i)) == false)
                 continue;
 
-            if(getIsWeightEvent() && (EventChecker::isMetalEvent(event.mEventType) || EventChecker::isMetalCheckup(event.mEventType)))
+            if(event.isCheckEvent())
                 continue;
 
-            if(!getIsWeightEvent() && (EventChecker::isWeightEvent(event.mEventType) || EventChecker::isWeightCari(event.mEventType)))
+            if(getIsWeightEvent() && (event.isMDEvent() || event.isMetalCheckup()))
                 continue;
 
-            if(getSelectFilter() == EnumDefine::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE && EventChecker::isTrade(event.mEventType))
+            if(!getIsWeightEvent() && (event.isWCEvent() || event.isWeightCarib()))
                 continue;
 
+            if(getSelectFilter() == EnumDefine::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE && event.isTrade())
+                continue;
 
-             mListItem[getTotalCnt()].mDateTime     = event.mDateTime;
-             mListItem[getTotalCnt()].mProductSeq   = event.mProductSettingSeq;
-             mListItem[getTotalCnt()].mEventType    = event.mEventType;
-             mListItem[getTotalCnt()].mValue        = event.mValue;
+             mListItem[getTotalCnt()].mDateTime     = event.mDateTime.toString(TIME_FMT);
+             mListItem[getTotalCnt()].mProductSeq   = event.mPDSeq;
+             mListItem[getTotalCnt()].mEventType    = event.mEType;
+             mListItem[getTotalCnt()].mValue        = event.mEValue;
 
              mTotalCnt = mTotalCnt + 1;
         }
 
         setTotalCnt(mTotalCnt);
 
-         emit signalCommandLoadLine(mpCoreService->mEventService.mDailyHistoryPath, mFileName, 3000);
-
-    }
-    void onSignalEventEndOfLine (       )
-    {
-        setTotalPage((getTotalCnt()/EVENT_LIST_CNT_PER_PAGE) + (getTotalCnt()%EVENT_LIST_CNT_PER_PAGE != 0 ? 1 : 0));
-        setSearching(false);
-        emit signalEventCompletedSearch();
+        if(lines.size() < 3000)
+        {
+            setTotalPage((getTotalCnt()/EVENT_LIST_CNT_PER_PAGE) + (getTotalCnt()%EVENT_LIST_CNT_PER_PAGE != 0 ? 1 : 0));
+            setSearching(false);
+            closeFile();
+            emit signalEventCompletedSearch();
+        }
+        else
+        {
+            readFile();
+        }
     }
 
 public:
     explicit    LoggingDataModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
         QDate date = QDate::currentDate();
 
         setSelectFilter(EnumDefine::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE);
@@ -261,17 +271,59 @@ public:
         setStartMonth(date.month());
         setStartDay(date.day());
 
-        connect(this, SIGNAL(signalCommandLoadLine(QString, QString, int)), &mFileLoader   , SLOT(onCommandLoadMultiLine(QString, QString, int)));
-
-        connect(&mFileLoader, SIGNAL(signalEventLoadedMultiLine(QStringList)), this, SLOT(onSignalEventLoadedLine(QStringList)));
-        connect(&mFileLoader, SIGNAL(signalEventEndOfLine (       )), this, SLOT(onSignalEventEndOfLine (       )));
-
         onCommandSearch();
     }
     ~LoggingDataModel(){
-}
-signals:
-    void deleteFileLoader();
+        closeFile();
+    }
+
+private:
+    void openFile(QString fileName)
+    {
+        closeFile();
+
+        mpLoaderThread = new QThread;
+        mpFileLoader   = new FileReaderEx;
+        mpFileLoader->moveToThread(mpLoaderThread);
+        mpLoaderThread->start();
+
+        connect(mpLoaderThread, &QThread::finished, mpFileLoader, &QObject::deleteLater);
+        connect(this, SIGNAL(signalCommandOpen(QString, QString)), mpFileLoader, SLOT(onCommandOpen(QString, QString)));
+        connect(this, SIGNAL(signalCommandReadMultiLine(int)), mpFileLoader, SLOT(onCommandReadMultiLine(int)));
+        connect(mpFileLoader, SIGNAL(signalEventReadMultiLine(QStringList)), this, SLOT(onReadMultiLine(QStringList)));
+
+        emit signalCommandOpen(FileDef::HISTORY_DIR(), fileName);
+    }
+
+    void closeFile()
+    {
+        if(mpFileLoader != nullptr)
+        {
+
+            disconnect(this, SIGNAL(signalCommandOpen(QString, QString)), mpFileLoader, SLOT(onCommandOpen(QString, QString)));
+            disconnect(this, SIGNAL(signalCommandReadMultiLine(int)), mpFileLoader, SLOT(onCommandReadMultiLine(int)));
+            disconnect(mpFileLoader, nullptr, nullptr, nullptr);
+            mpFileLoader= nullptr;
+        }
+
+        if(mpLoaderThread != nullptr)
+        {
+            if(mpLoaderThread->isRunning())
+            {
+                mpLoaderThread->quit();
+                mpLoaderThread->wait();
+            }
+
+            mpLoaderThread->deleteLater();
+
+            mpLoaderThread = nullptr;
+        }
+    }
+
+    void readFile()
+    {
+        emit signalCommandReadMultiLine(3000);
+    }
 };
 
 #endif // LOGGINGDATAMODEL_H

@@ -504,7 +504,7 @@ UiPanel {
         anchors.top: btnApply.bottom
         anchors.topMargin: 20
 
-        textValue: qsTr("Weight checker")
+        textValue: settingModel.isEnableWC ? qsTr("Weight checker") : ""
     }
 
     /*
@@ -591,7 +591,6 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
         isHighlight: settingModel.isEditRejectorOpenTime
         bgColor: panel.bgColor
         labelText : qsTr("· Rejector opening time")
@@ -615,7 +614,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditDisplayStability
         bgColor: panel.bgColor
         labelText : qsTr("· Display stability")
@@ -639,7 +638,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditMeasureCueSign
         bgColor: panel.bgColor
         labelText : qsTr("· Measure cue sign")
@@ -663,7 +662,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditMinStaticWeight
         bgColor: panel.bgColor
         labelText : qsTr("· Min static weight")
@@ -687,7 +686,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditMinDynamicWeight
         bgColor: panel.bgColor
         labelText : qsTr("· Min dynamic weight")
@@ -705,12 +704,13 @@ UiPanel {
         id : inputScaler
         height: 60
         anchors.topMargin: 10
-        anchors.top: panel.isAdmin ? inputMinDynamicWeight.bottom : inputRuntimeRatio.bottom
+        anchors.top: panel.isAdmin ? inputMinDynamicWeight.bottom : inputRejectorOpenTime.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
+        visible: settingModel.isEnableWC
         isHighlight: settingModel.isEditScaler
         bgColor: panel.bgColor
         labelText : qsTr("· Display unit")
@@ -734,7 +734,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditStaticFactor
         fixedN : 7
         bgColor: panel.bgColor
@@ -758,7 +758,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditDynamicFactor
         fixedN : 7
         bgColor: panel.bgColor
@@ -832,7 +832,7 @@ UiPanel {
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableWC
         textValue: qsTr("· Photo mode")
 
         UiRadioBtn{

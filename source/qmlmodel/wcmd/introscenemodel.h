@@ -2,8 +2,10 @@
 #define INTROSCENEMODEL_H
 
 #include <QObject>
+#include "source/service/defaultsetting/defaultsettingsprovider.h"
+#include "source/globaldef/EnumDefine.h"
+#include "source/service/def/builddef.h"
 #include "source/service/coreservice.h"
-#include "source/helper/languagehelper.h"
 
 class IntroSceneModel : public QObject
 {
@@ -12,10 +14,6 @@ class IntroSceneModel : public QObject
     Q_PROPERTY(int company       READ getCompany       NOTIFY signalEventChangedCompany      )
 
 public:
-    CoreService         * mpCoreService ;
-    InformationModel    * mpInformation ;
-    GuiSettingModel     * mpGuiSetting  ;
-
     int mProgressValue = 0;
     int mCompany       = EnumDefine::Company::COMPANY_NOVASEN;
 
@@ -31,44 +29,36 @@ signals:
 public slots:
     Q_INVOKABLE void onCommandLoadLanguage()
     {
-        LanguageHelper::getInstance()->loadLanguage((EnumDefine::Language)mpGuiSetting->mLanguage);
     }
 
 //  down layer ===================================================================================
 public slots:
-    void onSignalEventChangedState(int value)
+    void onStartedCoreService()
     {
-        if(value != EnumDefine::ServiceState::SERVICE_INIT && value != EnumDefine::ServiceState::SERVICE_STARTING)
-        {
-            setProgressValue(100);
-        }
+        setProgressValue(100);
+
     }
 
 //  internal layer ===================================================================================
 public:
     explicit IntroSceneModel(QObject *parent = nullptr) : QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-
-        mpGuiSetting  = &(mpCoreService->mLocalSettingService.mGuiSetting );
-        mpInformation = &(mpCoreService->mLocalSettingService.mInformation);
-#ifdef BUILD_COMPANY_DONGNAM
-        setCompany(EnumDefine::Company::COMPANY_DONGNAM);
-#else
-        setCompany(EnumDefine::Company::COMPANY_NOVASEN);
-#endif
-        connect(mpCoreService,  SIGNAL(signalEventChangedState  (int)    ),this, SLOT(onSignalEventChangedState  (int    )));
-
-        onSignalEventChangedState  (mpCoreService->mState  );
-
-        if(/*mUpgradeThread.isNeedUpgrade()*/ false)
+        if(pDefaultSP->IS_DONGNAM)
         {
-
+            setCompany(EnumDefine::Company::COMPANY_DONGNAM);
         }
         else
         {
-            mpCoreService->onCommandStart();
+            setCompany(EnumDefine::Company::COMPANY_NOVASEN);
         }
+
+        if(pCoreService->mIsRunning)
+        {
+            setProgressValue(100);
+            return;
+        }
+
+        ENABLE_SLOT_CORE_START;
     }
 };
 

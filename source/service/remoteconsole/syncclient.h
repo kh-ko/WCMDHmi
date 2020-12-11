@@ -8,8 +8,8 @@
 #include <QApplication>
 #include <QDir>
 
-#include "source/globaldef/EnumDefine.h"
-#include "source/thread/remoteconsole/dto/devicesocketdto.h"
+#include "source/service/remoteconsole/dto/enum/remoteenumdef.h"
+#include "source/service/remoteconsole/dto/devicesocketdto.h"
 #include "source/util/fileloaderthreadex.h"
 
 class SyncClient : public QObject

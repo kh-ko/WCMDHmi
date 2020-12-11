@@ -29,6 +29,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint16 mMotorMDRatio                READ getMotorMDRatio                       NOTIFY signalEventChangedMotorMDRatio                      );
     Q_PROPERTY(quint16 mMotorWCRatio                READ getMotorWCRatio                       NOTIFY signalEventChangedMotorWCRatio                      );
     Q_PROPERTY(quint16 mMotorRJRatio                READ getMotorRJRatio                       NOTIFY signalEventChangedMotorRJRatio                      );
+    Q_PROPERTY(quint16 mMachineMode                 READ getMachineMode                        NOTIFY signalEventChangedMachineMode                       );
     Q_PROPERTY(quint16 mSensorLength                READ getSensorLength                       NOTIFY signalEventChangedSensorLength                      );
     Q_PROPERTY(quint16 mDistanceToRejector          READ getDistanceToRejector                 NOTIFY signalEventChangedDistanceToRejector                );
     Q_PROPERTY(bool    mMDPhotoIsOn                 READ getMDPhotoIsOn                        NOTIFY signalEventChangedMDPhotoIsOn                       );
@@ -71,6 +72,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffSpeedConverter          READ getDiffSpeedConverter                 NOTIFY signalEventChangedDiffSpeedConverter                );
     Q_PROPERTY(bool    mDiffMotorDirection          READ getDiffMotorDirection                 NOTIFY signalEventChangedDiffMotorDirection                );
     Q_PROPERTY(bool    mDiffMotorType               READ getDiffMotorType                      NOTIFY signalEventChangedDiffMotorType                     );
+    Q_PROPERTY(bool    mDiffMachineMode             READ getDiffMachineMode                    NOTIFY signalEventChangedDiffMachineMode                   );
     Q_PROPERTY(bool    mDiffMotorMDRatio            READ getDiffMotorMDRatio                   NOTIFY signalEventChangedDiffMotorMDRatio                  );
     Q_PROPERTY(bool    mDiffMotorWCRatio            READ getDiffMotorWCRatio                   NOTIFY signalEventChangedDiffMotorWCRatio                  );
     Q_PROPERTY(bool    mDiffMotorRJRatio            READ getDiffMotorRJRatio                   NOTIFY signalEventChangedDiffMotorRJRatio                  );
@@ -99,11 +101,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffRejectorOpenTime        READ getDiffRejectorOpenTime               NOTIFY signalEventChangedDiffRejectorOpenTime              );
 
 public:
-    ProductSettingModel *mpLocalProductSetting ;
-    ProductSettingModel *mpRemoteProductSetting;
-    DspSettingModel     *mpLocalDeviceSetting  ;
-    DspSettingModel     *mpRemoteDeviceSetting ;
-
+    quint64 mDspSeq                     = 0;
     quint16 mSeq                        ;
     quint16 mLength                     ;
     quint16 mSpeed                      ;
@@ -123,6 +121,7 @@ public:
     quint32 mSpeedConverter             ;
     quint16 mMotorDirection             ;
     quint16 mMotorType                  ;
+    quint32 mMachineMode                ;
     quint16 mMotorMDRatio               ;
     quint16 mMotorWCRatio               ;
     quint16 mMotorRJRatio               ;
@@ -169,6 +168,7 @@ public:
     bool    mDiffSpeedConverter         ;
     bool    mDiffMotorDirection         ;
     bool    mDiffMotorType              ;
+    bool    mDiffMachineMode            ;
     bool    mDiffMotorMDRatio           ;
     bool    mDiffMotorWCRatio           ;
     bool    mDiffMotorRJRatio           ;
@@ -215,6 +215,7 @@ public:
     quint32 getSpeedConverter             (){ return mSpeedConverter             ;}
     quint16 getMotorDirection             (){ return mMotorDirection             ;}
     quint16 getMotorType                  (){ return mMotorType                  ;}
+    quint16 getMachineMode                (){ return mMachineMode                ;}
     quint16 getMotorMDRatio               (){ return mMotorMDRatio               ;}
     quint16 getMotorWCRatio               (){ return mMotorWCRatio               ;}
     quint16 getMotorRJRatio               (){ return mMotorRJRatio               ;}
@@ -260,6 +261,7 @@ public:
     bool    getDiffSpeedConverter         (){ return mDiffSpeedConverter         ;}
     bool    getDiffMotorDirection         (){ return mDiffMotorDirection         ;}
     bool    getDiffMotorType              (){ return mDiffMotorType              ;}
+    bool    getDiffMachineMode            (){ return mDiffMachineMode            ;}
     bool    getDiffMotorMDRatio           (){ return mDiffMotorMDRatio           ;}
     bool    getDiffMotorWCRatio           (){ return mDiffMotorWCRatio           ;}
     bool    getDiffMotorRJRatio           (){ return mDiffMotorRJRatio           ;}
@@ -306,6 +308,7 @@ public:
     void setSpeedConverter             (quint32  value){ if( value == mSpeedConverter             ) return; mSpeedConverter             = value; emit signalEventChangedSpeedConverter                    (value);}
     void setMotorDirection             (quint16  value){ if( value == mMotorDirection             ) return; mMotorDirection             = value; emit signalEventChangedMotorDirection                    (value);}
     void setMotorType                  (quint16  value){ if( value == mMotorType                  ) return; mMotorType                  = value; emit signalEventChangedMotorType                         (value);}
+    void setMachineMode                (quint16  value){ if( value == mMachineMode                ) return; mMachineMode                = value; emit signalEventChangedMachineMode                       (value);}
     void setMotorMDRatio               (quint16  value){ if( value == mMotorMDRatio               ) return; mMotorMDRatio               = value; emit signalEventChangedMotorMDRatio                      (value);}
     void setMotorWCRatio               (quint16  value){ if( value == mMotorWCRatio               ) return; mMotorWCRatio               = value; emit signalEventChangedMotorWCRatio                      (value);}
     void setMotorRJRatio               (quint16  value){ if( value == mMotorRJRatio               ) return; mMotorRJRatio               = value; emit signalEventChangedMotorRJRatio                      (value);}
@@ -351,6 +354,7 @@ public:
     void setDiffSpeedConverter         (bool     value){ if( value == mDiffSpeedConverter         ) return; mDiffSpeedConverter         = value; emit signalEventChangedDiffSpeedConverter                (value);}
     void setDiffMotorDirection         (bool     value){ if( value == mDiffMotorDirection         ) return; mDiffMotorDirection         = value; emit signalEventChangedDiffMotorDirection                (value);}
     void setDiffMotorType              (bool     value){ if( value == mDiffMotorType              ) return; mDiffMotorType              = value; emit signalEventChangedDiffMotorType                     (value);}
+    void setDiffMachineMode            (bool     value){ if( value == mDiffMachineMode            ) return; mDiffMachineMode            = value; emit signalEventChangedDiffMachineMode                   (value);}
     void setDiffMotorMDRatio           (bool     value){ if( value == mDiffMotorMDRatio           ) return; mDiffMotorMDRatio           = value; emit signalEventChangedDiffMotorMDRatio                  (value);}
     void setDiffMotorWCRatio           (bool     value){ if( value == mDiffMotorWCRatio           ) return; mDiffMotorWCRatio           = value; emit signalEventChangedDiffMotorWCRatio                  (value);}
     void setDiffMotorRJRatio           (bool     value){ if( value == mDiffMotorRJRatio           ) return; mDiffMotorRJRatio           = value; emit signalEventChangedDiffMotorRJRatio                  (value);}
@@ -398,6 +402,7 @@ signals:
     void signalEventChangedSpeedConverter                    (quint32  value);
     void signalEventChangedMotorDirection                    (quint16  value);
     void signalEventChangedMotorType                         (quint16  value);
+    void signalEventChangedMachineMode                       (quint32  value);
     void signalEventChangedMotorMDRatio                      (quint16  value);
     void signalEventChangedMotorWCRatio                      (quint16  value);
     void signalEventChangedMotorRJRatio                      (quint16  value);
@@ -444,6 +449,7 @@ signals:
     void signalEventChangedDiffSpeedConverter                (bool     value);
     void signalEventChangedDiffMotorDirection                (bool     value);
     void signalEventChangedDiffMotorType                     (bool     value);
+    void signalEventChangedDiffMachineMode                   (bool     value);
     void signalEventChangedDiffMotorMDRatio                  (bool     value);
     void signalEventChangedDiffMotorWCRatio                  (bool     value);
     void signalEventChangedDiffMotorRJRatio                  (bool     value);
@@ -473,88 +479,95 @@ signals:
 
 // down layer ================================================================================
 public slots:
-    void onSignalEventChangedRemoteProductSetting()
+    void onChangedRemotePDSetting(quint64 seq, DspPDSettingDto remote)
     {
-        setSeq                        (mpRemoteProductSetting->mNo                   ); setDiffSeq                    (mpRemoteProductSetting->mNo                    != mpLocalProductSetting->mNo                   );
-        setLength                     (mpRemoteProductSetting->mLength               ); setDiffLength                 (mpRemoteProductSetting->mLength                != mpLocalProductSetting->mLength               );
-        setSpeed                      (mpRemoteProductSetting->mSpeed                ); setDiffSpeed                  (mpRemoteProductSetting->mSpeed                 != mpLocalProductSetting->mSpeed                );
-        setMotorAccelerationTime      (mpRemoteProductSetting->mMotorAccelerationTime); setDiffMotorAccelerationTime  (mpRemoteProductSetting->mMotorAccelerationTime != mpLocalProductSetting->mMotorAccelerationTime);
-        setUnderWeight                (mpRemoteProductSetting->mUnderWeight          ); setDiffUnderWeight            (mpRemoteProductSetting->mUnderWeight           != mpLocalProductSetting->mUnderWeight          );
-        setUnderWarningWeight         (mpRemoteProductSetting->mUnderWarningWeight   ); setDiffUnderWarningWeight     (mpRemoteProductSetting->mUnderWarningWeight    != mpLocalProductSetting->mUnderWarningWeight   );
-        setNormalWeight               (mpRemoteProductSetting->mNormalWeight         ); setDiffNormalWeight           (mpRemoteProductSetting->mNormalWeight          != mpLocalProductSetting->mNormalWeight         );
-        setOverWarningWeight          (mpRemoteProductSetting->mOverWarningWeight    ); setDiffOverWarningWeight      (mpRemoteProductSetting->mOverWarningWeight     != mpLocalProductSetting->mOverWarningWeight    );
-        setOverWeight                 (mpRemoteProductSetting->mOverWeight           ); setDiffOverWeight             (mpRemoteProductSetting->mOverWeight            != mpLocalProductSetting->mOverWeight           );
-        setTareWeight                 (mpRemoteProductSetting->mTareWeight           ); setDiffTareWeight             (mpRemoteProductSetting->mTareWeight            != mpLocalProductSetting->mTareWeight           );
-        setWCNGMotion                 (mpRemoteProductSetting->mWCNGMotion           ); setDiffWCNGMotion             (mpRemoteProductSetting->mWCNGMotion            != mpLocalProductSetting->mWCNGMotion           );
-        setWCEnableEtcError           (mpRemoteProductSetting->mWCEnableEtcError     ); setDiffWCEnableEtcError       (mpRemoteProductSetting->mWCEnableEtcError      != mpLocalProductSetting->mWCEnableEtcError     );
-        setMDSenstivity               (mpRemoteProductSetting->mMDSenstivity         ); setDiffMDSenstivity           (mpRemoteProductSetting->mMDSenstivity          != mpLocalProductSetting->mMDSenstivity         );
-        setMDNGMotion                 (mpRemoteProductSetting->mMDNGMotion           ); setDiffMDNGMotion             (mpRemoteProductSetting->mMDNGMotion            != mpLocalProductSetting->mMDNGMotion           );
-        setDynamicFactor              (mpRemoteProductSetting->mDynamicFactor        ); setDiffDynamicFactor          (mpRemoteProductSetting->mDynamicFactor         != mpLocalProductSetting->mDynamicFactor        );
+        CHECK_FALSE_RETURN((mDspSeq == seq));
+
+        setSeq                        (remote.mCommSetting.mProductNum           ); setDiffSeq                    (remote.mCommSetting.mProductNum            != pProductSP->mCurrPD.mDspForm.mCommSetting.mProductNum           );
+        setLength                     (remote.mCommSetting.mLength               ); setDiffLength                 (remote.mCommSetting.mLength                != pProductSP->mCurrPD.mDspForm.mCommSetting.mLength               );
+        setSpeed                      (remote.mCommSetting.mSpeed                ); setDiffSpeed                  (remote.mCommSetting.mSpeed                 != pProductSP->mCurrPD.mDspForm.mCommSetting.mSpeed                );
+        setMotorAccelerationTime      (remote.mCommSetting.mMotorAccelerationTime); setDiffMotorAccelerationTime  (remote.mCommSetting.mMotorAccelerationTime != pProductSP->mCurrPD.mDspForm.mCommSetting.mMotorAccelerationTime);
+        setUnderWeight                (remote.mWCSetting.mUnderWeight            ); setDiffUnderWeight            (remote.mWCSetting.mUnderWeight             != pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWeight            );
+        setUnderWarningWeight         (remote.mWCSetting.mUnderWarningWeight     ); setDiffUnderWarningWeight     (remote.mWCSetting.mUnderWarningWeight      != pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWarningWeight     );
+        setNormalWeight               (remote.mWCSetting.mNormalWeight           ); setDiffNormalWeight           (remote.mWCSetting.mNormalWeight            != pProductSP->mCurrPD.mDspForm.mWCSetting.mNormalWeight           );
+        setOverWarningWeight          (remote.mWCSetting.mOverWarningWeight      ); setDiffOverWarningWeight      (remote.mWCSetting.mOverWarningWeight       != pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight      );
+        setOverWeight                 (remote.mWCSetting.mOverWeight             ); setDiffOverWeight             (remote.mWCSetting.mOverWeight              != pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight             );
+        setTareWeight                 (remote.mWCSetting.mTareWeight             ); setDiffTareWeight             (remote.mWCSetting.mTareWeight              != pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight             );
+        setWCNGMotion                 (remote.mWCSetting.mNGMotion               ); setDiffWCNGMotion             (remote.mWCSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               );
+        setWCEnableEtcError           (remote.mWCSetting.mEnableEtcError         ); setDiffWCEnableEtcError       (remote.mWCSetting.mEnableEtcError          != pProductSP->mCurrPD.mDspForm.mWCSetting.mEnableEtcError         );
+        setDynamicFactor              (remote.mWCSetting.mDynamicFactor          ); setDiffDynamicFactor          (remote.mWCSetting.mDynamicFactor           != pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          );
+        setMDSenstivity               (remote.mMDSetting.mSenstivity             ); setDiffMDSenstivity           (remote.mMDSetting.mSenstivity              != pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity             );
+        setMDNGMotion                 (remote.mMDSetting.mNGMotion               ); setDiffMDNGMotion             (remote.mMDSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGMotion               );
+
     }
 
-    void onSignalEventChangedRemoteDeviceSetting()
+    void onChangedRemoteDevSetting(quint64 seq, DspDevSettingDto remote)
     {
-        setLampTime                   (mpRemoteDeviceSetting->mLampTime               ); setDiffLampTime               (mpRemoteDeviceSetting->mLampTime                != mpLocalDeviceSetting->mLampTime               );
-        setBuzzerTime                 (mpRemoteDeviceSetting->mBuzzerTime             ); setDiffBuzzerTime             (mpRemoteDeviceSetting->mBuzzerTime              != mpLocalDeviceSetting->mBuzzerTime             );
-        setSpeedConverter             (mpRemoteDeviceSetting->mSpeedConverter         ); setDiffSpeedConverter         (mpRemoteDeviceSetting->mSpeedConverter          != mpLocalDeviceSetting->mSpeedConverter         );
-        setMotorDirection             (mpRemoteDeviceSetting->mMotorDirection         ); setDiffMotorDirection         (mpRemoteDeviceSetting->mMotorDirection          != mpLocalDeviceSetting->mMotorDirection         );
-        setMotorType                  (mpRemoteDeviceSetting->mMotorType              ); setDiffMotorType              (mpRemoteDeviceSetting->mMotorType               != mpLocalDeviceSetting->mMotorType              );
-        setMotorMDRatio               (mpRemoteDeviceSetting->mMotorMDRatio           ); setDiffMotorMDRatio           (mpRemoteDeviceSetting->mMotorMDRatio            != mpLocalDeviceSetting->mMotorMDRatio           );
-        setMotorWCRatio               (mpRemoteDeviceSetting->mMotorWCRatio           ); setDiffMotorWCRatio           (mpRemoteDeviceSetting->mMotorWCRatio            != mpLocalDeviceSetting->mMotorWCRatio           );
-        setMotorRJRatio               (mpRemoteDeviceSetting->mMotorRJRatio           ); setDiffMotorRJRatio           (mpRemoteDeviceSetting->mMotorRJRatio            != mpLocalDeviceSetting->mMotorRJRatio           );
-        setSensorLength               (mpRemoteDeviceSetting->mSensorLength           ); setDiffSensorLength           (mpRemoteDeviceSetting->mSensorLength            != mpLocalDeviceSetting->mSensorLength           );
-        setDistanceToRejector         (mpRemoteDeviceSetting->mDistanceToRejector     ); setDiffDistanceToRejector     (mpRemoteDeviceSetting->mDistanceToRejector      != mpLocalDeviceSetting->mDistanceToRejector     );
-        setMDPhotoIsOn                (mpRemoteDeviceSetting->mMDPhotoIsOn            ); setDiffMDPhotoIsOn            (mpRemoteDeviceSetting->mMDPhotoIsOn             != mpLocalDeviceSetting->mMDPhotoIsOn            );
-        setWCPhotoIsOn                (mpRemoteDeviceSetting->mWCPhotoIsOn            ); setDiffWCPhotoIsOn            (mpRemoteDeviceSetting->mWCPhotoIsOn             != mpLocalDeviceSetting->mWCPhotoIsOn            );
-        setRejectorRunTimeRatio       (mpRemoteDeviceSetting->mRejectorRunTimeRatio   ); setDiffRejectorRunTimeRatio   (mpRemoteDeviceSetting->mRejectorRunTimeRatio    != mpLocalDeviceSetting->mRejectorRunTimeRatio   );
-        setStaticFactor               (mpRemoteDeviceSetting->mStaticFactor           ); setDiffStaticFactor           (mpRemoteDeviceSetting->mStaticFactor            != mpLocalDeviceSetting->mStaticFactor           );
-        setScaler                     (mpRemoteDeviceSetting->mScaler                 ); setDiffScaler                 (mpRemoteDeviceSetting->mScaler                  != mpLocalDeviceSetting->mScaler                 );
-        setDisplayStability           (mpRemoteDeviceSetting->mDisplayStability       ); setDiffDisplayStability       (mpRemoteDeviceSetting->mDisplayStability        != mpLocalDeviceSetting->mDisplayStability       );
-        setMeasureCueSign             (mpRemoteDeviceSetting->mMeasureCueSign         ); setDiffMeasureCueSign         (mpRemoteDeviceSetting->mMeasureCueSign          != mpLocalDeviceSetting->mMeasureCueSign         );
-        setMinStaticWeight            (mpRemoteDeviceSetting->mMinStaticWeight        ); setDiffMinStaticWeight        (mpRemoteDeviceSetting->mMinStaticWeight         != mpLocalDeviceSetting->mMinStaticWeight        );
-        setMinDynamicWeight           (mpRemoteDeviceSetting->mMinDynamicWeight       ); setDiffMinDynamicWeight       (mpRemoteDeviceSetting->mMinDynamicWeight        != mpLocalDeviceSetting->mMinDynamicWeight       );
-        setMode                       (mpRemoteDeviceSetting->mMode                   ); setDiffMode                   (mpRemoteDeviceSetting->mMode                    != mpLocalDeviceSetting->mMode                   );
-        setDistanceBtwSensor          (mpRemoteDeviceSetting->mDistanceBtwSensor      ); setDiffDistanceBtwSensor      (mpRemoteDeviceSetting->mDistanceBtwSensor       != mpLocalDeviceSetting->mDistanceBtwSensor      );
-        setDetectDetectTime           (mpRemoteDeviceSetting->mDetectDetectTime       ); setDiffDetectDetectTime       (mpRemoteDeviceSetting->mDetectDetectTime        != mpLocalDeviceSetting->mDetectDetectTime       );
-        setRunDetectTime              (mpRemoteDeviceSetting->mRunDetectTime          ); setDiffRunDetectTime          (mpRemoteDeviceSetting->mRunDetectTime           != mpLocalDeviceSetting->mRunDetectTime          );
-        setDistanceToWeightChecker    (mpRemoteDeviceSetting->mDistanceToWeightChecker); setDiffDistanceToWeightChecker(mpRemoteDeviceSetting->mDistanceToWeightChecker != mpLocalDeviceSetting->mDistanceToWeightChecker);
-        setDistancePhotoToSensor      (mpRemoteDeviceSetting->mDistancePhotoToSensor  ); setDiffDistancePhotoToSensor  (mpRemoteDeviceSetting->mDistancePhotoToSensor   != mpLocalDeviceSetting->mDistancePhotoToSensor  );
-        setSignalDelayTime            (mpRemoteDeviceSetting->mSignalDelayTime        ); setDiffSignalDelayTime        (mpRemoteDeviceSetting->mSignalDelayTime         != mpLocalDeviceSetting->mSignalDelayTime        );
-        setStaticStandardWeight       (mpRemoteDeviceSetting->mStaticStandardWeight   ); setDiffStaticStandardWeight   (mpRemoteDeviceSetting->mStaticStandardWeight    != mpLocalDeviceSetting->mStaticStandardWeight   );
-        setDynamicBaseWeight          (mpRemoteDeviceSetting->mDynamicBaseWeight      ); setDiffDynamicBaseWeight      (mpRemoteDeviceSetting->mDynamicBaseWeight       != mpLocalDeviceSetting->mDynamicBaseWeight      );
-        setSensorCnt                  (mpRemoteDeviceSetting->mSensorCnt              ); setDiffSensorCnt              (mpRemoteDeviceSetting->mSensorCnt               != mpLocalDeviceSetting->mSensorCnt              );
-        setRejectorOpenTime           (mpRemoteDeviceSetting->mRejectorOpenTime       ); setDiffRejectorOpenTime       (mpRemoteDeviceSetting->mRejectorOpenTime        != mpLocalDeviceSetting->mRejectorOpenTime       );
+        CHECK_FALSE_RETURN((mDspSeq == seq));
 
-        qDebug() << "RemoteDeviceSetting->mLampTime                :" << mpRemoteDeviceSetting->mLampTime                << ",local = " << mpLocalDeviceSetting->mLampTime               ;
-        qDebug() << "RemoteDeviceSetting->mBuzzerTime              :" << mpRemoteDeviceSetting->mBuzzerTime              << ",local = " << mpLocalDeviceSetting->mBuzzerTime             ;
-        qDebug() << "RemoteDeviceSetting->mSpeedConverter          :" << mpRemoteDeviceSetting->mSpeedConverter          << ",local = " << mpLocalDeviceSetting->mSpeedConverter         ;
-        qDebug() << "RemoteDeviceSetting->mMotorDirection          :" << mpRemoteDeviceSetting->mMotorDirection          << ",local = " << mpLocalDeviceSetting->mMotorDirection         ;
-        qDebug() << "RemoteDeviceSetting->mMotorType               :" << mpRemoteDeviceSetting->mMotorType               << ",local = " << mpLocalDeviceSetting->mMotorType              ;
-        qDebug() << "RemoteDeviceSetting->mMotorMDRatio            :" << mpRemoteDeviceSetting->mMotorMDRatio            << ",local = " << mpLocalDeviceSetting->mMotorMDRatio           ;
-        qDebug() << "RemoteDeviceSetting->mMotorWCRatio            :" << mpRemoteDeviceSetting->mMotorWCRatio            << ",local = " << mpLocalDeviceSetting->mMotorWCRatio           ;
-        qDebug() << "RemoteDeviceSetting->mMotorRJRatio            :" << mpRemoteDeviceSetting->mMotorRJRatio            << ",local = " << mpLocalDeviceSetting->mMotorRJRatio           ;
-        qDebug() << "RemoteDeviceSetting->mSensorLength            :" << mpRemoteDeviceSetting->mSensorLength            << ",local = " << mpLocalDeviceSetting->mSensorLength           ;
-        qDebug() << "RemoteDeviceSetting->mDistanceToRejector      :" << mpRemoteDeviceSetting->mDistanceToRejector      << ",local = " << mpLocalDeviceSetting->mDistanceToRejector     ;
-        qDebug() << "RemoteDeviceSetting->mMDPhotoIsOn             :" << mpRemoteDeviceSetting->mMDPhotoIsOn             << ",local = " << mpLocalDeviceSetting->mMDPhotoIsOn            ;
-        qDebug() << "RemoteDeviceSetting->mWCPhotoIsOn             :" << mpRemoteDeviceSetting->mWCPhotoIsOn             << ",local = " << mpLocalDeviceSetting->mWCPhotoIsOn            ;
-        qDebug() << "RemoteDeviceSetting->mRejectorRunTimeRatio    :" << mpRemoteDeviceSetting->mRejectorRunTimeRatio    << ",local = " << mpLocalDeviceSetting->mRejectorRunTimeRatio   ;
-        qDebug() << "RemoteDeviceSetting->mStaticFactor            :" << mpRemoteDeviceSetting->mStaticFactor            << ",local = " << mpLocalDeviceSetting->mStaticFactor           ;
-        qDebug() << "RemoteDeviceSetting->mScaler                  :" << mpRemoteDeviceSetting->mScaler                  << ",local = " << mpLocalDeviceSetting->mScaler                 ;
-        qDebug() << "RemoteDeviceSetting->mDisplayStability        :" << mpRemoteDeviceSetting->mDisplayStability        << ",local = " << mpLocalDeviceSetting->mDisplayStability       ;
-        qDebug() << "RemoteDeviceSetting->mMeasureCueSign          :" << mpRemoteDeviceSetting->mMeasureCueSign          << ",local = " << mpLocalDeviceSetting->mMeasureCueSign         ;
-        qDebug() << "RemoteDeviceSetting->mMinStaticWeight         :" << mpRemoteDeviceSetting->mMinStaticWeight         << ",local = " << mpLocalDeviceSetting->mMinStaticWeight        ;
-        qDebug() << "RemoteDeviceSetting->mMinDynamicWeight        :" << mpRemoteDeviceSetting->mMinDynamicWeight        << ",local = " << mpLocalDeviceSetting->mMinDynamicWeight       ;
-        qDebug() << "RemoteDeviceSetting->mMode                    :" << mpRemoteDeviceSetting->mMode                    << ",local = " << mpLocalDeviceSetting->mMode                   ;
-        qDebug() << "RemoteDeviceSetting->mDistanceBtwSensor       :" << mpRemoteDeviceSetting->mDistanceBtwSensor       << ",local = " << mpLocalDeviceSetting->mDistanceBtwSensor      ;
-        qDebug() << "RemoteDeviceSetting->mDetectDetectTime        :" << mpRemoteDeviceSetting->mDetectDetectTime        << ",local = " << mpLocalDeviceSetting->mDetectDetectTime       ;
-        qDebug() << "RemoteDeviceSetting->mRunDetectTime           :" << mpRemoteDeviceSetting->mRunDetectTime           << ",local = " << mpLocalDeviceSetting->mRunDetectTime          ;
-        qDebug() << "RemoteDeviceSetting->mDistanceToWeightChecker :" << mpRemoteDeviceSetting->mDistanceToWeightChecker << ",local = " << mpLocalDeviceSetting->mDistanceToWeightChecker;
-        qDebug() << "RemoteDeviceSetting->mDistancePhotoToSensor   :" << mpRemoteDeviceSetting->mDistancePhotoToSensor   << ",local = " << mpLocalDeviceSetting->mDistancePhotoToSensor  ;
-        qDebug() << "RemoteDeviceSetting->mSignalDelayTime         :" << mpRemoteDeviceSetting->mSignalDelayTime         << ",local = " << mpLocalDeviceSetting->mSignalDelayTime        ;
-        qDebug() << "RemoteDeviceSetting->mStaticStandardWeight    :" << mpRemoteDeviceSetting->mStaticStandardWeight    << ",local = " << mpLocalDeviceSetting->mStaticStandardWeight   ;
-        qDebug() << "RemoteDeviceSetting->mDynamicBaseWeight       :" << mpRemoteDeviceSetting->mDynamicBaseWeight       << ",local = " << mpLocalDeviceSetting->mDynamicBaseWeight      ;
-        qDebug() << "RemoteDeviceSetting->mSensorCnt               :" << mpRemoteDeviceSetting->mSensorCnt               << ",local = " << mpLocalDeviceSetting->mSensorCnt              ;
-        qDebug() << "RemoteDeviceSetting->mRejectorOpenTime        :" << mpRemoteDeviceSetting->mRejectorOpenTime        << ",local = " << mpLocalDeviceSetting->mRejectorOpenTime       ;
+        setLampTime                   (remote.mCommSetting.mLampTime               ); setDiffLampTime               (remote.mCommSetting.mLampTime                != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime               );
+        setBuzzerTime                 (remote.mCommSetting.mBuzzerTime             ); setDiffBuzzerTime             (remote.mCommSetting.mBuzzerTime              != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mBuzzerTime             );
+        setSpeedConverter             (remote.mCommSetting.mSpeedConverter         ); setDiffSpeedConverter         (remote.mCommSetting.mSpeedConverter          != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSpeedConverter         );
+        setMotorDirection             (remote.mCommSetting.mMotorDirection         ); setDiffMotorDirection         (remote.mCommSetting.mMotorDirection          != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorDirection         );
+        setMotorType                  (remote.mCommSetting.mMotorType              ); setDiffMotorType              (remote.mCommSetting.mMotorType               != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorType              );
+        setMachineMode                (remote.mCommSetting.mMachineMode            ); setDiffMachineMode            (remote.mCommSetting.mMachineMode             != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode            );
+        setMotorMDRatio               (remote.mCommSetting.mMotorMDRatio           ); setDiffMotorMDRatio           (remote.mCommSetting.mMotorMDRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorMDRatio           );
+        setMotorWCRatio               (remote.mCommSetting.mMotorWCRatio           ); setDiffMotorWCRatio           (remote.mCommSetting.mMotorWCRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorWCRatio           );
+        setMotorRJRatio               (remote.mCommSetting.mMotorRJRatio           ); setDiffMotorRJRatio           (remote.mCommSetting.mMotorRJRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           );
+        setSensorLength               (remote.mSizeSetting.mSensorLength           ); setDiffSensorLength           (remote.mSizeSetting.mSensorLength            != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           );
+        setDistanceToRejector         (remote.mSizeSetting.mDistanceToRejector     ); setDiffDistanceToRejector     (remote.mSizeSetting.mDistanceToRejector      != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector     );
+        setMDPhotoIsOn                (remote.mMDSetting.mPhotoIsOn==1?true:false  ); setDiffMDPhotoIsOn            (remote.mMDSetting.mPhotoIsOn                 != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mPhotoIsOn                );
+        setWCPhotoIsOn                (remote.mWCSetting.mPhotoIsOn==1?true:false  ); setDiffWCPhotoIsOn            (remote.mWCSetting.mPhotoIsOn                 != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn                );
+        setRejectorRunTimeRatio       (remote.mCommSetting.mRejectorRunTimeRatio   ); setDiffRejectorRunTimeRatio   (remote.mCommSetting.mRejectorRunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio   );
+        setStaticFactor               (remote.mWCSetting.mStaticFactor             ); setDiffStaticFactor           (remote.mWCSetting.mStaticFactor              != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             );
+        setScaler                     (remote.mWCSetting.mScaler                   ); setDiffScaler                 (remote.mWCSetting.mScaler                    != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   );
+        setDisplayStability           (remote.mWCSetting.mDisplayStability         ); setDiffDisplayStability       (remote.mWCSetting.mDisplayStability          != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         );
+        setMeasureCueSign             (remote.mWCSetting.mMeasureCueSign           ); setDiffMeasureCueSign         (remote.mWCSetting.mMeasureCueSign            != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           );
+        setMinStaticWeight            (remote.mWCSetting.mMinStaticWeight          ); setDiffMinStaticWeight        (remote.mWCSetting.mMinStaticWeight           != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight          );
+        setMinDynamicWeight           (remote.mWCSetting.mMinDynamicWeight         ); setDiffMinDynamicWeight       (remote.mWCSetting.mMinDynamicWeight          != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight         );
+        setMode                       (remote.mMDSetting.mDetectMode               ); setDiffMode                   (remote.mMDSetting.mDetectMode                != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode               );
+        setDistanceBtwSensor          (remote.mSizeSetting.mDistanceBtwSensor      ); setDiffDistanceBtwSensor      (remote.mSizeSetting.mDistanceBtwSensor       != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor      );
+        setDetectDetectTime           (remote.mMDSetting.mDetectDetectTime         ); setDiffDetectDetectTime       (remote.mMDSetting.mDetectDetectTime          != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectDetectTime         );
+        setRunDetectTime              (remote.mMDSetting.mRunDetectTime            ); setDiffRunDetectTime          (remote.mMDSetting.mRunDetectTime             != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mRunDetectTime            );
+        setDistanceToWeightChecker    (remote.mSizeSetting.mDistanceToWeightChecker); setDiffDistanceToWeightChecker(remote.mSizeSetting.mDistanceToWeightChecker != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker);
+        setDistancePhotoToSensor      (remote.mSizeSetting.mDistancePhotoToSensor  ); setDiffDistancePhotoToSensor  (remote.mSizeSetting.mDistancePhotoToSensor   != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor  );
+        setSignalDelayTime            (remote.mMDSetting.mSignalDelayTime          ); setDiffSignalDelayTime        (remote.mMDSetting.mSignalDelayTime           != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSignalDelayTime          );
+        setStaticStandardWeight       (remote.mWCSetting.mStaticStandardWeight     ); setDiffStaticStandardWeight   (remote.mWCSetting.mStaticStandardWeight      != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     );
+        setDynamicBaseWeight          (remote.mWCSetting.mDynamicBaseWeight        ); setDiffDynamicBaseWeight      (remote.mWCSetting.mDynamicBaseWeight         != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        );
+        setSensorCnt                  (remote.mMDSetting.mSensorCnt                ); setDiffSensorCnt              (remote.mMDSetting.mSensorCnt                 != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                );
+        setRejectorOpenTime           (remote.mCommSetting.mRejectorOpenTime       ); setDiffRejectorOpenTime       (remote.mCommSetting.mRejectorOpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime       );
+
+        qDebug() <<"Remote mCommSetting.mLampTime                 = " << remote.mCommSetting.mLampTime                <<"Local mCommSetting.mLampTime                 = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime               ;
+        qDebug() <<"Remote mCommSetting.mBuzzerTime               = " << remote.mCommSetting.mBuzzerTime              <<"Local mCommSetting.mBuzzerTime               = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mBuzzerTime             ;
+        qDebug() <<"Remote mCommSetting.mSpeedConverter           = " << remote.mCommSetting.mSpeedConverter          <<"Local mCommSetting.mSpeedConverter           = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSpeedConverter         ;
+        qDebug() <<"Remote mCommSetting.mMotorDirection           = " << remote.mCommSetting.mMotorDirection          <<"Local mCommSetting.mMotorDirection           = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorDirection         ;
+        qDebug() <<"Remote mCommSetting.mMotorType                = " << remote.mCommSetting.mMotorType               <<"Local mCommSetting.mMotorType                = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorType              ;
+        qDebug() <<"Remote mCommSetting.mMachineMode              = " << remote.mCommSetting.mMachineMode             <<"Local mCommSetting.mMachineMode              = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode            ;
+        qDebug() <<"Remote mCommSetting.mMotorMDRatio             = " << remote.mCommSetting.mMotorMDRatio            <<"Local mCommSetting.mMotorMDRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorMDRatio           ;
+        qDebug() <<"Remote mCommSetting.mMotorWCRatio             = " << remote.mCommSetting.mMotorWCRatio            <<"Local mCommSetting.mMotorWCRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorWCRatio           ;
+        qDebug() <<"Remote mCommSetting.mMotorRJRatio             = " << remote.mCommSetting.mMotorRJRatio            <<"Local mCommSetting.mMotorRJRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           ;
+        qDebug() <<"Remote mSizeSetting.mSensorLength             = " << remote.mSizeSetting.mSensorLength            <<"Local mSizeSetting.mSensorLength             = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           ;
+        qDebug() <<"Remote mSizeSetting.mDistanceToRejector       = " << remote.mSizeSetting.mDistanceToRejector      <<"Local mSizeSetting.mDistanceToRejector       = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector     ;
+        qDebug() <<"Remote mMDSetting.mPhotoIsOn                  = " << remote.mMDSetting.mPhotoIsOn                 <<"Local mMDSetting.mPhotoIsOn                  = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mPhotoIsOn                ;
+        qDebug() <<"Remote mWCSetting.mPhotoIsOn                  = " << remote.mWCSetting.mPhotoIsOn                 <<"Local mWCSetting.mPhotoIsOn                  = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn                ;
+        qDebug() <<"Remote mCommSetting.mRejectorRunTimeRatio     = " << remote.mCommSetting.mRejectorRunTimeRatio    <<"Local mCommSetting.mRejectorRunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio   ;
+        qDebug() <<"Remote mWCSetting.mStaticFactor               = " << remote.mWCSetting.mStaticFactor              <<"Local mWCSetting.mStaticFactor               = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             ;
+        qDebug() <<"Remote mWCSetting.mScaler                     = " << remote.mWCSetting.mScaler                    <<"Local mWCSetting.mScaler                     = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   ;
+        qDebug() <<"Remote mWCSetting.mDisplayStability           = " << remote.mWCSetting.mDisplayStability          <<"Local mWCSetting.mDisplayStability           = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         ;
+        qDebug() <<"Remote mWCSetting.mMeasureCueSign             = " << remote.mWCSetting.mMeasureCueSign            <<"Local mWCSetting.mMeasureCueSign             = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           ;
+        qDebug() <<"Remote mWCSetting.mMinStaticWeight            = " << remote.mWCSetting.mMinStaticWeight           <<"Local mWCSetting.mMinStaticWeight            = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight          ;
+        qDebug() <<"Remote mWCSetting.mMinDynamicWeight           = " << remote.mWCSetting.mMinDynamicWeight          <<"Local mWCSetting.mMinDynamicWeight           = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight         ;
+        qDebug() <<"Remote mMDSetting.mDetectMode                 = " << remote.mMDSetting.mDetectMode                <<"Local mMDSetting.mDetectMode                 = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode               ;
+        qDebug() <<"Remote mSizeSetting.mDistanceBtwSensor        = " << remote.mSizeSetting.mDistanceBtwSensor       <<"Local mSizeSetting.mDistanceBtwSensor        = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor      ;
+        qDebug() <<"Remote mMDSetting.mDetectDetectTime           = " << remote.mMDSetting.mDetectDetectTime          <<"Local mMDSetting.mDetectDetectTime           = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectDetectTime         ;
+        qDebug() <<"Remote mMDSetting.mRunDetectTime              = " << remote.mMDSetting.mRunDetectTime             <<"Local mMDSetting.mRunDetectTime              = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mRunDetectTime            ;
+        qDebug() <<"Remote mSizeSetting.mDistanceToWeightChecker  = " << remote.mSizeSetting.mDistanceToWeightChecker <<"Local mSizeSetting.mDistanceToWeightChecker  = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker;
+        qDebug() <<"Remote mSizeSetting.mDistancePhotoToSensor    = " << remote.mSizeSetting.mDistancePhotoToSensor   <<"Local mSizeSetting.mDistancePhotoToSensor    = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor  ;
+        qDebug() <<"Remote mMDSetting.mSignalDelayTime            = " << remote.mMDSetting.mSignalDelayTime           <<"Local mMDSetting.mSignalDelayTime            = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSignalDelayTime          ;
+        qDebug() <<"Remote mWCSetting.mStaticStandardWeight       = " << remote.mWCSetting.mStaticStandardWeight      <<"Local mWCSetting.mStaticStandardWeight       = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     ;
+        qDebug() <<"Remote mWCSetting.mDynamicBaseWeight          = " << remote.mWCSetting.mDynamicBaseWeight         <<"Local mWCSetting.mDynamicBaseWeight          = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        ;
+        qDebug() <<"Remote mMDSetting.mSensorCnt                  = " << remote.mMDSetting.mSensorCnt                 <<"Local mMDSetting.mSensorCnt                  = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                ;
+        qDebug() <<"Remote mCommSetting.mRejectorOpenTime         = " << remote.mCommSetting.mRejectorOpenTime        <<"Local mCommSetting.mRejectorOpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime       ;
     }
 
 
@@ -562,18 +575,23 @@ public slots:
 public:
     explicit PanelDebuggingModel(QObject *parent = nullptr):QObject(parent)
     {
-        DspStatusModel *pDspStatus = CoreService::getInstance()->mMapDspStatus.first();
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 
-        mpLocalProductSetting  = &(CoreService::getInstance()->mProductSettingServcie.mCurrentProductSetting);
-        mpRemoteProductSetting = &(pDspStatus->mProductSetting);
-        mpLocalDeviceSetting   = &(CoreService::getInstance()->mLocalSettingService.mDspSetting);
-        mpRemoteDeviceSetting  = &(pDspStatus->mDspSetting);
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
 
-        connect(pDspStatus, SIGNAL(signalEventChangedProductSetting()), this, SLOT(onSignalEventChangedRemoteProductSetting()));
-        connect(pDspStatus, SIGNAL(signalEventChangedDeviceSetting ()), this, SLOT(onSignalEventChangedRemoteDeviceSetting ()));
+        ENABLE_SLOT_DSP_CHANGED_REMOTE_DEVSETTING;
+        ENABLE_SLOT_DSP_CHANGED_REMOTE_PDSETTING;
 
-        onSignalEventChangedRemoteProductSetting();
-        onSignalEventChangedRemoteDeviceSetting();
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        DspMaster * pMaster = pDspSP->findDspMaster(mDspSeq);
+
+        if(pMaster != nullptr)
+        {
+            onChangedRemoteDevSetting(mDspSeq, pMaster->mRcvDataStore.getDevSettingDto());
+            onChangedRemotePDSetting(mDspSeq, pMaster->mRcvDataStore.getPDSettingDto());
+        }
+
     }
 };
 

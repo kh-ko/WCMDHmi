@@ -1,6 +1,6 @@
 #include "syncserverservice.h"
-
-void SyncServerService::onSignalEventNewConnection()
+#include "source/service/localsetting/localsettingsprovider.h"
+void SyncServer::onSignalEventNewConnection()
 {
     QTcpSocket *pClient;
 
@@ -11,7 +11,7 @@ void SyncServerService::onSignalEventNewConnection()
         if(pClient == nullptr)
             break;
 
-        SyncClient * pSyncClient = new SyncClient(pClient, mpInformation->mDeviceNumber, this);
+        SyncClient * pSyncClient = new SyncClient(pClient, pLSettingSP->mInformation.mDeviceNumber, this);
 
         if(mpSyncClient != nullptr)
         {
@@ -28,20 +28,24 @@ void SyncServerService::onSignalEventNewConnection()
     }while(pClient != nullptr);
 }
 
-void SyncServerService::onSignalEventFinishedSync()
+void SyncServer::onSignalEventFinishedSync()
 {
     closeSyncClient();
 }
 
-void SyncServerService::startSyncService(InformationModel * pInformation)
+void SyncServer::start()
 {
-    mpInformation = pInformation;
     connect(&mServer, SIGNAL(newConnection()), this, SLOT(onSignalEventNewConnection()));
 
-    mServer.listen(QHostAddress::Any, 10024);
+    mServer.listen(QHostAddress::Any, PORT);
 }
 
-void SyncServerService::openSyncClient(SyncClient * pSyncClient)
+void SyncServer::stop()
+{
+    closeSyncClient();
+}
+
+void SyncServer::openSyncClient(SyncClient * pSyncClient)
 {
     mpSyncClient = pSyncClient;
 
@@ -49,7 +53,7 @@ void SyncServerService::openSyncClient(SyncClient * pSyncClient)
     mpSyncClient->start();
 }
 
-void SyncServerService::closeSyncClient()
+void SyncServer::closeSyncClient()
 {
     if(mpSyncClient != nullptr)
     {
@@ -59,12 +63,12 @@ void SyncServerService::closeSyncClient()
     }
 }
 
-SyncServerService::SyncServerService(QObject *parent) : QObject(parent)
+SyncServer::SyncServer(QObject *parent) : QObject(parent)
 {
 
 }
 
-SyncServerService::~SyncServerService()
+SyncServer::~SyncServer()
 {
     closeSyncClient();
 }

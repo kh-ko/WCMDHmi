@@ -45,46 +45,45 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(bool                 isEditMDNGMotion           READ getIsEditMDNGMotion            NOTIFY signalEventChangedIsEditMDNGMotion         )
 
 public:
-    ProductSettingService * mpProductService;
 
-    bool    mIsNew                    ;
-    ProductSettingModel mModel        ;
+    bool         mIsNew                    ;
+    PDSettingDto mModel                    ;
 
-    bool    mIsEditNo                 ;
-    bool    mIsEditName               ;
-    bool    mIsEditLength             ;
-    bool    mIsEditSpeed              ;
-    bool    mIsEditMotorAcceleration  ;
-    bool    mIsEditUnderWeight        ;
-    bool    mIsEditUnderWarningWeight ;
-    bool    mIsEditNormalWeight       ;
-    bool    mIsEditOverWarningWeight  ;
-    bool    mIsEditOverWeight         ;
-    bool    mIsEditTareWeight         ;
-    bool    mIsEditWCNGMotion         ;
-    bool    mIsEditWCEnableEtcError   ;
-    bool    mIsEditDynamicFactor      ;
-    bool    mIsEditMDSenstivity       ;
-    bool    mIsEditMDNGMotion         ;
+    bool         mIsEditNo                 ;
+    bool         mIsEditName               ;
+    bool         mIsEditLength             ;
+    bool         mIsEditSpeed              ;
+    bool         mIsEditMotorAcceleration  ;
+    bool         mIsEditUnderWeight        ;
+    bool         mIsEditUnderWarningWeight ;
+    bool         mIsEditNormalWeight       ;
+    bool         mIsEditOverWarningWeight  ;
+    bool         mIsEditOverWeight         ;
+    bool         mIsEditTareWeight         ;
+    bool         mIsEditWCNGMotion         ;
+    bool         mIsEditWCEnableEtcError   ;
+    bool         mIsEditDynamicFactor      ;
+    bool         mIsEditMDSenstivity       ;
+    bool         mIsEditMDNGMotion         ;
 
-    bool    getIsNew                   (){return mIsNew                           ;}
-    quint64 getSeq                     (){return mModel.mSeq                      ;}
-    quint16 getNo                      (){return mModel.mNo                       ;}
-    QString getName                    (){return mModel.mName                     ;}
-    quint16 getLength                  (){return mModel.mLength                   ;}
-    quint16 getSpeed                   (){return mModel.mSpeed                    ;}
-    quint32 getMotorAcceleration       (){return mModel.mMotorAccelerationTime    ;}
-    quint32 getUnderWeight             (){return mModel.mUnderWeight              ;}
-    quint32 getUnderWarningWeight      (){return mModel.mUnderWarningWeight       ;}
-    quint32 getNormalWeight            (){return mModel.mNormalWeight             ;}
-    quint32 getOverWarningWeight       (){return mModel.mOverWarningWeight        ;}
-    quint32 getOverWeight              (){return mModel.mOverWeight               ;}
-    quint32 getTareWeight              (){return mModel.mTareWeight               ;}
-    quint16 getWCNGMotion              (){return mModel.mWCNGMotion               ;}
-    quint16 getWCEnableEtcError        (){return mModel.mWCEnableEtcError         ;}
-    int     getDynamicFactor           (){return mModel.mDynamicFactor            ;}
-    quint16 getMDSenstivity            (){return mModel.mMDSenstivity             ;}
-    quint16 getMDNGMotion              (){return mModel.mMDNGMotion               ;}
+    bool    getIsNew                   (){return mIsNew                                             ;}
+    quint64 getSeq                     (){return mModel.mSeq                                        ;}
+    quint16 getNo                      (){return mModel.mDspForm.mCommSetting.mProductNum           ;}
+    QString getName                    (){return mModel.mName                                       ;}
+    quint16 getLength                  (){return mModel.mDspForm.mCommSetting.mLength               ;}
+    quint16 getSpeed                   (){return mModel.mDspForm.mCommSetting.mSpeed                ;}
+    quint32 getMotorAcceleration       (){return mModel.mDspForm.mCommSetting.mMotorAccelerationTime;}
+    quint32 getUnderWeight             (){return mModel.mDspForm.mWCSetting.mUnderWeight            ;}
+    quint32 getUnderWarningWeight      (){return mModel.mDspForm.mWCSetting.mUnderWarningWeight     ;}
+    quint32 getNormalWeight            (){return mModel.mDspForm.mWCSetting.mNormalWeight           ;}
+    quint32 getOverWarningWeight       (){return mModel.mDspForm.mWCSetting.mOverWarningWeight      ;}
+    quint32 getOverWeight              (){return mModel.mDspForm.mWCSetting.mOverWeight             ;}
+    quint32 getTareWeight              (){return mModel.mDspForm.mWCSetting.mTareWeight             ;}
+    quint16 getWCNGMotion              (){return mModel.mDspForm.mWCSetting.mNGMotion               ;}
+    quint16 getWCEnableEtcError        (){return mModel.mDspForm.mWCSetting.mEnableEtcError         ;}
+    int     getDynamicFactor           (){return mModel.mDspForm.mWCSetting.mDynamicFactor          ;}
+    quint16 getMDSenstivity            (){return mModel.mDspForm.mMDSetting.mSenstivity             ;}
+    quint16 getMDNGMotion              (){return mModel.mDspForm.mMDSetting.mNGMotion               ;}
 
     bool    getIsEditNo                (){return mIsEditNo                 ;}
     bool    getIsEditName              (){return mIsEditName               ;}
@@ -103,24 +102,24 @@ public:
     bool    getIsEditMDSenstivity      (){return mIsEditMDSenstivity       ;}
     bool    getIsEditMDNGMotion        (){return mIsEditMDNGMotion         ;}
 
-    void setIsNew                   (bool    value){ if(value == mIsNew                           ) return; mIsNew                           = value; emit signalEventChangedIsNew                    (value);}
-    void setSeq                     (quint64 value){ if(value == mModel.mSeq                      ) return; mModel.mSeq                      = value; emit signalEventChangedSeq                      (value);}
-    void setNo                      (quint16 value){ if(value == mModel.mNo                       ) return; mModel.mNo                       = value;  setIsEditNo                (true); emit signalEventChangedNo                       (value);}
-    void setName                    (QString value){ if(value == mModel.mName                     ) return; mModel.mName                     = value;  setIsEditName              (true); emit signalEventChangedName                     (value);}
-    void setLength                  (quint16 value){ if(value == mModel.mLength                   ) return; mModel.mLength                   = value;  setIsEditLength            (true); emit signalEventChangedLength                   (value);}
-    void setSpeed                   (quint16 value){ if(value == mModel.mSpeed                    ) return; mModel.mSpeed                    = value;  setIsEditSpeed             (true); emit signalEventChangedSpeed                    (value);}
-    void setMotorAcceleration       (quint32 value){ if(value == mModel.mMotorAccelerationTime    ) return; mModel.mMotorAccelerationTime    = value;  setIsEditMotorAcceleration (true); emit signalEventChangedMotorAcceleration        (value);}
-    void setUnderWeight             (quint32 value){ if(value == mModel.mUnderWeight              ) return; mModel.mUnderWeight              = value;  setIsEditUnderWeight       (true); emit signalEventChangedUnderWeight              (value);}
-    void setUnderWarningWeight      (quint32 value){ if(value == mModel.mUnderWarningWeight       ) return; mModel.mUnderWarningWeight       = value;  setIsEditUnderWarningWeight(true); emit signalEventChangedUnderWarningWeight       (value);}
-    void setNormalWeight            (quint32 value){ if(value == mModel.mNormalWeight             ) return; mModel.mNormalWeight             = value;  setIsEditNormalWeight      (true); emit signalEventChangedNormalWeight             (value);}
-    void setOverWarningWeight       (quint32 value){ if(value == mModel.mOverWarningWeight        ) return; mModel.mOverWarningWeight        = value;  setIsEditOverWarningWeight (true); emit signalEventChangedOverWarningWeight        (value);}
-    void setOverWeight              (quint32 value){ if(value == mModel.mOverWeight               ) return; mModel.mOverWeight               = value;  setIsEditOverWeight        (true); emit signalEventChangedOverWeight               (value);}
-    void setTareWeight              (quint32 value){ if(value == mModel.mTareWeight               ) return; mModel.mTareWeight               = value;  setIsEditTareWeight        (true); emit signalEventChangedTareWeight               (value);}
-    void setWCNGMotion              (quint16 value){ if(value == mModel.mWCNGMotion               ) return; mModel.mWCNGMotion               = value;  setIsEditWCNGMotion        (true); emit signalEventChangedWCNGMotion               (value);}
-    void setWCEnableEtcError        (quint16 value){ if(value == mModel.mWCEnableEtcError         ) return; mModel.mWCEnableEtcError         = value;  setIsEditWCEnableEtcError  (true); emit signalEventChangedWCEnableEtcError         (value);}
-    void setDynamicFactor           (quint32 value){ if(value == mModel.mDynamicFactor            ) return; mModel.mDynamicFactor            = value;  setIsEditDynamicFactor     (true); emit signalEventChangedDynamicFactor            (value);}
-    void setMDSenstivity            (quint16 value){ if(value == mModel.mMDSenstivity             ) return; mModel.mMDSenstivity             = value;  setIsEditMDSenstivity      (true); emit signalEventChangedMDSenstivity             (value);}
-    void setMDNGMotion              (quint16 value){ if(value == mModel.mMDNGMotion               ) return; mModel.mMDNGMotion               = value;  setIsEditMDNGMotion        (true); emit signalEventChangedMDNGMotion               (value);}
+    void setIsNew                   (bool    value){ if(value == mIsNew                                             ) return; mIsNew                                              = value; emit signalEventChangedIsNew                    (value);}
+    void setSeq                     (quint64 value){ if(value == mModel.mSeq                                        ) return; mModel.mSeq                                         = value; emit signalEventChangedSeq                      (value);}
+    void setNo                      (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mProductNum           ) return; mModel.mDspForm.mCommSetting.mProductNum            = value;  setIsEditNo                (true); emit signalEventChangedNo                       (value);}
+    void setName                    (QString value){ if(value == mModel.mName                                       ) return; mModel.mName                                        = value;  setIsEditName              (true); emit signalEventChangedName                     (value);}
+    void setLength                  (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mLength               ) return; mModel.mDspForm.mCommSetting.mLength                = value;  setIsEditLength            (true); emit signalEventChangedLength                   (value);}
+    void setSpeed                   (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mSpeed                ) return; mModel.mDspForm.mCommSetting.mSpeed                 = value;  setIsEditSpeed             (true); emit signalEventChangedSpeed                    (value);}
+    void setMotorAcceleration       (quint32 value){ if(value == mModel.mDspForm.mCommSetting.mMotorAccelerationTime) return; mModel.mDspForm.mCommSetting.mMotorAccelerationTime = value;  setIsEditMotorAcceleration (true); emit signalEventChangedMotorAcceleration        (value);}
+    void setUnderWeight             (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mUnderWeight            ) return; mModel.mDspForm.mWCSetting.mUnderWeight             = value;  setIsEditUnderWeight       (true); emit signalEventChangedUnderWeight              (value);}
+    void setUnderWarningWeight      (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mUnderWarningWeight     ) return; mModel.mDspForm.mWCSetting.mUnderWarningWeight      = value;  setIsEditUnderWarningWeight(true); emit signalEventChangedUnderWarningWeight       (value);}
+    void setNormalWeight            (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mNormalWeight           ) return; mModel.mDspForm.mWCSetting.mNormalWeight            = value;  setIsEditNormalWeight      (true); emit signalEventChangedNormalWeight             (value);}
+    void setOverWarningWeight       (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mOverWarningWeight      ) return; mModel.mDspForm.mWCSetting.mOverWarningWeight       = value;  setIsEditOverWarningWeight (true); emit signalEventChangedOverWarningWeight        (value);}
+    void setOverWeight              (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mOverWeight             ) return; mModel.mDspForm.mWCSetting.mOverWeight              = value;  setIsEditOverWeight        (true); emit signalEventChangedOverWeight               (value);}
+    void setTareWeight              (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mTareWeight             ) return; mModel.mDspForm.mWCSetting.mTareWeight              = value;  setIsEditTareWeight        (true); emit signalEventChangedTareWeight               (value);}
+    void setWCNGMotion              (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mNGMotion               ) return; mModel.mDspForm.mWCSetting.mNGMotion                = value;  setIsEditWCNGMotion        (true); emit signalEventChangedWCNGMotion               (value);}
+    void setWCEnableEtcError        (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mEnableEtcError         ) return; mModel.mDspForm.mWCSetting.mEnableEtcError          = value;  setIsEditWCEnableEtcError  (true); emit signalEventChangedWCEnableEtcError         (value);}
+    void setDynamicFactor           (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mDynamicFactor          ) return; mModel.mDspForm.mWCSetting.mDynamicFactor           = value;  setIsEditDynamicFactor     (true); emit signalEventChangedDynamicFactor            (value);}
+    void setMDSenstivity            (quint16 value){ if(value == mModel.mDspForm.mMDSetting.mSenstivity             ) return; mModel.mDspForm.mMDSetting.mSenstivity              = value;  setIsEditMDSenstivity      (true); emit signalEventChangedMDSenstivity             (value);}
+    void setMDNGMotion              (quint16 value){ if(value == mModel.mDspForm.mMDSetting.mNGMotion               ) return; mModel.mDspForm.mMDSetting.mNGMotion                = value;  setIsEditMDNGMotion        (true); emit signalEventChangedMDNGMotion               (value);}
 
     void setIsEditNo                (bool    value){ if(value == mIsEditNo                 ) return; mIsEditNo                 = value; emit signalEventChangedIsEditNo                 (value);}
     void setIsEditName              (bool    value){ if(value == mIsEditName               ) return; mIsEditName               = value; emit signalEventChangedIsEditName               (value);}
@@ -194,7 +193,7 @@ public slots:
     Q_INVOKABLE void onCommandSetOverWeight              (quint32 value){ setOverWeight        (value); setOverWarningWeight (value);}
     Q_INVOKABLE void onCommandSetTareWeight              (quint32 value){ setTareWeight        (value);}
     Q_INVOKABLE void onCommandSetWCNGMotion              (quint16 value){ setWCNGMotion        (value);}
-    Q_INVOKABLE void onCommandSetWCEnableEtcError        (bool    value){ qDebug() << "[debug]value = " << value; setWCEnableEtcError  (value == true ? 1 : 0);}
+    Q_INVOKABLE void onCommandSetWCEnableEtcError        (bool    value){ setWCEnableEtcError  (value == true ? 1 : 0);}
     Q_INVOKABLE void onCommandSetDynamicFactor           (int     value){ setDynamicFactor     (value);}
     Q_INVOKABLE void onCommandSetMDSenstivity            (quint16 value){ setMDSenstivity      (value);}
     Q_INVOKABLE void onCommandSetMDNGMotion              (quint16 value){ setMDNGMotion        (value);}
@@ -207,11 +206,9 @@ public:
 
     void setData(quint64 seq)
     {
-        mpProductService = &(CoreService::getInstance()->mProductSettingServcie);
+        PDSettingDto * pPDSetting = pProductSP->findPD(seq);
 
-        ProductSettingModel * ps = mpProductService->findProductSettingBySeq(seq);
-
-        if(ps == nullptr)
+        if(pPDSetting == nullptr)
         {
             setSeq                     (0 );
             setNo                      (0 );
@@ -233,25 +230,23 @@ public:
         }
         else
         {
-            qDebug() << "[debug]mWCEnableEtcError: " << ps->mWCEnableEtcError;
-
-            setSeq               (ps->mSeq                  );
-            setNo                (ps->mNo                   );
-            setName              (ps->mName                 );
-            setLength            (ps->mLength               );
-            setSpeed             (ps->mSpeed                );
-            setMotorAcceleration (ps->mMotorAccelerationTime);
-            setUnderWeight       (ps->mUnderWeight          );
-            setUnderWarningWeight(ps->mUnderWarningWeight   );
-            setNormalWeight      (ps->mNormalWeight         );
-            setOverWarningWeight (ps->mOverWarningWeight    );
-            setOverWeight        (ps->mOverWeight           );
-            setTareWeight        (ps->mTareWeight           );
-            setWCNGMotion        (ps->mWCNGMotion           );
-            setWCEnableEtcError  (ps->mWCEnableEtcError     );
-            setDynamicFactor     (ps->mDynamicFactor        );
-            setMDSenstivity      (ps->mMDSenstivity         );
-            setMDNGMotion        (ps->mMDNGMotion           );
+            setSeq               (pPDSetting->mSeq          );
+            setNo                (pPDSetting->mDspForm.mCommSetting.mProductNum );
+            setName              (pPDSetting->mName         );
+            setLength            (pPDSetting->mDspForm.mCommSetting.mLength               );
+            setSpeed             (pPDSetting->mDspForm.mCommSetting.mSpeed                );
+            setMotorAcceleration (pPDSetting->mDspForm.mCommSetting.mMotorAccelerationTime);
+            setUnderWeight       (pPDSetting->mDspForm.mWCSetting.mUnderWeight            );
+            setUnderWarningWeight(pPDSetting->mDspForm.mWCSetting.mUnderWarningWeight     );
+            setNormalWeight      (pPDSetting->mDspForm.mWCSetting.mNormalWeight           );
+            setOverWarningWeight (pPDSetting->mDspForm.mWCSetting.mOverWarningWeight      );
+            setOverWeight        (pPDSetting->mDspForm.mWCSetting.mOverWeight             );
+            setTareWeight        (pPDSetting->mDspForm.mWCSetting.mTareWeight             );
+            setWCNGMotion        (pPDSetting->mDspForm.mWCSetting.mNGMotion               );
+            setWCEnableEtcError  (pPDSetting->mDspForm.mWCSetting.mEnableEtcError         );
+            setDynamicFactor     (pPDSetting->mDspForm.mWCSetting.mDynamicFactor          );
+            setMDSenstivity      (pPDSetting->mDspForm.mMDSetting.mSenstivity             );
+            setMDNGMotion        (pPDSetting->mDspForm.mMDSetting.mNGMotion               );
         }
 
         setIsNew                   (false);
@@ -273,25 +268,25 @@ public:
         setIsEditMDNGMotion        (false);
     }
 
-    void setNewSetting(ProductSettingModel * pNewProduct)
+    void setNewSetting(PDSettingDto newProduct)
     {
-        setSeq               (pNewProduct->mSeq                  );
-        setNo                (pNewProduct->mNo                   );
-        setName              (pNewProduct->mName                 );
-        setLength            (pNewProduct->mLength               );
-        setSpeed             (pNewProduct->mSpeed                );
-        setMotorAcceleration (pNewProduct->mMotorAccelerationTime);
-        setUnderWeight       (pNewProduct->mUnderWeight          );
-        setUnderWarningWeight(pNewProduct->mUnderWarningWeight   );
-        setNormalWeight      (pNewProduct->mNormalWeight         );
-        setOverWarningWeight (pNewProduct->mOverWarningWeight    );
-        setOverWeight        (pNewProduct->mOverWeight           );
-        setTareWeight        (pNewProduct->mTareWeight           );
-        setWCNGMotion        (pNewProduct->mWCNGMotion           );
-        setWCEnableEtcError  (pNewProduct->mWCEnableEtcError     );
-        setDynamicFactor     (pNewProduct->mDynamicFactor        );
-        setMDSenstivity      (pNewProduct->mMDSenstivity         );
-        setMDNGMotion        (pNewProduct->mMDNGMotion           );
+        setSeq               (newProduct.mSeq                                        );
+        setNo                (newProduct.mDspForm.mCommSetting.mProductNum           );
+        setName              (newProduct.mName                                       );
+        setLength            (newProduct.mDspForm.mCommSetting.mLength               );
+        setSpeed             (newProduct.mDspForm.mCommSetting.mSpeed                );
+        setMotorAcceleration (newProduct.mDspForm.mCommSetting.mMotorAccelerationTime);
+        setUnderWeight       (newProduct.mDspForm.mWCSetting.mUnderWeight            );
+        setUnderWarningWeight(newProduct.mDspForm.mWCSetting.mUnderWarningWeight     );
+        setNormalWeight      (newProduct.mDspForm.mWCSetting.mNormalWeight           );
+        setOverWarningWeight (newProduct.mDspForm.mWCSetting.mOverWarningWeight      );
+        setOverWeight        (newProduct.mDspForm.mWCSetting.mOverWeight             );
+        setTareWeight        (newProduct.mDspForm.mWCSetting.mTareWeight             );
+        setWCNGMotion        (newProduct.mDspForm.mWCSetting.mNGMotion               );
+        setWCEnableEtcError  (newProduct.mDspForm.mWCSetting.mEnableEtcError         );
+        setDynamicFactor     (newProduct.mDspForm.mWCSetting.mDynamicFactor          );
+        setMDSenstivity      (newProduct.mDspForm.mMDSetting.mSenstivity             );
+        setMDNGMotion        (newProduct.mDspForm.mMDSetting.mNGMotion               );
 
         setIsNew                   (true);
         setIsEditNo                (true);

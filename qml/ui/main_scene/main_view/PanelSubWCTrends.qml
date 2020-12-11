@@ -11,7 +11,6 @@ Rectangle{
     property int            overWeight
     property int            underWeight
     property int            normalWeight
-    property int            lastNValue : 1000
     property MainViewModel  mainViewModel
 
     id: panel

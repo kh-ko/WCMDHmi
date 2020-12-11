@@ -272,7 +272,7 @@ public:
       BACKUP_ING = 5,
       DB_OPEN_FAIL = 6,
       BACKUP_CANCLE = 7,
-      BACKUP_UNKNOW_ERROR = 8
+      BACKUP_UNKNOW_ERROR = 8,
   };
 
   enum AlarmType{
@@ -308,7 +308,8 @@ public:
       PANEL_TYPE_DROP           = 6,
       PANEL_TYPE_POPUP          = 7,
       PANEL_TYPE_WEIGHT_UP      = 8,
-      PANEL_TYPE_NONE           = 9
+      PANEL_TYPE_BIG_MD         = 9,
+      PANEL_TYPE_NONE           = 10
 
   };
 

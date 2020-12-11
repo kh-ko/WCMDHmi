@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
 class PanelInformationModel : public QObject
@@ -34,9 +35,7 @@ class PanelInformationModel : public QObject
     Q_PROPERTY(bool    isEditDistBtwPhotoToSensor   READ getIsEditDistBtwPhotoToSensor  NOTIFY  signalEventChangedIsEditDistBtwPhotoToSensor    )
 
 public:
-    CoreService * mpCoreService;
-    DspStatusModel * mpDspStatus;
-
+    quint64 mDspSeq                    = 0;
     QString mCompany                   ;
     QString mModel                     ;
     int     mDeviceNumber              ;
@@ -114,27 +113,39 @@ public:
 
     explicit PanelInformationModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus   = mpCoreService->mMapDspStatus.first();
-
+        if(pDspSP->mDspList.size() > 0)
+        {
+            mDspSeq = pDspSP->mDspList[0]->mSeq;
+        }
         reset();
     }
     void reset()
     {
-        setCompany                   (mpCoreService->mLocalSettingService.mInformation.mCompany                  );
-        setModel                     (mpCoreService->mLocalSettingService.mInformation.mModel                    );
-        setSerialNumber              (mpCoreService->mLocalSettingService.mInformation.mSN                       );
-        setDeviceNumber              (mpCoreService->mLocalSettingService.mInformation.mDeviceNumber             );
-        setDspVersion                (mpDspStatus->mVersion                                                      );
-        setHmiVersion                (mpCoreService->mLocalSettingService.mInformation.mHMIVersion               );
-        setPower                     (mpCoreService->mLocalSettingService.mInformation.mPower                    );
-        setHomepage                  (mpCoreService->mLocalSettingService.mInformation.mHomepage                 );
-        setMaxWeight                 (mpCoreService->mLocalSettingService.mInformation.mMaxWeight                );
-        setSensorLength              (mpCoreService->mLocalSettingService.mDspSetting.mSensorLength              );
-        setDistToRejector            (mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector        );
-        setDistBtwSensor             (mpCoreService->mLocalSettingService.mDspSetting.mDistanceBtwSensor         );
-        setDistToWC                  (mpCoreService->mLocalSettingService.mDspSetting.mDistanceToWeightChecker   );
-        setDistBtwPhotoToSensor      (mpCoreService->mLocalSettingService.mDspSetting.mDistancePhotoToSensor     );
+        if(mDspSeq != 0)
+        {
+            DspMaster * pDsp     = pDspSP->findDspMaster(mDspSeq)  ;
+
+            DspInfoDto info      = pDsp->mRcvDataStore.getInfoDto();
+            quint16 majorV       = info.mInfo.mMajorVersion        ;
+            quint16 minorV       = info.mInfo.mMinorVersion        ;
+            quint16 maintenanceV = info.mInfo.mMaintenanceVersion  ;
+
+            setDspVersion(QString("%1.%2.%3").arg(majorV).arg(minorV).arg(maintenanceV));
+        }
+
+        setCompany                   (pLSettingSP->mInformation.mCompany                                     );
+        setModel                     (pLSettingSP->mInformation.mModel                                       );
+        setSerialNumber              (pLSettingSP->mInformation.mSN                                          );
+        setDeviceNumber              (pLSettingSP->mInformation.mDeviceNumber                                );
+        setHmiVersion                (pLSettingSP->mInformation.mHMIVersion                                  );
+        setPower                     (pLSettingSP->mInformation.mPower                                       );
+        setHomepage                  (pLSettingSP->mInformation.mHomepage                                    );
+        setMaxWeight                 (pLSettingSP->mInformation.mMaxWeight                                   );
+        setSensorLength              (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           );
+        setDistToRejector            (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector     );
+        setDistBtwSensor             (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor      );
+        setDistToWC                  (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker);
+        setDistBtwPhotoToSensor      (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor  );
 
         setIsEditPower               (false);
         setIsEditHomepage            (false);
@@ -182,39 +193,22 @@ public slots:
 
     Q_INVOKABLE void onCommandSave()
     {
-        mpCoreService->onCommandEditDspSetting(mpCoreService->mLocalSettingService.mDspSetting.mLampTime               ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime             ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter         ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection         ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMotorType              ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMotorMDRatio           ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMotorWCRatio           ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMotorRJRatio           ,
-                                                mSensorLength                                                           ,
-                                                mDistToRejector                                                         ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn            ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mWCPhotoIsOn            ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mRejectorReadyTime      ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio   ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mStaticFactor           ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mScaler                 ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability       ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign         ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMinStaticWeight        ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMinDynamicWeight       ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mMode                   ,
-                                                mDistBtwSensor                                                          ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mDetectDetectTime       ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mRunDetectTime          ,
-                                                mDistToWC                                                               ,
-                                                mDistBtwPhotoToSensor                                                   ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime        ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight   ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mDynamicBaseWeight      ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt              ,
-                                                mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime       );
+        DevSettingDto devSetting = pLSettingSP->mDevSetting;
+        devSetting.mDspForm.mSizeSetting.mSensorLength            = mSensorLength;
+        devSetting.mDspForm.mSizeSetting.mDistanceToRejector      = mDistToRejector;
+        devSetting.mDspForm.mSizeSetting.mDistanceBtwSensor       = mDistBtwSensor;
+        devSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker = mDistToWC;
+        devSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor   = mDistBtwPhotoToSensor;
+        pLSettingSP->setDevSetting(devSetting);
 
-        mpCoreService->mLocalSettingService.setInformation(mCompany, mpCoreService->mLocalSettingService.mInformation.mTel, mDeviceNumber, mPower, mHomepage, mMaxWeight);
+        InformationDto info = pLSettingSP->mInformation;
+        info.mCompany       = mCompany;
+        info.mDeviceNumber  = mDeviceNumber;
+        info.mPower         = mPower;
+        info.mHomepage      = mHomepage;
+        info.mMaxWeight     = mMaxWeight;
+        pLSettingSP->setInformation(info);
+
         reset();
 
         emit signalResultSaveInformation((int)EnumDefine::DatabaseErrorType::DB_NONE_ERROR);

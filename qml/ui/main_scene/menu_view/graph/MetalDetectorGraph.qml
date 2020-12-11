@@ -178,6 +178,10 @@ UiPanel {
         anchors.fill: parent
         renderTarget : Canvas.FramebufferObject
 
+        onWidthChanged: {
+            graphModel.onCommandSetGraphWidth(canvasFilter.width)
+        }
+
         onPaint :{
             var ctx = canvasFilter.getContext("2d")
 

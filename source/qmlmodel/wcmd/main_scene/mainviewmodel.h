@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "source/service/def/datetimeform.h"
+#include "source/globaldef/GlobalDefine.h"
 #include "source/service/coreservice.h"
 
 class MainViewModel : public QObject
@@ -10,6 +12,7 @@ class MainViewModel : public QObject
     Q_OBJECT
     Q_PROPERTY(bool    isDetail               READ getIsDetail                NOTIFY signalEventChangedIsDetail            )
     Q_PROPERTY(int     wcViewMode             READ getWCViewMode              NOTIFY signalEventChangedWCViewMode          )
+    Q_PROPERTY(bool    isEnableWC             READ getIsEnableWC              NOTIFY signalEventChangedIsEnableWC          )
     Q_PROPERTY(int     wcTrendsLastNValue     READ getWCTrendsLastNValue      NOTIFY signalEventChangedWCTrendsLastNValue  )
     Q_PROPERTY(int     wcTrendsOptionH        READ getWCTrendsOptionH         NOTIFY signalEventChangedWCTrendsOptionH     )
     Q_PROPERTY(int     wcTrendsOptionFilter   READ getWCTrendsOptionFilter    NOTIFY signalEventChangedWCTrendsOptionFilter)
@@ -45,22 +48,17 @@ class MainViewModel : public QObject
     Q_PROPERTY(quint32 lastErrorValue         READ getLastErrorValue          NOTIFY signalEventChangedLastErrorValue      )
 
 public:
-    CoreService         * mpCoreService     ;
-    InformationModel    * mpInformation     ;
-    GuiSettingModel     * mpGuiSetting      ;
-    ProductSettingModel * mpProductSetting  ;
-    DspStatusModel      * mpDspStatus       ;
-    ProductStatusModel  * mpProductStatus   ;
-    LastErrorModel      * mpLastError       ;
     quint32               mMinPoints[TRENDS_POINT_BUFF_CNT];
     quint32               mMaxPoints[TRENDS_POINT_BUFF_CNT];
-    quint32               mMinWeight;
-    quint32               mWeightRange;
-    int                   mPointCnt;
-    int                   mUiGraphH;
+    quint64               mDspSeq      = 0;
+    quint32               mMinWeight   = 0;
+    quint32               mWeightRange = 0;
+    int                   mPointCnt    = 0;
+    int                   mUiGraphH    = 0;
 
     bool    mIsDetail            ;
     int     mWCViewMode          ;
+    bool    mIsEnableWC          ;
     int     mWCTrendsLastNValue  ;
     int     mWCTrendsOptionH     ;
     int     mWCTrendsOptionFilter;
@@ -74,29 +72,30 @@ public:
     quint32 mWCUnderWarningWeight;
     quint32 mWCUnderWeight       ;
     quint32 mWCTareWeight        ;
-    quint16 mWait                ;
-    quint16 mMDCurrSignal        ;
-    quint32 mWCCurrWeight        ;
-    quint16 mWCCurrEventType     ;
-    int     mMDTotalCnt          ;
-    int     mMDDetectCnt         ;
-    int     mWCTotalCnt          ;
-    int     mWCNGCnt             ;
-    int     mWCTradeCnt          ;
-    int     mWCOverCnt           ;
-    int     mWCOverWarningCnt    ;
-    int     mWCNormalCnt         ;
-    int     mWCUnderWarningCnt   ;
-    int     mWCUnderCnt          ;
-    int     mWCEtcErrorCnt       ;
-    int     mWCEtcMDErrorCnt     ;
-    quint64 mWCTradeTotalWeight  ;
-    quint16 mLastErrorType       ;
-    QString mLastErrorTime       ;
-    quint32 mLastErrorValue      ;
+    quint16 mWait                = 1;
+    quint16 mMDCurrSignal        = 0;
+    quint32 mWCCurrWeight        = 0;
+    quint16 mWCCurrEventType     = 0;
+    int     mMDTotalCnt          = 0;
+    int     mMDDetectCnt         = 0;
+    int     mWCTotalCnt          = 0;
+    int     mWCNGCnt             = 0;
+    int     mWCTradeCnt          = 0;
+    int     mWCOverCnt           = 0;
+    int     mWCOverWarningCnt    = 0;
+    int     mWCNormalCnt         = 0;
+    int     mWCUnderWarningCnt   = 0;
+    int     mWCUnderCnt          = 0;
+    int     mWCEtcErrorCnt       = 0;
+    int     mWCEtcMDErrorCnt     = 0;
+    quint64 mWCTradeTotalWeight  = 0;
+    quint16 mLastErrorType       = 0;
+    QString mLastErrorTime       = "";
+    quint32 mLastErrorValue      = 0;
 
     bool    getIsDetail            (){ return mIsDetail            ;}
     int     getWCViewMode          (){ return mWCViewMode          ;}
+    bool    getIsEnableWC          (){ return mIsEnableWC          ;}
     int     getWCTrendsLastNValue  (){ return mWCTrendsLastNValue  ;}
     int     getWCTrendsOptionH     (){ return mWCTrendsOptionH     ;}
     int     getWCTrendsOptionFilter(){ return mWCTrendsOptionFilter;}
@@ -133,6 +132,7 @@ public:
 
     void setIsDetail            (bool    value){ if(mIsDetail             == value)return; mIsDetail             = value; emit signalEventChangedIsDetail            (value);}
     void setWCViewMode          (int     value){ if(mWCViewMode           == value)return; mWCViewMode           = value; emit signalEventChangedWCViewMode          (value);}
+    void setIsEnableWC          (bool    value){ if(mIsEnableWC           == value)return; mIsEnableWC           = value; emit signalEventChangedIsEnableWC          (value);}
     void setWCTrendsLastNValue  (int     value){ if(mWCTrendsLastNValue   == value)return; mWCTrendsLastNValue   = value; emit signalEventChangedWCTrendsLastNValue  (value);}
     void setWCTrendsOptionH     (int     value){ if(mWCTrendsOptionH      == value)return; mWCTrendsOptionH      = value; emit signalEventChangedWCTrendsOptionH     (value);}
     void setWCTrendsOptionFilter(int     value){ if(mWCTrendsOptionFilter == value)return; mWCTrendsOptionFilter = value; emit signalEventChangedWCTrendsOptionFilter(value);}
@@ -170,6 +170,7 @@ public:
 signals:
     void signalEventChangedIsDetail            (bool    value);
     void signalEventChangedWCViewMode          (int     value);
+    void signalEventChangedIsEnableWC          (bool    value);
     void signalEventChangedWCTrendsLastNValue  (int     value);
     void signalEventChangedWCTrendsOptionH     (int     value);
     void signalEventChangedWCTrendsOptionFilter(int     value);
@@ -210,24 +211,32 @@ signals:
 public slots:
     Q_INVOKABLE void  onCommandSetIsDetail(bool value)
     {
-        mpCoreService->mLocalSettingService.setGuiIsDetail(value);
+        pLSettingSP->setGUIIsDetail(value);
     }
-    Q_INVOKABLE void  onCommandSetWCViewMode(int  value)
+
+    Q_INVOKABLE void onCommandSetWCViewMode(int value)
     {
-        mpCoreService->mLocalSettingService.setGuiViewMode(value);
+        pLSettingSP->setGUIViewMode((EnumDef::eViewMode) value);
     }
+
     Q_INVOKABLE int   onCommandSaveTrendsOption(bool isUnderToOver, bool isTotal, bool TotalSinceStart, int lastNValue)
     {
-        int optionH      = isUnderToOver  ? EnumDefine::TrendsGraphOptionH::TRENDSOPTION_H_UNDER_TO_OVER : EnumDefine::TrendsGraphOptionH::TRENDSOPTION_H_MIN_TO_MAX;
-        int optionFilter = isTotal        ? EnumDefine::TrendsGraphOptionFilter::TRENDSOPTION_FILTER_TOTAL : EnumDefine::TrendsGraphOptionFilter::TRENDSOPTION_FILTER_TRADE;
-        int optionLastN  = TotalSinceStart? EnumDefine::TrendsGraphOptionLastN::TRENDSOPTION_TOTAL_SINCE_START : EnumDefine::TrendsGraphOptionLastN::TRENDSOPTION_LAST_N;
+        TrendsOptionDto dto;
 
-        mpCoreService->mLocalSettingService.setGuiTrendsOption(optionH, optionFilter, optionLastN, lastNValue);
+        dto.mTrendsOptionH      = isUnderToOver  ? EnumDef::TRENDSOPTION_H_UNDER_TO_OVER : EnumDef::TRENDSOPTION_H_MIN_TO_MAX;
+        dto.mTrendsOptionFilter = isTotal        ? EnumDef::TRENDSOPTION_FILTER_TOTAL : EnumDef::TRENDSOPTION_FILTER_TRADE;
+        dto.mTrendsOptionLastN  = TotalSinceStart? EnumDef::TRENDSOPTION_TOTAL_SINCE_START : EnumDef::TRENDSOPTION_LAST_N;
+        dto.mTrendsLastNValue   = lastNValue;
+
+        LocalSettingSProvider::getInstance()->setTROption(dto);
+
+        return 0;
     }
     Q_INVOKABLE int   onCommandGetSnopShotPointsCnt  ()
     {
         return mPointCnt;
     }
+
     Q_INVOKABLE void  onCommandCreateSnopShot(int width, int height)
     {
         quint32         min = 0;
@@ -239,7 +248,7 @@ public slots:
 
         mUiGraphH = height;
 
-        if(mWCTrendsOptionFilter == EnumDefine::TrendsGraphOptionFilter::TRENDSOPTION_FILTER_TRADE)
+        if(mWCTrendsOptionFilter == EnumDef::TRENDSOPTION_FILTER_TRADE)
         {
             graphPointsCnt = mWCTradeCnt;
         }
@@ -248,7 +257,7 @@ public slots:
             graphPointsCnt = mWCTotalCnt;
         }
 
-        if(mWCTrendsOptionLastN == EnumDefine::TrendsGraphOptionLastN::TRENDSOPTION_LAST_N)
+        if(mWCTrendsOptionLastN == EnumDef::TRENDSOPTION_LAST_N)
         {
             if(graphPointsCnt - mWCTrendsLastNValue > 0 )
             {
@@ -262,18 +271,18 @@ public slots:
         productTrendsIdx = graphPointsCnt - 1;
         mPointCnt = 0;
 
-        for(int idx = mpDspStatus->mTrends.mCount - 1; idx > -1; idx --)
+        for(int idx = pWorkSP->mTRManager.mWCTrendsCnt - 1; idx > -1; idx --)
         {
-            quint32 value       = mpDspStatus->mTrends.mArray[idx].mValue;
-            quint64 productSeq  = mpDspStatus->mTrends.mArray[idx].mProductSettingSeq;
-            bool    isTrade     = mpDspStatus->mTrends.mArray[idx].mIsTrade;
+            quint32 value       = pWorkSP->mTRManager.mWCTrends[idx].mValue;
+            quint64 productSeq  = pWorkSP->mTRManager.mWCTrends[idx].mPDSeq;
+            bool    isTrade     = pWorkSP->mTRManager.mWCTrends[idx].mIsTrade;
 
-            if(productSeq != mpProductSetting->mSeq)
+            if(productSeq != pProductSP->mCurrPD.mSeq)
             {
                 continue;
             }
 
-            if(isTrade == false && mWCTrendsOptionFilter == EnumDefine::TrendsGraphOptionFilter::TRENDSOPTION_FILTER_TRADE)
+            if(isTrade == false && mWCTrendsOptionFilter == EnumDef::TRENDSOPTION_FILTER_TRADE)
             {
                 continue;
             }
@@ -296,7 +305,7 @@ public slots:
                 mMaxPoints[uigIdx] = value;
             }
 
-            if(mWCTrendsOptionH == EnumDefine::TrendsGraphOptionH::TRENDSOPTION_H_MIN_TO_MAX)
+            if(mWCTrendsOptionH == EnumDef::TRENDSOPTION_H_MIN_TO_MAX)
             {
                 if(min > value)
                     min = value;
@@ -322,7 +331,7 @@ public slots:
 
     Q_INVOKABLE float onCommandConvertPointIdxToX(int idx, int width)
     {
-        if(mWCTrendsOptionLastN == EnumDefine::TrendsGraphOptionLastN::TRENDSOPTION_LAST_N && mWCTrendsLastNValue < width)
+        if(mWCTrendsOptionLastN == EnumDef::TRENDSOPTION_LAST_N && mWCTrendsLastNValue < width)
         {
             return (float)width * ((float)idx/ (float)mWCTrendsLastNValue);
         }
@@ -342,143 +351,133 @@ public slots:
 
     Q_INVOKABLE void  onCommandSetZero()
     {
-        mpCoreService->onCommandSendZeroCmd(mpDspStatus->mSeq);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendZeroCmd(mDspSeq);
     }
+
+
 
 //  down layer ===================================================================================
 public slots:
-    void onSignalEventChangedIsDetail              (bool    value){ setIsDetail            (value);}
-    void onSignalEventChangedWCViewMode            (int     value){ setWCViewMode          (value);}
-    void onSignalEventChangedWCTrendsLastNValue    (int     value){ setWCTrendsLastNValue  (value);}
-    void onSignalEventChangedWCTrendsOptionH       (int     value){ setWCTrendsOptionH     (value);}
-    void onSignalEventChangedWCTrendsOptionFilter  (int     value){ setWCTrendsOptionFilter(value);}
-    void onSignalEventChangedWCTrendsOptionLastN   (int     value){ setWCTrendsOptionLastN (value);}
-    void onSignalEventChangedProductNo             (quint16 value){ setProductNo           (value);}
-    void onSignalEventChangedProductName           (QString value){ setProductName         (value);}
-    void onSignalEventChangedMDSenstivity          (quint16 value){ setMDSenstivity        (value);}
-    void onSignalEventChangedWCOverWeight          (quint32 value){ setWCOverWeight        (value);}
-    void onSignalEventChangedWCOverWarningWeight   (quint32 value){ setWCOverWarningWeight (value);}
-    void onSignalEventChangedWCNormalWeight        (quint32 value){ setWCNormalWeight      (value);}
-    void onSignalEventChangedWCUnderWarningWeight  (quint32 value){ setWCUnderWarningWeight(value);}
-    void onSignalEventChangedWCUnderWeight         (quint32 value){ setWCUnderWeight       (value);}
-    void onSignalEventChangedWCTareWeight          (quint32 value){ setWCTareWeight        (value);}
-    void onSignalEventChangedWait                  (quint16 value){ setWait                (value);}
-    void onSignalEventChangedMDCurrSignal          (quint16 value){ setMDCurrSignal        (value);}
-    void onSignalEventChangedWCCurrWeight          (quint32 value){ setWCCurrWeight        (value);}
-    void onSignalEventChangedWCCurrEventType       (quint16 value){ setWCCurrEventType     (value);}
-    void onSignalEventAddedEvent(quint16 eventType, quint32 value){
-        if(EventChecker::isWeightNGEvent   (eventType))emit signalEventNotifyWCNG    (value, eventType);
-        if(EventChecker::isMetalDetectEvent(eventType))emit signalEventNotifyMDDetect(                );
+    void onChangedGuiIsDetail(bool value)
+    {
+        setIsDetail(value);
     }
-    void onSignalEventChangedMDTotalCnt            (int     value){ setMDTotalCnt          (value);}
-    void onSignalEventChangedMDDetectCnt           (int     value){ setMDDetectCnt         (value);}
-    void onSignalEventChangedWCTotalCnt            (int     value){ setWCTotalCnt          (value);}
-    void onSignalEventChangedWCNGCnt               (int     value){ setWCNGCnt             (value);}
-    void onSignalEventChangedWCTradeCnt            (int     value){ setWCTradeCnt          (value);}
-    void onSignalEventChangedWCOverCnt             (int     value){ setWCOverCnt           (value);}
-    void onSignalEventChangedWCOverWarningCnt      (int     value){ setWCOverWarningCnt    (value);}
-    void onSignalEventChangedWCNormalCnt           (int     value){ setWCNormalCnt         (value);}
-    void onSignalEventChangedWCUnderWarningCnt     (int     value){ setWCUnderWarningCnt   (value);}
-    void onSignalEventChangedWCUnderCnt            (int     value){ setWCUnderCnt          (value);}
-    void onSignalEventChangedWCEtcErrorCnt         (int     value){ setWCEtcErrorCnt       (value);}
-    void onSignalEventChangedWCEtcMDErrorCnt       (int     value){ setWCEtcMDErrorCnt     (value);}
-    void onSignalEventChangedWCTradeTotalWeight    (quint64 value){ setWCTradeTotalWeight  (value);}
-    void onSignalEventChangedLastErrorType         (quint16 value){ setLastErrorType       (value);}
-    void onSignalEventChangedLastErrorTime         (QString value){ setLastErrorTime       (value);}
-    void onSignalEventChangedLastErrorValue        (quint32 value){ setLastErrorValue      (value);}
+    void onChangedViewMode(int value)
+    {
+        setWCViewMode(value);
+    }
+    void onChangedTROption(TrendsOptionDto value)
+    {
+        setWCTrendsLastNValue(value.mTrendsLastNValue);
+        setWCTrendsOptionH     (value.mTrendsOptionH);
+        setWCTrendsOptionFilter(value.mTrendsOptionFilter);
+        setWCTrendsOptionLastN (value.mTrendsOptionLastN);
+    }
+
+    void onChangedDevSetting(DevSettingDto dto)
+    {
+        setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+    }
+    void onChangedCurrPDSetting(PDSettingDto dto)
+    {
+        setProductNo           (dto.mDspForm.mCommSetting.mProductNum      );
+        setProductName         (dto.mName                                  );
+        setMDSenstivity        (dto.mDspForm.mMDSetting.mSenstivity        );
+        setWCOverWeight        (dto.mDspForm.mWCSetting.mOverWeight        );
+        setWCOverWarningWeight (dto.mDspForm.mWCSetting.mOverWarningWeight );
+        setWCNormalWeight      (dto.mDspForm.mWCSetting.mNormalWeight      );
+        setWCUnderWarningWeight(dto.mDspForm.mWCSetting.mUnderWarningWeight);
+        setWCUnderWeight       (dto.mDspForm.mWCSetting.mUnderWeight       );
+        setWCTareWeight        (dto.mDspForm.mWCSetting.mTareWeight        );
+    }
+
+    void onChangedLastErr(EventDto dto)
+    {
+        setLastErrorType       (dto.mEType);
+        setLastErrorTime       (dto.mDateTime.toString(TIME_FMT));
+        setLastErrorValue      (dto.mEValue);
+    }
+
+    void onChangedDspStatus(quint64 dspSeq, DspStatusDto dto)
+    {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        setWait                (dto.mWCStatus.mWait);
+        setMDCurrSignal        (dto.mMDStatus.mSignal);
+        setWCCurrWeight        (dto.mWCStatus.mCurrWeight);
+        setWCCurrEventType     (dto.mWCStatus.mErrorType);
+    }
+
+    void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
+    {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        if(EventDto::isWeightNGEvent   (dto.mEvent.mEventType))emit signalEventNotifyWCNG    (dto.mEvent.mEventValue, dto.mEvent.mEventType);
+        if(EventDto::isMetalDetectEvent(dto.mEvent.mEventType))emit signalEventNotifyMDDetect(                                             );
+    }
+
+    void onChangedPDStats(PDStatsDto dto)
+    {
+        setMDTotalCnt          (dto.mMDTotalCnt);
+        setMDDetectCnt         (dto.mMDFailCnt);
+
+        setWCNGCnt             (dto.mWCEtcCnt + dto.mWCMDCnt + dto.mWCOCnt + dto.mWCUCnt);
+        setWCTradeCnt          (dto.mWCTradeCnt);
+        setWCOverCnt           (dto.mWCOCnt);
+        setWCOverWarningCnt    (dto.mWCOWCnt);
+        setWCNormalCnt         (dto.mWCNorCnt);
+        setWCUnderWarningCnt   (dto.mWCUWCnt);
+        setWCUnderCnt          (dto.mWCUCnt);
+        setWCEtcErrorCnt       (dto.mWCEtcCnt);
+        setWCEtcMDErrorCnt     (dto.mWCMDCnt);
+        setWCTradeTotalWeight  (dto.mWCTradeTotalWeight);
+        setWCTotalCnt          (dto.mWCTotalCnt);
+
+    }
+
 
 //  internal layer ===================================================================================
 public:
     explicit MainViewModel(QObject *parent = nullptr): QObject(parent)
     {
-        mpCoreService    = CoreService::getInstance();
-        mpDspStatus      = mpCoreService->mMapDspStatus.first();
-        mpProductStatus  = &(mpDspStatus->mCurrentProductStatus);
-        mpLastError      = &(mpDspStatus->mLastError);
-        mpProductSetting = &(mpCoreService->mProductSettingServcie.mCurrentProductSetting);
-        mpGuiSetting     = &(mpCoreService->mLocalSettingService.mGuiSetting);
+        if(pDspSP->mDspList.size() > 0)
+        {
+            mDspSeq = pDspSP->mDspList[0]->mSeq;
+        }
 
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedIsDetail             (bool   )), this, SLOT(onSignalEventChangedIsDetail            (bool   )));
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedViewMode             (int    )), this, SLOT(onSignalEventChangedWCViewMode          (int    )));
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedTrendsLastNValue     (int    )), this, SLOT(onSignalEventChangedWCTrendsLastNValue  (int    )));
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedTrendsOptionH        (int    )), this, SLOT(onSignalEventChangedWCTrendsOptionH     (int    )));
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedTrendsOptionFilter   (int    )), this, SLOT(onSignalEventChangedWCTrendsOptionFilter(int    )));
-        connect(mpGuiSetting        , SIGNAL(signalEventChangedTrendsOptionLastN    (int    )), this, SLOT(onSignalEventChangedWCTrendsOptionLastN (int    )));
+        ENABLE_SLOT_LSETTING_CHANGED_ISDETAIL;
+        ENABLE_SLOT_LSETTING_CHANGED_VIEWMODE;
+        ENABLE_SLOT_LSETTING_CHANGED_TR_OPTION;
+        ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING;
 
-        connect(mpProductSetting    , SIGNAL(signalEventChangedNo                   (quint16)), this, SLOT(onSignalEventChangedProductNo           (quint16)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedName                 (QString)), this, SLOT(onSignalEventChangedProductName         (QString)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedMDSenstivity         (quint16)), this, SLOT(onSignalEventChangedMDSenstivity        (quint16)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedOverWeight           (quint32)), this, SLOT(onSignalEventChangedWCOverWeight        (quint32)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedOverWarningWeight    (quint32)), this, SLOT(onSignalEventChangedWCOverWarningWeight (quint32)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedNormalWeight         (quint32)), this, SLOT(onSignalEventChangedWCNormalWeight      (quint32)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedUnderWarningWeight   (quint32)), this, SLOT(onSignalEventChangedWCUnderWarningWeight(quint32)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedUnderWeight          (quint32)), this, SLOT(onSignalEventChangedWCUnderWeight       (quint32)));
-        connect(mpProductSetting    , SIGNAL(signalEventChangedTareWeight           (quint32)), this, SLOT(onSignalEventChangedWCTareWeight        (quint32)));
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
 
-        connect(mpDspStatus         , SIGNAL(signalEventChangedWait                 (quint16)), this, SLOT(onSignalEventChangedWait                (quint16)));
-        connect(mpDspStatus         , SIGNAL(signalEventChangedMDCurrSignal         (quint16)), this, SLOT(onSignalEventChangedMDCurrSignal        (quint16)));
-        connect(mpDspStatus         , SIGNAL(signalEventChangedWCCurrWeight         (quint32)), this, SLOT(onSignalEventChangedWCCurrWeight        (quint32)));
-        connect(mpDspStatus         , SIGNAL(signalEventChangedWCCurrEventType      (quint16)), this, SLOT(onSignalEventChangedWCCurrEventType     (quint16)));
-        connect(mpDspStatus         , SIGNAL(siganlEventAddedEvent         (quint16, quint32)), this, SLOT(onSignalEventAddedEvent         (quint16, quint32)));
+        ENABLE_SLOT_WORK_CHANGED_LASTERR;
+        ENABLE_SLOT_WORK_CHANGED_STATS;
 
-        connect(mpProductStatus     , SIGNAL(signalEventChangedMDTotalCnt           (int    )), this, SLOT(onSignalEventChangedMDTotalCnt          (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedMDDetectCnt          (int    )), this, SLOT(onSignalEventChangedMDDetectCnt         (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCTotalCnt           (int    )), this, SLOT(onSignalEventChangedWCTotalCnt          (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCNGCnt              (int    )), this, SLOT(onSignalEventChangedWCNGCnt             (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCTradeCnt           (int    )), this, SLOT(onSignalEventChangedWCTradeCnt          (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCOverCnt            (int    )), this, SLOT(onSignalEventChangedWCOverCnt           (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCOverWarningCnt     (int    )), this, SLOT(onSignalEventChangedWCOverWarningCnt    (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCNormalCnt          (int    )), this, SLOT(onSignalEventChangedWCNormalCnt         (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCUnderWarningCnt    (int    )), this, SLOT(onSignalEventChangedWCUnderWarningCnt   (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCUnderCnt           (int    )), this, SLOT(onSignalEventChangedWCUnderCnt          (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCEtcErrorCnt        (int    )), this, SLOT(onSignalEventChangedWCEtcErrorCnt       (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCEtcMDErrorCnt      (int    )), this, SLOT(onSignalEventChangedWCEtcMDErrorCnt     (int    )));
-        connect(mpProductStatus     , SIGNAL(signalEventChangedWCTradeTotalWeight   (quint64)), this, SLOT(onSignalEventChangedWCTradeTotalWeight  (quint64)));
+        ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
+        ENABLE_SLOT_DSP_ADDED_EVENT;
 
+        onChangedGuiIsDetail(pLSettingSP->mIsDetail);
+        onChangedViewMode(pLSettingSP->mViewMode);
+        onChangedTROption(pLSettingSP->mTROption);
+        onChangedDevSetting(pLSettingSP->mDevSetting);
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
+        onChangedPDStats(pWorkSP->mCurrPD);
+        onChangedLastErr(pWorkSP->mLastErrEvent);
 
-        connect(mpLastError         , SIGNAL(signalEventChangedEventType            (quint16)), this, SLOT(onSignalEventChangedLastErrorType       (quint16)));
-        connect(mpLastError         , SIGNAL(signalEventChangedTime                 (QString)), this, SLOT(onSignalEventChangedLastErrorTime       (QString)));
-        connect(mpLastError         , SIGNAL(signalEventChangedValue                (quint32)), this, SLOT(onSignalEventChangedLastErrorValue      (quint32)));
+        if(mDspSeq != 0)
+        {
+            DspMaster * pMaster = pDspSP->findDspMaster(mDspSeq);
 
-        onSignalEventChangedIsDetail              (mpGuiSetting->mIsDetail              );
-        onSignalEventChangedWCViewMode            (mpGuiSetting->mViewMode              );
-        onSignalEventChangedWCTrendsLastNValue    (mpGuiSetting->mTrendsLastNValue      );
-        onSignalEventChangedWCTrendsOptionH       (mpGuiSetting->mTrendsOptionH         );
-        onSignalEventChangedWCTrendsOptionFilter  (mpGuiSetting->mTrendsOptionFilter    );
-        onSignalEventChangedWCTrendsOptionLastN   (mpGuiSetting->mTrendsOptionLastN     );
-
-        onSignalEventChangedProductNo             (mpProductSetting->mNo                );
-        onSignalEventChangedProductName           (mpProductSetting->mName              );
-        onSignalEventChangedMDSenstivity          (mpProductSetting->mMDSenstivity      );
-        onSignalEventChangedWCOverWeight          (mpProductSetting->mOverWeight        );
-        onSignalEventChangedWCOverWarningWeight   (mpProductSetting->mOverWarningWeight );
-        onSignalEventChangedWCNormalWeight        (mpProductSetting->mNormalWeight      );
-        onSignalEventChangedWCUnderWarningWeight  (mpProductSetting->mUnderWarningWeight);
-        onSignalEventChangedWCUnderWeight         (mpProductSetting->mUnderWeight       );
-        onSignalEventChangedWCTareWeight          (mpProductSetting->mTareWeight        );
-
-        onSignalEventChangedWait                  (mpDspStatus->mWait                   );
-        onSignalEventChangedMDCurrSignal          (mpDspStatus->mMDCurrSignal           );
-        onSignalEventChangedWCCurrWeight          (mpDspStatus->mWCCurrWeight           );
-        onSignalEventChangedWCCurrEventType       (mpDspStatus->mWCCurrEventType        );
-
-        onSignalEventChangedMDTotalCnt            (mpProductStatus->mMDTotalCnt         );
-        onSignalEventChangedMDDetectCnt           (mpProductStatus->mMDDetectCnt        );
-        onSignalEventChangedWCTotalCnt            (mpProductStatus->mWCTotalCnt         );
-        onSignalEventChangedWCNGCnt               (mpProductStatus->mWCNGCnt            );
-        onSignalEventChangedWCTradeCnt            (mpProductStatus->mWCTradeCnt         );
-        onSignalEventChangedWCOverCnt             (mpProductStatus->mWCOverCnt          );
-        onSignalEventChangedWCOverWarningCnt      (mpProductStatus->mWCOverWarningCnt   );
-        onSignalEventChangedWCNormalCnt           (mpProductStatus->mWCNormalCnt        );
-        onSignalEventChangedWCUnderWarningCnt     (mpProductStatus->mWCUnderWarningCnt  );
-        onSignalEventChangedWCUnderCnt            (mpProductStatus->mWCUnderCnt         );
-        onSignalEventChangedWCEtcErrorCnt         (mpProductStatus->mWCEtcErrorCnt      );
-        onSignalEventChangedWCEtcMDErrorCnt       (mpProductStatus->mWCEtcMDErrorCnt    );
-        onSignalEventChangedWCTradeTotalWeight    (mpProductStatus->mWCTradeTotalWeight );
-
-        onSignalEventChangedLastErrorType         (mpLastError->mEventType              );
-        onSignalEventChangedLastErrorTime         (mpLastError->mTime                   );
-        onSignalEventChangedLastErrorValue        (mpLastError->mValue                  );
+            if(pMaster != nullptr)
+            {
+                DspStatusDto status = pMaster->mRcvDataStore.getStatusDto();
+                onChangedDspStatus(mDspSeq, status);
+            }
+        }
     }
 };
 

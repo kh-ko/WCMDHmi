@@ -1,7 +1,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+import QtQuick.Controls.Universal 2.12
+import QtQuick.Controls 2.3
+
 import EnumDefine 1.0
+import FontManager 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 import "../../control/"
@@ -113,6 +117,41 @@ Item{
             max   : backupModel.totalCnt
             value : backupModel.currentIdx
             minimumSize : 30
+
+            visible: !backupModel.isScanUsb
+        }
+
+        BusyIndicator {
+            id : busyIndiUsbScan
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+
+            width: 80
+            height: 80
+
+            Universal.accent: Universal.Cobalt
+            visible: backupModel.isScanUsb
+        }
+
+        Text{
+            id:labelUsbScan
+
+            anchors.left: busyIndiUsbScan.right
+            anchors.leftMargin: 20
+            anchors.verticalCenter: busyIndiUsbScan.verticalCenter
+            height: 80
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#FFFFFF"
+            text: qsTr("USB scanning.")
+
+            visible: backupModel.isScanUsb
         }
 
         MouseArea{
@@ -122,7 +161,6 @@ Item{
                 backupModel.onCommandShowInterface();
             }
         }
-
     }
 
     UiPanel {

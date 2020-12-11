@@ -168,6 +168,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
 
+        visiblePowerOff:  model.swPowerOff
         visible: scene.currView != "factoryresetView"
 
         onSignalEventHomeClicked: {
@@ -190,7 +191,16 @@ Item {
             if(currView == "menuView")
                 return;
 
-            popupSelMenu.visible = true;
+            if(model.isWCEnable)
+            {
+                popupSelMenu.visible = true;
+            }
+            else
+            {
+                popupSelMenu.selDevice = EnumDefine.DEVICE_METAL_DETECTOR
+                menuPassword.textValue = ""
+                ViewManager.keypad.showKeypad(menuPassword.getVInputText())
+            }
         }
 
         onSignalEventShutdownClicked: {

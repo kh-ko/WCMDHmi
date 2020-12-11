@@ -14,8 +14,6 @@ class FactoryResetViewModel : public QObject
     Q_PROPERTY(bool  isLocalSettingCompleted  READ getIsLocalSettingCompleted  NOTIFY signalEventChangedIsLocalSettingCompleted);
 
 public:
-    CoreService         * mpCoreService ;
-    DspStatusModel      * mpDspStatus   ;
 
     bool mIsDeviceCompleted       = false;
     bool mIsDBCompleted           = false;
@@ -39,48 +37,33 @@ signals:
 public slots:
     Q_INVOKABLE void onCommandFactoryReset()
     {
-        mpCoreService->onCommandFactoryReset();
+        pEventHisSP->factoryReset();
+        pLSettingSP->factoryReset();
+        pProductSP->factoryReset();
+        pWorkSP->factoryReset();
+        pDspSP->factoryReset();
     }
 
     Q_INVOKABLE void onCommandLoggingReset()
     {
-        setIsDeviceCompleted      (true );
-        setIsLocalSettingCompleted(true );
-
-        mpCoreService->onCommandHistoryReset();
+        pEventHisSP->factoryReset();
+        pWorkSP->factoryReset();
+        emit signalEventExit();
     }
 
 //  down layer ===================================================================================
 public slots:
-    void onSignalEventChangedFactoryResetState(int value)
+    void onCompletedDspFR(bool isSucc)
     {
-        if(value == EnumDefine::FactoryResetState::FACTORYRESET_DSP_FOR_ALL || value == EnumDefine::FactoryResetState::FACTORYRESET_DSP_FOR_HIS)
-        {
-            setIsDeviceCompleted      (true);
-        }
-        else if(value == EnumDefine::FactoryResetState::FACTORYRESET_LOCAL)
-        {
-            setIsDeviceCompleted      (true);
-            setIsLocalSettingCompleted(true);
-        }
-        else if(value == EnumDefine::FactoryResetState::FACTORYRESET_HISTORY)
-        {
-            setIsDeviceCompleted      (true);
-            setIsDBCompleted          (true);
-            setIsLocalSettingCompleted(true);
-            emit signalEventExit();
-        }
+        qDebug() << "[FactoryResetViewModel::onCompletedDspFR]" << isSucc;
+        emit signalEventExit();
     }
 
 //  internal layer ===================================================================================
 public:
     explicit FactoryResetViewModel(QObject *parent = nullptr): QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-
-        connect(mpCoreService,  SIGNAL(signalEventChangedFactoryResetState(int)),this, SLOT(onSignalEventChangedFactoryResetState(int)));
-
-        onSignalEventChangedFactoryResetState(mpCoreService->mFactoryResetState);
+        ENABLE_SLOT_DSP_COMPLETED_FR;
     }
 };
 

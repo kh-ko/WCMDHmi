@@ -28,9 +28,7 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(int      timingPointCnt       READ      getTimingPointCnt           NOTIFY      signalEventChangedTimingPointCnt         )
 
 public:
-    CoreService * mpCoreService;
-    DspStatusModel * mpDspStatus;
-    GuiSettingModel * mpGuiSetting;
+    quint64                mDspSeq = 0;
 
     int                     mLastPointType     = 0;
     QList<quint32>          mRunTimeGraphPoints;
@@ -40,8 +38,6 @@ public:
 
     bool                    mIsRawGraphOn           = false;
     bool                    mIsPause                = false;
-    //int                     mMinRange               ;//= 0;
-    //int                     mMaxRange               ;//= 999999;
     quint32                 mEventValue             = 0;
     int                     mRange                  = 0;
     int                     mMeasuredStartIdx       = 0;
@@ -50,10 +46,13 @@ public:
     int                     mLineInterval           = 1000;
     int                     mTotalRuntimePointCnt   = 400;
 
+    static int * ptrMinRang(){ static int minRang = 0; return &minRang;}
+    static int * ptrMaxRang(){ static int maxRang = 999999; return &maxRang;}
+
     bool    getIsRawGraphOn         (){return mIsRawGraphOn                 ; }
     bool    getIsPause              (){return mIsPause                      ; }
-    int     getMinRange             (){return mpGuiSetting->mWCGraphMinRange; }
-    int     getMaxRange             (){return mpGuiSetting->mWCGraphMaxRange; }
+    int     getMinRange             (){return *ptrMinRang(); }
+    int     getMaxRange             (){return *ptrMaxRang(); }
     quint32 getEventValue           (){return mEventValue                   ; }
     int     getRange                (){return mRange                        ; }
     int     getMeasuredStartIdx     (){return mMeasuredStartIdx             ; }
@@ -72,7 +71,7 @@ public:
         if(value == getMinRange() && force == false)
             return;
 
-        mpGuiSetting->setWCGraphMinRange(value);
+        (*ptrMinRang()) = value;
 
         if(getMinRange() > getMaxRange())
             setMaxRange(getMinRange() + 1, force);
@@ -89,7 +88,7 @@ public:
         if(value == getMaxRange() && force == false)
             return;
 
-        mpGuiSetting->setWCGraphMaxRange(value);
+        (*ptrMaxRang()) = value;
 
         if(getMaxRange() < getMinRange())
             setMinRange(getMaxRange()-1, force);
@@ -145,22 +144,28 @@ public slots:
         return mRunTimeGraphPoints.at(idx) - getMinRange();
     }
 public slots:
-    void onSignalEventChangedWCCurrWeight(quint32 value)
+    void onChangedDspStatus(quint64 dspSeq, DspStatusDto dto)
     {
-        setEventValue(value);
+        CHECK_FALSE_RETURN((dspSeq == mDspSeq));
+
+        setEventValue(dto.mWCStatus.mCurrWeight);
     }
 
-    void onSignalEventAddedWeightCheckerGraph(quint64 deviceSeq, QByteArray value)
+    void onAddedWCG(quint64 dspSeq, DspWCGDto dto)
     {
-        StWeightCheckerGraph * pGData = (StWeightCheckerGraph *)value.data();
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        mTotalRuntimePointCnt = pGData->pointCnt * 40;
+        writeGraphData(dto);
 
-        for(int i = 0; i < pGData->pointCnt; i ++)
+        StDspWCG * pGData = (StDspWCG *)dto.mGraphData.data();
+
+        mTotalRuntimePointCnt = pGData->mPointCnt * 40;
+
+        for(int i = 0; i < pGData->mPointCnt; i ++)
         {
-            if(pGData->points[i].mPointType == 4)
+            if(pGData->mPoints[i].mPointType == 4)
             {
-                setMeasuredIdx(getMeasuredStartIdx() + pGData->points[i].mRawValue);
+                setMeasuredIdx(getMeasuredStartIdx() + pGData->mPoints[i].mRawValue);
                 continue;
             }
 
@@ -169,24 +174,24 @@ public slots:
                 mRunTimeRawGraphPoints.removeAt(0);
                 mRunTimeGraphPoints.removeAt(0);
             }
-            mRunTimeRawGraphPoints.append(pGData->points[i].mRawValue);
-            mRunTimeGraphPoints.append(pGData->points[i].mFilterValue);
+            mRunTimeRawGraphPoints.append(pGData->mPoints[i].mRawValue);
+            mRunTimeGraphPoints.append(pGData->mPoints[i].mFilterValue);
 
-            if(pGData->points[i].mPointType != 0)
+            if(pGData->mPoints[i].mPointType != 0)
             {
                 if(mLastPointType == 0)
                 {
                     mTempTimingGraphPoints.clear();
                 }
 
-                mTempTimingGraphPoints.append(pGData->points[i].mFilterValue);
+                mTempTimingGraphPoints.append(pGData->mPoints[i].mFilterValue);
 
-                if(pGData->points[i].mPointType == 2)
+                if(pGData->mPoints[i].mPointType == 2)
                 {
                     setMeasuredStartIdx(mTempTimingGraphPoints.size() - 1);
                 }
 
-                if(pGData->points[i].mPointType == 3)
+                if(pGData->mPoints[i].mPointType == 3)
                 {
                     setMeasuredEndIdx(mTempTimingGraphPoints.size() - 1);
                 }
@@ -197,7 +202,7 @@ public slots:
                 emit signalEventChangedTimingGraph();
             }
 
-            mLastPointType = pGData->points[i].mPointType;
+            mLastPointType = pGData->mPoints[i].mPointType;
         }
 
         if(getIsPause() == false)
@@ -207,10 +212,7 @@ public slots:
 public :
     explicit PanelWCGraphModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus = mpCoreService->mMapDspStatus.first();
-        mpGuiSetting = &(mpCoreService->mLocalSettingService.mGuiSetting);
-        quint32 maxRange = (mpCoreService->mProductSettingServcie.mCurrentProductSetting.mOverWeight * 1.2);
+        quint32 maxRange = (pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight * 1.2);
 
         if(getMaxRange() == 100000000)
         {
@@ -221,15 +223,71 @@ public :
         {
             setMaxRange(getMaxRange(), true);
         }
-        connect(mpCoreService, SIGNAL(signalEventAddedWeightCheckerGraph (quint64, QByteArray)), this, SLOT(onSignalEventAddedWeightCheckerGraph(quint64, QByteArray)));
-        connect(mpDspStatus  , SIGNAL(signalEventChangedWCCurrWeight     (quint32                )), this, SLOT(onSignalEventChangedWCCurrWeight    (quint32                )));
 
-        onSignalEventChangedWCCurrWeight(mpDspStatus->mWCCurrWeight);
-        mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, true);
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
+
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
+        ENABLE_SLOT_DSP_ADDED_WCG;
+        ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
+
+        pDspSP->sendWCGraphOnCmd(mDspSeq, true);
     }
     ~PanelWCGraphModel()
     {
-        mpCoreService->onCommandSendWeightCheckerGraphOnCmd(mpDspStatus->mSeq, false);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        closeFile();
+        pDspSP->sendWCGraphOnCmd(mDspSeq, false);
+    }
+
+private:
+    bool mLastIsRawGraphOn = false;
+    FileWriterEx * mpFileWriter = nullptr;
+
+    void openFile()
+    {
+        closeFile();
+
+        mpFileWriter = new FileWriterEx(this);
+        mpFileWriter->open(FileDef::WC_GRAPH_DIR(), FileDef::WC_GRAPH_FILENAME(), FileWriterEx::FILE_OPEN_NEWWRITE);
+    }
+
+    void closeFile()
+    {
+        if(mpFileWriter != nullptr)
+        {
+            mpFileWriter->close();
+            delete mpFileWriter;
+            mpFileWriter = nullptr;
+        }
+    }
+
+    void writeGraphData(DspWCGDto dto)
+    {
+        if(mLastIsRawGraphOn != mIsRawGraphOn)
+        {
+            if(mIsRawGraphOn)
+                openFile();
+            else
+                closeFile();
+        }
+
+        mLastIsRawGraphOn = mIsRawGraphOn;
+
+        if(mpFileWriter != nullptr)
+        {
+            StDspWCG * pGData = (StDspWCG *)dto.mGraphData.data();
+
+            for(int i = 0; i < pGData->mPointCnt; i ++)
+            {
+                if(mpFileWriter->newWrite(QString("%1\n").arg(pGData->mPoints[i].mFilterValue)) == false)
+                {
+                    qDebug() << "[PanelWCGraphModel::writeGraphData] graph write error!";
+                    closeFile();
+                }
+            }
+        }
     }
 };
 

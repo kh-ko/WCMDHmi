@@ -10,6 +10,7 @@ import ProductSettingItemModel 1.0
 UiPanel {
     property ProductSettingItemModel itemModel : null
     property bool isViewMode : false
+    property bool isEnableWC : true
     signal signalEventAddCliecked();
     signal signalEventCancleCliecked();
     signal signalEventRemoveCliecked();
@@ -175,7 +176,7 @@ UiPanel {
         anchors.bottomMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
 
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
     }
 
     UiLabelContent {
@@ -186,7 +187,7 @@ UiPanel {
         anchors.topMargin: 40
         anchors.rightMargin: 20
 
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         textValue: qsTr("Weight checker")
         anchors.left: parent.left
@@ -204,7 +205,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -266,7 +267,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -328,7 +329,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -359,7 +360,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         postfix : "g"
@@ -390,7 +391,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor: panel.bgColor
         labelText : qsTr("· Dynamic factor")
@@ -446,7 +447,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         isUpMode: true
         bgColor : panel.bgColor
@@ -493,7 +494,7 @@ UiPanel {
         anchors.top: comboWCNGMotion.bottom
         anchors.topMargin: 10
 
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
         textValue: qsTr("· Error detect")
 
         UiRadioBtn{
@@ -514,7 +515,6 @@ UiPanel {
 
             onSignalEventClicked:
             {
-                console.debug("[debug] click on" + itemModel.wcEnableEtcError + ", sel = " +isSelect)
                 itemModel.onCommandSetWCEnableEtcError(true);
             }
         }
@@ -536,7 +536,6 @@ UiPanel {
 
             onSignalEventClicked:
             {
-                console.debug("[debug] click on" + itemModel.wcEnableEtcError + ", sel = " +isSelect)
                 itemModel.onCommandSetWCEnableEtcError(false)
             }
         }
@@ -546,10 +545,10 @@ UiPanel {
         height: 30
         anchors.top: inputSpeed.bottom
         anchors.topMargin: 40
+        anchors.left: isEnableWC ? divider.right : parent.left
         anchors.leftMargin: 20
-        anchors.rightMargin: 20
         anchors.right: parent.right
-        anchors.left: divider.right
+        anchors.rightMargin: 20
 
         visible: itemModel.seq !== 0 || itemModel.isNew
 
@@ -559,9 +558,9 @@ UiPanel {
     UiInputNumber {
         id: inputSenstivity
         height: 60
-        anchors.right: parent.right
+        anchors.right: isEnableWC? parent.right : divider.left
         anchors.rightMargin: 20
-        anchors.left: divider.right
+        anchors.left: isEnableWC ? divider.right : parent.left
         anchors.leftMargin: 20
         anchors.top: labelMetalDetector.bottom
         anchors.topMargin: 10
@@ -587,7 +586,7 @@ UiPanel {
 
     UiComboBox{
         height: 60
-        anchors.verticalCenter: comboWCNGMotion.verticalCenter
+        anchors.verticalCenter: isEnableWC ? comboWCNGMotion.verticalCenter : inputSenstivity.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.left: divider.right
@@ -596,7 +595,7 @@ UiPanel {
         isDisable : panel.isViewMode
         visible: itemModel.seq !== 0 || itemModel.isNew
 
-        isUpMode: true
+        isUpMode: isEnableWC ? true : false
         bgColor : panel.bgColor
         labelText : qsTr("· NG motion")
         comboWidth: width - 220

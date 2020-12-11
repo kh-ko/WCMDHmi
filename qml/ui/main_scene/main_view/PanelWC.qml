@@ -8,30 +8,26 @@ import MainViewModel 1.0
 import FontManager 1.0
 
 Item {
-    property int  currWeight        : 9199000
-    property int  currEventType     : EnumDefine.WEIGHT_OVER_TYPE
-    //property int  avgWeight         : 9199000
-    //property int  avgEventType      : EnumDefine.WEIGHT_OVER_TYPE
-    property int  totalCnt          : 999999
-    property int  tradeCnt          : 999999
-    property int  overCnt           : 999999
-    property int  underCnt          : 999999
-    property int  normalCnt         : 999999
-    property int  underWarningCnt   : 999999
-    property int  overWarningCnt    : 999999
-    property int  overWeight        : 999999
-    property int  underWeight       : 999999
-    property int  normalWeight      : 999999
-    property int  underWarningWeight: 999999
-    property int  overWarningWeight : 999999
-    property int  etcErrorCnt       : 999999
-    property int  etcMDErrCnt       : 0
-    property var  tradeWeight       : 10000000000000
-    property real tare              :  10999900
-    //property int  averageNValue     : 10000
-    property int  lastNValue        : 1000
-    property MainViewModel  mainViewModel
-    property bool isDetail : false
+    property MainViewModel mainViewModel
+    property int  currWeight        : mainViewModel.wcCurrWeight
+    property int  currEventType     : mainViewModel.wcCurrEventType
+    property int  totalCnt          : mainViewModel.wcTotalCnt
+    property int  tradeCnt          : mainViewModel.wcTradeCnt
+    property int  overCnt           : mainViewModel.wcOverCnt
+    property int  underCnt          : mainViewModel.wcUnderCnt
+    property int  normalCnt         : mainViewModel.wcNormalCnt
+    property int  underWarningCnt   : mainViewModel.wcUnderWarningCnt
+    property int  overWarningCnt    : mainViewModel.wcOverWarningCnt
+    property int  overWeight        : mainViewModel.wcOverWeight
+    property int  underWeight       : mainViewModel.wcUnderWeight
+    property int  normalWeight      : mainViewModel.wcNormalWeight
+    property int  underWarningWeight: mainViewModel.wcUnderWarningWeight
+    property int  overWarningWeight : mainViewModel.wcOverWarningWeight
+    property int  etcErrorCnt       : mainViewModel.wcEtcErrorCnt
+    property int  etcMDErrCnt       : mainViewModel.wCEtcMDErrorCnt
+    property var  tradeWeight       : mainViewModel.wcTradeTotalWeight
+    property real tare              : mainViewModel.wcTareWeight
+    property bool isDetail          : mainViewModel.isDetail
 
     signal signalEvnetZeroClicked()
     signal signalEditWCSetting()
@@ -225,7 +221,6 @@ Item {
                 overWeight  : panel.overWeight
                 underWeight : panel.underWeight
                 normalWeight: panel.normalWeight
-                lastNValue  : panel.lastNValue
                 mainViewModel : panel.mainViewModel
             }
         }
@@ -427,7 +422,7 @@ Item {
                 title         : qsTr("Etc")
                 value01       : ""
                 total         : panel.totalCnt
-                value02       : panel.etcErrorCnt - panel.etcMDErrCnt
+                value02       : panel.etcErrorCnt
                 bgColor       : "#59000000"
                 graphColor    : "#333333"
 

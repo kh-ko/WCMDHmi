@@ -2,6 +2,7 @@
 #define PANELDEVICESETTINGMODEL_H
 
 #include <QObject>
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
 class PanelDeviceSettingModel : public QObject
@@ -45,6 +46,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint16 simpleSens03                      READ getSimpleSens03                  NOTIFY  signalEventChangedSimpleSens03              )
     Q_PROPERTY(quint16 simpleSens04                      READ getSimpleSens04                  NOTIFY  signalEventChangedSimpleSens04              )
     Q_PROPERTY(quint16 simpleSens05                      READ getSimpleSens05                  NOTIFY  signalEventChangedSimpleSens05              )
+    Q_PROPERTY(bool    isEnableWC                        READ getIsEnableWC                    NOTIFY  signalEventChangedIsEnableWC                )
 
     Q_PROPERTY(bool    isEditLanguage                    READ getIsEditLanguage                        NOTIFY  signalEventChangedIsEditLanguage                   )
     Q_PROPERTY(bool    isEditPassword                    READ getIsEditPassword                        NOTIFY  signalEventChangedIsEditPassword                   )
@@ -85,8 +87,6 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditSimpleSens05                READ getIsEditSimpleSens05                    NOTIFY  signalEventChangedIsEditSimpleSens05               )
 
 public:
-    CoreService * mpCoreService;
-
     int      mLanguage                      ;
     QString  mPassword                      ;
     QString  mNewPassword                   ;
@@ -124,6 +124,7 @@ public:
     quint16  mSimpleSens03                  ;
     quint16  mSimpleSens04                  ;
     quint16  mSimpleSens05                  ;
+    bool     mIsEnableWC                    ;
 
     bool     mIsEditLanguage                ;
     bool     mIsEditPassword                ;
@@ -200,6 +201,7 @@ public:
     quint16  getSimpleSens03                 (){ return mSimpleSens03                  ;}
     quint16  getSimpleSens04                 (){ return mSimpleSens04                  ;}
     quint16  getSimpleSens05                 (){ return mSimpleSens05                  ;}
+    bool     getIsEnableWC                   (){ return mIsEnableWC                    ;}
 
     bool     getIsEditLanguage               (){ return mIsEditLanguage                ;}
     bool     getIsEditPassword               (){ return mIsEditPassword                ;}
@@ -276,6 +278,7 @@ public:
     void setSimpleSens03                 (quint16  value){ if(value == mSimpleSens03              ) return; mSimpleSens03               = value; setIsEditSimpleSens03           (true);  emit signalEventChangedSimpleSens03              (value);}
     void setSimpleSens04                 (quint16  value){ if(value == mSimpleSens04              ) return; mSimpleSens04               = value; setIsEditSimpleSens04           (true);  emit signalEventChangedSimpleSens04              (value);}
     void setSimpleSens05                 (quint16  value){ if(value == mSimpleSens05              ) return; mSimpleSens05               = value; setIsEditSimpleSens05           (true);  emit signalEventChangedSimpleSens05              (value);}
+    void setIsEnableWC                   (bool     value){ if(value == mIsEnableWC                ) return; mIsEnableWC                 = value; emit signalEventChangedIsEnableWC(value);}
 
     void setIsEditLanguage               (bool     value){ if(value == mIsEditLanguage            ) return; mIsEditLanguage             = value; emit signalEventChangedIsEditLanguage            (value);}
     void setIsEditPassword               (bool     value){ if(value == mIsEditPassword            ) return; mIsEditPassword             = value; emit signalEventChangedIsEditPassword            (value);}
@@ -317,43 +320,43 @@ public:
 
     void reset()
     {
-        setLanguage                     (mpCoreService->mLocalSettingService.mGuiSetting.mLanguage             );
+        setLanguage                     (pLSettingSP->mLanguage    );
         setPassword                     (""                                                 );
         setNewPassword                  (""                                                 );
         setConfirmPassword              (""                                                 );
-        setIsDayMode                    (mpCoreService->mLocalSettingService.mHmiSetting.mIsDayMode     );
-        setIsDebugMode                  (mpCoreService->mLocalSettingService.mHmiSetting.mIsDebugMode          );
-        setLampTime                     (mpCoreService->mLocalSettingService.mDspSetting.mLampTime             );
-        setBuzzerTime                   (mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime           );
-        setSpeedConverter               (mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter       );
-        setMotorDirection               (mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection       );
-        setMotorType                    (mpCoreService->mLocalSettingService.mDspSetting.mMotorType            );
-        setMotorMDRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorMDRatio         );
-        setMotorWCRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorWCRatio         );
-        setMotorRJRatio                 (mpCoreService->mLocalSettingService.mDspSetting.mMotorRJRatio         );
-        setRejectorRunTimeRatio         (mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio );
-        setDisplayStability             (mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability     );
-        setMeasureCueSign               (mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign       );
-        setMinStaticWeight              (mpCoreService->mLocalSettingService.mDspSetting.mMinStaticWeight      );
-        setMinDynamicWeight             (mpCoreService->mLocalSettingService.mDspSetting.mMinDynamicWeight     );
-        setScaler                       (mpCoreService->mLocalSettingService.mDspSetting.mScaler               );
-        setStaticFactor                 (mpCoreService->mLocalSettingService.mDspSetting.mStaticFactor         );
-        setDynamicFactor                (mpCoreService->mLocalSettingService.mHmiSetting.mDynamicFactor        );
-        setStandardWeight               (mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight );
-        setRefWeight                    (mpCoreService->mLocalSettingService.mDspSetting.mDynamicBaseWeight    );
-        setWCPhotoOn                    (mpCoreService->mLocalSettingService.mDspSetting.mWCPhotoIsOn          );
-        setMode                         (mpCoreService->mLocalSettingService.mDspSetting.mMode                 );
-        setDetectDetectTime             (mpCoreService->mLocalSettingService.mDspSetting.mDetectDetectTime     );
-        setRunDetectTime                (mpCoreService->mLocalSettingService.mDspSetting.mRunDetectTime        );
-        setSignalDelayTime              (mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime      );
-        setMDPhotoOn                    (mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn          );
-        setSensorCnt                    (mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt            );
-        setRejectorOpenTime             (mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime     );
-        setSimpleSens01                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity01   );
-        setSimpleSens02                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity02   );
-        setSimpleSens03                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity03   );
-        setSimpleSens04                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity04   );
-        setSimpleSens05                 (mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity05   );
+        setIsDayMode                    (pLSettingSP->mHMISetting.mIsDayMode                                  );
+        setIsDebugMode                  (pLSettingSP->mHMISetting.mIsDebugMode                                );
+        setLampTime                     (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime             );
+        setBuzzerTime                   (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mBuzzerTime           );
+        setSpeedConverter               (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSpeedConverter       );
+        setMotorDirection               (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorDirection       );
+        setMotorType                    (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorType            );
+        setMotorMDRatio                 (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorMDRatio         );
+        setMotorWCRatio                 (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorWCRatio         );
+        setMotorRJRatio                 (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio         );
+        setRejectorRunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio );
+        setDisplayStability             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability       );
+        setMeasureCueSign               (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign         );
+        setMinStaticWeight              (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight        );
+        setMinDynamicWeight             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight       );
+        setScaler                       (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                 );
+        setStaticFactor                 (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor           );
+        setDynamicFactor                (pLSettingSP->mHMISetting.mDynamicFactor                              );
+        setStandardWeight               (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight   );
+        setRefWeight                    (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight      );
+        setWCPhotoOn                    (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn==1?true:false);
+        setMode                         (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode             );
+        setDetectDetectTime             (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectDetectTime       );
+        setRunDetectTime                (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mRunDetectTime          );
+        setSignalDelayTime              (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSignalDelayTime        );
+        setMDPhotoOn                    (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mPhotoIsOn==1?true:false);
+        setSensorCnt                    (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt              );
+        setRejectorOpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime     );
+        setSimpleSens01                 (pLSettingSP->mHMISetting.mSimpleSenstivity01                         );
+        setSimpleSens02                 (pLSettingSP->mHMISetting.mSimpleSenstivity02                         );
+        setSimpleSens03                 (pLSettingSP->mHMISetting.mSimpleSenstivity03                         );
+        setSimpleSens04                 (pLSettingSP->mHMISetting.mSimpleSenstivity04                         );
+        setSimpleSens05                 (pLSettingSP->mHMISetting.mSimpleSenstivity05                         );
 
         setIsEditLanguage                     ( false );
         setIsEditPassword                     ( false );
@@ -395,7 +398,8 @@ public:
     }
     explicit PanelDeviceSettingModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
+        ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING;
+        onChangedDevSetting(pLSettingSP->mDevSetting);
         reset();
     }
 
@@ -437,6 +441,7 @@ signals:
     void signalEventChangedSimpleSens03                 (quint16  value);
     void signalEventChangedSimpleSens04                 (quint16  value);
     void signalEventChangedSimpleSens05                 (quint16  value);
+    void signalEventChangedIsEnableWC                   (bool     value);
 
     void signalEventChangedIsEditLanguage               (bool     value);
     void signalEventChangedIsEditPassword               (bool     value);
@@ -484,48 +489,58 @@ public slots:
     {
         if(mIsEditPassword || mIsEditNewPassword || mIsEditConfirmPassword)
         {
-            if((mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mPassword && mPassword != mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword)|| mNewPassword != mConfirmPassword)
+            if((mPassword != pLSettingSP->mSecuritySetting.mPwd && mPassword != pLSettingSP->mSecuritySetting.mAdminPwd)|| mNewPassword != mConfirmPassword)
             {
                 emit signalResultSaveDeviceSetting((int)EnumDefine::DatabaseErrorType::PASSWORD_ERROR);
                 return;
             }
 
-            mpCoreService->mLocalSettingService.setSecuritySetting(mNewPassword, mpCoreService->mLocalSettingService.mSecuritySetting.mAdminPassword);
+            SecurityDto dto =  pLSettingSP->mSecuritySetting;
+            dto.mPwd = mNewPassword;
+            pLSettingSP->setSecurity(dto);
         }
 
-        mpCoreService->onCommandEditDspSetting(mLampTime                                                               ,
-                                               mBuzzerTime                                                             ,
-                                               mSpeedConverter                                                         ,
-                                               mMotorDirection                                                         ,
-                                               mMotorType                                                              ,
-                                               mMotorMDRatio                                                           ,
-                                               mMotorWCRatio                                                           ,
-                                               mMotorRJRatio                                                           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorLength           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector     ,
-                                               mMDPhotoOn                                                              ,
-                                               mWCPhotoOn                                                              ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorReadyTime      ,
-                                               mRejectorRunTimeRatio                                                   ,
-                                               mStaticFactor                                                           ,
-                                               mScaler                                                                 ,
-                                               mDisplayStability                                                       ,
-                                               mMeasureCueSign                                                         ,
-                                               mMinStaticWeight                                                        ,
-                                               mMinDynamicWeight                                                       ,
-                                               mMode                                                                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceBtwSensor      ,
-                                               mDetectDetectTime                                                       ,
-                                               mRunDetectTime                                                          ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToWeightChecker,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistancePhotoToSensor  ,
-                                               mSignalDelayTime                                                        ,
-                                               mStandardWeight                                                         ,
-                                               mRefWeight                                                              ,
-                                               mSensorCnt                                                              ,
-                                               mRejectorOpenTime                                                        );
-        mpCoreService->mLocalSettingService.setGuiLanguage(mLanguage);        
-        mpCoreService->mLocalSettingService.setHmiSetting(mIsDayMode, mIsDebugMode, mDynamicFactor, mSimpleSens01, mSimpleSens02, mSimpleSens03, mSimpleSens04, mSimpleSens05);
+        DevSettingDto dto = pLSettingSP->mDevSetting;
+        dto.mDspForm.mCommSetting.mLampTime             = mLampTime;
+        dto.mDspForm.mCommSetting.mBuzzerTime           = mBuzzerTime;
+        dto.mDspForm.mCommSetting.mRejectorRunTimeRatio = mRejectorRunTimeRatio;
+        dto.mDspForm.mCommSetting.mRejectorOpenTime     = mRejectorOpenTime;
+        dto.mDspForm.mCommSetting.mSpeedConverter       = mSpeedConverter;
+        dto.mDspForm.mCommSetting.mMotorDirection       = mMotorDirection;
+        dto.mDspForm.mCommSetting.mMotorType            = mMotorType;
+        dto.mDspForm.mCommSetting.mMotorMDRatio         = mMotorMDRatio;
+        dto.mDspForm.mCommSetting.mMotorWCRatio         = mMotorWCRatio;
+        dto.mDspForm.mCommSetting.mMotorRJRatio         = mMotorRJRatio;
+        dto.mDspForm.mWCSetting.mDisplayStability       = mDisplayStability;
+        dto.mDspForm.mWCSetting.mMeasureCueSign         = mMeasureCueSign;
+        dto.mDspForm.mWCSetting.mMinStaticWeight        = mMinStaticWeight;
+        dto.mDspForm.mWCSetting.mMinDynamicWeight       = mMinDynamicWeight;
+        dto.mDspForm.mWCSetting.mScaler                 = mScaler;
+        dto.mDspForm.mWCSetting.mStaticFactor           = mStaticFactor;
+        dto.mDspForm.mWCSetting.mPhotoIsOn              = mWCPhotoOn == true? 1 : 0;
+        dto.mDspForm.mWCSetting.mStaticStandardWeight   = mStandardWeight;
+        dto.mDspForm.mWCSetting.mDynamicBaseWeight      = mRefWeight;
+        dto.mDspForm.mMDSetting.mDetectMode             = mMode;
+        dto.mDspForm.mMDSetting.mDetectDetectTime       = mDetectDetectTime;
+        dto.mDspForm.mMDSetting.mRunDetectTime          = mRunDetectTime;
+        dto.mDspForm.mMDSetting.mSignalDelayTime        = mSignalDelayTime;
+        dto.mDspForm.mMDSetting.mPhotoIsOn              = mMDPhotoOn == true? 1 : 0;
+        dto.mDspForm.mMDSetting.mSensorCnt              = mSensorCnt;
+
+
+        pLSettingSP->setDevSetting(dto);
+        pLSettingSP->setLanuguage((EnumDef::eLang)mLanguage);
+
+        HMISettingDto hmiDto = pLSettingSP->mHMISetting;
+        hmiDto.mDynamicFactor = mDynamicFactor;
+        hmiDto.mIsDayMode = mIsDayMode;
+        hmiDto.mIsDebugMode = mIsDebugMode;
+        hmiDto.mSimpleSenstivity01 = mSimpleSens01;
+        hmiDto.mSimpleSenstivity02 = mSimpleSens02;
+        hmiDto.mSimpleSenstivity03 = mSimpleSens03;
+        hmiDto.mSimpleSenstivity04 = mSimpleSens04;
+        hmiDto.mSimpleSenstivity05 = mSimpleSens05;
+        pLSettingSP->setHMISetting(hmiDto);
 
         reset();
 
@@ -571,6 +586,10 @@ public slots:
     Q_INVOKABLE void onCommandSetSimpleSens04                 (quint16  value){setSimpleSens04                 (value);}
     Q_INVOKABLE void onCommandSetSimpleSens05                 (quint16  value){setSimpleSens05                 (value);}
 
+    void onChangedDevSetting(DevSettingDto dto)
+    {
+        setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+    }
 };
 
 #endif // PANELDEVICESETTINGMODEL_H

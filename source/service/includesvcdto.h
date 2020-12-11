@@ -1,0 +1,21 @@
+#ifndef INCLUDESVCDTO_H
+#define INCLUDESVCDTO_H
+#include "source/service/dto/dspconninfodto.h"
+#include "source/service/dto/dspdevsettingdto.h"
+#include "source/service/dto/dspeventdto.h"
+#include "source/service/dto/dspinfodto.h"
+#include "source/service/dto/dspmdgdto.h"
+#include "source/service/dto/dsppdsettingdto.h"
+#include "source/service/dto/dspstatusdto.h"
+#include "source/service/dto/dspwcgdto.h"
+#include "source/service/dto/devsettingdto.h"
+#include "source/service/dto/hmisettingdto.h"
+#include "source/service/dto/informationdto.h"
+#include "source/service/dto/securitydto.h"
+#include "source/service/dto/trendsoptiondto.h"
+#include "source/service/dto/pdsettingdto.h"
+#include "source/service/dto/pdstatsdto.h"
+#include "source/service/dto/eventdto.h"
+#include "source/service/dto/trendsitemdto.h"
+#include "source/service/dto/enum/enumdef.h"
+#endif // INCLUDESVCDTO_H

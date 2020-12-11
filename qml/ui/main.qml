@@ -40,6 +40,8 @@ Window {
     {
         sceneContainer.scale = window.height / ViewManager.getHeight();
         sceneContainer.width = window.width / sceneContainer.scale;
+
+        ViewManager.scale = sceneContainer.scale;
     }
 
     onWidthChanged: {window.onSizeChanged()}

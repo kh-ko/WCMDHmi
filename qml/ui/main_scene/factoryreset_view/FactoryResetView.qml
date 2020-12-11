@@ -28,7 +28,7 @@ Item {
         }
         else
         {
-            factoryResetModel.onCommandFatoryReset();
+            factoryResetModel.onCommandFactoryReset();
         }
     }
 

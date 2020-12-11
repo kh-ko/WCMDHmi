@@ -4,41 +4,54 @@
 #include <QObject>
 #include <QMap>
 
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
-
 #include "source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.h"
 
 class PanelProductSettingModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int      order                   READ getOrder                 NOTIFY signalEventChangedOrder             )
+    Q_PROPERTY(bool     isEnableWC              READ getIsEnableWC            NOTIFY signalEventChangedIsEnableWC        )
     Q_PROPERTY(int      productCount            READ getProductCount          NOTIFY signalEventChangedProductCount      )
     Q_PROPERTY(quint64  lookProductSeq          READ getLookProductSeq        NOTIFY signalEventChangedLookProductSeq    )
     Q_PROPERTY(quint64  selectedProductSeq      READ getSelectedProductSeq    NOTIFY signalEventChangedSelectedProductSeq)
 
 public:
-    CoreService * mpCoreService;
-    ProductSettingService * mpPSService;
-
     ProductSettingItemModel          mEditViewItemModel;
     QList<ProductSettingItemModel *> mListProductSetting;
 
     quint64 mLookProductSeq;
     quint64 mSelectedProductSeq;
+    static int * getOrderPtr(){ static int order = 0; return &order;}
+    bool    mIsEnableWC;
 
+    int     getOrder             (){return *getOrderPtr()            ;}
+    bool    getIsEnableWC        (){return mIsEnableWC               ;}
     int     getProductCount      (){return mListProductSetting.size();}
     quint64 getLookProductSeq    (){return mLookProductSeq           ;}
     quint64 getSelectedProductSeq(){return mSelectedProductSeq       ;}
 
+    void setOrder             (int     value){ int * pOrder = getOrderPtr(); *pOrder = value;                       emit signalEventChangedOrder             (value); }
+    void setIsEnableWC        (bool    value){ if(value == mIsEnableWC        )return; mIsEnableWC         = value; emit signalEventChangedIsEnableWC        (value); }
     void setLookProductSeq    (quint64 value){ if(value == mLookProductSeq    )return; mLookProductSeq     = value; emit signalEventChangedLookProductSeq    (value); }
     void setSelectedProductSeq(quint64 value){ if(value == mSelectedProductSeq)return; mSelectedProductSeq = value; emit signalEventChangedSelectedProductSeq(value); }
 
 signals:
+    void signalEventChangedOrder             (int     value);
+    void signalEventChangedIsEnableWC        (bool    value);
     void signalEventChangedProductCount      (int     value);
     void signalEventChangedLookProductSeq    (quint64 value);
     void signalEventChangedSelectedProductSeq(quint64 value);
     void signalEventResultSaveProductSetting (int     error);
 
 public slots:
+    Q_INVOKABLE void onCommandSetOrder(int order)
+    {
+        loadProductList(order);
+        setOrder(order);
+    }
+
     Q_INVOKABLE ProductSettingItemModel * onCommandGetItemModel(int idx)
     {
         return mListProductSetting.at(idx);
@@ -67,18 +80,13 @@ public slots:
     }
     Q_INVOKABLE void onCommandSetSelectProduct(quint64 seq)
     {
-        if(getSelectedProductSeq() == seq)
-            return;
-
-        mpCoreService->onCommandSelectProductSetting(seq);
+        pProductSP->selectPD(seq);
     }
     Q_INVOKABLE void onCommandAddProduct()
     {
-        ProductSettingModel *pNewProduct = mpPSService->newProductSetting();
-        pNewProduct->mDynamicFactor = mpCoreService->mLocalSettingService.mHmiSetting.mDynamicFactor;
-        mEditViewItemModel.setNewSetting(pNewProduct);
-
-        delete pNewProduct;
+        PDSettingDto dto = pProductSP->getDummyPD();
+        dto.mDspForm.mWCSetting.mDynamicFactor = pLSettingSP->mHMISetting.mDynamicFactor;
+        mEditViewItemModel.setNewSetting(dto);
     }
     Q_INVOKABLE void onCommandApplyProduct()
     {
@@ -98,9 +106,8 @@ public slots:
         }
 
         int ret;
-        quint64 outSeq;
 
-        if(mEditViewItemModel.mModel.mWCEnableEtcError == 0)
+        if(mEditViewItemModel.mModel.mDspForm.mWCSetting.mEnableEtcError == 0)
         {
             mEditViewItemModel.setUnderWeight       (100     );
             mEditViewItemModel.setUnderWarningWeight(100     );
@@ -110,55 +117,24 @@ public slots:
             mEditViewItemModel.setTareWeight        (0       );
         }
 
+        PDSettingDto newSetting = mEditViewItemModel.mModel;
+
+        qDebug()<< "[debug]" << newSetting.toString(",");
 
         if(mEditViewItemModel.getIsNew())
         {
-
-            ret = mpCoreService->onCommandAddProductSetting(&outSeq                                         ,
-                                                            mEditViewItemModel.mModel.mNo                   ,
-                                                            mEditViewItemModel.mModel.mName                 ,
-                                                            mEditViewItemModel.mModel.mLength               ,
-                                                            mEditViewItemModel.mModel.mSpeed                ,
-                                                            mEditViewItemModel.mModel.mMotorAccelerationTime,
-                                                            mEditViewItemModel.mModel.mUnderWeight          ,
-                                                            mEditViewItemModel.mModel.mUnderWarningWeight   ,
-                                                            mEditViewItemModel.mModel.mNormalWeight         ,
-                                                            mEditViewItemModel.mModel.mOverWarningWeight    ,
-                                                            mEditViewItemModel.mModel.mOverWeight           ,
-                                                            mEditViewItemModel.mModel.mTareWeight           ,
-                                                            mEditViewItemModel.mModel.mWCNGMotion           ,
-                                                            mEditViewItemModel.mModel.mWCEnableEtcError     ,
-                                                            mEditViewItemModel.mModel.mDynamicFactor        ,
-                                                            mEditViewItemModel.mModel.mMDSenstivity         ,
-                                                            mEditViewItemModel.mModel.mMDNGMotion           );
+            ret = pProductSP->addPD(newSetting);
         }
         else
         {
-            outSeq = mEditViewItemModel.mModel.mSeq;
-            ret = mpCoreService->onCommandEditProductSetting(mEditViewItemModel.mModel.mSeq                  ,
-                                                             mEditViewItemModel.mModel.mNo                   ,
-                                                             mEditViewItemModel.mModel.mName                 ,
-                                                             mEditViewItemModel.mModel.mLength               ,
-                                                             mEditViewItemModel.mModel.mSpeed                ,
-                                                             mEditViewItemModel.mModel.mMotorAccelerationTime,
-                                                             mEditViewItemModel.mModel.mUnderWeight          ,
-                                                             mEditViewItemModel.mModel.mUnderWarningWeight   ,
-                                                             mEditViewItemModel.mModel.mNormalWeight         ,
-                                                             mEditViewItemModel.mModel.mOverWarningWeight    ,
-                                                             mEditViewItemModel.mModel.mOverWeight           ,
-                                                             mEditViewItemModel.mModel.mTareWeight           ,
-                                                             mEditViewItemModel.mModel.mWCNGMotion           ,
-                                                             mEditViewItemModel.mModel.mWCEnableEtcError     ,
-                                                             mEditViewItemModel.mModel.mDynamicFactor        ,
-                                                             mEditViewItemModel.mModel.mMDSenstivity         ,
-                                                             mEditViewItemModel.mModel.mMDNGMotion           );
+            ret = pProductSP->editPD(newSetting);
         }
 
         if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
         {
-            loadProductList();
+            loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
-            onCommandSetLookProduct(outSeq);
+            onCommandSetLookProduct(newSetting.mSeq);
         }
 
         signalEventResultSaveProductSetting(ret);
@@ -170,11 +146,11 @@ public slots:
     }
     Q_INVOKABLE void onCommandRemoveProduct()
     {
-        int ret = mpCoreService->onCommandRemoveProductSetting(mEditViewItemModel.mModel.mSeq);
+        int ret = pProductSP->removePD(mEditViewItemModel.mModel.mSeq);
 
         if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
         {
-            loadProductList();
+            loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(getLookProductSeq());
         }
@@ -182,10 +158,11 @@ public slots:
     }
 
 public slots:
-    void onSignalEventChangedSelectedProductSeq(quint64 value){ setSelectedProductSeq(value);}
+    void onChangedCurrPDSetting(PDSettingDto dto){ setSelectedProductSeq(dto.mSeq);}
+    void onChangedDevSetting(DevSettingDto dto){setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);}
 
 public:
-    void loadProductList()
+    void loadProductList(int order)
     {
         for(int i = 0; i < mListProductSetting.size(); i ++)
         {
@@ -194,24 +171,60 @@ public:
 
         mListProductSetting.clear();
 
-        for(int i = 0; i < mpPSService->mListProductSetting.size(); i ++)
+        for(int i = 0; i < pProductSP->mPDList.size(); i ++)
         {
-            ProductSettingItemModel * pItemModel = new ProductSettingItemModel(this);
-            pItemModel->setData(mpPSService->mListProductSetting.at(i)->mSeq);
-
-            mListProductSetting.append(pItemModel);
+            ProductSettingItemModel * pPDModel = new ProductSettingItemModel(this);
+            pPDModel->setData(pProductSP->mPDList[i]->mSeq);
+            addToList(pPDModel, order);
         }
     }
     explicit PanelProductSettingModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpPSService   = &(mpCoreService->mProductSettingServcie);
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
+        ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING;
 
-        connect(&(mpPSService->mCurrentProductSetting), SIGNAL(signalEventChangedSeq(quint64)) ,this, SLOT(onSignalEventChangedSelectedProductSeq(quint64)));
+        loadProductList(getOrder());
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
+        onCommandSetLookProduct(pProductSP->mCurrPD.mSeq);
+        onChangedDevSetting(pLSettingSP->mDevSetting);
 
-        loadProductList();
-        onSignalEventChangedSelectedProductSeq(mpPSService->mCurrentProductSetting.mSeq);
-        onCommandSetLookProduct(mpPSService->mCurrentProductSetting.mSeq);
+    }
+
+private:
+    void addToList(ProductSettingItemModel * pNew, int order)
+    {
+        for(int i = 0; i < mListProductSetting.size(); i ++)
+        {
+            ProductSettingItemModel * pOld = mListProductSetting[i];
+
+            if(order == 0) // 이룸순
+            {
+                if(pOld->mModel.mName == pNew->mModel.mName)
+                {
+                    if(pOld->mModel.mDspForm.mCommSetting.mProductNum > pNew->mModel.mDspForm.mCommSetting.mProductNum)
+                    {
+                        mListProductSetting.insert(i, pNew);
+                        return;
+                    }
+                }
+
+                if(pOld->mModel.mName > pNew->mModel.mName)
+                {
+                    mListProductSetting.insert(i, pNew);
+                    return;
+                }
+            }
+            else
+            {
+                if(pOld->mModel.mDspForm.mCommSetting.mProductNum > pNew->mModel.mDspForm.mCommSetting.mProductNum)
+                {
+                    mListProductSetting.insert(i, pNew);
+                    return;
+                }
+            }
+        }
+
+        mListProductSetting.append(pNew);
     }
 };
 

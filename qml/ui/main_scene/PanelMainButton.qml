@@ -6,7 +6,8 @@ import EnumDefine 1.0
 
 Item {
 
-    //property bool isUnLock : true
+    property bool visiblePowerOff : true
+
     signal signalEventRunClicked()
     signal signalEventHomeClicked()
     signal signalEventStopClicked()
@@ -83,6 +84,7 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
+                visible: panel.visiblePowerOff
                 imageSource: "img/main_btn/power_blue.png"
                 isImage: true
                 textConfirmMsg: qsTr("Do you want power off ?")

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
 class PanelWCStaticCaribrationModel : public QObject
@@ -13,9 +14,7 @@ class PanelWCStaticCaribrationModel : public QObject
     Q_PROPERTY(quint32 currentWeight     READ getCurrentWeight    NOTIFY signalEventChangedCurrentWeight )
 
 public:
-    CoreService * mpCoreService = nullptr;
-    DspStatusModel * mpDspStatus = nullptr;
-
+    quint64 mDspSeq        = 0;
     bool    mIsBusy        ;
     quint32 mStandardWeight;
     quint32 mCurrentWeight ;
@@ -30,16 +29,17 @@ public:
 
     explicit PanelWCStaticCaribrationModel(QObject *parent = nullptr) : QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus = mpCoreService->mMapDspStatus.first();
-
-        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent         (quint16, quint32)), this, SLOT(onSignalEventAddEvent           (quint16, quint32)));
-        connect(mpDspStatus, SIGNAL(signalEventChangedWCCurrWeight(quint32         )), this, SLOT(onSignalEventChangedWCCurrWeight(quint32        )));
-
-        setStandardWeight(mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight);
+        setStandardWeight(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight);
         setCurrentWeight(0);
 
         setIsBusy(false);
+
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
+
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
+        ENABLE_SLOT_DSP_ADDED_EVENT;
+        ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
     }
 
 signals:
@@ -54,65 +54,49 @@ public slots:
     Q_INVOKABLE void onCommandCaribration()
     {
         setIsBusy(true);
-        mpCoreService->onCommandSendWeightCaribCmd(mpDspStatus->mSeq, EnumDefine::WCCalibType::WC_CALIB_STATIC);
+
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendWCCaribCmd(mDspSeq, EnumDefine::WCCalibType::WC_CALIB_STATIC);
     }
 
     Q_INVOKABLE void onCommandSetStandardWeight(quint32 value)
     {
-        mpCoreService->onCommandEditDspSetting(mpCoreService->mLocalSettingService.mDspSetting.mLampTime               ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime             ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorType              ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorMDRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorWCRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorRJRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorLength           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector     ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn            ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mWCPhotoIsOn            ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorReadyTime      ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mStaticFactor           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mScaler                 ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMinStaticWeight        ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMinDynamicWeight       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMode                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceBtwSensor      ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDetectDetectTime       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRunDetectTime          ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToWeightChecker,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistancePhotoToSensor  ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime        ,
-                                               value                                                                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDynamicBaseWeight      ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt              ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime       );
+        DevSettingDto dto = pLSettingSP->mDevSetting;
+        dto.mDspForm.mWCSetting.mStaticStandardWeight =value;
+
+        pLSettingSP->setDevSetting(dto);
         setStandardWeight(value);
     }
 
-    void onSignalEventAddEvent(quint16 eventType, quint32 value)
+    void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        if(eventType== EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE)
+        if(dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE)
         {
             setIsBusy(false);
+
+            DevSettingDto devSetting = pLSettingSP->mDevSetting;
+            devSetting.mDspForm.mWCSetting.mStaticFactor = dto.mEvent.mEventValue;
+            pLSettingSP->setDevSetting(devSetting);
+
             emit signalEventCompleteCalibration();
             return;
         }
     }
 
-    void onSignalEventChangedWCCurrWeight(quint32 value)
+    void onChangedDspStatus(quint64 dspSeq, DspStatusDto dto)
     {
-        if(value == 0)
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        if(dto.mWCStatus.mCurrWeight == 0)
         {
             setCurrentWeight(0);
         }
         else
         {
-            setCurrentWeight(value+mpCoreService->mProductSettingServcie.mCurrentProductSetting.mTareWeight);
+            setCurrentWeight(dto.mWCStatus.mCurrWeight + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
     }
 

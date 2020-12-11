@@ -153,5 +153,12 @@
         <file>ui/main_scene/PanelCalendar.qml</file>
         <file>ui/main_scene/img/main_btn/power.png</file>
         <file>ui/main_scene/img/main_btn/power_blue.png</file>
+        <file>ui/main_scene/main_view/PanelFullMD.qml</file>
+        <file>control/UiTrendsBarGraph.qml</file>
+        <file>ui/main_scene/main_view/img_btn/down.png</file>
+        <file>ui/main_scene/main_view/img_btn/up.png</file>
+        <file>control/UiDotHLine.qml</file>
+        <file>ui/main_scene/main_view/PanelProductSelect.qml</file>
+        <file>control/UiScrollView.qml</file>
     </qresource>
 </RCC>

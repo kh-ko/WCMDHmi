@@ -17,7 +17,8 @@ Item {
                              type == EnumDefine.PANEL_TYPE_DROP       ? "#191919" :
                              type == EnumDefine.PANEL_TYPE_POPUP      ? "#434343" :
                              type == EnumDefine.PANEL_TYPE_WEIGHT_UP  ? "#0085FF" :
-                             type == EnumDefine.PANEL_TYPE_NONE       ? "#00000000" : "#232323"
+                             type == EnumDefine.PANEL_TYPE_BIG_MD     ? "#005DB3" :
+                             type == EnumDefine.PANEL_TYPE_NONE       ? "#00000000": "#232323"
     id : control
 
     Rectangle{
@@ -36,6 +37,7 @@ Item {
                        type == EnumDefine.PANEL_TYPE_DROP       ? "#191919" :
                        type == EnumDefine.PANEL_TYPE_POPUP      ? "#434343" :
                        type == EnumDefine.PANEL_TYPE_WEIGHT_UP  ? "#0085FF" :
+                       type == EnumDefine.PANEL_TYPE_BIG_MD     ? "#005DB3" :
                        type == EnumDefine.PANEL_TYPE_NONE       ? "#00000000" : "#232323"
             }
 
@@ -49,6 +51,7 @@ Item {
                        type == EnumDefine.PANEL_TYPE_DROP_SELECT ? "#002140" :
                        type == EnumDefine.PANEL_TYPE_DROP        ? "#191919" :
                        type == EnumDefine.PANEL_TYPE_POPUP       ? "#434343" :
+                       type == EnumDefine.PANEL_TYPE_BIG_MD      ? "#232323" :
                        type == EnumDefine.PANEL_TYPE_WEIGHT_UP   ? "#0085FF" : "#232323"
             }
         }

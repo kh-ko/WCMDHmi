@@ -9,6 +9,7 @@ Item {
     property PanelCalendar calendar : null
     property PanelToastMessage  toast : null
     property PopupConfirm popupConfirm : null
+    property var scale : 1
     property var locale : Qt.locale("en-US")
     property color defaultColor : "#FFFFFF"
     property color systemLabelColor : "#ACACAC"

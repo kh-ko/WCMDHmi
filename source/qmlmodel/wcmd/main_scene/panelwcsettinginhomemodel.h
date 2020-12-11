@@ -2,6 +2,7 @@
 #define PANELWCSETTINGINHOMEMODEL_H
 
 #include <QObject>
+#include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
 class PanelWCSettingInHomeModel : public QObject
@@ -20,9 +21,6 @@ class PanelWCSettingInHomeModel : public QObject
     Q_PROPERTY(bool     isEditOverGap      READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
 
 public:
-    CoreService         * mpCoreService     ;
-    ProductSettingModel * mpProductSetting  ;
-
     quint32  mUnderWeight ;
     quint32  mNormalWeight;
     quint32  mOverWeight  ;
@@ -131,26 +129,17 @@ public slots:
             setOverWeight(mNormalWeight + mOverGap);
         }
     }
-    Q_INVOKABLE void onCommandApply              (             )
+    Q_INVOKABLE void onCommandApply()
     {
+        PDSettingDto editPD = pProductSP->mCurrPD;
+        editPD.mDspForm.mWCSetting.mUnderWeight        = mUnderWeight ;
+        editPD.mDspForm.mWCSetting.mUnderWarningWeight = mUnderWeight ;
+        editPD.mDspForm.mWCSetting.mNormalWeight       = mNormalWeight;
+        editPD.mDspForm.mWCSetting.mOverWarningWeight  = mOverWeight  ;
+        editPD.mDspForm.mWCSetting.mOverWeight         = mOverWeight  ;
 
-        int ret = mpCoreService->onCommandEditProductSetting(mpProductSetting->mSeq                  ,
-                                                             mpProductSetting->mNo                   ,
-                                                             mpProductSetting->mName                 ,
-                                                             mpProductSetting->mLength               ,
-                                                             mpProductSetting->mSpeed                ,
-                                                             mpProductSetting->mMotorAccelerationTime,
-                                                             mUnderWeight                            ,
-                                                             mUnderWeight                            ,
-                                                             mNormalWeight                           ,
-                                                             mOverWeight                             ,
-                                                             mOverWeight                             ,
-                                                             mpProductSetting->mTareWeight           ,
-                                                             mpProductSetting->mWCNGMotion           ,
-                                                             mpProductSetting->mWCEnableEtcError     ,
-                                                             mpProductSetting->mDynamicFactor        ,
-                                                             mpProductSetting->mMDSenstivity         ,
-                                                             mpProductSetting->mMDNGMotion           );
+        int ret = pProductSP->editPD(editPD);
+
         if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
         {
             setIsEditUnderWeight (false);
@@ -165,24 +154,19 @@ public slots:
 
 // down layer =============================================================
 public slots:
-    void onSignalEventChangedUnderWeight          (quint32 value){ setUnderWeight (value); }
-    void onSignalEventChangedNormalWeight         (quint32 value){ setNormalWeight(value); }
-    void onSignalEventChangedOverWeight           (quint32 value){ setOverWeight  (value); }
+    void onChangedCurrPDSetting(PDSettingDto dto)
+    {
+        setUnderWeight (dto.mDspForm.mWCSetting.mUnderWeight );
+        setNormalWeight(dto.mDspForm.mWCSetting.mNormalWeight);
+        setOverWeight  (dto.mDspForm.mWCSetting.mOverWeight  );
+    }
 
 // internal layer =============================================================
 public:
     explicit PanelWCSettingInHomeModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService    = CoreService::getInstance();
-        mpProductSetting = &(mpCoreService->mProductSettingServcie.mCurrentProductSetting);
-
-        connect(mpProductSetting, SIGNAL(signalEventChangedUnderWeight (quint32)), this, SLOT(onSignalEventChangedUnderWeight (quint32)));
-        connect(mpProductSetting, SIGNAL(signalEventChangedNormalWeight(quint32)), this, SLOT(onSignalEventChangedNormalWeight(quint32)));
-        connect(mpProductSetting, SIGNAL(signalEventChangedOverWeight  (quint32)), this, SLOT(onSignalEventChangedOverWeight  (quint32)));
-
-        onSignalEventChangedUnderWeight (mpProductSetting->mUnderWeight );
-        onSignalEventChangedNormalWeight(mpProductSetting->mNormalWeight);
-        onSignalEventChangedOverWeight  (mpProductSetting->mOverWeight  );
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
 
         setUnderGap    (mNormalWeight - mUnderWeight);
         setOverGap     (mOverWeight - mNormalWeight);

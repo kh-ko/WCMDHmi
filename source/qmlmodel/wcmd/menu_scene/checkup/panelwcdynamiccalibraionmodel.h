@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "source/service/coreservice.h"
+#include "source/globaldef/EnumDefine.h"
 
 class PanelWCDynamicCalibrationModel : public QObject
 {
@@ -15,9 +16,7 @@ class PanelWCDynamicCalibrationModel : public QObject
     Q_PROPERTY(quint32 movingWeight   READ getMovingWeight  NOTIFY signalEventChangedMovingWeight)
 
 public:
-    CoreService * mpCoreService = nullptr;
-    DspStatusModel * mpDspStatus = nullptr;
-
+    quint64 mDspSeq      = 0;
     bool    mIsRemeasure ;
     quint32 mCurrWeight  ;
     quint32 mRefWeight   ;
@@ -35,19 +34,22 @@ public:
 
     explicit PanelWCDynamicCalibrationModel(QObject *parent = nullptr) : QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus = mpCoreService->mMapDspStatus.first();
-
-        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent         (quint16, quint32)), this, SLOT(onSignalEventAddEvent           (quint16, quint32)));
-        connect(mpDspStatus, SIGNAL(signalEventChangedWCCurrWeight(quint32         )), this, SLOT(onSignalEventChangedWCCurrWeight(quint32         )));
-
         setCurrWeight(0);
-        setRefWeight(mpCoreService->mLocalSettingService.mDspSetting.mDynamicBaseWeight);
+        setRefWeight(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight);
         setMovingWeight(0);
+
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
+
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
+        ENABLE_SLOT_DSP_ADDED_EVENT;
+        ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
     }
     ~PanelWCDynamicCalibrationModel()
     {
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
     }
 
 signals:
@@ -60,83 +62,71 @@ signals:
 public slots:
     Q_INVOKABLE void onCommandCaribration()
     {
-        mpCoreService->onCommandSendWeightCaribCmd(mpDspStatus->mSeq, EnumDefine::WCCalibType::WC_CALIB_DYNAMIC);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendWCCaribCmd(mDspSeq, EnumDefine::WCCalibType::WC_CALIB_DYNAMIC);
     }
 
     Q_INVOKABLE void onCommandSetRefWeight(quint32 value)
     {
-        mpCoreService->onCommandEditDspSetting(mpCoreService->mLocalSettingService.mDspSetting.mLampTime               ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mBuzzerTime             ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSpeedConverter         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorDirection         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorType              ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorMDRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorWCRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMotorRJRatio           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorLength           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToRejector     ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMDPhotoIsOn            ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mWCPhotoIsOn            ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorReadyTime      ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorRunTimeRatio   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mStaticFactor           ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mScaler                 ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDisplayStability       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMeasureCueSign         ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMinStaticWeight        ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMinDynamicWeight       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mMode                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceBtwSensor      ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDetectDetectTime       ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRunDetectTime          ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistanceToWeightChecker,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mDistancePhotoToSensor  ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSignalDelayTime        ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mStaticStandardWeight   ,
-                                               value                                                                   ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mSensorCnt              ,
-                                               mpCoreService->mLocalSettingService.mDspSetting.mRejectorOpenTime       );
+        DevSettingDto dto = pLSettingSP->mDevSetting;
+        dto.mDspForm.mWCSetting.mDynamicBaseWeight =value;
+        pLSettingSP->setDevSetting(dto);
         setRefWeight(value);
     }
 
     Q_INVOKABLE void onCommandRemeasurement()
     {
         setMovingWeight(0);
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::CHECKUP_RUN);
+
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
     }
 
     Q_INVOKABLE void onCommandClosed()
     {
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
     }
 
-    void onSignalEventAddEvent(quint16 eventType, quint32 value)
+public slots:
+    void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
-        if( eventType == EnumDefine::EventType::WEIGHT_NORMAL_CHECK_TYPE         ||
-            eventType == EnumDefine::EventType::WEIGHT_UNDER_WARNING_CHECK_TYPE  ||
-            eventType == EnumDefine::EventType::WEIGHT_OVER_WARNING_CHECK_TYPE   ||
-            eventType == EnumDefine::EventType::WEIGHT_UNDER_CHECK_TYPE          ||
-            eventType == EnumDefine::EventType::WEIGHT_OVER_CHECK_TYPE           ||
-            eventType == EnumDefine::EventType::WEIGHT_ETCERROR_CHECK_TYPE)
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        if( dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_NORMAL_CHECK_TYPE         ||
+            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_UNDER_WARNING_CHECK_TYPE  ||
+            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_OVER_WARNING_CHECK_TYPE   ||
+            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_UNDER_CHECK_TYPE          ||
+            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_OVER_CHECK_TYPE           ||
+            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_ETCERROR_CHECK_TYPE)
         {
-            return setMovingWeight(value+mpCoreService->mProductSettingServcie.mCurrentProductSetting.mTareWeight);
+            return setMovingWeight(dto.mEvent.mEventValue + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
 
-        if(eventType == EnumDefine::EventType::WEIGHT_DYNAMIC_CARI_TYPE)
+        if(dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_DYNAMIC_CARI_TYPE)
         {
+            PDSettingDto setting = pProductSP->mCurrPD;
+            setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
+            pProductSP->editPD(setting);
+
             emit signalEventCompleteCalibration();
         }
     }
 
-    void onSignalEventChangedWCCurrWeight(quint32 value)
+    void onChangedDspStatus(quint64 dspSeq, DspStatusDto dto)
     {
-        if(value == 0)
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        if(dto.mWCStatus.mCurrWeight == 0)
         {
             setCurrWeight(0);
         }
         else
         {
-            return setCurrWeight(value+mpCoreService->mProductSettingServcie.mCurrentProductSetting.mTareWeight);
+            return setCurrWeight(dto.mWCStatus.mCurrWeight + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
     }
 

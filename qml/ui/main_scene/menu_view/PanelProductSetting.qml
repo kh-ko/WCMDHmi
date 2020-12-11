@@ -92,6 +92,42 @@ UiPanel {
                 ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
         }
+
+        onOrderChanged: {
+            loadList()
+        }
+    }
+
+    UiComboBox {
+        id: comboOrder
+        height: 60
+        width: 300
+        z: 1
+
+        anchors.top: parent.top
+        anchors.topMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+
+        bgColor: panel.bgColor
+
+        selIdx: productSettingModel.order
+        listModel: comboOrderOption
+        ListModel {
+            id : comboOrderOption
+            ListElement {
+                itemText : qsTr("Order by name")
+                itemIdx : 0
+            }
+            ListElement {
+                itemText : qsTr("Order by number")
+                itemIdx : 1
+            }
+        }
+
+        onSignalEventChangedSel: {
+            productSettingModel.onCommandSetOrder(itemIdx)
+        }
     }
 
     ListView {
@@ -101,7 +137,7 @@ UiPanel {
         anchors.leftMargin: 20
         anchors.bottom: btnAddProduct.top
         anchors.bottomMargin: 20
-        anchors.top: parent.top
+        anchors.top: comboOrder.bottom
         anchors.topMargin: 20
         model: listModel
         clip: true
@@ -183,6 +219,7 @@ UiPanel {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
 
+        isEnableWC: productSettingModel.isEnableWC
         isViewMode : panel.isViewMode
         itemModel : productSettingModel.onCommandGetEditViewItemModel()
 

@@ -6,6 +6,7 @@ import EnumDefine 1.0
 import ViewManager 1.0
 
 Item {
+    property bool isEnableWC   : true
     property bool isDetail     : false
     property int  mdNGCnt      : 999999
     property int  wcNGCnt      : 999999
@@ -53,9 +54,9 @@ Item {
             width : 132
             height : 30
             anchors.top: parent.top
-            anchors.topMargin: 20
+            anchors.topMargin: panel.isEnableWC === false ? (parent.height - (height * 2)) / 3 :  20
             anchors.left: imageTitle.right
-            anchors.leftMargin: 20
+            anchors.leftMargin: panel.isEnableWC === false ? 100 :20
 
             textValue: qsTr("Total")
         }
@@ -64,8 +65,8 @@ Item {
             height : 30
             anchors.left: labelTotal.right
             anchors.leftMargin: 20
-            anchors.right: divider.left
-            anchors.rightMargin: 20
+            anchors.right:  panel.isEnableWC === false ? parent.right : divider.left
+            anchors.rightMargin: panel.isEnableWC === false ? 100 :20
             anchors.verticalCenter: labelTotal.verticalCenter
 
             horizontalAlignment : Text.AlignRight
@@ -77,9 +78,11 @@ Item {
             id : labelMDNG
             width : 132
             height : 30
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.top: panel.isEnableWC === false ? labelTotal.bottom : undefined
+            anchors.topMargin : panel.isEnableWC === false ? (parent.height - (height * 2)) / 3 :  undefined
+            anchors.verticalCenter: panel.isEnableWC === false ? undefined : parent.verticalCenter
             anchors.left: imageTitle.right
-            anchors.leftMargin: 20
+            anchors.leftMargin: panel.isEnableWC === false ? 100 :20
 
             textValue: qsTr("Metal NG")
         }
@@ -88,8 +91,8 @@ Item {
             height : 30
             anchors.left: labelMDNG.right
             anchors.leftMargin: 20
-            anchors.right: divider.left
-            anchors.rightMargin: 20
+            anchors.right:  panel.isEnableWC === false ? parent.right : divider.left
+            anchors.rightMargin: panel.isEnableWC === false ? 100 :20
             anchors.verticalCenter: labelMDNG.verticalCenter
 
             horizontalAlignment : Text.AlignRight
@@ -105,6 +108,7 @@ Item {
             anchors.left: imageTitle.right
             anchors.leftMargin: 20
 
+            visible: panel.isEnableWC
             textValue: qsTr("Weight NG")
         }
 
@@ -116,6 +120,7 @@ Item {
             anchors.rightMargin: 20
             anchors.verticalCenter: labelWCNG.verticalCenter
 
+            visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
             textValue : (panel.wcNGCnt - panel.wcEtcMDErrCnt).toLocaleString(ViewManager.locale, 'f', 0) + " pcs"
         }
@@ -131,6 +136,7 @@ Item {
             anchors.top: parent.top
             anchors.topMargin: 20
 
+            visible: panel.isEnableWC
         }
 
         UiLabelSystem{
@@ -142,6 +148,7 @@ Item {
             anchors.left: divider.right
             anchors.leftMargin: 20
 
+            visible: panel.isEnableWC
             textValue: qsTr("Trade total")
         }
 
@@ -153,6 +160,7 @@ Item {
             anchors.rightMargin: 20
             anchors.verticalCenter: labelTradeTotal.verticalCenter
 
+            visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
             textValue : convertedTradeWeight.toLocaleString(ViewManager.locale, 'f', 1) + tradeWeightPostFix
         }
@@ -165,6 +173,7 @@ Item {
             anchors.left: divider.right
             anchors.leftMargin: 20
 
+            visible: panel.isEnableWC
             textValue: qsTr("Trade average")
         }
 
@@ -176,6 +185,7 @@ Item {
             anchors.rightMargin: 20
             anchors.verticalCenter: labelTradeAverage.verticalCenter
 
+            visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
             textValue : tradeCnt === 0 ? "0.0 g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
         }
@@ -192,6 +202,7 @@ Item {
 
     MouseArea{
         anchors.fill: parent
+        visible: panel.isEnableWC
 
         onPressed : { panel.isPress = true;}
         onReleased: { panel.isPress = false;}

@@ -23,8 +23,7 @@ class PanelMDGraphModel : public QObject
     Q_PROPERTY(bool     isEditSenstivity  READ      getIsEditSenstivity     NOTIFY      signalEventChangedIsEditSenstivity  )
 
 public:
-    CoreService * mpCoreService;
-    DspStatusModel * mpDspStatus;
+    quint64                 mDspSeq = 0;
 
     QList<MetalDetectorGraphModel*> mListMDGraphModel;
     quint16                 mSensorCnt          = 8;
@@ -63,35 +62,39 @@ public:
 
     explicit PanelMDGraphModel(QObject *parent = nullptr):QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus   = mpCoreService->mMapDspStatus.first();
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
 
-        connect(&(mpCoreService->mProductSettingServcie.mCurrentProductSetting), SIGNAL(signalEventChangedMDSenstivity(quint16)), this, SLOT(onSignalEventChangedMDSenstivity(quint16)));
-        connect(mpCoreService, SIGNAL(signalEventAddedMetalDetectorGraph (quint64, QByteArray)), this, SLOT(onSgnalEventAddedMetalDetectorGraph (quint64, QByteArray)));
+        setRange(pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity * 1.5);
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
 
-        onSignalEventChangedMDSenstivity(0);
-        mSimpleSens01 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity01;
-        mSimpleSens02 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity02;
-        mSimpleSens03 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity03;
-        mSimpleSens04 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity04;
-        mSimpleSens05 = mpCoreService->mLocalSettingService.mHmiSetting.mSimpleSenstivity05;
+        mSimpleSens01 = pLSettingSP->mHMISetting.mSimpleSenstivity01;
+        mSimpleSens02 = pLSettingSP->mHMISetting.mSimpleSenstivity02;
+        mSimpleSens03 = pLSettingSP->mHMISetting.mSimpleSenstivity03;
+        mSimpleSens04 = pLSettingSP->mHMISetting.mSimpleSenstivity04;
+        mSimpleSens05 = pLSettingSP->mHMISetting.mSimpleSenstivity05;
 
         for(int i = 0; i < 8; i ++)
         {
             MetalDetectorGraphModel * tempModel = new MetalDetectorGraphModel(this);
 
             tempModel->setIsRawGraphOn(mIsRawGraphOn);
-            tempModel->setRange(mRange);
+            tempModel->setRange(mSenstivity * (1.5));
             tempModel->setSenstivity(mSenstivity);
 
             mListMDGraphModel.append(tempModel);
         }
 
-        mpCoreService->onCommandSendMetalDetectorGraphOnCmd(mpDspStatus->mSeq, true);
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
+
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
+        ENABLE_SLOT_DSP_ADDED_MDG;
+
+        pDspSP->sendMDGraphOnCmd(mDspSeq, true);
     }
     ~PanelMDGraphModel()
     {
-        mpCoreService->onCommandSendMetalDetectorGraphOnCmd(mpDspStatus->mSeq, false);
+        pDspSP->sendMDGraphOnCmd(mDspSeq, false);
     }
 
 signals:
@@ -150,43 +153,37 @@ public slots:
     Q_INVOKABLE void onCommandSetSimpleSens05(){onCommandSetSenstivity(mSimpleSens05);}
     Q_INVOKABLE void onCommandApply()
     {
-        int ret = mpCoreService->onCommandEditProductSetting(mpCoreService->mProductSettingServcie.mCurrentProductSetting.mSeq                  ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mNo                   ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mName                 ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mLength               ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mSpeed                ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMotorAccelerationTime,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mUnderWeight          ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mUnderWarningWeight   ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mNormalWeight         ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mOverWarningWeight    ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mOverWeight           ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mTareWeight           ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mWCNGMotion           ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mWCEnableEtcError     ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mDynamicFactor        ,
-                                                             mSenstivity                                                                        ,
-                                                             mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMDNGMotion           );
+        PDSettingDto newSetting = pProductSP->mCurrPD;
+        newSetting.mDspForm.mMDSetting.mSenstivity = mSenstivity;
+
+        int ret = pProductSP->editPD(newSetting);
+
         setIsEditSenstivity(false);
 
         emit signalResultSaveProductSetting(ret);
     }
 
-    void onSignalEventChangedMDSenstivity(quint16 value)
+public slots:
+    void onChangedCurrPDSetting(PDSettingDto dto)
     {
-        setSenstivity(mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMDSenstivity);
+        //setRange(dto.mDspForm.mMDSetting.mSenstivity * 1.5);
 
-        for(int i = 0; i < mListMDGraphModel.size(); i ++)
+        setSenstivity(dto.mDspForm.mMDSetting.mSenstivity);
+
+        /*for(int i = 0; i < mListMDGraphModel.size(); i ++)
         {
-            mListMDGraphModel.at(i)->setSenstivity(mpCoreService->mProductSettingServcie.mCurrentProductSetting.mMDSenstivity);
-        }
+            mListMDGraphModel.at(i)->setSenstivity(dto.mDspForm.mMDSetting.mSenstivity);
+        }*/
     }
-    void onSgnalEventAddedMetalDetectorGraph(quint64 deviceSeq, QByteArray value)
+
+    void onAddedMDG(quint64 dspSeq, DspMDGDto dto)
     {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq))
+
         int min = 0;
         int max = 0;
 
-        StMetalDetectorGraph * pGData = (StMetalDetectorGraph *)value.data();
+        StDspMDG * pGData = (StDspMDG *)dto.mGraphData.data();
         setSensorCnt(pGData->mSensorCnt);
 
         for(int i = 0; i < pGData->mSensorCnt; i ++)

@@ -6,7 +6,6 @@
 #include <QProcess>
 #include <QDebug>
 
-#include "source/globaldef/EnumDefine.h"
 
 HistoryBackupThread::HistoryBackupThread(QObject *parent) : QObject(parent)
 {
@@ -22,18 +21,36 @@ HistoryBackupThread::~HistoryBackupThread()
 
 void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, bool *pCancle)
 {
-    QString applicationPath = QApplication::applicationDirPath();
-    QString srcBaseFolder = QString("%1/database/history").arg(applicationPath);
-    QString dstBaseFolder = QString("/home/pi/usb/novasen/backup/%1").arg(deviceNumber);
+    if(QFile::exists("/dev/sda1") == false)
+    {
+        backupComplete(EnumDefine::BackupResult::USB_ERROR);
+        return;
+    }
 
-    mkdirBackupFolder(QString("%1").arg(deviceNumber));
+    startUsbCheckTimer();
 
-    quint64 startDateNumber = (startYear * 10000) + (startMonth * 100) + startDay;
-    quint64 endDateNumber   = (endYear   * 10000) + (endMonth   * 100) + endDay  ;
+    mDevNum = deviceNumber;
+    mFYear  = startYear;
+    mFMonth = startMonth;
+    mFDay   = startDay;
+    mTYear  = endYear;
+    mTMonth = endMonth;
+    mTDay   = endDay;
 
-    int ret = EnumDefine::BackupResult::BACKUP_NONE_ERROR;
-    QStringList srcFileList;
-    QStringList dstFileList;
+    setIsScanUsb(true);
+    setIsProc(true);
+    setCanclePtr(pCancle);
+
+    return;
+}
+
+void HistoryBackupThread::checkUsb()
+{
+    if(getCancle())
+    {
+        backupComplete(EnumDefine::BackupResult::BACKUP_CANCLE);
+        return;
+    }
 
     QProcess process;
     process.start("df -h");
@@ -41,17 +58,68 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
 
     QString output = process.readAllStandardOutput();
 
-    if(output.contains("/dev/sda1") == false)
+    if(output.contains("/dev/sda1") == false && (QDateTime::currentMSecsSinceEpoch() - mCheckStartMSec) > (60 * 1000 * 5))
     {
-        emit signalEventCompleted(EnumDefine::BackupResult::USB_ERROR);
+        backupComplete(EnumDefine::BackupResult::USB_ERROR);
         return;
     }
 
-    setCanclePtr(pCancle);
+    if(output.contains("/dev/sda1") == true)
+    {
+        stopUsbCheckTimer();
+        backupProc();
+    }
+}
 
-    setIsProc(true);
+void HistoryBackupThread::mkdirBackupFolder(QString deviceNum)
+{
+    QDir("/home/pi/usb/novasen").removeRecursively();
 
-    // get backup list    
+    QDir().mkdir("/home/pi/usb/novasen");
+    QDir().mkdir("/home/pi/usb/novasen/backup");
+    QDir().mkdir(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum));
+}
+
+void HistoryBackupThread::stopUsbCheckTimer()
+{
+    if(mpTimer != nullptr)
+    {
+        mpTimer->stop();
+        mpTimer->deleteLater();
+        mpTimer = nullptr;
+    }
+    mCheckStartMSec = 0;
+    setIsScanUsb(false);
+}
+
+void HistoryBackupThread::startUsbCheckTimer()
+{
+    stopUsbCheckTimer();
+
+    setIsScanUsb(true);
+    mpTimer = new QTimer(this);
+    mpTimer->setInterval(100);
+    connect(mpTimer, SIGNAL(timeout()), this, SLOT(checkUsb()));
+    mpTimer->start();
+    mCheckStartMSec = QDateTime::currentMSecsSinceEpoch();
+}
+
+void HistoryBackupThread::backupProc()
+{
+    QString applicationPath = QApplication::applicationDirPath();
+    QString srcBaseFolder = QString("%1/database/history").arg(applicationPath);
+    QString dstBaseFolder = QString("/home/pi/usb/novasen/backup/%1").arg(mDevNum);
+
+    mkdirBackupFolder(QString("%1").arg(mDevNum));
+
+    quint64 startDateNumber = (mFYear * 10000) + (mFMonth * 100) + mFDay;
+    quint64 endDateNumber   = (mTYear   * 10000) + (mTMonth   * 100) + mTDay  ;
+
+    EnumDefine::BackupResult ret = EnumDefine::BackupResult::BACKUP_NONE_ERROR;
+    QStringList srcFileList;
+    QStringList dstFileList;
+
+    // get backup list
     QDir dir(srcBaseFolder);
     QStringList fileList = dir.entryList(QStringList() << "*.txt",QDir::Files,QDir::SortFlag::Name);
 
@@ -97,16 +165,25 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
 
     system(cmd.toStdString().c_str());
 
-    setIsProc(false);
+    backupComplete(ret);
 
-    emit signalEventCompleted(ret);
+
 }
 
-void HistoryBackupThread::mkdirBackupFolder(QString deviceNum)
+void HistoryBackupThread::backupComplete(EnumDefine::BackupResult result)
 {
-    QDir("/home/pi/usb/novasen").removeRecursively();
+    mDevNum          = 0;
+    mFYear           = 0;
+    mFMonth          = 0;
+    mFDay            = 0;
+    mTYear           = 0;
+    mTMonth          = 0;
+    mTDay            = 0;
+    mTotalCnt        = 0;
+    mCurrentIdx      = 0;
 
-    QDir().mkdir("/home/pi/usb/novasen");
-    QDir().mkdir("/home/pi/usb/novasen/backup");
-    QDir().mkdir(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum));
+    stopUsbCheckTimer();
+    setIsProc(false);
+
+    emit signalEventCompleted(result);
 }

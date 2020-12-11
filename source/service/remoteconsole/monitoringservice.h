@@ -4,22 +4,32 @@
 #include <QObject>
 #include <QUdpSocket>
 
-#include "source/model/informationmodel.h"
-#include "source/model/procsettingmodel.h"
-#include "source/model/dspstatusmodel.h"
-#include "source/model/productstatusmodel.h"
+#include "source/service/productsetting/productsprovider.h"
+#include "source/service/localsetting/localsettingsprovider.h"
+#include "source/service/work/worksprovider.h"
 
-class MonitoringService : public QObject
+#define pMonitoringSvr MonitoringServer::getInstance()
+
+class MonitoringServer : public QObject
 {
     Q_OBJECT
 public:
-    InformationModel    * mpInformation     ;
-    ProductSettingModel * mpProductSetting  ;
-    DspStatusModel      * mpDspStatus       ;
-    ProductStatusModel  * mpProductStatus   ;
+    static MonitoringServer * getInstance()
+    {
+        static MonitoringServer *mpSelf = nullptr;
 
+        if(mpSelf == nullptr)
+        {
+            mpSelf = new MonitoringServer();
+        }
+
+        return mpSelf;
+    }
+
+    const quint16 PORT    = 10026;
+
+    quint64      mDspSeq = 0;
     QUdpSocket * mpSocket = nullptr;
-    quint16      mPort    = 10026;
     QHostAddress mHostAddr;
 
 public slots:
@@ -27,9 +37,10 @@ public slots:
     void onSockError(QAbstractSocket::SocketError error);
 
 public:
-    void startMonitoringService();
-    explicit MonitoringService(QObject *parent = nullptr);
-    ~MonitoringService();
+    void start();
+    void stop();
+    explicit MonitoringServer(QObject *parent = nullptr);
+    ~MonitoringServer();
 
 private:
     void open();

@@ -16,7 +16,6 @@
 #include "source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/devicesetting/paneldevicesettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.h"
-#include "source/qmlmodel/wcmd/menu_scene/etcsetting/paneletcsettingmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelbackupmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/paneldebuggingmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/FactoryResetViewModel.h"
@@ -25,6 +24,8 @@
 #include "source/qmlmodel/wcmd/menu_scene/clocksetting/panelclocksettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/checkup/panelwcdynamiccalibraionmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h"
+#include "source/qmlmodel/wcmd/main_scene/panelfullmdmodel.h"
+#include "source/qmlmodel/wcmd/main_scene/panelpdselectmodel.h"
 #include "source/service/coreservice.h"
 #include "source/util/mouseeventspy.h"
 
@@ -56,14 +57,23 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<EnumDefine>("EnumDefine", 1, 0, "EnumDefine", "");
 
 
+    qRegisterMetaType<DevSettingDto>();
+    qRegisterMetaType<DspConnInfoDto>();
+    qRegisterMetaType<DspDevSettingDto>();
+    qRegisterMetaType<DspEventDto>();
     qRegisterMetaType<DspInfoDto>();
-    qRegisterMetaType<DspConnectionDto>();
-    qRegisterMetaType<DspSettingDto>();
+    qRegisterMetaType<DspMDGDto>();
+    qRegisterMetaType<DspPDSettingDto>();
     qRegisterMetaType<DspStatusDto>();
+    qRegisterMetaType<DspWCGDto>();
     qRegisterMetaType<EventDto>();
-    qRegisterMetaType<MetalGraphDto>();
-    qRegisterMetaType<ProductSettingDto>();
-    qRegisterMetaType<WeightGraphDto>();
+    qRegisterMetaType<HMISettingDto>();
+    qRegisterMetaType<InformationDto>();
+    qRegisterMetaType<PDSettingDto>();
+    qRegisterMetaType<PDStatsDto>();
+    qRegisterMetaType<SecurityDto>();
+    qRegisterMetaType<TrendsOptionDto>();
+    qRegisterMetaType<TrendsItemDto>();
 
     qmlRegisterType<MainModel>("MainModel", 1, 0, "MainModel");
     qmlRegisterType<IntroSceneModel>("IntroSceneModel", 1, 0, "IntroSceneModel");
@@ -77,7 +87,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<LoggingDataModel>("LoggingDataModel", 1, 0, "LoggingDataModel");
     qmlRegisterType<PanelDeviceSettingModel>("PanelDeviceSettingModel", 1, 0, "PanelDeviceSettingModel");
     qmlRegisterType<PanelInformationModel>("PanelInformationModel", 1, 0, "PanelInformationModel");
-    qmlRegisterType<PanelEtcSettingModel>("PanelEtcSettingModel", 1, 0, "PanelEtcSettingModel");
     qmlRegisterType<PanelBackupModel>("PanelBackupModel", 1, 0, "PanelBackupModel");
     qmlRegisterType<PanelDebuggingModel>("PanelDebuggingModel", 1, 0, "PanelDebuggingModel");
     qmlRegisterType<FactoryResetViewModel>("FactoryResetViewModel", 1, 0, "FactoryResetViewModel");
@@ -86,6 +95,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<PanelClockSettingModel>("PanelClockSettingModel", 1, 0, "PanelClockSettingModel");
     qmlRegisterType<PanelWCDynamicCalibrationModel>("PanelWCDynamicCalibrationModel", 1, 0, "PanelWCDynamicCalibrationModel");
     qmlRegisterType<PanelWCSettingInHomeModel>("PanelWCSettingInHomeModel", 1, 0, "PanelWCSettingInHomeModel");
+    qmlRegisterType<PanelFullMDModel>("PanelFullMDModel", 1, 0, "PanelFullMDModel");
+    qmlRegisterType<PanelPDSelectModel>("PanelPDSelectModel", 1, 0, "PanelPDSelectModel");
 
     qmlRegisterSingletonType<MouseEventSpy>("MouseEventSpy", 1, 0, "MouseEventSpy", MouseEventSpy::singletonProvider);
     qmlRegisterSingletonType(QUrl("qrc:/uiengine/ViewManager.qml"), "ViewManager", 1, 0, "ViewManager");

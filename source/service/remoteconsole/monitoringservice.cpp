@@ -1,14 +1,19 @@
 #include "monitoringservice.h"
-#include "source/thread/remoteconsole/dto/devicesocketdto.h"
+
+#include "source/service/remoteconsole/dto/enum/remoteenumdef.h"
+#include "source/service/remoteconsole/dto/devicesocketdto.h"
 #include "source/service/coreservice.h"
 
-void MonitoringService::onReceive()
+void MonitoringServer::onReceive()
 {
     QByteArray rcvBuffer;
     QHostAddress sender;
     quint16 senderPort;
     StRConsolePacket * rPacketData;
     StPacketRStatusRes resPacket;
+
+    if(mpSocket == nullptr)
+        return;
 
     if(mpSocket->hasPendingDatagrams() == false)
     {
@@ -33,7 +38,7 @@ void MonitoringService::onReceive()
         qDebug() << "[MonitoringService::onRecevie]ERROR PACKET : "<< rcvBuffer.toHex();
         return;
     }
-    if(rPacketData->mFuncCode != EnumDefine::RFuncCode::FUNC_CODE_MONITOR_STATUS)
+    if(rPacketData->mFuncCode != RemoteEnumDef::RFUNC_CODE_MONITOR_STATUS)
     {
         qDebug() << "[MonitoringService::onRecevie]func code error";
         qDebug() << "[MonitoringService::onRecevie]ERROR PACKET : "<< rcvBuffer.toHex();
@@ -42,80 +47,96 @@ void MonitoringService::onReceive()
 
     memset(&resPacket, 0x00, sizeof(StPacketRStatusRes));
 
-    QByteArray tempProductName   = mpProductSetting->mName.toUtf8();
+    QByteArray tempProductName   = pProductSP->mCurrPD.mName.toUtf8();
 
-    resPacket.mHeader.mFuncCode = EnumDefine::RFuncCode::FUNC_CODE_MONITOR_STATUS;
+    resPacket.mHeader.mFuncCode = RemoteEnumDef::RFUNC_CODE_MONITOR_STATUS;
     resPacket.mHeader.mSize = sizeof(StPacketRStatusRes) - sizeof(StRConsolePacket);
-    resPacket.mHeader.mDeviceNum = mpInformation->mDeviceNumber;
-    resPacket.mIsRun             = mpDspStatus->mRun;
-    resPacket.mIsComm            = mpDspStatus->mIsComm;
-    resPacket.mIsAlarm           = mpDspStatus->mIsAlarm;
-    resPacket.mProductNo         = mpProductSetting->mNo;
+    resPacket.mHeader.mDeviceNum = pLSettingSP->mInformation.mDeviceNumber;
+    resPacket.mProductNo         = pProductSP->mCurrPD.mDspForm.mCommSetting.mProductNum;
     memcpy(resPacket.mProductName, tempProductName.data(), tempProductName.size());
-    resPacket.mMdSignal          = mpDspStatus->mMDCurrSignal;
-    resPacket.mWcEventType       = mpDspStatus->mWCCurrEventType;
-    resPacket.mCurrWeight        = mpDspStatus->mWCCurrWeight;
-    resPacket.mMdSenstivity      = mpProductSetting->mMDSenstivity;
-    resPacket.mTareWeight        = mpProductSetting->mTareWeight;
-    resPacket.mUnderWeight       = mpProductSetting->mUnderWeight;
-    resPacket.mUnderWaringWeight = mpProductSetting->mUnderWarningWeight;
-    resPacket.mNormalWeight      = mpProductSetting->mNormalWeight;
-    resPacket.mOverWaringWeight  = mpProductSetting->mOverWarningWeight;
-    resPacket.mOverWeight        = mpProductSetting->mOverWeight;
-    resPacket.mMDNgCnt           = mpProductStatus->mMDDetectCnt;
-    resPacket.mWCUnderCnt        = mpProductStatus->mWCUnderCnt;
-    resPacket.mWCUnderWaringCnt  = mpProductStatus->mWCUnderWarningCnt;
-    resPacket.mWCNoramlCnt       = mpProductStatus->mWCNormalCnt;
-    resPacket.mWCOverWaringCnt   = mpProductStatus->mWCOverWarningCnt;
-    resPacket.mWCOverCnt         = mpProductStatus->mWCOverCnt;
-    resPacket.mWCEtcErrCnt       = mpProductStatus->mWCEtcErrorCnt;
-    resPacket.mWCEtcMDErrCnt     = mpProductStatus->mWCEtcMDErrorCnt;
-    resPacket.mTradeTotalWeight  = mpProductStatus->mWCTradeTotalWeight;
+    resPacket.mMdSenstivity      = pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity;
+    resPacket.mTareWeight        = pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight;
+    resPacket.mUnderWeight       = pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWeight;
+    resPacket.mUnderWaringWeight = pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWarningWeight;
+    resPacket.mNormalWeight      = pProductSP->mCurrPD.mDspForm.mWCSetting.mNormalWeight;
+    resPacket.mOverWaringWeight  = pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight;
+    resPacket.mOverWeight        = pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight;
+    resPacket.mMDNgCnt           = pWorkSP->mCurrPD.mMDFailCnt;
+    resPacket.mWCUnderCnt        = pWorkSP->mCurrPD.mWCUCnt;
+    resPacket.mWCUnderWaringCnt  = pWorkSP->mCurrPD.mWCUWCnt;
+    resPacket.mWCNoramlCnt       = pWorkSP->mCurrPD.mWCNorCnt;
+    resPacket.mWCOverWaringCnt   = pWorkSP->mCurrPD.mWCOWCnt;
+    resPacket.mWCOverCnt         = pWorkSP->mCurrPD.mWCOCnt;
+    resPacket.mWCEtcErrCnt       = pWorkSP->mCurrPD.mWCEtcCnt;
+    resPacket.mWCEtcMDErrCnt     = pWorkSP->mCurrPD.mWCMDCnt;
+    resPacket.mTradeTotalWeight  = pWorkSP->mCurrPD.mWCTradeTotalWeight;
+
+    if(mDspSeq != 0)
+    {
+        DspMaster * pMaster = pDspSP->findDspMaster(mDspSeq);
+
+        if(pMaster != nullptr)
+        {
+            DspStatusDto status = pMaster->mRcvDataStore.getStatusDto();
+
+            resPacket.mIsRun             = status.mCommStatus.mRun != EnumDef::RUN_MODE_STOP;
+            resPacket.mIsComm            = pMaster->mIsConnect;
+            resPacket.mIsAlarm           = status.getAlarm() || pMaster->mIsDevSettingAlarm || pMaster->mIsPDSettingAlarm;
+            resPacket.mMdSignal          = status.mMDStatus.mSignal;
+            resPacket.mWcEventType       = status.mWCStatus.mErrorType;
+            resPacket.mCurrWeight        = status.mWCStatus.mCurrWeight;
+        }
+    }
 
     mpSocket->writeDatagram((char*)&resPacket, sizeof(StPacketRStatusRes), sender, senderPort);
 }
 
-void MonitoringService::onSockError(QAbstractSocket::SocketError error)
+void MonitoringServer::onSockError(QAbstractSocket::SocketError error)
 {
     qDebug() << "[SOCKET ERROR]" << error;
 
     open();
 }
 
-void MonitoringService::startMonitoringService()
+void MonitoringServer::start()
 {
-    qDebug() << "[MonitoringService::startMonitoringService]";
+    qDebug() << "[MonitoringService::start]";
 
-    CoreService * pCoreService    = CoreService::getInstance();
-    mpDspStatus      = pCoreService->mMapDspStatus.first();
-    mpProductStatus  = &(mpDspStatus->mCurrentProductStatus);
-    mpProductSetting = &(pCoreService->mProductSettingServcie.mCurrentProductSetting);
-    mpInformation    = &(pCoreService->mLocalSettingService.mInformation);
+    if(pDspSP->mDspList.size() > 0)
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
     open();
 }
 
-MonitoringService::MonitoringService(QObject *parent) : QObject(parent)
+void MonitoringServer::stop()
+{
+    qDebug() << "[MonitoringService::stop]";
+
+    close();
+}
+
+MonitoringServer::MonitoringServer(QObject *parent) : QObject(parent)
 {
 
 }
 
-MonitoringService::~MonitoringService()
+MonitoringServer::~MonitoringServer()
 {
     close();
 }
 
 
-void MonitoringService::open()
+void MonitoringServer::open()
 {
     close();
 
     mpSocket = new QUdpSocket(this);
-    mpSocket->bind(mPort, QUdpSocket::ShareAddress);
+    mpSocket->bind(PORT, QUdpSocket::ShareAddress);
     connect(mpSocket, SIGNAL(readyRead()), this, SLOT(onReceive()));
     connect(mpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onSockError(QAbstractSocket::SocketError)));
 }
 
-void MonitoringService::close()
+void MonitoringServer::close()
 {
     if(mpSocket == nullptr)
         return;

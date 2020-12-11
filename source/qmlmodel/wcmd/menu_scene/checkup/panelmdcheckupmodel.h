@@ -2,6 +2,7 @@
 #define PANELCHECKUPMODEL_H
 
 #include <QObject>
+#include "source/service/def/datetimeform.h"
 #include "source/globaldef/EnumDefine.h"
 #include "source/service/coreservice.h"
 
@@ -19,9 +20,7 @@ class PanelMDCheckupModel : public QObject
     Q_PROPERTY(int     susStep03State    READ getSusStep03State   NOTIFY signalEventChangedSusStep03State  )
 
 public:
-    CoreService * mpCoreService = nullptr;
-    DspStatusModel * mpDspStatus = nullptr;
-
+    quint64 mDspSeq          = 0;
     int     mStep            = 0;
     QString mChekcupDateTime = "";
     bool    mIsPass          = false;
@@ -54,15 +53,18 @@ public:
 
     explicit PanelMDCheckupModel(QObject *parent = nullptr) : QObject(parent)
     {
-        mpCoreService = CoreService::getInstance();
-        mpDspStatus = mpCoreService->mMapDspStatus.first();
+        CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 
-        connect(mpDspStatus, SIGNAL(siganlEventAddedEvent(quint16, quint32)), this, SLOT(onSignalEventAddEvent(quint16, quint32)));
+        mDspSeq = pDspSP->mDspList[0]->mSeq;
+
+        ENABLE_SLOT_DSP_ADDED_EVENT;
     }
 
     ~PanelMDCheckupModel()
     {
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
     }
 
     void reset()
@@ -93,15 +95,22 @@ signals:
 public slots:
     Q_INVOKABLE void onCommandStart()
     {
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::CHECKUP_RUN);
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
     }
     Q_INVOKABLE void onCommandCancle()
     {
         reset();
-        mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
+
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
     }
     Q_INVOKABLE void onCommandStartNextStep()
     {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
         if(getStep() == EnumDefine::MDCheckUpStep::CHECKUP_RESULT_STEP)
         {
             reset();
@@ -114,7 +123,7 @@ public slots:
         {
         case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP01:
             setFeStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
-            mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::CHECKUP_RUN);
+            pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
             break;
 
         case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP02:
@@ -138,7 +147,7 @@ public slots:
             break;
         case EnumDefine::MDCheckUpStep::CHECKUP_RESULT_STEP:
             {
-                EventDto event;
+                DspEventDto event;
                 QDateTime now = QDateTime::currentDateTime();
 
                 setIsPass(getFeStep01State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
@@ -148,7 +157,7 @@ public slots:
                           getSusStep02State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
                           getSusStep03State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS);
 
-                setChekcupDateTime(now.toString("yyyy/MM/dd hh:mm:ss"));
+                setChekcupDateTime(now.toString(DATE_TIME_FMT));
 
                 event.mEvent.mEventValue = getIsPass() ? (0x01 << 6) : 0x00 ;
 
@@ -184,10 +193,12 @@ public slots:
 
                 event.mEvent.mEventType = EnumDefine::EventType::METAL_CHECKUP_TYPE;
 
-                mpCoreService->onSignalEventAddedEvent(mpDspStatus->mSeq, event);
-
+                if(mDspSeq != 0)
+                    pEventHisSP->onAddedDspEvent(mDspSeq, event);
             }
-            mpCoreService->onCommandSendRunCmd(INVALID_ULONGLONG, EnumDefine::RunState::STOP);
+            if(mDspSeq != 0)
+                pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+
             break;
         }
     }
@@ -227,16 +238,18 @@ public slots:
         }
     }
 
-    void onSignalEventAddEvent(quint16 eventType, quint32 eventValue)
+    void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
         EnumDefine::MDCheckUpState result;
 
-        if(eventType == EnumDefine::EventType::METAL_DETECT_CHECK_TYPE)
+        if(dto.mEvent.mEventType == EnumDefine::EventType::METAL_DETECT_CHECK_TYPE)
         {
             qDebug() << "MD CHECK UP PASS !";
             result = EnumDefine::MDCheckUpState::CHECKUP_PASS;
         }
-        else if(eventType == EnumDefine::EventType::METAL_TRADE_CHECK_TYPE)
+        else if(dto.mEvent.mEventType == EnumDefine::EventType::METAL_TRADE_CHECK_TYPE)
         {
             qDebug() << "MD CHECK UP FAIL !";
             result = EnumDefine::MDCheckUpState::CHECKUP_FAIL;

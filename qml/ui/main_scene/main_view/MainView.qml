@@ -11,13 +11,18 @@ Item {
     signal signalEventClickedProductName()
     signal signalEventClickedLastError()
 
-    id: element
+    id: panel
     width: 1759
     height: 997
 
 
     Component.onCompleted: {
         console.debug("[MainView.qml] : Create");
+
+        if(model.isEnableWC)
+            panelWeightChecker.createObject(emptyArea, {"mainViewModel":model})
+        else
+            panelFullMD.createObject(emptyArea, {"mainViewModel":model})
     }
 
     Component.onDestruction:
@@ -29,14 +34,10 @@ Item {
     {
         id:model
 
-        onSignalEventNotifyWCNG :
-        {
-            notifyWCNG.show(value, eventType)
-        }
-
         onSignalEventNotifyMDDetect:
         {
-            notifyMDDetect.show()
+            if(model.isEnableWC)
+                notifyMDDetect.show()
         }
     }
 
@@ -51,7 +52,8 @@ Item {
         productName: model.productName
 
         onSignalEventClickedProductName: {
-            ViewManager.mainScene.moveProductView();
+            var dlg = panelProductSelect.createObject(panel, {"mainViewModel":model})
+            dlg.open();
         }
     }
 
@@ -66,9 +68,10 @@ Item {
         mdNGCnt      : model.mdDetectCnt
         wcEtcMDErrCnt: model.wCEtcMDErrorCnt
         wcNGCnt      : model.wcNGCnt
-        totalCnt     : model.wcTotalCnt
+        totalCnt     : model.isEnableWC ? model.wcTotalCnt : model.mdTotalCnt
         tradeCnt     : model.wcTradeCnt
         tradeWeight  : model.wcTradeTotalWeight
+        isEnableWC   : model.isEnableWC
 
         onSignalEventClicked :
         {
@@ -103,6 +106,7 @@ Item {
 
 
     PanelMD{
+        property MainViewModel  mainViewModel
         id: panelMetalDetector
         width: 245
         anchors.top: panelProductName.bottom
@@ -126,11 +130,10 @@ Item {
         {
             ViewManager.mainScene.showMDSetting()
         }
-
     }
 
-    PanelWC{
-        id: panelWeightChecker
+    Item{
+        id : emptyArea
         anchors.right: parent.right
         anchors.rightMargin: 0
         anchors.top: panelProductName.bottom
@@ -139,39 +142,50 @@ Item {
         anchors.bottomMargin: 0
         anchors.left: panelMetalDetector.right
         anchors.leftMargin: 10
+    }
 
-        isDetail           : model.isDetail
-        currWeight         : model.wcCurrWeight
-        currEventType      : model.wcCurrEventType
-        //avgWeight          : model.wcCurrAvgWeight
-        //avgEventType       : model.wcCurrAvgEventType
-        totalCnt           : model.wcTotalCnt
-        tradeCnt           : model.wcTradeCnt
-        overCnt            : model.wcOverCnt
-        underCnt           : model.wcUnderCnt
-        normalCnt          : model.wcNormalCnt
-        underWarningCnt    : model.wcUnderWarningCnt
-        overWarningCnt     : model.wcOverWarningCnt
-        overWeight         : model.wcOverWeight
-        underWeight        : model.wcUnderWeight
-        normalWeight       : model.wcNormalWeight
-        underWarningWeight : model.wcUnderWarningWeight
-        overWarningWeight  : model.wcOverWarningWeight
-        etcErrorCnt        : model.wcEtcErrorCnt
-        etcMDErrCnt        : model.wCEtcMDErrorCnt
-        tradeWeight        : model.wcTradeTotalWeight
-        tare               : model.wcTareWeight
-        //averageNValue      : model.wcAverageN
-        mainViewModel      : model
 
-        PanelWCNGNotify{
-            id : notifyWCNG
+    Component
+    {
+        id : panelFullMD
+
+        PanelFullMD{
+            anchors.fill: parent
         }
+    }
 
-        onSignalEditWCSetting :
+    Component
+    {
+        id : panelWeightChecker
+
+        PanelWC{
+            anchors.fill: parent
+
+            PanelWCNGNotify{
+                id : notifyWCNG
+            }
+
+            onSignalEditWCSetting :
+            {
+                    ViewManager.mainScene.showWCSetting()
+            }
+
+            Connections{
+                target: mainViewModel
+                onSignalEventNotifyWCNG :
+                {
+                    if(mainViewModel.isEnableWC)
+                        notifyWCNG.show(value, eventType)
+                }
+            }
+        }
+    }
+
+    Component
+    {
+        id : panelProductSelect
+        PanelProductSelect
         {
-
-                ViewManager.mainScene.showWCSetting()
 
         }
     }

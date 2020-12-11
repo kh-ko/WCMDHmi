@@ -1,4 +1,4 @@
-QT += quick widgets charts virtualkeyboard sql
+QT += quick widgets charts virtualkeyboard sql serialbus
 
 CONFIG += c++11
 
@@ -14,31 +14,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        source/helper/languagehelper.cpp \
         source/logger/nsdebug.cpp \
         source/main.cpp \
-        source/service/coreservice.cpp \
-        source/service/dspconnectioninfoservice.cpp \
-        source/service/eventservice.cpp \
-        source/service/localsettingservice.cpp \
-        source/service/productsettingservice.cpp \
         source/service/remoteconsole/monitoringservice.cpp \
         source/service/remoteconsole/syncclient.cpp \
         source/service/remoteconsole/syncserverservice.cpp \
-        source/thread/dsp/dspcommunitythread.cpp \
-        source/thread/dsp/dspinterface.cpp \
-        source/thread/dsp/dsppacketbuilder.cpp \
-        source/thread/dsp/sendpacketqueue.cpp \
         source/thread/historybackupthread.cpp \
-        source/thread/remoteconsole/deviceinfobrodcaster.cpp \
         source/util/etcutil.cpp \
-        source/util/eventchecker.cpp \
         source/util/fileloaderthread.cpp \
         source/util/fileloaderthreadex.cpp \
         source/util/filereader.cpp \
-        source/util/filewriter.cpp \
-        source/util/mouseeventspy.cpp \
-        source/util/myalloc.cpp
+        source/util/mouseeventspy.cpp
 
 RESOURCES += qml/qml.qrc
 
@@ -56,25 +42,14 @@ INSTALLS += target
 HEADERS += \
     source/globaldef/EnumDefine.h \
     source/globaldef/GlobalDefine.h \
-    source/helper/languagehelper.h \
     source/logger/nsdebug.h \
-    source/model/dspconnectionmodel.h \
-    source/model/dspsettingmodel.h \
-    source/model/dspstatusmodel.h \
-    source/model/eventmodel.h \
-    source/model/guisettingmodel.h \
-    source/model/hmisettingmodel.h \
-    source/model/informationmodel.h \
-    source/model/lasterrormodel.h \
-    source/model/procsettingmodel.h \
-    source/model/productsettingmodel.h \
-    source/model/productstatusmodel.h \
-    source/model/securitysettingmodel.h \
     source/qmlmodel/wcmd/introscenemodel.h \
     source/qmlmodel/wcmd/main_scene/FactoryResetViewModel.h \
     source/qmlmodel/wcmd/main_scene/mainviewmodel.h \
     source/qmlmodel/wcmd/main_scene/panelbackupmodel.h \
     source/qmlmodel/wcmd/main_scene/paneldebuggingmodel.h \
+    source/qmlmodel/wcmd/main_scene/panelfullmdmodel.h \
+    source/qmlmodel/wcmd/main_scene/panelpdselectmodel.h \
     source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h \
     source/qmlmodel/wcmd/mainmodel.h \
     source/qmlmodel/wcmd/mainscenemodel.h \
@@ -83,7 +58,6 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/checkup/panelwcstaticcaribrationmodel.h \
     source/qmlmodel/wcmd/menu_scene/clocksetting/panelclocksettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/devicesetting/paneldevicesettingmodel.h \
-    source/qmlmodel/wcmd/menu_scene/etcsetting/paneletcsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/metaldetectorgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/panelmdgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.h \
@@ -92,36 +66,67 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.h \
     source/service/coreservice.h \
-    source/service/dspconnectioninfoservice.h \
-    source/service/eventservice.h \
-    source/service/localsettingservice.h \
-    source/service/productsettingservice.h \
+    source/service/def/builddef.h \
+    source/service/def/datetimeform.h \
+    source/service/def/filedef.h \
+    source/service/defaultsetting/defaultsettingsprovider.h \
+    source/service/dsp/dspdatastore.h \
+    source/service/dsp/dspdatastorestruct.h \
+    source/service/dsp/dspmaster.h \
+    source/service/dsp/dspsendqueue.h \
+    source/service/dsp/dspsendqueueitem.h \
+    source/service/dsp/dspsprovider.h \
+    source/service/dsp/packet/dsppacket.h \
+    source/service/dsp/packet/dsppacketstruct.h \
+    source/service/dto/devsettingdto.h \
+    source/service/dto/dspconninfodto.h \
+    source/service/dto/dspdevsettingdto.h \
+    source/service/dto/dspeventdto.h \
+    source/service/dto/dspinfodto.h \
+    source/service/dto/dspmdgdto.h \
+    source/service/dto/dsppdsettingdto.h \
+    source/service/dto/dspstatusdto.h \
+    source/service/dto/dspwcgdto.h \
+    source/service/dto/enum/enumdef.h \
+    source/service/dto/eventdto.h \
+    source/service/dto/hmisettingdto.h \
+    source/service/dto/informationdto.h \
+    source/service/dto/pdsettingdto.h \
+    source/service/dto/pdstatsdto.h \
+    source/service/dto/securitydto.h \
+    source/service/dto/trendsitemdto.h \
+    source/service/dto/trendsoptiondto.h \
+    source/service/eventhistory/dailyeventhismanager.h \
+    source/service/eventhistory/dailypdhismanager.h \
+    source/service/eventhistory/dailypdstatsmanager.h \
+    source/service/eventhistory/eventhissprovider.h \
+    source/service/includesvcdto.h \
+    source/service/localsetting/languagehelper.h \
+    source/service/localsetting/localsettingsprovider.h \
+    source/service/productsetting/productsprovider.h \
+    source/service/remoteconsole/deviceinfobrodcaster.h \
+    source/service/remoteconsole/dto/devicesocketdto.h \
+    source/service/remoteconsole/dto/enum/remoteenumdef.h \
+    source/service/remoteconsole/dto/modbusdatastore.h \
     source/service/remoteconsole/monitoringservice.h \
     source/service/remoteconsole/syncclient.h \
     source/service/remoteconsole/syncserverservice.h \
-    source/thread/dsp/dspcommunitythread.h \
-    source/thread/dsp/dspinterface.h \
-    source/thread/dsp/dsppacketbuilder.h \
-    source/thread/dsp/dto/dspaddressdto.h \
-    source/thread/dsp/dto/dspconnectiondto.h \
-    source/thread/dsp/dto/dspinfodto.h \
-    source/thread/dsp/dto/dspsettingdto.h \
-    source/thread/dsp/dto/dspstatusdto.h \
-    source/thread/dsp/dto/eventdto.h \
-    source/thread/dsp/dto/metalgraphdto.h \
-    source/thread/dsp/dto/productsettingdto.h \
-    source/thread/dsp/dto/weightgraphdto.h \
-    source/thread/dsp/sendpacketqueue.h \
+    source/service/remoteconsole/tcpmodbusslave.h \
+    source/service/timer/timersprovider.h \
+    source/service/util/byteswap.h \
+    source/service/util/exceptionutil.h \
+    source/service/util/filecopylocal.h \
+    source/service/util/filefolderreader.h \
+    source/service/util/filereaderex.h \
+    source/service/util/filewriterex.h \
+    source/service/util/sproviderconnectutil.h \
+    source/service/work/TrendsManager.h \
+    source/service/work/worksprovider.h \
     source/thread/historybackupthread.h \
-    source/thread/remoteconsole/deviceinfobrodcaster.h \
-    source/thread/remoteconsole/dto/devicesocketdto.h \
     source/util/etcutil.h \
-    source/util/eventchecker.h \
     source/util/fileloaderthread.h \
     source/util/fileloaderthreadex.h \
     source/util/filereader.h \
-    source/util/filewriter.h \
-    source/util/mouseeventspy.h \
-    source/util/myalloc.h
+    source/util/mouseeventspy.h
 
 DISTFILES +=
