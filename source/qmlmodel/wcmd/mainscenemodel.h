@@ -99,9 +99,9 @@ public slots:
 
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
 
-        if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun == EnumDefine::RunState::STOP && value == false)
+        /*if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun == EnumDefine::RunState::STOP && value == false)
             return;
-        else if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun != EnumDefine::RunState::STOP && value == true)
+        else */if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun != EnumDefine::RunState::STOP && value == true)
             return;
 
         if(value && pLSettingSP->mHMISetting.mIsDebugMode)

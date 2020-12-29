@@ -1399,7 +1399,7 @@ UiPanel {
                  settingModel.isEditMotorType           ||
                  settingModel.isEditMotorMDRatio        ||
                  settingModel.isEditMotorWCRatio        ||
-                 settingModel.isEditMotorRJRation       ||
+                 settingModel.isEditMotorRJRatio        ||
                  settingModel.isEditRejectorRunTimeRatio||
                  settingModel.isEditDisplayStability    ||
                  settingModel.isEditMeasureCueSign      ||
