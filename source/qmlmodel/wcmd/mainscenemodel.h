@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include "source/service/def/datetimeform.h"
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 class MainSceneModel : public QObject
@@ -95,21 +95,32 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        quint16 runValue = value == false ? EnumDefine::RunState::STOP : EnumDefine::RunState::RUN;
+        quint16 runValue = value == false ? EnumDef::RUN_MODE_STOP : EnumDef::RUN_MODE_RUN;
 
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
 
-        /*if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun == EnumDefine::RunState::STOP && value == false)
+        /*if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun == EnumDef::RUN_MODE_STOP && value == false)
             return;
-        else */if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun != EnumDefine::RunState::STOP && value == true)
+        else */if(pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun != EnumDef::RUN_MODE_STOP && value == true)
             return;
 
         if(value && pLSettingSP->mHMISetting.mIsDebugMode)
         {
-            runValue = EnumDefine::RunState::DETECT_OFF_RUN;
+            runValue = EnumDef::RUN_MODE_DETECT_OFF_RUN;
         }
 
         pDspSP->sendRunCmd(mDspSeq, runValue);
+    }
+
+    Q_INVOKABLE void onCommandResetGroupCount()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
+
+        CHECK_PTR_RETURN(pDsp);
+
+        pDspSP->sendResetGCntCmd(mDspSeq, 1);
     }
 
     Q_INVOKABLE void onCommandShutdown()
@@ -140,7 +151,7 @@ public slots:
 
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
 
-        setIsRun        ( dto.mCommStatus.mRun != EnumDefine::RunState::STOP                   );
+        setIsRun        ( dto.mCommStatus.mRun != EnumDef::RUN_MODE_STOP                   );
 
         setIsAlarm      ( dto.getAlarm() || pDsp->mIsDevSettingAlarm || pDsp->mIsPDSettingAlarm);
         setIsSensorAlarm( dto.getSensorAlarm()                                                 );
@@ -176,7 +187,7 @@ public:
         ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING;
         onChangedDevSetting(pLSettingSP->mDevSetting);
 
-        ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTINGT;
+        ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTING;
         onChangedHMISetting(pLSettingSP->mHMISetting);
 
         ENABLE_SLOT_TIMER_TICK;

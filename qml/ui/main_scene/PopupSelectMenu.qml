@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 import "../../control/"
@@ -36,7 +36,7 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         title : qsTr("Select device")
 
@@ -57,11 +57,11 @@ Item {
             anchors.rightMargin: 40
 
 
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
             textValue: qsTr("Weight checker")
 
             onSignalEventClicked: {
-                selDevice = EnumDefine.DEVICE_WEIGHT_CHECKER
+                selDevice = QmlEnumDef.DEVICE_WEIGHT_CHECKER
                 popup.visible = false;
                 signalEventClose()
             }
@@ -78,11 +78,11 @@ Item {
             anchors.leftMargin: 40
 
 
-            type : EnumDefine.BUTTON_TYPE_METAL
+            type : QmlEnumDef.BUTTON_TYPE_METAL
             textValue: qsTr("Metal detector")
 
             onSignalEventClicked: {
-                selDevice = EnumDefine.DEVICE_METAL_DETECTOR
+                selDevice = QmlEnumDef.DEVICE_METAL_DETECTOR
                 popup.visible = false;
                 signalEventClose()
             }
@@ -99,7 +99,7 @@ Item {
             anchors.leftMargin: 40
 
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
             textValue: qsTr("Cancle")
 
             onSignalEventClicked: {

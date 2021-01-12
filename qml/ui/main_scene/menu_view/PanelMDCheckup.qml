@@ -6,7 +6,7 @@ import FontManager 1.0
 import "."
 import "../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelMDCheckupModel 1.0
 
 UiPanel {
@@ -18,11 +18,11 @@ UiPanel {
     {
         mdCheckupModel.onCommandStartNextStep();
 
-        if(mdCheckupModel.step < EnumDefine.CHECKUP_RESULT_STEP && mdCheckupModel.step > EnumDefine.CHECKUP_STEP_INIT)
+        if(mdCheckupModel.step < QmlEnumDef.CHECKUP_RESULT_STEP && mdCheckupModel.step > QmlEnumDef.CHECKUP_STEP_INIT)
         {
             aniCount.restart();
         }
-        else if(mdCheckupModel.step == EnumDefine.CHECKUP_RESULT_STEP)
+        else if(mdCheckupModel.step == QmlEnumDef.CHECKUP_RESULT_STEP)
         {
             finishCheckup();
         }
@@ -60,7 +60,7 @@ UiPanel {
 
         onFinished:
         {
-            if(mdCheckupModel.step == EnumDefine.CHECKUP_INIT || mdCheckupModel.step == EnumDefine.CHECKUP_RESULT_STEP)
+            if(mdCheckupModel.step == QmlEnumDef.CHECKUP_INIT || mdCheckupModel.step == QmlEnumDef.CHECKUP_RESULT_STEP)
                 return;
 
             mdCheckupModel.onCommandTimeout();
@@ -91,7 +91,7 @@ UiPanel {
         anchors.topMargin: 20
 
         clip: true
-        type : EnumDefine.PANEL_TYPE_DROP
+        type : QmlEnumDef.PANEL_TYPE_DROP
 
 
         UiLabelSystem{
@@ -155,7 +155,7 @@ UiPanel {
             anchors.verticalCenterOffset: -60
             anchors.verticalCenter: parent.verticalCenter
 
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
             width : 200
             textValue: mdCheckupModel.step === 0 ? qsTr("Start") : qsTr("Retry")
 
@@ -194,7 +194,7 @@ UiPanel {
         anchors.top: panelMessageBox.bottom
         anchors.topMargin: 0
 
-        visible: mdCheckupModel.step == EnumDefine.CHECKUP_RESULT_STEP
+        visible: mdCheckupModel.step == QmlEnumDef.CHECKUP_RESULT_STEP
 
         UiLabelContent
         {
@@ -263,7 +263,7 @@ UiPanel {
         anchors.top: panelMessageBox.bottom
         anchors.topMargin: 0
 
-        visible: mdCheckupModel.step != EnumDefine.CHECKUP_RESULT_STEP
+        visible: mdCheckupModel.step != QmlEnumDef.CHECKUP_RESULT_STEP
 
         Item{
             width : 305

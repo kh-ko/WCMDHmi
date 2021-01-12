@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 import "../../control/"
@@ -39,7 +39,7 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         title : qsTr("Trends graph option")
 
@@ -190,7 +190,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
             textValue: qsTr("Apply")
 
             onSignalEventClicked: {
@@ -208,7 +208,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
             textValue: qsTr("Cancle")
 
             onSignalEventClicked: {

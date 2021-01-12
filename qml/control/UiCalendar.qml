@@ -4,7 +4,6 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtGraphicalEffects 1.0
 import FontManager 1.0
-import EnumDefine 1.0
 import MouseEventSpy 1.0
 
 Calendar{

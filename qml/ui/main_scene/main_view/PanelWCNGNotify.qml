@@ -2,13 +2,14 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import EnumDef 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 
 Item {
 
     property int value : 100100
-    property int eventType : EnumDefine.WEIGHT_OVER_TYPE
+    property int eventType : EnumDef.ET_WEIGHT_OVER
     id : panel
 
     height : 340
@@ -123,7 +124,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
             textValue : qsTr("Confirm")
 
             onSignalEventClicked:

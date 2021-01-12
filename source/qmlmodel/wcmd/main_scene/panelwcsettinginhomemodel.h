@@ -2,7 +2,7 @@
 #define PANELWCSETTINGINHOMEMODEL_H
 
 #include <QObject>
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 class PanelWCSettingInHomeModel : public QObject
@@ -140,7 +140,7 @@ public slots:
 
         int ret = pProductSP->editPD(editPD);
 
-        if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
+        if(ret == EnumDef::PDERR_NONE)
         {
             setIsEditUnderWeight (false);
             setIsEditNormalWeight(false);

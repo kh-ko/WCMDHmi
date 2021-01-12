@@ -6,7 +6,7 @@
 #include <QThread>
 #include <QDateTime>
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 
 class HistoryBackupThread : public QObject
 {
@@ -55,7 +55,7 @@ private:
     void startUsbCheckTimer();
     void stopUsbCheckTimer();
     void backupProc();
-    void backupComplete(EnumDefine::BackupResult result);
+    void backupComplete(QmlEnumDef::BackupResult result);
 };
 
 #endif // HISTORYBACKUPTHREAD_H

@@ -2,19 +2,19 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 
 
 Item {
-    property int    viewMode           : EnumDefine.WC_VIEWMODE_CURRENT
+    property int    viewMode           : EnumDef.WC_VIEWMODE_CURRENT
     property string errorTime          : "23:10:10"
-    property int    errorType          : EnumDefine.WEIGHT_UNDER_TYPE
+    property int    errorType          : EnumDef.ET_WEIGHT_UNDER
     property int    errorValue         : 999999
     property int    normalWeight       : 50
     property int    senstivity         : 99
 
-    property real   value              :  viewMode === EnumDefine.WC_VIEWMODE_DELTA ? ((errorValue - normalWeight) / 1000) : ((errorValue) / 1000)
+    property real   value              :  viewMode === EnumDef.WC_VIEWMODE_DELTA ? ((errorValue - normalWeight) / 1000) : ((errorValue) / 1000)
 
     signal signalEventClickedLastError();
     id : panel
@@ -47,7 +47,7 @@ Item {
             anchors.leftMargin: 20
             anchors.verticalCenter: parent.verticalCenter
 
-            visible: panel.errorType === EnumDefine.WEIGHT_NORMAL_TYPE ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
             fillMode: Image.PreserveAspectFit
         }
 
@@ -61,7 +61,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            visible: panel.errorType === EnumDefine.WEIGHT_NORMAL_TYPE ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
             textValue : panel.errorTime
         }
 
@@ -74,13 +74,13 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
 
-            source: panel.errorType === EnumDefine.WEIGHT_UNDER_TYPE    ? "img_panelevent/wc_down.png" :
-                    panel.errorType === EnumDefine.WEIGHT_OVER_TYPE     ? "img_panelevent/wc_up.png" :
-                    panel.errorType === EnumDefine.METAL_DETECT_TYPE    ? "img_panelevent/metaldetect.png" : ""
+            source: panel.errorType === EnumDef.ET_WEIGHT_UNDER    ? "img_panelevent/wc_down.png" :
+                    panel.errorType === EnumDef.ET_WEIGHT_OVER     ? "img_panelevent/wc_up.png" :
+                    panel.errorType === EnumDef.ET_METAL_DETECT    ? "img_panelevent/metaldetect.png" : ""
 
             fillMode: Image.PreserveAspectFit
 
-            visible: panel.errorType === EnumDefine.WEIGHT_NORMAL_TYPE ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
         }
 
 
@@ -93,9 +93,9 @@ Item {
             anchors.verticalCenter: eventIcon.verticalCenter
 
             horizontalAlignment : Text.AlignRight
-            textValue : (panel.errorType === EnumDefine.WEIGHT_UNDER_TYPE || panel.errorType === EnumDefine.WEIGHT_OVER_TYPE)? viewMode === EnumDefine.WC_VIEWMODE_DELTA && value > 0 ? "+" + value.toLocaleString(ViewManager.locale, 'f', 1) + " g": value.toLocaleString(ViewManager.locale, 'f', 1) + " g":
-                        panel.errorType === EnumDefine.METAL_DETECT_TYPE    ? qsTr("Metal detect") :
-                        panel.errorType === EnumDefine.WEIGHT_ETCERROR_TYPE || panel.errorType === EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE? qsTr("Etc error") : ""
+            textValue : (panel.errorType === EnumDef.ET_WEIGHT_UNDER || panel.errorType === EnumDef.ET_WEIGHT_OVER)? viewMode === EnumDef.WC_VIEWMODE_DELTA && value > 0 ? "+" + value.toLocaleString(ViewManager.locale, 'f', 1) + " g": value.toLocaleString(ViewManager.locale, 'f', 1) + " g":
+                        panel.errorType === EnumDef.ET_METAL_DETECT  ? qsTr("Metal detect") :
+                        panel.errorType === EnumDef.ET_WEIGHT_ETCERROR || panel.errorType === EnumDef.ET_WEIGHT_ETC_METAL_ERROR? qsTr("Etc error") : ""
         }
 
         MouseArea{

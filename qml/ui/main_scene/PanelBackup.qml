@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls.Universal 2.12
 import QtQuick.Controls 2.3
 
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import FontManager 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
@@ -37,31 +37,31 @@ Item{
 
             switch(error)
             {
-            case EnumDefine.BACKUP_NONE_ERROR:
+            case QmlEnumDef.BACKUP_NONE_ERROR:
                 ViewManager.toast.show(qsTr("Backup complete."))
                 break;
 
-            case EnumDefine.USB_ERROR:
+            case QmlEnumDef.USB_ERROR:
                 ViewManager.toast.show(qsTr("Please check USB."))
                 break;
 
-            case EnumDefine.READ_ERROR:
+            case QmlEnumDef.READ_ERROR:
                 ViewManager.toast.show(qsTr("Please check database."))
                 break;
 
-            case EnumDefine.BACKUP_ING:
+            case QmlEnumDef.BACKUP_ING:
                 ViewManager.toast.show(qsTr("Backup is already in progress."))
                 break;
 
-            case EnumDefine.DB_OPEN_FAIL:
+            case QmlEnumDef.DB_OPEN_FAIL:
                 ViewManager.toast.show(qsTr("Please check database."))
                 break;
 
-            case EnumDefine.BACKUP_CANCLE:
+            case QmlEnumDef.BACKUP_CANCLE:
                 ViewManager.toast.show(qsTr("Backup is canceled."))
                 break;
 
-            case EnumDefine.BACKUP_UNKNOW_ERROR:
+            case QmlEnumDef.BACKUP_UNKNOW_ERROR:
                 ViewManager.toast.show(qsTr("Unknow error is occured."))
                 break;
             }
@@ -101,7 +101,7 @@ Item{
         anchors.leftMargin: 10
 
         visible: backupModel.isProc
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         title: qsTr("Backup progress")
 
@@ -171,7 +171,7 @@ Item{
         anchors.horizontalCenter: parent.horizontalCenter
 
         visible: backupModel.isShowInterface
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         title: qsTr("Backup")
 
@@ -257,7 +257,7 @@ Item{
             anchors.bottomMargin: 20
 
             visible: !backupModel.isProc
-            type: EnumDefine.BUTTON_TYPE_BLUE
+            type: QmlEnumDef.BUTTON_TYPE_BLUE
 
             onSignalEventClicked: {
                 backupModel.onCommandBackup();
@@ -274,7 +274,7 @@ Item{
             anchors.bottomMargin: 20
 
             visible: backupModel.isProc
-            type: EnumDefine.BUTTON_TYPE_POPUP
+            type: QmlEnumDef.BUTTON_TYPE_POPUP
 
             onSignalEventClicked: {
                 backupModel.onCommandCloseInterface();
@@ -293,7 +293,7 @@ Item{
 
             //visible: backupModel.isProc
 
-            type: EnumDefine.BUTTON_TYPE_POPUP
+            type: QmlEnumDef.BUTTON_TYPE_POPUP
 
             onSignalEventClicked: {
 

@@ -5,7 +5,6 @@ import "."
 import "../../../control"
 import "./graph"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
 import PanelWCGraphModel 1.0
 
 UiPanel {

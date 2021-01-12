@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include "source/service/def/datetimeform.h"
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 class PanelMDCheckupModel : public QObject
@@ -24,12 +24,12 @@ public:
     int     mStep            = 0;
     QString mChekcupDateTime = "";
     bool    mIsPass          = false;
-    int     mFeStep01State   = EnumDefine::MDCheckUpState::CHECKUP_INIT;
-    int     mFeStep02State   = EnumDefine::MDCheckUpState::CHECKUP_INIT;
-    int     mFeStep03State   = EnumDefine::MDCheckUpState::CHECKUP_INIT;
-    int     mSusStep01State  = EnumDefine::MDCheckUpState::CHECKUP_INIT;
-    int     mSusStep02State  = EnumDefine::MDCheckUpState::CHECKUP_INIT;
-    int     mSusStep03State  = EnumDefine::MDCheckUpState::CHECKUP_INIT;
+    int     mFeStep01State   = QmlEnumDef::CHECKUP_INIT;
+    int     mFeStep02State   = QmlEnumDef::CHECKUP_INIT;
+    int     mFeStep03State   = QmlEnumDef::CHECKUP_INIT;
+    int     mSusStep01State  = QmlEnumDef::CHECKUP_INIT;
+    int     mSusStep02State  = QmlEnumDef::CHECKUP_INIT;
+    int     mSusStep03State  = QmlEnumDef::CHECKUP_INIT;
 
     int     getStep           (){ return mStep           ;}
     QString getChekcupDateTime(){ return mChekcupDateTime;}
@@ -64,7 +64,7 @@ public:
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
     }
 
     void reset()
@@ -72,12 +72,12 @@ public:
         setStep           (0);
         setChekcupDateTime("");
         setIsPass         (false);
-        setFeStep01State  ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
-        setFeStep02State  ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
-        setFeStep03State  ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
-        setSusStep01State ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
-        setSusStep02State ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
-        setSusStep03State ((int)EnumDefine::MDCheckUpState::CHECKUP_INIT);
+        setFeStep01State  ((int)QmlEnumDef::CHECKUP_INIT);
+        setFeStep02State  ((int)QmlEnumDef::CHECKUP_INIT);
+        setFeStep03State  ((int)QmlEnumDef::CHECKUP_INIT);
+        setSusStep01State ((int)QmlEnumDef::CHECKUP_INIT);
+        setSusStep02State ((int)QmlEnumDef::CHECKUP_INIT);
+        setSusStep03State ((int)QmlEnumDef::CHECKUP_INIT);
     }
 signals:
     void    signalEventChangedStep           (int      value);
@@ -97,7 +97,7 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_CHECKUP_RUN);
     }
     Q_INVOKABLE void onCommandCancle()
     {
@@ -105,13 +105,13 @@ public slots:
 
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
     }
     Q_INVOKABLE void onCommandStartNextStep()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        if(getStep() == EnumDefine::MDCheckUpStep::CHECKUP_RESULT_STEP)
+        if(getStep() == QmlEnumDef::CHECKUP_RESULT_STEP)
         {
             reset();
             return;
@@ -121,83 +121,83 @@ public slots:
 
         switch(mStep)
         {
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP01:
-            setFeStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
-            pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
+        case QmlEnumDef::CHECKUP_FE_STEP01:
+            setFeStep01State((int)QmlEnumDef::CHECKUP_CHECKING);
+            pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_CHECKUP_RUN);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP02:
-            setFeStep02State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
+        case QmlEnumDef::CHECKUP_FE_STEP02:
+            setFeStep02State((int)QmlEnumDef::CHECKUP_CHECKING);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP03:
-            setFeStep03State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
+        case QmlEnumDef::CHECKUP_FE_STEP03:
+            setFeStep03State((int)QmlEnumDef::CHECKUP_CHECKING);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP01:
-            setSusStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
+        case QmlEnumDef::CHECKUP_SUS_STEP01:
+            setSusStep01State((int)QmlEnumDef::CHECKUP_CHECKING);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP02:
-            setSusStep02State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
+        case QmlEnumDef::CHECKUP_SUS_STEP02:
+            setSusStep02State((int)QmlEnumDef::CHECKUP_CHECKING);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP03:
-            setSusStep03State((int)EnumDefine::MDCheckUpState::CHECKUP_CHECKING);
+        case QmlEnumDef::CHECKUP_SUS_STEP03:
+            setSusStep03State((int)QmlEnumDef::CHECKUP_CHECKING);
             break;
-        case EnumDefine::MDCheckUpStep::CHECKUP_RESULT_STEP:
+        case QmlEnumDef::CHECKUP_RESULT_STEP:
             {
                 DspEventDto event;
                 QDateTime now = QDateTime::currentDateTime();
 
-                setIsPass(getFeStep01State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
-                          getFeStep02State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
-                          getFeStep03State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
-                          getSusStep01State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
-                          getSusStep02State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS &&
-                          getSusStep03State() == (int)EnumDefine::MDCheckUpState::CHECKUP_PASS);
+                setIsPass(getFeStep01State() ==  (int)QmlEnumDef::CHECKUP_PASS &&
+                          getFeStep02State() ==  (int)QmlEnumDef::CHECKUP_PASS &&
+                          getFeStep03State() ==  (int)QmlEnumDef::CHECKUP_PASS &&
+                          getSusStep01State() == (int)QmlEnumDef::CHECKUP_PASS &&
+                          getSusStep02State() == (int)QmlEnumDef::CHECKUP_PASS &&
+                          getSusStep03State() == (int)QmlEnumDef::CHECKUP_PASS);
 
                 setChekcupDateTime(now.toString(DATE_TIME_FMT));
 
                 event.mEvent.mEventValue = getIsPass() ? (0x01 << 6) : 0x00 ;
 
-                if(getFeStep01State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getFeStep01State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 5);
                 }
 
-                if(getFeStep02State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getFeStep02State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 4);
                 }
 
-                if(getFeStep03State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getFeStep03State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 3);
                 }
 
-                if(getSusStep01State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getSusStep01State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 2);
                 }
 
-                if(getSusStep02State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getSusStep02State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01 << 1);
                 }
 
-                if(getSusStep03State() == EnumDefine::MDCheckUpState::CHECKUP_PASS)
+                if(getSusStep03State() == QmlEnumDef::CHECKUP_PASS)
                 {
                     event.mEvent.mEventValue = event.mEvent.mEventValue | (0x01);
                 }
 
-                event.mEvent.mEventType = EnumDefine::EventType::METAL_CHECKUP_TYPE;
+                event.mEvent.mEventType = EnumDef::ET_METAL_CHECKUP;
 
                 if(mDspSeq != 0)
                     pEventHisSP->onAddedDspEvent(mDspSeq, event);
             }
             if(mDspSeq != 0)
-                pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+                pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
 
             break;
         }
@@ -206,33 +206,33 @@ public slots:
     {
         switch(mStep)
         {
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP01:
-            setFeStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_FE_STEP01:
+            setFeStep01State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP02:
-            setFeStep02State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_FE_STEP02:
+            setFeStep02State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP03:
-            setFeStep03State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_FE_STEP03:
+            setFeStep03State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP01:
-            setSusStep01State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_SUS_STEP01:
+            setSusStep01State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP02:
-            setSusStep02State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_SUS_STEP02:
+            setSusStep02State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP03:
-            setSusStep03State((int)EnumDefine::MDCheckUpState::CHECKUP_FAIL);
+        case QmlEnumDef::CHECKUP_SUS_STEP03:
+            setSusStep03State((int)QmlEnumDef::CHECKUP_FAIL);
             emit signalEventStepComplete();
             break;
         }
@@ -242,17 +242,17 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        EnumDefine::MDCheckUpState result;
+        QmlEnumDef::MDCheckUpState result;
 
-        if(dto.mEvent.mEventType == EnumDefine::EventType::METAL_DETECT_CHECK_TYPE)
+        if(dto.mEvent.mEventType == EnumDef::ET_METAL_DETECT_CHECK)
         {
             qDebug() << "MD CHECK UP PASS !";
-            result = EnumDefine::MDCheckUpState::CHECKUP_PASS;
+            result = QmlEnumDef::CHECKUP_PASS;
         }
-        else if(dto.mEvent.mEventType == EnumDefine::EventType::METAL_TRADE_CHECK_TYPE)
+        else if(dto.mEvent.mEventType == EnumDef::ET_METAL_TRADE_CHECK)
         {
             qDebug() << "MD CHECK UP FAIL !";
-            result = EnumDefine::MDCheckUpState::CHECKUP_FAIL;
+            result = QmlEnumDef::CHECKUP_FAIL;
         }
         else
         {
@@ -261,27 +261,27 @@ public slots:
 
         switch(mStep)
         {
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP01:
+        case QmlEnumDef::CHECKUP_FE_STEP01:
             setFeStep01State(result);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP02:
+        case QmlEnumDef::CHECKUP_FE_STEP02:
             setFeStep02State(result);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_FE_STEP03:
+        case QmlEnumDef::CHECKUP_FE_STEP03:
             setFeStep03State(result);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP01:
+        case QmlEnumDef::CHECKUP_SUS_STEP01:
             setSusStep01State(result);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP02:
+        case QmlEnumDef::CHECKUP_SUS_STEP02:
             setSusStep02State(result);
             break;
 
-        case EnumDefine::MDCheckUpStep::CHECKUP_SUS_STEP03:
+        case QmlEnumDef::CHECKUP_SUS_STEP03:
             setSusStep03State(result);
             break;
         }

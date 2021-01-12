@@ -2,12 +2,13 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import EnumDef 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import QtGraphicalEffects 1.0
 
 Item {
-    property int viewMode : EnumDefine.WC_VIEWMODE_CURRENT
+    property int viewMode : EnumDef.WC_VIEWMODE_CURRENT
     id : panel
     height: 352
     width: 158
@@ -47,13 +48,13 @@ Item {
 
         radius: 20
         border.width: 1
-        color : panel.viewMode === EnumDefine.WC_VIEWMODE_CURRENT ? "#0085FF" : "#333333"
+        color : panel.viewMode === EnumDef.WC_VIEWMODE_CURRENT ? "#0085FF" : "#333333"
 
         Image {
             anchors.verticalCenterOffset: -15
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            source:panel.viewMode === EnumDefine.WC_VIEWMODE_CURRENT ? "img_btn/btn_number_s.png" : "img_btn/btn_number_n.png"
+            source:panel.viewMode === EnumDef.WC_VIEWMODE_CURRENT ? "img_btn/btn_number_s.png" : "img_btn/btn_number_n.png"
         }
 
         Rectangle{
@@ -84,13 +85,13 @@ Item {
 
         radius: 20
         border.width: 1
-        color : panel.viewMode === EnumDefine.WC_VIEWMODE_TRENDS ? "#0085FF" : "#333333"
+        color : panel.viewMode === EnumDef.WC_VIEWMODE_TRENDS ? "#0085FF" : "#333333"
 
         Image {
             anchors.verticalCenterOffset: 15
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            source: panel.viewMode === EnumDefine.WC_VIEWMODE_TRENDS? "img_btn/btn_trends_s.png" : "img_btn/btn_trends_n.png"
+            source: panel.viewMode === EnumDef.WC_VIEWMODE_TRENDS? "img_btn/btn_trends_s.png" : "img_btn/btn_trends_n.png"
         }
 
         Rectangle{
@@ -121,12 +122,12 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         border.width: 1
-        color : panel.viewMode === EnumDefine.WC_VIEWMODE_DELTA ? "#0085FF" : "#333333"
+        color : panel.viewMode === EnumDef.WC_VIEWMODE_DELTA ? "#0085FF" : "#333333"
 
         Image {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            source: panel.viewMode === EnumDefine.WC_VIEWMODE_DELTA ? "img_btn/btn_number_delta_s.png" : "img_btn/btn_number_delta_n.png"
+            source: panel.viewMode === EnumDef.WC_VIEWMODE_DELTA ? "img_btn/btn_number_delta_s.png" : "img_btn/btn_number_delta_n.png"
         }
 
         Rectangle{

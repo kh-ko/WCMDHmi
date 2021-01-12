@@ -5,7 +5,8 @@ import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
 import FontManager 1.0
-import EnumDefine 1.0
+import EnumDef 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import PanelFullMDModel 1.0
 
@@ -45,7 +46,7 @@ Item {
         onSignalEventAddedValue: {
             barGraph.updateGraph();
 
-            if(type === EnumDefine.METAL_DETECT_TYPE)
+            if(type === EnumDef.ET_METAL_DETECT)
             {
                 showAni.start();
                 timer.restart();
@@ -96,7 +97,7 @@ Item {
         id: bg
         anchors.fill: parent
 
-        type : EnumDefine.PANEL_TYPE_BIG_MD
+        type : QmlEnumDef.PANEL_TYPE_BIG_MD
 
         Rectangle {
             id: totalArea

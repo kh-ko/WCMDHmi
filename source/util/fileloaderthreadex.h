@@ -29,6 +29,13 @@ class FileLoaderThreadEx : public QObject
 {
     Q_OBJECT
 public:
+    enum eFileLoaderErr
+    {
+        FILE_LOADER_ERR_NONE         = 0,
+        FILE_LOADER_ERR_CANNOT_OPEN = 1,
+        FILE_LOADER_ERR_NOT_EXIST   = 2
+    };
+
     FileLoaderThreadExWorker * mpWoker;
     QThread mThread;
 

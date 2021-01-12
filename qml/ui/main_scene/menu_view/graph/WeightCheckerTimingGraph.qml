@@ -4,7 +4,7 @@ import ViewManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelWCGraphModel 1.0
 
 UiPanel {
@@ -13,7 +13,7 @@ UiPanel {
     id : panel
     clip : true
 
-    type : EnumDefine.PANEL_TYPE_DROP
+    type : QmlEnumDef.PANEL_TYPE_DROP
 
 
     Component.onCompleted: {

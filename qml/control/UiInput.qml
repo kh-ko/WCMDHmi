@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import ViewManager 1.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import QtGraphicalEffects 1.0
 
 Item {
@@ -72,7 +72,7 @@ Item {
         font.pixelSize      : textContent.font.pixelSize
         fontSizeMode        : textContent.fontSizeMode
 
-        visible: textInputType === EnumDefine.PASSWD_MODE ? true : false
+        visible: textInputType === QmlEnumDef.PASSWD_MODE ? true : false
 
         text : "********************".slice(20 - textContent.text.length)
     }
@@ -98,7 +98,7 @@ Item {
         font.pixelSize  : 25
         fontSizeMode    : Text.FixedSize
 
-        visible: textInputType === EnumDefine.PASSWD_MODE ? false : true
+        visible: textInputType === QmlEnumDef.PASSWD_MODE ? false : true
 
         text : "test"
     }

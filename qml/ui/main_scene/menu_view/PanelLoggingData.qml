@@ -5,14 +5,14 @@ import "."
 import "../../../control"
 import "./LoggingData"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import LoggingDataModel 1.0
 
 UiPanel {
-    property int selDevice : EnumDefine.DEVICE_METAL_DETECTOR // isWeightChecker
+    property int selDevice : QmlEnumDef.DEVICE_METAL_DETECTOR // isWeightChecker
     property bool isViewMode : false
     property bool isAdmin : false
-    title: selDevice == EnumDefine.DEVICE_METAL_DETECTOR ? qsTr("Metal detector") : qsTr("Weight checker")
+    title: selDevice == QmlEnumDef.DEVICE_METAL_DETECTOR ? qsTr("Metal detector") : qsTr("Weight checker")
 
     id : panel
 
@@ -28,7 +28,7 @@ UiPanel {
 
     LoggingDataModel{
         id : loggingDataModel
-        isWeightEvent: panel.selDevice == EnumDefine.DEVICE_WEIGHT_CHECKER
+        isWeightEvent: panel.selDevice == QmlEnumDef.DEVICE_WEIGHT_CHECKER
 
         onSignalEventCompletedSearch: {
 
@@ -266,7 +266,7 @@ UiPanel {
             anchors.rightMargin: 0
             height : 40
 
-            isWeightColumVisible : panel.selDevice == EnumDefine.DEVICE_WEIGHT_CHECKER
+            isWeightColumVisible : panel.selDevice == QmlEnumDef.DEVICE_WEIGHT_CHECKER
             model : loggingDataModel
             idx   : dataIdx
         }

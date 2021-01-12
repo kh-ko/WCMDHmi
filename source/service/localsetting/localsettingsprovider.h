@@ -47,8 +47,6 @@ private:
 
     const QString mDevCommSettingLampTimeKey                = "dspsetting/LampTime"               ;
     const QString mDevCommSettingBuzzerTimeKey              = "dspsetting/BuzzerTime"             ;
-    const QString mDevCommSettingRejectorRunTimeRatioKey    = "dspsetting/RejectorRunTimeRatio"   ;
-    const QString mDevCommSettingRejectorOpenTimeKey        = "dspsetting/RejectorOpenTime"       ;
     const QString mDevCommSettingSpeedConverterKey          = "dspsetting/SpeedConverter"         ;
     const QString mDevCommSettingMotorDirectionKey          = "dspsetting/MotorDirection"         ;
     const QString mDevCommSettingMotorTypeKey               = "dspsetting/MotorType"              ;
@@ -56,6 +54,14 @@ private:
     const QString mDevCommSettingMotorMDRatioKey            = "dspsetting/MotorMDRatio"           ;
     const QString mDevCommSettingMotorWCRatioKey            = "dspsetting/MotorWCRatio"           ;
     const QString mDevCommSettingMotorRJRatioKey            = "dspsetting/MotorRJRatio"           ;
+    const QString mDevCommSettingSorter01RunTimeRatioKey    = "dspsetting/Sorter01RunTimeRatio"   ;
+    const QString mDevCommSettingSorter01OpenTimeKey        = "dspsetting/Sorter01OpenTime"       ;
+    const QString mDevCommSettingSorter02RunTimeRatioKey    = "dspsetting/Sorter02RunTimeRatio"   ;
+    const QString mDevCommSettingSorter02OpenTimeKey        = "dspsetting/Sorter02OpenTime"       ;
+    const QString mDevCommSettingSorter03RunTimeRatioKey    = "dspsetting/Sorter03RunTimeRatio"   ;
+    const QString mDevCommSettingSorter03OpenTimeKey        = "dspsetting/Sorter03OpenTime"       ;
+    const QString mDevCommSettingSorter04RunTimeRatioKey    = "dspsetting/Sorter04RunTimeRatio"   ;
+    const QString mDevCommSettingSorter04OpenTimeKey        = "dspsetting/Sorter04OpenTime"       ;
 
     const QString mDevWCSettingDisplayStabilityKey          = "dspsetting/DisplayStability"       ;
     const QString mDevWCSettingMeasureCueSignKey            = "dspsetting/MeasureCueSign"         ;
@@ -75,21 +81,24 @@ private:
     const QString mDevMDSettingSensorCntKey                 = "dspsetting/SensorCnt"              ;
 
     const QString mDevSizeSettingSensorLengthKey            = "dspsetting/SensorLength"           ;
-    const QString mDevSizeSettingDistanceToRejectorKey      = "dspsetting/DistanceToRejector"     ;
     const QString mDevSizeSettingDistanceToWeightCheckerKey = "dspsetting/DistanceToWeightChecker";
     const QString mDevSizeSettingDistancePhotoToSensorKey   = "dspsetting/DistancePhotoToSensor"  ;
     const QString mDevSizeSettingDistanceBtwSensorKey       = "dspsetting/DistanceBtwSensor"      ;
-    //const QString "dspsetting/RejectorReadyTime"                                                ;
+    const QString mDevSizeSettingDistToSorter01Key          = "dspsetting/DistToSorter01"         ;
+    const QString mDevSizeSettingDistToSorter02Key          = "dspsetting/DistToSorter02"         ;
+    const QString mDevSizeSettingDistToSorter03Key          = "dspsetting/DistToSorter03"         ;
+    const QString mDevSizeSettingDistToSorter04Key          = "dspsetting/DistToSorter04"         ;
 
     const QString mHMISettingSWPowerOffKey                  = "hmisetting/SWPowerOff"             ;
     const QString mHMISettingIsDayModeKey                   = "hmisetting/IsDayMode"              ;
     const QString mHMISettingIsDebugModeKey                 = "hmisetting/IsDebugMode"            ;
-    const QString mHMISettingDynamicFactorKey               = "hmisetting/DynamicFactor"          ;
     const QString mHMISettingSimpleSenstivity01Key          = "hmisetting/SimpleSenstivity01"     ;
     const QString mHMISettingSimpleSenstivity02Key          = "hmisetting/SimpleSenstivity02"     ;
     const QString mHMISettingSimpleSenstivity03Key          = "hmisetting/SimpleSenstivity03"     ;
     const QString mHMISettingSimpleSenstivity04Key          = "hmisetting/SimpleSenstivity04"     ;
     const QString mHMISettingSimpleSenstivity05Key          = "hmisetting/SimpleSenstivity05"     ;
+
+    const QString mEtcSettingMaxErrorKey                    = "etcsetting/MaxError"               ;
 
 public:
     static LocalSettingSProvider * getInstance()
@@ -114,6 +123,7 @@ public:
     QDate                    mBackupLastDate ;
     DevSettingDto            mDevSetting     ;
     HMISettingDto            mHMISetting     ;
+    quint32                  mMaxError       ;
 
     explicit LocalSettingSProvider(QObject * parent = nullptr):QObject(parent)
     {
@@ -234,6 +244,15 @@ public:
         emit signalEventChangedHMISetting(mHMISetting);
     }
 
+    void setMaxError(quint32 value)
+    {
+        CHECK_FALSE_RETURN(mIsRunning)
+
+        internalSetMaxError(value);
+
+        emit signalEventChangedMaxError(mMaxError);
+    }
+
 private slots:
     void onStartLanguageLoad()
     {
@@ -289,8 +308,6 @@ private:
 
         mDevSetting.mDspForm.mCommSetting.mBuzzerTime              = mpSetting->value(mDevCommSettingBuzzerTimeKey             , pDefaultSP->DEV_SETTING_BUZZERTIME                                 ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mLampTime                = mpSetting->value(mDevCommSettingLampTimeKey               , pDefaultSP->DEV_SETTING_LAMPTIME                                   ).toInt()   ;
-        mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio    = mpSetting->value(mDevCommSettingRejectorRunTimeRatioKey   , pDefaultSP->DEV_SETTING_RJ_RUN_TIME_RATIO                          ).toInt()   ;
-        mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime        = mpSetting->value(mDevCommSettingRejectorOpenTimeKey       , pDefaultSP->DEV_SETTING_RJ_OPENTIME                                ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSpeedConverter          = mpSetting->value(mDevCommSettingSpeedConverterKey         , pDefaultSP->DEV_SETTING_SPEED_CONVERTER                            ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mMotorDirection          = mpSetting->value(mDevCommSettingMotorDirectionKey         , pDefaultSP->DEV_SETTING_MOTOR_DIR                                  ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mMotorType               = mpSetting->value(mDevCommSettingMotorTypeKey              , pDefaultSP->DEV_SETTING_MOTOR_TYPE                                 ).toInt()   ;
@@ -298,6 +315,14 @@ private:
         mDevSetting.mDspForm.mCommSetting.mMotorMDRatio            = mpSetting->value(mDevCommSettingMotorMDRatioKey           , pDefaultSP->DEV_SETTING_MOTOR_MD_RATIO                             ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mMotorWCRatio            = mpSetting->value(mDevCommSettingMotorWCRatioKey           , pDefaultSP->DEV_SETTING_MOTOR_WC_RATIO                             ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mMotorRJRatio            = mpSetting->value(mDevCommSettingMotorRJRatioKey           , pDefaultSP->DEV_SETTING_MOTOR_RJ_RATIO                             ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio    = mpSetting->value(mDevCommSettingSorter01RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_01_RUNTIME_RATIO                    ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime        = mpSetting->value(mDevCommSettingSorter01OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_01_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio    = mpSetting->value(mDevCommSettingSorter02RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_02_RUNTIME_RATIO                    ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime        = mpSetting->value(mDevCommSettingSorter02OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_02_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio    = mpSetting->value(mDevCommSettingSorter03RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_03_RUNTIME_RATIO                    ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime        = mpSetting->value(mDevCommSettingSorter03OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_03_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio    = mpSetting->value(mDevCommSettingSorter04RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_04_RUNTIME_RATIO                    ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime        = mpSetting->value(mDevCommSettingSorter04OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_04_OPENTIME                         ).toInt()   ;
 
         mDevSetting.mDspForm.mWCSetting.mDisplayStability          = mpSetting->value(mDevWCSettingDisplayStabilityKey         , pDefaultSP->DEV_SETTING_DP_STABILITY                               ).toInt()   ;
         mDevSetting.mDspForm.mWCSetting.mMeasureCueSign            = mpSetting->value(mDevWCSettingMeasureCueSignKey           , pDefaultSP->DEV_SETTING_MEASURE_CUE_SIGN                           ).toInt()   ;
@@ -317,20 +342,24 @@ private:
         mDevSetting.mDspForm.mMDSetting.mSensorCnt                 = mpSetting->value(mDevMDSettingSensorCntKey                , pDefaultSP->DEV_SETTING_SENSOR_CNT                                 ).toInt()   ;
 
         mDevSetting.mDspForm.mSizeSetting.mSensorLength            = mpSetting->value(mDevSizeSettingSensorLengthKey           , pDefaultSP->DEV_SETTING_SENSOR_LEN                                 ).toInt()   ;
-        mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector      = mpSetting->value(mDevSizeSettingDistanceToRejectorKey     , pDefaultSP->DEV_SETTING_DIST_TO_RJ                                 ).toInt()   ;
         mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor       = mpSetting->value(mDevSizeSettingDistanceBtwSensorKey      , pDefaultSP->DEV_SETTING_DIST_BTW_SENSOR                            ).toInt()   ;
         mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker = mpSetting->value(mDevSizeSettingDistanceToWeightCheckerKey, pDefaultSP->DEV_SETTING_DIST_TO_WC                                 ).toInt()   ;
         mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor   = mpSetting->value(mDevSizeSettingDistancePhotoToSensorKey  , pDefaultSP->DEV_SETTING_DIST_TO_PHOTO_SENSOR                       ).toInt()   ;
+        mDevSetting.mDspForm.mSizeSetting.mDistToSorter01          = mpSetting->value(mDevSizeSettingDistToSorter01Key         , pDefaultSP->DEV_SETTING_DIST_TO_SORTER_01                          ).toInt()   ;
+        mDevSetting.mDspForm.mSizeSetting.mDistToSorter02          = mpSetting->value(mDevSizeSettingDistToSorter02Key         , pDefaultSP->DEV_SETTING_DIST_TO_SORTER_02                          ).toInt()   ;
+        mDevSetting.mDspForm.mSizeSetting.mDistToSorter03          = mpSetting->value(mDevSizeSettingDistToSorter03Key         , pDefaultSP->DEV_SETTING_DIST_TO_SORTER_03                          ).toInt()   ;
+        mDevSetting.mDspForm.mSizeSetting.mDistToSorter04          = mpSetting->value(mDevSizeSettingDistToSorter04Key         , pDefaultSP->DEV_SETTING_DIST_TO_SORTER_04                          ).toInt()   ;
 
         mHMISetting.mSWPowerOff                                    = mpSetting->value(mHMISettingSWPowerOffKey                 , pDefaultSP->HMI_SETTING_SW_POWER_OFF                               ).toBool()  ;
         mHMISetting.mIsDayMode                                     = mpSetting->value(mHMISettingIsDayModeKey                  , pDefaultSP->HMI_SETTING_IS_DAY_MODE                                ).toBool()  ;
         mHMISetting.mIsDebugMode                                   = mpSetting->value(mHMISettingIsDebugModeKey                , pDefaultSP->HMI_SETTING_IS_DEBUG_MODE                              ).toBool()  ;
-        mHMISetting.mDynamicFactor                                 = mpSetting->value(mHMISettingDynamicFactorKey              , pDefaultSP->HMI_SETTING_DYNAMIC_FACTOR                             ).toInt()   ;
         mHMISetting.mSimpleSenstivity01                            = mpSetting->value(mHMISettingSimpleSenstivity01Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_01                       ).toInt()   ;
         mHMISetting.mSimpleSenstivity02                            = mpSetting->value(mHMISettingSimpleSenstivity02Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_02                       ).toInt()   ;
         mHMISetting.mSimpleSenstivity03                            = mpSetting->value(mHMISettingSimpleSenstivity03Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_03                       ).toInt()   ;
         mHMISetting.mSimpleSenstivity04                            = mpSetting->value(mHMISettingSimpleSenstivity04Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_04                       ).toInt()   ;
         mHMISetting.mSimpleSenstivity05                            = mpSetting->value(mHMISettingSimpleSenstivity05Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_05                       ).toInt()   ;
+
+        mMaxError                                                  = mpSetting->value(mEtcSettingMaxErrorKey                   , pDefaultSP->ETC_SETTING_MAX_ERROR                                  ).toInt()   ;
 
         internalSetInformation    (mInformation);
         internalSetSecurity       (mSecuritySetting);
@@ -341,6 +370,7 @@ private:
         internalSetBackupLastDate (mBackupLastDate);
         internalSetDevSetting     (mDevSetting);
         internalSetHMISetting     (mHMISetting);
+        internalSetMaxError       (mMaxError);
     }
 
     void internalSetInformation(InformationDto dto)
@@ -409,8 +439,6 @@ private:
 
         mpSetting->setValue(mDevCommSettingBuzzerTimeKey             , dto.mDspForm.mCommSetting.mBuzzerTime             );
         mpSetting->setValue(mDevCommSettingLampTimeKey               , dto.mDspForm.mCommSetting.mLampTime               );
-        mpSetting->setValue(mDevCommSettingRejectorRunTimeRatioKey   , dto.mDspForm.mCommSetting.mRejectorRunTimeRatio   );
-        mpSetting->setValue(mDevCommSettingRejectorOpenTimeKey       , dto.mDspForm.mCommSetting.mRejectorOpenTime       );
         mpSetting->setValue(mDevCommSettingSpeedConverterKey         , dto.mDspForm.mCommSetting.mSpeedConverter         );
         mpSetting->setValue(mDevCommSettingMotorDirectionKey         , dto.mDspForm.mCommSetting.mMotorDirection         );
         mpSetting->setValue(mDevCommSettingMotorTypeKey              , dto.mDspForm.mCommSetting.mMotorType              );
@@ -418,6 +446,14 @@ private:
         mpSetting->setValue(mDevCommSettingMotorMDRatioKey           , dto.mDspForm.mCommSetting.mMotorMDRatio           );
         mpSetting->setValue(mDevCommSettingMotorWCRatioKey           , dto.mDspForm.mCommSetting.mMotorWCRatio           );
         mpSetting->setValue(mDevCommSettingMotorRJRatioKey           , dto.mDspForm.mCommSetting.mMotorRJRatio           );
+        mpSetting->setValue(mDevCommSettingSorter01RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter01RunTimeRatio   );
+        mpSetting->setValue(mDevCommSettingSorter01OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter01OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter02RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter02RunTimeRatio   );
+        mpSetting->setValue(mDevCommSettingSorter02OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter02OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter03RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter03RunTimeRatio   );
+        mpSetting->setValue(mDevCommSettingSorter03OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter03OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter04RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter04RunTimeRatio   );
+        mpSetting->setValue(mDevCommSettingSorter04OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter04OpenTime       );
 
         mpSetting->setValue(mDevWCSettingDisplayStabilityKey         , dto.mDspForm.mWCSetting.mDisplayStability         );
         mpSetting->setValue(mDevWCSettingMeasureCueSignKey           , dto.mDspForm.mWCSetting.mMeasureCueSign           );
@@ -437,10 +473,13 @@ private:
         mpSetting->setValue(mDevMDSettingSensorCntKey                , dto.mDspForm.mMDSetting.mSensorCnt                );
 
         mpSetting->setValue(mDevSizeSettingSensorLengthKey           , dto.mDspForm.mSizeSetting.mSensorLength           );
-        mpSetting->setValue(mDevSizeSettingDistanceToRejectorKey     , dto.mDspForm.mSizeSetting.mDistanceToRejector     );
         mpSetting->setValue(mDevSizeSettingDistanceBtwSensorKey      , dto.mDspForm.mSizeSetting.mDistanceBtwSensor      );
         mpSetting->setValue(mDevSizeSettingDistanceToWeightCheckerKey, dto.mDspForm.mSizeSetting.mDistanceToWeightChecker);
         mpSetting->setValue(mDevSizeSettingDistancePhotoToSensorKey  , dto.mDspForm.mSizeSetting.mDistancePhotoToSensor  );
+        mpSetting->setValue(mDevSizeSettingDistToSorter01Key         , dto.mDspForm.mSizeSetting.mDistToSorter01         );
+        mpSetting->setValue(mDevSizeSettingDistToSorter02Key         , dto.mDspForm.mSizeSetting.mDistToSorter02         );
+        mpSetting->setValue(mDevSizeSettingDistToSorter03Key         , dto.mDspForm.mSizeSetting.mDistToSorter03         );
+        mpSetting->setValue(mDevSizeSettingDistToSorter04Key         , dto.mDspForm.mSizeSetting.mDistToSorter04         );
     }
 
     void internalSetHMISetting(HMISettingDto dto)
@@ -450,13 +489,20 @@ private:
         mpSetting->setValue(mHMISettingSWPowerOffKey                 , dto.mSWPowerOff        );
         mpSetting->setValue(mHMISettingIsDayModeKey                  , dto.mIsDayMode         );
         mpSetting->setValue(mHMISettingIsDebugModeKey                , dto.mIsDebugMode       );
-        mpSetting->setValue(mHMISettingDynamicFactorKey              , dto.mDynamicFactor     );
         mpSetting->setValue(mHMISettingSimpleSenstivity01Key         , dto.mSimpleSenstivity01);
         mpSetting->setValue(mHMISettingSimpleSenstivity02Key         , dto.mSimpleSenstivity02);
         mpSetting->setValue(mHMISettingSimpleSenstivity03Key         , dto.mSimpleSenstivity03);
         mpSetting->setValue(mHMISettingSimpleSenstivity04Key         , dto.mSimpleSenstivity04);
         mpSetting->setValue(mHMISettingSimpleSenstivity05Key         , dto.mSimpleSenstivity05);
     }
+
+    void internalSetMaxError(quint32 value)
+    {
+        mMaxError = value;
+
+        mpSetting->setValue(mEtcSettingMaxErrorKey, value);
+    }
+
 signals:
     void signalEventStarted        ();
     void signalEventStopped        ();
@@ -469,5 +515,6 @@ signals:
     void signalEventChangedBackupLastDate(QDate date);
     void signalEventChangedDevSetting(DevSettingDto dto);
     void signalEventChangedHMISetting(HMISettingDto dto);
+    void signalEventChangedMaxError(quint32 value);
 };
 #endif // LOCALSETTINGSPROVIDER_H

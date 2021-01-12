@@ -5,7 +5,7 @@
 #include <QThread>
 #include <QMutex>
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 #include "source/util/etcutil.h"
 
@@ -116,7 +116,7 @@ public slots:
     }
     Q_INVOKABLE void onCommandSetSelectFilter(int value)
     {
-        setSelectFilter((EnumDefine::SearchFilter) value);
+        setSelectFilter((QmlEnumDef::SearchFilter) value);
     }
     Q_INVOKABLE void onCommandSetStartDate(int year, int month, int day)
     {
@@ -165,7 +165,7 @@ public slots:
     Q_INVOKABLE int onCommandGetEventItem(int idx)
     {
         if(idx > getTotalCnt() - 1 || idx < 0)
-            return EnumDefine::EventType::EVENT_NONE_TYPE;
+            return EnumDef::ET_NONE;
 
         int listIdx =  (getTotalCnt() - 1) - ((getCurrentPageIdx() * EVENT_LIST_CNT_PER_PAGE) + idx);
 
@@ -234,7 +234,7 @@ public  slots:
             if(!getIsWeightEvent() && (event.isWCEvent() || event.isWeightCarib()))
                 continue;
 
-            if(getSelectFilter() == EnumDefine::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE && event.isTrade())
+            if(getSelectFilter() == QmlEnumDef::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE && event.isTrade())
                 continue;
 
              mListItem[getTotalCnt()].mDateTime     = event.mDateTime.toString(TIME_FMT);
@@ -265,7 +265,7 @@ public:
     {
         QDate date = QDate::currentDate();
 
-        setSelectFilter(EnumDefine::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE);
+        setSelectFilter(QmlEnumDef::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE);
 
         setStartYear(date.year());
         setStartMonth(date.month());

@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 import FontManager 1.0
 import MainViewModel 1.0
@@ -167,7 +168,7 @@ Rectangle {
             width: 473
             height: 40
             color: debuggingModel.mDiffMotorDirection ? "#FF0000" :"#acacac"
-            text: qsTr("Transfer direction : ") + (debuggingModel.mMotorDirection == EnumDefine.MOTOR_DIRECTION_LEFT_TO_RIGHT ? "Left -> Rigth" : "Left <- Right")
+            text: qsTr("Transfer direction : ") + (debuggingModel.mMotorDirection === EnumDef.MOTOR_DIRECTION_LEFT_TO_RIGHT ? "Left -> Rigth" : "Left <- Right")
             font.family: FontManager.nanumGothicName
             anchors.top: parent.top
             anchors.left: parent.left
@@ -212,6 +213,7 @@ Rectangle {
             elide: Text.ElideRight
         }
 
+        /*
         Text {
             width: 473
             height: 40
@@ -228,6 +230,7 @@ Rectangle {
             anchors.leftMargin: 40
         }
 
+
         Text {
             width: 473
             height: 40
@@ -242,7 +245,7 @@ Rectangle {
             horizontalAlignment: Text.AlignLeft
             anchors.leftMargin: 40
             elide: Text.ElideRight
-        }
+        }   */
 
         Text {
             width: 473
@@ -360,7 +363,7 @@ Rectangle {
             width: 473
             height: 40
             color: debuggingModel.mDiffMode ? "#FF0000" :"#acacac"
-            text: qsTr("Metal detect mode : ") +(debuggingModel.mMode === EnumDefine.INDEPENDENT ? "Independent" : "noise reduction")
+            text: qsTr("Metal detect mode : ") +(debuggingModel.mMode ===  EnumDef.SENS_MODE_INDEPENDENT ? "Independent" : "noise reduction")
             font.family: FontManager.nanumGothicName
             anchors.left: parent.left
             anchors.top: parent.top
@@ -600,7 +603,7 @@ Rectangle {
             width: 473
             height: 40
             color: debuggingModel.mDiffWCNGMotion ? "#FF0000" :"#acacac"
-            text: qsTr("Weight NG motion : ") + (debuggingModel.mWCNGMotion === EnumDefine.NG_MOTION_NON ? "None" : debuggingModel.mWCNGMotion === EnumDefine.NG_MOTION_STOP ? "Stop" : debuggingModel.mWCNGMotion === EnumDefine.NG_MOTION_REJECT_01 ? "Rejecter 01" : debuggingModel.mWCNGMotion === EnumDefine.NG_MOTION_REJECT_02 ? "Rejector 02" : "Unknow")
+            text: qsTr("Weight NG motion : ") + (debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_NON ? "None" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_STOP ? "Stop" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_01 ? "Sorter 01" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_02 ? "Sorter 02" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_03 ? "Sorter 03" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_04 ? "Sorter 04" : "Unknow")
             font.family: FontManager.nanumGothicName
             anchors.top: parent.top
             anchors.left: parent.left
@@ -632,7 +635,7 @@ Rectangle {
             width: 473
             height: 40
             color: debuggingModel.mDiffMDNGMotion ? "#FF0000" :"#acacac"
-            text: qsTr("Metal NG motion : ") + (debuggingModel.mMDNGMotion === EnumDefine.NG_MOTION_NON ? "None" : debuggingModel.mMDNGMotion === EnumDefine.NG_MOTION_STOP ? "Stop" : debuggingModel.mMDNGMotion === EnumDefine.NG_MOTION_REJECT_01 ? "Rejecter 01" : debuggingModel.mMDNGMotion === EnumDefine.NG_MOTION_REJECT_02 ? "Rejector 02" : "Unknow")
+            text: qsTr("Metal NG motion : ")  + (debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_NON ? "None" : debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_STOP ? "Stop" : debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_SORTER_01 ? "Sorter 01" : debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_SORTER_02 ? "Sorter 02" : debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_SORTER_03 ? "Sorter 03" : debuggingModel.mMDNGMotion === EnumDef.NG_MOTION_SORTER_04 ? "Sorter 04" : "Unknow")
             font.family: FontManager.nanumGothicName
             anchors.top: parent.top
             anchors.left: parent.left
@@ -651,7 +654,7 @@ Rectangle {
             anchors.rightMargin: 40
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
 
             onSignalEventClicked:
             {

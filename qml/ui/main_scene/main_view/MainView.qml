@@ -2,7 +2,8 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 
@@ -96,10 +97,10 @@ Item {
         viewMode           : model.wcViewMode
 
         onSignalEventClickedLastError: {
-            if(model.lastErrorType === EnumDefine.METAL_DETECT_TYPE)
-                ViewManager.mainScene.moveLoggingDataView(EnumDefine.DEVICE_METAL_DETECTOR);
-            else if (model.lastErrorType === EnumDefine.WEIGHT_OVER_TYPE || model.lastErrorType === EnumDefine.WEIGHT_UNDER_TYPE || model.lastErrorType === EnumDefine.WEIGHT_ETCERROR_TYPE || model.lastErrorType === EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE)
-                ViewManager.mainScene.moveLoggingDataView(EnumDefine.DEVICE_WEIGHT_CHECKER);
+            if(model.lastErrorType === EnumDef.ET_METAL_DETECT)
+                ViewManager.mainScene.moveLoggingDataView(QmlEnumDef.DEVICE_METAL_DETECTOR);
+            else if (model.lastErrorType === EnumDef.ET_WEIGHT_OVER || model.lastErrorType === EnumDef.ET_WEIGHT_UNDER || model.lastErrorType === EnumDef.ET_WEIGHT_ETCERROR || model.lastErrorType === EnumDef.ET_WEIGHT_ETC_METAL_ERROR)
+                ViewManager.mainScene.moveLoggingDataView(QmlEnumDef.DEVICE_WEIGHT_CHECKER);
         }
     }
 
@@ -119,7 +120,7 @@ Item {
         isDetail: model.isDetail
         senstivity : model.mdSenstivity
         signal : model.mdCurrSignal
-        total  : model.wcTotalCnt
+        total  : model.isEnableWC ? model.wcTotalCnt : model.mdTotalCnt
         detect : model.mdDetectCnt
 
         PanelMDDetectNotify{
@@ -168,6 +169,11 @@ Item {
             onSignalEditWCSetting :
             {
                     ViewManager.mainScene.showWCSetting()
+            }
+
+            onSignalEditGroupSetting:
+            {
+                ViewManager.mainScene.showGroupSetting()
             }
 
             Connections{

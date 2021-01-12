@@ -5,32 +5,44 @@
 #include <QTimer>
 
 #include "source/service/coreservice.h"
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 
 class PanelWCDynamicCalibrationModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool    isRemeasure    READ getIsRemeasure   NOTIFY signalEventChangedIsRemeasure )
-    Q_PROPERTY(quint32 currWeight     READ getCurrWeight    NOTIFY signalEventChangedCurrWeight  )
-    Q_PROPERTY(quint32 refWeight      READ getRefWeight     NOTIFY signalEventChangedRefWeight   )
-    Q_PROPERTY(quint32 movingWeight   READ getMovingWeight  NOTIFY signalEventChangedMovingWeight)
+    Q_PROPERTY(bool    isRemeasure    READ getIsRemeasure   NOTIFY signalEventChangedIsRemeasure  )
+    Q_PROPERTY(quint16 pdNum          READ getPdNum         NOTIFY signalEventChangedPdNum        )
+    Q_PROPERTY(QString pdName         READ getPdName        NOTIFY signalEventChangedPdName       )
+    Q_PROPERTY(quint32 dynamicFactor  READ getDynamicFactor NOTIFY signalEventChangedDynamicFactor)
+    Q_PROPERTY(quint32 currWeight     READ getCurrWeight    NOTIFY signalEventChangedCurrWeight   )
+    Q_PROPERTY(quint32 refWeight      READ getRefWeight     NOTIFY signalEventChangedRefWeight    )
+    Q_PROPERTY(quint32 movingWeight   READ getMovingWeight  NOTIFY signalEventChangedMovingWeight )
 
 public:
-    quint64 mDspSeq      = 0;
-    bool    mIsRemeasure ;
-    quint32 mCurrWeight  ;
-    quint32 mRefWeight   ;
-    quint32 mMovingWeight;
+    quint64 mDspSeq       = 0;
+    bool    mIsRemeasure  ;
+    quint16 mPdNum        ;
+    QString mPdName       ;
+    quint32 mDynamicFactor;
+    quint32 mCurrWeight   ;
+    quint32 mRefWeight    ;
+    quint32 mMovingWeight ;
 
-    bool    getIsRemeasure (){ return mIsRemeasure ;}
-    quint32 getCurrWeight  (){ return mCurrWeight  ;}
-    quint32 getRefWeight   (){ return mRefWeight   ;}
-    quint32 getMovingWeight(){ return mMovingWeight;}
+    bool    getIsRemeasure  (){ return mIsRemeasure  ;}
+    quint16 getPdNum        (){ return mPdNum        ;}
+    QString getPdName       (){ return mPdName       ;}
+    quint32 getDynamicFactor(){ return mDynamicFactor;}
+    quint32 getCurrWeight   (){ return mCurrWeight   ;}
+    quint32 getRefWeight    (){ return mRefWeight    ;}
+    quint32 getMovingWeight (){ return mMovingWeight ;}
 
-    void    setIsRemeasure (bool    value){ if(value == mIsRemeasure ) return; mIsRemeasure  = value; emit signalEventChangedIsRemeasure (value);}
-    void    setCurrWeight  (quint32 value){ if(value == mCurrWeight  ) return; mCurrWeight   = value; emit signalEventChangedCurrWeight  (value);}
-    void    setRefWeight   (quint32 value){ if(value == mRefWeight   ) return; mRefWeight    = value; emit signalEventChangedRefWeight   (value);}
-    void    setMovingWeight(quint32 value){ if(value == mMovingWeight) return; mMovingWeight = value; emit signalEventChangedMovingWeight(value);}
+    void    setIsRemeasure  (bool    value){ if(value == mIsRemeasure  ) return; mIsRemeasure   = value; emit signalEventChangedIsRemeasure  (value);}
+    void    setPdNum        (quint16 value){ if(value == mPdNum        ) return; mPdNum         = value; emit signalEventChangedPdNum        (value);}
+    void    setPdName       (QString value){ if(value == mPdName       ) return; mPdName        = value; emit signalEventChangedPdName       (value);}
+    void    setDynamicFactor(quint32 value){ if(value == mDynamicFactor) return; mDynamicFactor = value; emit signalEventChangedDynamicFactor(value);}
+    void    setCurrWeight   (quint32 value){ if(value == mCurrWeight   ) return; mCurrWeight    = value; emit signalEventChangedCurrWeight   (value);}
+    void    setRefWeight    (quint32 value){ if(value == mRefWeight    ) return; mRefWeight     = value; emit signalEventChangedRefWeight    (value);}
+    void    setMovingWeight (quint32 value){ if(value == mMovingWeight ) return; mMovingWeight  = value; emit signalEventChangedMovingWeight (value);}
 
     explicit PanelWCDynamicCalibrationModel(QObject *parent = nullptr) : QObject(parent)
     {
@@ -38,33 +50,41 @@ public:
         setRefWeight(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight);
         setMovingWeight(0);
 
+
         CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 
         mDspSeq = pDspSP->mDspList[0]->mSeq;
 
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
         ENABLE_SLOT_DSP_ADDED_EVENT;
         ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
+
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
+
     }
     ~PanelWCDynamicCalibrationModel()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
     }
 
 signals:
-    void    signalEventChangedIsRemeasure (bool    value);
-    void    signalEventChangedRefWeight   (quint32 value);
-    void    signalEventChangedMovingWeight(quint32 value);
-    void    signalEventChangedCurrWeight  (quint32 value);
-    void    signalEventCompleteCalibration(             );
+    void    signalEventChangedIsRemeasure  (bool    value);
+    void    signalEventChangedPdNum        (quint16 value);
+    void    signalEventChangedPdName       (QString value);
+    void    signalEventChangedDynamicFactor(quint32 value);
+    void    signalEventChangedRefWeight    (quint32 value);
+    void    signalEventChangedMovingWeight (quint32 value);
+    void    signalEventChangedCurrWeight   (quint32 value);
+    void    signalEventCompleteCalibration (             );
 
 public slots:
     Q_INVOKABLE void onCommandCaribration()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendWCCaribCmd(mDspSeq, EnumDefine::WCCalibType::WC_CALIB_DYNAMIC);
+        pDspSP->sendWCCaribCmd(mDspSeq, EnumDef::WC_CALIB_TYPE_DYNAMIC);
     }
 
     Q_INVOKABLE void onCommandSetRefWeight(quint32 value)
@@ -81,32 +101,33 @@ public slots:
 
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::CHECKUP_RUN);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_CHECKUP_RUN);
     }
 
     Q_INVOKABLE void onCommandClosed()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendRunCmd(mDspSeq, EnumDefine::RunState::STOP);
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
     }
 
 public slots:
     void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
+        qDebug() << "[debug]type = " << dto.mEvent.mEventType << ",value = " << dto.mEvent.mEventValue;
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        if( dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_NORMAL_CHECK_TYPE         ||
-            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_UNDER_WARNING_CHECK_TYPE  ||
-            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_OVER_WARNING_CHECK_TYPE   ||
-            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_UNDER_CHECK_TYPE          ||
-            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_OVER_CHECK_TYPE           ||
-            dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_ETCERROR_CHECK_TYPE)
+        if( dto.mEvent.mEventType == EnumDef::ET_WEIGHT_NORMAL_CHECK              ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK       ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_OVER_WARNING_CHECK        ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_UNDER_CHECK               ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_OVER_CHECK                ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETCERROR_CHECK )
         {
             return setMovingWeight(dto.mEvent.mEventValue + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
 
-        if(dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_DYNAMIC_CARI_TYPE)
+        if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_DYNAMIC_CARI)
         {
             PDSettingDto setting = pProductSP->mCurrPD;
             setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
@@ -128,6 +149,13 @@ public slots:
         {
             return setCurrWeight(dto.mWCStatus.mCurrWeight + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
+    }
+
+    void onChangedCurrPDSetting(PDSettingDto dto)
+    {
+        setPdNum(dto.mDspForm.mCommSetting.mProductNum);
+        setPdName(dto.mName);
+        setDynamicFactor(dto.mDspForm.mWCSetting.mDynamicFactor);
     }
 
 };

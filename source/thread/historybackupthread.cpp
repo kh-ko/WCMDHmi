@@ -23,7 +23,7 @@ void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int s
 {
     if(QFile::exists("/dev/sda1") == false)
     {
-        backupComplete(EnumDefine::BackupResult::USB_ERROR);
+        backupComplete(QmlEnumDef::BackupResult::USB_ERROR);
         return;
     }
 
@@ -48,7 +48,7 @@ void HistoryBackupThread::checkUsb()
 {
     if(getCancle())
     {
-        backupComplete(EnumDefine::BackupResult::BACKUP_CANCLE);
+        backupComplete(QmlEnumDef::BACKUP_CANCLE);
         return;
     }
 
@@ -60,7 +60,7 @@ void HistoryBackupThread::checkUsb()
 
     if(output.contains("/dev/sda1") == false && (QDateTime::currentMSecsSinceEpoch() - mCheckStartMSec) > (60 * 1000 * 5))
     {
-        backupComplete(EnumDefine::BackupResult::USB_ERROR);
+        backupComplete(QmlEnumDef::USB_ERROR);
         return;
     }
 
@@ -115,7 +115,7 @@ void HistoryBackupThread::backupProc()
     quint64 startDateNumber = (mFYear * 10000) + (mFMonth * 100) + mFDay;
     quint64 endDateNumber   = (mTYear   * 10000) + (mTMonth   * 100) + mTDay  ;
 
-    EnumDefine::BackupResult ret = EnumDefine::BackupResult::BACKUP_NONE_ERROR;
+    QmlEnumDef::BackupResult ret = QmlEnumDef::BACKUP_NONE_ERROR;
     QStringList srcFileList;
     QStringList dstFileList;
 
@@ -144,7 +144,7 @@ void HistoryBackupThread::backupProc()
     {
         if(getCancle() == true)
         {
-            ret = EnumDefine::BackupResult::BACKUP_CANCLE;
+            ret = QmlEnumDef::BACKUP_CANCLE;
             break;
         }
 
@@ -153,7 +153,7 @@ void HistoryBackupThread::backupProc()
         if(srcFile.copy(dstFileList.at(i)) == false)
         {
             qDebug() << "[HistoryBackupThread::onCommandBackup] err = " << srcFile.errorString();
-            ret = EnumDefine::BackupResult::BACKUP_UNKNOW_ERROR;
+            ret = QmlEnumDef::BACKUP_UNKNOW_ERROR;
             break;
         }
         setCurrentIdx(i+1);
@@ -170,7 +170,7 @@ void HistoryBackupThread::backupProc()
 
 }
 
-void HistoryBackupThread::backupComplete(EnumDefine::BackupResult result)
+void HistoryBackupThread::backupComplete(QmlEnumDef::BackupResult result)
 {
     mDevNum          = 0;
     mFYear           = 0;

@@ -6,7 +6,7 @@ import FontManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelWCDynamicCalibrationModel 1.0
 
 UiPanel {
@@ -51,7 +51,7 @@ UiPanel {
         anchors.topMargin: 20
 
         clip: true
-        type : EnumDefine.PANEL_TYPE_DROP
+        type : QmlEnumDef.PANEL_TYPE_DROP
 
         UiLabelSystem{
             id : labelMessage
@@ -100,6 +100,7 @@ UiPanel {
     }
 
     Item{
+        id: item1
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.right: parent.right
@@ -110,13 +111,119 @@ UiPanel {
         anchors.topMargin: 0
 
         Item{
-            height: parent.height/3
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
+            id: boxProductSetting
+            width: 1000
+            height: parent.height/5
+            anchors.bottom: boxDynamicFactor.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 0
+
+            Text{
+                id: labelProduct
+                x: 600
+                width : 206
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment : Text.AlignLeft
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+
+                color : "#ACACAC"
+                text: qsTr("· Product")
+
+            }
+
+            Text{
+                id : textProduct
+                width : 765
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+
+                verticalAlignment: Text.AlignVCenter
+                anchors.leftMargin: 0
+                horizontalAlignment : Text.AlignLeft
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+                anchors.left: labelProduct.right
+
+                color : "#FFFFFF"
+                text: ("000"+caribratinModel.pdNum).slice(-3) + " " + caribratinModel.pdName
+
+            }
+
+        }
+
+        Item{
+            id: boxDynamicFactor
+            width: 1000
+            height: parent.height/5
+            anchors.bottom: boxCurrWeight.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 0
+
+            Text{
+                id: labelDynamicFactorr
+                x: 600
+                width : 393
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment : Text.AlignLeft
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+
+                color : "#ACACAC"
+                text: qsTr("· Dynamic factor")
+
+            }
+
+            Text{
+                id : textDynamicFactor
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+
+                verticalAlignment: Text.AlignVCenter
+                anchors.rightMargin: 280
+                anchors.leftMargin: 0
+                horizontalAlignment : Text.AlignRight
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+                anchors.left: labelDynamicFactorr.right
+                anchors.right: parent.right
+
+                color : "#FFFFFF"
+                text: (caribratinModel.dynamicFactor / 10000000.0).toLocaleString(ViewManager.locale, 'f', 7) //caribratinModel.dynamicFactor
+
+            }
+
+        }
+
+        Item{
+            id: boxCurrWeight
+            width: 1000
+            height: parent.height/5
+            anchors.bottom: boxRefWeight.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 0
 
             Text{
                 x: 600
@@ -130,7 +237,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 50
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -142,7 +249,7 @@ UiPanel {
             Text{
                 id : textCurrWeight
                 x: 663
-                width : 536
+                width : 350
                 anchors.top : parent.top
                 anchors.topMargin: 0
                 anchors.bottom: parent.bottom
@@ -152,7 +259,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignRight
-                font.pixelSize: 90
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -189,13 +296,12 @@ UiPanel {
         }
 
         Item{
-            id: element
-            height: parent.height/3
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.verticalCenter: parent.verticalCenter
+            id: boxRefWeight
+            width: 1000
+            height: parent.height/5
+            anchors.bottom: boxMovingWeight.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 0
 
             Text{
                 x: 600
@@ -209,7 +315,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 50
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -221,7 +327,7 @@ UiPanel {
             Text{
                 id : textRefWeight
                 x: 663
-                width : 536
+                width : 350
                 anchors.top : parent.top
                 anchors.topMargin: 0
                 anchors.bottom: parent.bottom
@@ -231,7 +337,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignRight
-                font.pixelSize: 90
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -272,13 +378,11 @@ UiPanel {
         }
 
         Item{
-            id: element1
-            height: parent.height/3
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
+            id: boxMovingWeight
+            width: 1000
+            height: parent.height/5
             anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
 
             Text{
@@ -293,7 +397,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 50
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -305,7 +409,7 @@ UiPanel {
             Text{
                 id : textDynamicWeight
                 x: 668
-                width : 536
+                width : 350
                 anchors.top : parent.top
                 anchors.topMargin: 0
                 anchors.bottom: parent.bottom
@@ -315,7 +419,7 @@ UiPanel {
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment : Text.AlignRight
-                font.pixelSize: 90
+                font.pixelSize: 40
                 font.family: FontManager.nanumGothicName
                 elide: Text.ElideRight
 
@@ -370,7 +474,7 @@ UiPanel {
 
         textValue: qsTr("Calibraion")
 
-        type: EnumDefine.BUTTON_TYPE_BLUE
+        type: QmlEnumDef.BUTTON_TYPE_BLUE
 
         onSignalEventClicked: {
             caribratinModel.onCommandCaribration();
@@ -382,6 +486,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:11;anchors_width:700}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:13}D{i:11}D{i:16}
 }
 ##^##*/

@@ -93,7 +93,8 @@ public:
         if(getMaxRange() < getMinRange())
             setMinRange(getMaxRange()-1, force);
 
-        setLineInterval((getMaxRange() - getMinRange()) / 10);
+        int newInterval = (getMaxRange() - getMinRange()) < 0 ? -1 * (getMaxRange() - getMinRange()) : (getMaxRange() - getMinRange());
+        setLineInterval(newInterval / 10);
 
         setRange(getMaxRange() - getMinRange());
 
@@ -158,6 +159,8 @@ public slots:
         writeGraphData(dto);
 
         StDspWCG * pGData = (StDspWCG *)dto.mGraphData.data();
+
+        qDebug() << "[debug] point cnt = " << pGData->mPointCnt;
 
         mTotalRuntimePointCnt = pGData->mPointCnt * 40;
 
@@ -281,7 +284,7 @@ private:
 
             for(int i = 0; i < pGData->mPointCnt; i ++)
             {
-                if(mpFileWriter->newWrite(QString("%1\n").arg(pGData->mPoints[i].mFilterValue)) == false)
+                if(mpFileWriter->newWrite(QString("%1,%2\n").arg((int)(pGData->mPoints[i].mFilterValue)).arg((int)(pGData->mPoints[i].mRawValue))) == false)
                 {
                     qDebug() << "[PanelWCGraphModel::writeGraphData] graph write error!";
                     closeFile();

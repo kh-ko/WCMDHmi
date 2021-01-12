@@ -3,7 +3,8 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import ViewManager 1.0
 import FontManager 1.0
-import EnumDefine 1.0
+import EnumDef 1.0
+import QmlEnumDef 1.0
 import "."
 import "../../control/"
 import "./main_view"
@@ -23,45 +24,25 @@ Rectangle {
 
         onSignalEventResultSaveProductSetting:
         {
-            if(error === EnumDefine.SQL_ERROR)
+            if(error == EnumDef.PDERR_NONE)
             {
-                ViewManager.toast.show(qsTr("SQL error is occured."))
+                ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
-            else if(error === EnumDefine.NOT_EXIST_SEQ)
+            else if(error === EnumDef.PDERR_NOT_EXIST)
             {
                 ViewManager.toast.show(qsTr("This product dose not exist."))
             }
-            else if(error === EnumDefine.ALREADY_NO_ERROR)
+            else if(error === EnumDef.PDERR_SAME_PD_NUM)
             {
                 ViewManager.toast.show(qsTr("The Product no already exists."))
             }
-            else if(error === EnumDefine.EMPTY_PRODUCT_NO)
-            {
-                ViewManager.toast.show(qsTr("Please enter product no."))
-            }
-            else if(error === EnumDefine.ZERO_PRODUCT_LENGTH)
-            {
-                ViewManager.toast.show(qsTr("Invalid product length."))
-            }
-            else if(error === EnumDefine.ZERO_PRODUCT_SEPPD)
-            {
-                ViewManager.toast.show(qsTr("Invalid product speed."))
-            }
-            else if(error === EnumDefine.INVAILD_WEIGHT_CHECKER_SETTING)
-            {
-                ViewManager.toast.show(qsTr("Invalid weight setting."))
-            }
-            else if(error === EnumDefine.INVAILD_METAL_DETECTOR_SETTING)
-            {
-                ViewManager.toast.show(qsTr("Invalid metal detector setting."))
-            }
-            else if(error === EnumDefine.REMOVE_SEL_PRODUCT)
+            else if(error === EnumDef.PDERR_SELECTED)
             {
                 ViewManager.toast.show(qsTr("Can not remove selected product."))
             }
             else
             {
-                ViewManager.toast.show(qsTr("Your settings have been saved."))
+                ViewManager.toast.show(qsTr("SQL error is occured."))
             }
         }
     }
@@ -75,7 +56,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         title: qsTr("Weight checker setting")
 
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         MouseArea{
             anchors.fill: parent
@@ -91,7 +72,7 @@ Rectangle {
             anchors.right: btnClose.left
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
 
             visible: model.isEditUnderWeight||
                      model.isEditNormalWeight ||
@@ -111,7 +92,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
 
             onSignalEventClicked: {
                 panel.signalEventClose()

@@ -6,7 +6,7 @@ import FontManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelWCStaticCaribrationModel 1.0
 
 UiPanel {
@@ -37,7 +37,7 @@ UiPanel {
         anchors.topMargin: 20
 
         clip: true
-        type : EnumDefine.PANEL_TYPE_DROP
+        type : QmlEnumDef.PANEL_TYPE_DROP
 
 
         UiLabelSystem{
@@ -76,7 +76,7 @@ UiPanel {
         anchors.left: parent.left
         anchors.leftMargin: 20
 
-        visible: caribratinModel.step === EnumDefine.WC_STATIC_CARI_STEP_INIT
+        visible: caribratinModel.step === QmlEnumDef.WC_STATIC_CARI_STEP_INIT
 
         UiLabelSystem{
             id : labelStandardWeight
@@ -182,10 +182,10 @@ UiPanel {
         anchors.rightMargin: 40
         width: 200
 
-        visible: caribratinModel.step === EnumDefine.WC_STATIC_CARI_STEP_INIT
+        visible: caribratinModel.step === QmlEnumDef.WC_STATIC_CARI_STEP_INIT
         textValue: qsTr("Calibraion")
 
-        type: EnumDefine.BUTTON_TYPE_BLUE
+        type: QmlEnumDef.BUTTON_TYPE_BLUE
 
         onSignalEventClicked: {
             caribratinModel.onCommandCaribration()

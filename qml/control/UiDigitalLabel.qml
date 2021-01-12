@@ -1,12 +1,12 @@
 import QtQuick 2.0
-import EnumDefine 1.0
+import EnumDef 1.0
 import FontManager 1.0
 import ViewManager 1.0
 
 Item {
     property int    fontSize :  100
-    property int    eventType :EnumDefine.WEIGHT_OVER_TYPE
-    property bool   visibleNet : eventType !== EnumDefine.WEIGHT_ETCERROR_TYPE && eventType !== EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE
+    property int    eventType :EnumDef.ET_WEIGHT_OVER
+    property bool   visibleNet : eventType !== EnumDef.ET_WEIGHT_ETCERROR && eventType !== EnumDef.ET_WEIGHT_ETC_METAL_ERROR
     property bool   isCenter : true
     property real    value : 9910.0
     property string postFix : "g"
@@ -44,7 +44,7 @@ Item {
         font.bold: true
 
         visible: control.visibleNet
-        color: eventType == EnumDefine.WEIGHT_OVER_TYPE ? "#F59A23" : "#D9001B"
+        color: eventType == EnumDef.ET_WEIGHT_OVER ? "#F59A23" : "#D9001B"
 
         text : (control.value / 1000).toLocaleString(ViewManager.locale, 'f', 1)
     }
@@ -54,7 +54,7 @@ Item {
 
         visible: !control.visibleNet
         color : "#535353"
-        text: eventType === EnumDefine.WEIGHT_ETCERROR_TYPE ? qsTr("Etc error") : qsTr("Metal detect")
+        text: eventType === EnumDef.ET_WEIGHT_ETCERROR ? qsTr("Etc error") : qsTr("Metal detect")
         font.pixelSize: 100
         fontSizeMode: Text.HorizontalFit
         anchors.rightMargin: 80

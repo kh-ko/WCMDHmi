@@ -4,7 +4,7 @@ import ViewManager 1.0
 import "."
 import "../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelDeviceSettingModel 1.0
 
 UiPanel {
@@ -20,13 +20,17 @@ UiPanel {
         id : settingModel
 
         onSignalResultSaveDeviceSetting: {
-            if(error === EnumDefine.DB_NONE_ERROR)
-            {
-                ViewManager.toast.show(qsTr("Your settings have been saved."))
-            }
-            else if(error === EnumDefine.PASSWORD_ERROR)
+            if(isSuss == false && isPwdError)
             {
                 ViewManager.toast.show(qsTr("Please check password."))
+            }
+            else if(isSuss == false)
+            {
+                ViewManager.toast.show(qsTr("Unknow error."))
+            }
+            else
+            {
+                ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
         }
     }
@@ -494,19 +498,6 @@ UiPanel {
         anchors.topMargin: 120
     }
 
-    UiLabelContent{
-        id: labelWeightChecker
-        height: 60
-        anchors.left: dividerGeneralWeightChecker.right
-        anchors.right: dividerWCMD.left
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
-        anchors.top: btnApply.bottom
-        anchors.topMargin: 20
-
-        textValue: settingModel.isEnableWC ? qsTr("Weight checker") : ""
-    }
-
     /*
     UiInputNumber{
         id : inputSensorLength
@@ -557,58 +548,241 @@ UiPanel {
         }
     }
 */
-    UiInputFloat{
-        id : inputRuntimeRatio
+
+    UiLabelSystem{
+        id : labelSorter01
         height: 60
+        width : 92
         anchors.topMargin: 10
-        anchors.top: labelWeightChecker.bottom
-        anchors.leftMargin: 20
+        anchors.top: btnApply.bottom
         anchors.left: dividerGeneralWeightChecker.right
-        anchors.right: dividerWCMD.left
-        anchors.rightMargin: 20
+        anchors.leftMargin: 20
 
-        //visible: panel.isAdmin
-        isHighlight: settingModel.isEditRejectorRunTimeRatio
+        visible: panel.isAdmin
+        textValue: qsTr("· St. 01")
+    }
+
+    UiInputFloat{
+        id : inputSorter01RunTimeRatio
+        height: 60
+        width : 170
+
+        anchors.leftMargin: 10
+        anchors.left: labelSorter01.right
+        anchors.verticalCenter: labelSorter01.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter01RunTimeRatio
         bgColor: panel.bgColor
-        labelText : qsTr("· Rejector return time")
         postfix: "%"
-        inputWidth: 170
 
-        realValue: settingModel.rejectorRunTimeRatio / 10.0
+        realValue: settingModel.mSorter01RunTimeRatio / 10.0
 
         onSignalChangeValue: {
-            settingModel.onCommandSetRejectorRunTimeRatio((value * 10) + 0.5)
+            settingModel.onCommandSetSorter01RunTimeRatio((value * 10))
         }
     }
 
     UiInputNumber{
-        id : inputRejectorOpenTime
+        id : inputSorter01OpenTime
         height: 60
-        anchors.topMargin: 10
-        anchors.top: inputRuntimeRatio.bottom
-        anchors.leftMargin: 20
-        anchors.left: dividerGeneralWeightChecker.right
-        anchors.right: dividerWCMD.left
-        anchors.rightMargin: 20
+        width : 172
+        anchors.leftMargin: 15
+        anchors.left: inputSorter01RunTimeRatio.right
+        anchors.verticalCenter: inputSorter01RunTimeRatio.verticalCenter
 
-        isHighlight: settingModel.isEditRejectorOpenTime
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter01OpenTime
         bgColor: panel.bgColor
-        labelText : qsTr("· Rejector opening time")
         postfix: "ms"
-        inputWidth: 170
 
-        numberValue: settingModel.rejectorOpenTime
+        numberValue: settingModel.mSorter01OpenTime
 
         onSignalChangeValue: {
-            settingModel.onCommandSetRejectorOpenTime(value)
+            settingModel.onCommandSetSorter01OpenTime(value)
         }
     }
+
+    UiLabelSystem{
+        id : labelSorter02
+        height: 60
+        width : 92
+        anchors.topMargin: 10
+        anchors.top: labelSorter01.bottom
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.leftMargin: 20
+
+        visible: panel.isAdmin
+        textValue: qsTr("· St. 02")
+    }
+
+    UiInputFloat{
+        id : inputSorter02RunTimeRatio
+        height: 60
+        width : 170
+
+        anchors.leftMargin: 10
+        anchors.left: labelSorter02.right
+        anchors.verticalCenter: labelSorter02.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter02RunTimeRatio
+        bgColor: panel.bgColor
+        postfix: "%"
+
+        realValue: settingModel.mSorter02RunTimeRatio / 10.0
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter02RunTimeRatio((value * 10))
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter02OpenTime
+        height: 60
+        width : 172
+        anchors.leftMargin: 15
+        anchors.left: inputSorter02RunTimeRatio.right
+        anchors.verticalCenter: inputSorter02RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter02OpenTime
+        bgColor: panel.bgColor
+        postfix: "ms"
+
+        numberValue: settingModel.mSorter02OpenTime
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter02OpenTime(value)
+        }
+    }
+    UiLabelSystem{
+        id : labelSorter03
+        height: 60
+        width : 92
+        anchors.topMargin: 10
+        anchors.top: labelSorter02.bottom
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.leftMargin: 20
+
+        visible: panel.isAdmin
+        textValue: qsTr("· St. 03")
+    }
+
+    UiInputFloat{
+        id : inputSorter03RunTimeRatio
+        height: 60
+        width : 170
+
+        anchors.leftMargin: 10
+        anchors.left: labelSorter03.right
+        anchors.verticalCenter: labelSorter03.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter03RunTimeRatio
+        bgColor: panel.bgColor
+        postfix: "%"
+
+        realValue: settingModel.mSorter03RunTimeRatio / 10.0
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter03RunTimeRatio((value * 10))
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter03OpenTime
+        height: 60
+        width : 172
+        anchors.leftMargin: 15
+        anchors.left: inputSorter03RunTimeRatio.right
+        anchors.verticalCenter: inputSorter03RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter03OpenTime
+        bgColor: panel.bgColor
+        postfix: "ms"
+
+        numberValue: settingModel.mSorter03OpenTime
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter03OpenTime(value)
+        }
+    }
+    UiLabelSystem{
+        id : labelSorter04
+        height: 60
+        width : 92
+        anchors.topMargin: 10
+        anchors.top: labelSorter03.bottom
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.leftMargin: 20
+
+        visible: panel.isAdmin
+        textValue: qsTr("· St. 04")
+    }
+
+    UiInputFloat{
+        id : inputSorter04RunTimeRatio
+        height: 60
+        width : 170
+
+        anchors.leftMargin: 10
+        anchors.left: labelSorter04.right
+        anchors.verticalCenter: labelSorter04.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter04RunTimeRatio
+        bgColor: panel.bgColor
+        postfix: "%"
+
+        realValue: settingModel.mSorter04RunTimeRatio / 10.0
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter04RunTimeRatio((value * 10) + 0.5)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter04OpenTime
+        height: 60
+        width : 172
+        anchors.leftMargin: 15
+        anchors.left: inputSorter04RunTimeRatio.right
+        anchors.verticalCenter: inputSorter04RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter04OpenTime
+        bgColor: panel.bgColor
+        postfix: "ms"
+
+        numberValue: settingModel.mSorter04OpenTime
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter04OpenTime(value)
+        }
+    }
+
+    UiLabelContent{
+        id: labelWeightChecker
+        height: 60
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+        anchors.top: labelSorter04.bottom
+        anchors.topMargin: 20
+
+        visible: panel.isAdmin && settingModel.isEnableWC
+        textValue: settingModel.isEnableWC ? qsTr("Weight checker") : ""
+    }
+
 
     UiInputFloat{
         id : inputDisplayStability
         height: 60
-        anchors.topMargin: 10
-        anchors.top: panel.isAdmin ? inputRejectorOpenTime.bottom : inputRuntimeRatio.bottom
+        anchors.topMargin: 0
+        anchors.top: labelWeightChecker.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -704,13 +878,13 @@ UiPanel {
         id : inputScaler
         height: 60
         anchors.topMargin: 10
-        anchors.top: panel.isAdmin ? inputMinDynamicWeight.bottom : inputRejectorOpenTime.bottom
+        anchors.top: inputMinDynamicWeight.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
         anchors.rightMargin: 20
 
-        visible: settingModel.isEnableWC
+        visible: panel.isAdmin && settingModel.isEnableWC
         isHighlight: settingModel.isEditScaler
         bgColor: panel.bgColor
         labelText : qsTr("· Display unit")
@@ -748,6 +922,7 @@ UiPanel {
         }
     }
 
+    /*
     UiInputFloat{
         id : inputSDyniamicFactor
         height: 60
@@ -772,7 +947,7 @@ UiPanel {
             settingModel.onCommandSetDynamicFactor((value * 10000000) + 0.5)
         }
     }
-
+*/
     /*
     UiInputFloat{
         id : inputStandardWeight
@@ -826,7 +1001,7 @@ UiPanel {
         id : inputWeightPhotoOn
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputSDyniamicFactor.bottom
+        anchors.top: inputStaticFactor.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -1366,7 +1541,7 @@ UiPanel {
         width: 164
         height: 80
         anchors.verticalCenter: btnApply.verticalCenter
-        anchors.right: btnApply.visible ? btnApply.left : parent.right
+        anchors.right: btnApply.left
         anchors.rightMargin: 20
 
         visible: panel.isAdmin
@@ -1400,14 +1575,20 @@ UiPanel {
                  settingModel.isEditMotorMDRatio        ||
                  settingModel.isEditMotorWCRatio        ||
                  settingModel.isEditMotorRJRatio        ||
-                 settingModel.isEditRejectorRunTimeRatio||
+                 settingModel.isEditSorter01RunTimeRatio||
+                 settingModel.isEditSorter01OpenTime    ||
+                 settingModel.isEditSorter02RunTimeRatio||
+                 settingModel.isEditSorter02OpenTime    ||
+                 settingModel.isEditSorter03RunTimeRatio||
+                 settingModel.isEditSorter03OpenTime    ||
+                 settingModel.isEditSorter04RunTimeRatio||
+                 settingModel.isEditSorter04OpenTime    ||
                  settingModel.isEditDisplayStability    ||
                  settingModel.isEditMeasureCueSign      ||
                  settingModel.isEditMinStaticWeight     ||
                  settingModel.isEditMinDynamicWeight    ||
                  settingModel.isEditScaler              ||
                  settingModel.isEditStaticFactor        ||
-                 settingModel.isEditDynamicFactor       ||
                  settingModel.isEditStandardWeight      ||
                  settingModel.isEditRefWeight           ||
                  settingModel.isEditWCPhotoOn           ||
@@ -1417,14 +1598,13 @@ UiPanel {
                  settingModel.isEditSignalDelayTime     ||
                  settingModel.isEditMDPhotoOn           ||
                  settingModel.isEditSensorCnt           ||
-                 settingModel.isEditRejectorOpenTime    ||
                  settingModel.isEditSimpleSens01        ||
                  settingModel.isEditSimpleSens02        ||
                  settingModel.isEditSimpleSens03        ||
                  settingModel.isEditSimpleSens04        ||
                  settingModel.isEditSimpleSens05
 
-        type : EnumDefine.BUTTON_TYPE_BLUE
+        type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")
 
         onSignalEventClicked:
@@ -1457,6 +1637,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/

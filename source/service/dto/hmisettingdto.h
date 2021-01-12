@@ -9,7 +9,7 @@ public:
     bool    mSWPowerOff         = false;
     bool    mIsDayMode          = false;
     bool    mIsDebugMode        = false;
-    quint32 mDynamicFactor      = 10000000;
+    //quint32 mDynamicFactor      = 10000000;
     quint16 mSimpleSenstivity01 = 0;
     quint16 mSimpleSenstivity02 = 0;
     quint16 mSimpleSenstivity03 = 0;
@@ -21,7 +21,7 @@ public:
         mSWPowerOff        (copy.mSWPowerOff        ),
         mIsDayMode         (copy.mIsDayMode         ),
         mIsDebugMode       (copy.mIsDebugMode       ),
-        mDynamicFactor     (copy.mDynamicFactor     ),
+        //mDynamicFactor     (copy.mDynamicFactor     ),
         mSimpleSenstivity01(copy.mSimpleSenstivity01),
         mSimpleSenstivity02(copy.mSimpleSenstivity02),
         mSimpleSenstivity03(copy.mSimpleSenstivity03),
@@ -34,7 +34,7 @@ public:
         mSWPowerOff         = other.mSWPowerOff        ;
         mIsDayMode          = other.mIsDayMode         ;
         mIsDebugMode        = other.mIsDebugMode       ;
-        mDynamicFactor      = other.mDynamicFactor     ;
+        //mDynamicFactor      = other.mDynamicFactor     ;
         mSimpleSenstivity01 = other.mSimpleSenstivity01;
         mSimpleSenstivity02 = other.mSimpleSenstivity02;
         mSimpleSenstivity03 = other.mSimpleSenstivity03;

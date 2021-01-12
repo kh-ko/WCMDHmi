@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import "."
 
@@ -51,7 +51,7 @@ Item {
         textVAlign: Text.AlignVCenter
         textFont : FontManager.nanumGothicBName
         textFontSize: 20
-        textInputType : EnumDefine.IP_MODE
+        textInputType : QmlEnumDef.IP_MODE
         maxLength: 15
 
         onSignalChangeText: {

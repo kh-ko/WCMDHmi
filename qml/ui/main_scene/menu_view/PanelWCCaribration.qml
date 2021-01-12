@@ -7,7 +7,6 @@ import "."
 import "../../../control"
 import "./WCCaribraion"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
 import PanelMDCheckupModel 1.0
 
 Item {

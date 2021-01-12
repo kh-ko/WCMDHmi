@@ -4,12 +4,12 @@ import ViewManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import MetalDetectorGraphModel 1.0
 
 UiPanel {
     property bool isSelect : false
-    property int viewMode : EnumDefine.MD_GRAPH_ALONE
+    property int viewMode : QmlEnumDef.MD_GRAPH_ALONE
 
     property MetalDetectorGraphModel graphModel : null
 
@@ -21,7 +21,7 @@ UiPanel {
     id : panel
     clip : true
 
-    type : isSelect ? EnumDefine.PANEL_TYPE_DROP_SELECT : EnumDefine.PANEL_TYPE_DROP
+    type : isSelect ? QmlEnumDef.PANEL_TYPE_DROP_SELECT : QmlEnumDef.PANEL_TYPE_DROP
 
     Component.onCompleted: {
         graphModel.onCommandSetGraphWidth(canvasFilter.width)
@@ -46,7 +46,7 @@ UiPanel {
         width: 200
         height: 80
         anchors.top: parent.top
-        anchors.topMargin: panel.viewMode == EnumDefine.MD_GRAPH_ALONE ? 20 : (parent.height / 2) - (height / 2)
+        anchors.topMargin: panel.viewMode == QmlEnumDef.MD_GRAPH_ALONE ? 20 : (parent.height / 2) - (height / 2)
         anchors.right: parent.right
         anchors.rightMargin: 20
 
@@ -111,11 +111,11 @@ UiPanel {
         anchors.left: parent.left
         anchors.leftMargin: 69
         anchors.top: parent.top
-        anchors.topMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 115 : 10
+        anchors.topMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 115 : 10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 20 : 10
+        anchors.bottomMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 20 : 10
         anchors.right: parent.right
-        anchors.rightMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 20 : indiMinMax.width + 40
+        anchors.rightMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 20 : indiMinMax.width + 40
 
         enabled: false
         antialiasing: false
@@ -166,11 +166,11 @@ UiPanel {
         anchors.left: parent.left
         anchors.leftMargin: 69
         anchors.top: parent.top
-        anchors.topMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 115 : 10
+        anchors.topMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 115 : 10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 20 : 10
+        anchors.bottomMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 20 : 10
         anchors.right: parent.right
-        anchors.rightMargin: panel.viewMode === EnumDefine.MD_GRAPH_ALONE ? 20 : indiMinMax.width + 40
+        anchors.rightMargin: panel.viewMode === QmlEnumDef.MD_GRAPH_ALONE ? 20 : indiMinMax.width + 40
 
         enabled: false
         antialiasing: false

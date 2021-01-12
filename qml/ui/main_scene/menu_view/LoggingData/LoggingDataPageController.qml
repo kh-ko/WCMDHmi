@@ -4,7 +4,6 @@ import ViewManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
 
 
 Item {

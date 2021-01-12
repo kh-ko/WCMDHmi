@@ -158,6 +158,24 @@ public :
             delete pItem;
         }
     }
+
+    void sendResetGCnt(unsigned short value)
+    {
+        DspSendQueueItem * pItem = new (DspSendQueueItem);
+        mSndDataStore.setCmdResetGroupCurrCount(value);
+
+        pItem->mPacket.setFuncCode(DSP_FUNCCODE_MULTIBLOCK_WRITE);
+        pItem->mPacket.addWriteBlock(mSndDataStore.mCommandBlock .mTag.mGroupID, DSP_COMMANDBLOCK_STARTADDR_GROUP_CURR_COUNT, 1, mSndDataStore.mCommandBlock.mTag.mDataPtr);
+        if(mSendQueue.push(pItem))
+        {
+            sendPacketInQueue();
+        }
+        else
+        {
+            delete pItem;
+        }
+    }
+
     void sendPDSetting(DspPDSettingDto  pdSetting)
     {
         DspSendQueueItem * pItem = new (DspSendQueueItem);
@@ -347,6 +365,8 @@ private slots:
             return;
         }
 
+        //qDebug() << "[debug] rcv packet = " << rcvBuffer.toHex();
+
         if(rcvPacket.getFuncCode() == DSP_FUNCCODE_MULTIBLOCK_READ || rcvPacket.getFuncCode() == DSP_FUNCCODE_MULTIBLOCK_WRITE)
         {
             if(mSendQueue.checkAckPacket(&rcvPacket) == false)
@@ -468,6 +488,9 @@ private:
         // 보낸 패킷에 대한 응답을 기다리고 있는 중이면 다음 패킷을 보내지 않고 응답이 오면 보내도록 한다.
         if(mSendQueue.isWait() && isRetry == false)
             return;
+
+        //QByteArray sendBuf = mSendQueue.getSendPacketBuffer();
+        //qDebug() << "[debug] snd packet = " << sendBuf.toHex();
 
         if(mpSock->writeDatagram(mSendQueue.getSendPacketBuffer(), mHostAddr, mPort) < 1)
         {

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 
 Item {
@@ -111,7 +111,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
             textValue : qsTr("Confirm")
 
             onSignalEventClicked:

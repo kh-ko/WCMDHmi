@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 class PanelPDSelectModel : public QObject

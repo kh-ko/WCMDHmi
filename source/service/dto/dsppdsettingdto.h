@@ -10,7 +10,13 @@ public:
     StDspPDWCSetting   mWCSetting;
     StDspPDMDSetting   mMDSetting;
 
-    DspPDSettingDto(){}
+    DspPDSettingDto()
+    {
+        memset(&mCommSetting, 0x00, sizeof(StDspPDCommSetting));
+        memset(&mWCSetting,   0x00, sizeof(StDspPDWCSetting  ));
+        memset(&mMDSetting,   0x00, sizeof(StDspPDMDSetting  ));
+    }
+
     DspPDSettingDto(const DspPDSettingDto& copy)
     {
         memcpy(&mCommSetting, &copy.mCommSetting, sizeof(StDspPDCommSetting));

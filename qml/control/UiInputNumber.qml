@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import "."
 
@@ -57,7 +57,7 @@ Item {
         anchors.rightMargin: 0
 
         textHAlign: Text.AlignRight
-        textInputType : EnumDefine.INT_MODE
+        textInputType : QmlEnumDef.INT_MODE
 
         labelText : control.labelText
         isLocaleStyle: control.isLocaleStyle

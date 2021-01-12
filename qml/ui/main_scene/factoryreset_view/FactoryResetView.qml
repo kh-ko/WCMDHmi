@@ -2,7 +2,6 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
 import ViewManager 1.0
 import FontManager 1.0
 import QtQuick.Controls.Universal 2.12

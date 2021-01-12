@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtGraphicalEffects 1.12
 import ViewManager 1.0
-import EnumDefine 1.0
+import EnumDef 1.0
 
 Item {
 
@@ -110,8 +110,8 @@ Item {
         anchors.leftMargin: weight < control.min ?  - 20 - (width / 2) : weight > control.max ? (bar.width - width / 2) + 20 :  (bar.width * ((weight - control.min) / control.range) - (width / 2))
         anchors.top: parent.top
         anchors.topMargin: 0
-        source: eventType == EnumDefine.WEIGHT_OVER_TYPE ? "img_weightcheckergauage/big_down_yellow.png" :
-                eventType == EnumDefine.WEIGHT_UNDER_TYPE ? "img_weightcheckergauage/big_down_red.png" : "img_weightcheckergauage/big_down_blue.png"
+        source: eventType == EnumDef.ET_WEIGHT_OVER  ? "img_weightcheckergauage/big_down_yellow.png" :
+                eventType == EnumDef.ET_WEIGHT_UNDER ? "img_weightcheckergauage/big_down_red.png" : "img_weightcheckergauage/big_down_blue.png"
 
 
 
@@ -136,8 +136,8 @@ Item {
         anchors.fill: gaugeWeight
         radius: 15
         samples: 17
-        color: eventType == EnumDefine.WEIGHT_OVER_TYPE ? "#59F59A23" :
-               eventType == EnumDefine.WEIGHT_UNDER_TYPE? "#59D9001B" : "#590085FF"
+        color: eventType == EnumDef.ET_WEIGHT_OVER  ? "#59F59A23" :
+               eventType == EnumDef.ET_WEIGHT_UNDER ? "#59D9001B" : "#590085FF"
         source: gaugeWeight
     }
 /*

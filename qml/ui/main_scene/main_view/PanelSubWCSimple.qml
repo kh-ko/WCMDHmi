@@ -3,14 +3,15 @@ import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 
 Item {
     property bool isWait        : false
     property bool isDevMode     : false
     property int  currWeight    : 9199000
-    property int  currEventType :EnumDefine.WEIGHT_OVER_TYPE
+    property int  currEventType :EnumDef.ET_WEIGHT_OVER
     //property int  avgWeight     : 9199000
     //property int  avgEventType  :EnumDefine.WEIGHT_OVER_TYPE
     property int  under         : 100
@@ -88,8 +89,8 @@ Item {
             text: panel.currWeight == 0 ? "0.0" :
                   isDevMode && value > 0 ? "+"+value.toLocaleString(ViewManager.locale, 'f', 1) : value.toLocaleString(ViewManager.locale, 'f', 1)
             font.letterSpacing: 0
-            color: currEventType === EnumDefine.WEIGHT_OVER_TYP ? "#F59A23":
-                   currEventType === EnumDefine.WEIGHT_UNDER_TYPE ? "#D9001B" : "#FFFFFF"
+            color: currEventType === EnumDef.ET_WEIGHT_OVER ? "#F59A23":
+                   currEventType === EnumDef.ET_WEIGHT_UNDER ? "#D9001B" : "#FFFFFF"
             horizontalAlignment: Text.AlignRight
             fontSizeMode: Text.FixedSize
             verticalAlignment: Text.AlignVCenter

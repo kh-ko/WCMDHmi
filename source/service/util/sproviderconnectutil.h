@@ -24,7 +24,8 @@
 #define ENABLE_SLOT_LSETTING_CHANGED_INFO         connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedInformation(InformationDto)), this, SLOT(onChangedInformation(InformationDto)))
 #define ENABLE_SLOT_LSETTING_CHANGED_BACKUP_DATE  connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedBackupLastDate(QDate)      ), this, SLOT(onChangedBackupLastDate(QDate)      ))
 #define ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING  connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedDevSetting(DevSettingDto)  ), this, SLOT(onChangedDevSetting(DevSettingDto)  ))
-#define ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTINGT connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedHMISetting(HMISettingDto)  ), this, SLOT(onChangedHMISetting(HMISettingDto)  ))
+#define ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTING  connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedHMISetting(HMISettingDto)  ), this, SLOT(onChangedHMISetting(HMISettingDto)  ))
+#define ENABLE_SLOT_LSETTING_CHANGED_MAX_ERROR    connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedMaxError(quint32)          ), this, SLOT(onChangedMaxError(quint32)          ))
 
 #define ENABLE_SLOT_PDSETTING_START                connect(ProductSProvider::getInstance(), SIGNAL(signalEventStarted()                         ), this, SLOT(onStartedProductSProvider()         ))
 #define ENABLE_SLOT_PDSETTING_STOP                 connect(ProductSProvider::getInstance(), SIGNAL(signalEventStopped()                         ), this, SLOT(onStoppedProductSProvider()         ))

@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import IntroSceneModel 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 
 Item {
     property bool isSplashDone : false
@@ -87,7 +87,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
-            source: model.company === EnumDefine.COMPANY_NOVASEN? "novasen_logo.png": "DONGNAM-LOGO_FIT.jpg"
+            source: model.company === QmlEnumDef.COMPANY_NOVASEN? "novasen_logo.png": "DONGNAM-LOGO_FIT.jpg"
         }
     }
 

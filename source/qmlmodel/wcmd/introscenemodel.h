@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include "source/service/defaultsetting/defaultsettingsprovider.h"
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/def/builddef.h"
 #include "source/service/coreservice.h"
 
@@ -15,7 +15,7 @@ class IntroSceneModel : public QObject
 
 public:
     int mProgressValue = 0;
-    int mCompany       = EnumDefine::Company::COMPANY_NOVASEN;
+    int mCompany       = QmlEnumDef::COMPANY_NOVASEN;
 
     int getProgressValue(){ return mProgressValue;}
     int getCompany()      { return mCompany      ;}
@@ -45,11 +45,11 @@ public:
     {
         if(pDefaultSP->IS_DONGNAM)
         {
-            setCompany(EnumDefine::Company::COMPANY_DONGNAM);
+            setCompany(QmlEnumDef::COMPANY_DONGNAM);
         }
         else
         {
-            setCompany(EnumDefine::Company::COMPANY_NOVASEN);
+            setCompany(QmlEnumDef::COMPANY_NOVASEN);
         }
 
         if(pCoreService->mIsRunning)

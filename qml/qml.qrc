@@ -160,5 +160,7 @@
         <file>control/UiDotHLine.qml</file>
         <file>ui/main_scene/main_view/PanelProductSelect.qml</file>
         <file>control/UiScrollView.qml</file>
+        <file>ui/main_scene/menu_view/PanelMaxErrorSetting.qml</file>
+        <file>ui/main_scene/PopupGroupSettingInHome.qml</file>
     </qresource>
 </RCC>

@@ -4,7 +4,6 @@
 #include <QObject>
 
 #include "source/service/def/datetimeform.h"
-#include "source/globaldef/GlobalDefine.h"
 #include "source/service/coreservice.h"
 
 class MainViewModel : public QObject
@@ -46,10 +45,12 @@ class MainViewModel : public QObject
     Q_PROPERTY(quint16 lastErrorType          READ getLastErrorType           NOTIFY signalEventChangedLastErrorType       )
     Q_PROPERTY(QString lastErrorTime          READ getLastErrorTime           NOTIFY signalEventChangedLastErrorTime       )
     Q_PROPERTY(quint32 lastErrorValue         READ getLastErrorValue          NOTIFY signalEventChangedLastErrorValue      )
+    Q_PROPERTY(quint32 groupCurrCount         READ getGroupCurrCount          NOTIFY signalEventChangedGroupCurrCount      )
+    Q_PROPERTY(quint32 groupCount             READ getGroupCount              NOTIFY signalEventChangedGroupCount          )
 
 public:
-    quint32               mMinPoints[TRENDS_POINT_BUFF_CNT];
-    quint32               mMaxPoints[TRENDS_POINT_BUFF_CNT];
+    quint32               mMinPoints[WCTR_LIMIT];
+    quint32               mMaxPoints[WCTR_LIMIT];
     quint64               mDspSeq      = 0;
     quint32               mMinWeight   = 0;
     quint32               mWeightRange = 0;
@@ -92,6 +93,8 @@ public:
     quint16 mLastErrorType       = 0;
     QString mLastErrorTime       = "";
     quint32 mLastErrorValue      = 0;
+    quint32 mGroupCurrCount      = 0;
+    quint32 mGroupCount          = 0;
 
     bool    getIsDetail            (){ return mIsDetail            ;}
     int     getWCViewMode          (){ return mWCViewMode          ;}
@@ -129,6 +132,8 @@ public:
     quint16 getLastErrorType       (){ return mLastErrorType       ;}
     QString getLastErrorTime       (){ return mLastErrorTime       ;}
     quint32 getLastErrorValue      (){ return mLastErrorValue      ;}
+    quint32 getGroupCurrCount      (){ return mGroupCurrCount      ;}
+    quint32 getGroupCount          (){ return mGroupCount          ;}
 
     void setIsDetail            (bool    value){ if(mIsDetail             == value)return; mIsDetail             = value; emit signalEventChangedIsDetail            (value);}
     void setWCViewMode          (int     value){ if(mWCViewMode           == value)return; mWCViewMode           = value; emit signalEventChangedWCViewMode          (value);}
@@ -166,6 +171,8 @@ public:
     void setLastErrorType       (quint16 value){ if(mLastErrorType        == value)return; mLastErrorType        = value; emit signalEventChangedLastErrorType       (value);}
     void setLastErrorTime       (QString value){ if(mLastErrorTime        == value)return; mLastErrorTime        = value; emit signalEventChangedLastErrorTime       (value);}
     void setLastErrorValue      (quint32 value){ if(mLastErrorValue       == value)return; mLastErrorValue       = value; emit signalEventChangedLastErrorValue      (value);}
+    void setGroupCurrCount      (quint32 value){ if(mGroupCurrCount       == value)return; mGroupCurrCount       = value; emit signalEventChangedGroupCurrCount      (value);}
+    void setGroupCount          (quint32 value){ if(mGroupCount           == value)return; mGroupCount           = value; emit signalEventChangedGroupCount          (value);}
 
 signals:
     void signalEventChangedIsDetail            (bool    value);
@@ -204,6 +211,8 @@ signals:
     void signalEventChangedLastErrorType       (quint16 value);
     void signalEventChangedLastErrorTime       (QString value);
     void signalEventChangedLastErrorValue      (quint32 value);
+    void signalEventChangedGroupCurrCount      (quint32 value);
+    void signalEventChangedGroupCount          (quint32 value);
 
     void signalEventNotifyWCNG                 (quint32 value, quint16 eventType);
     void signalEventNotifyMDDetect             (                                );
@@ -356,6 +365,13 @@ public slots:
         pDspSP->sendZeroCmd(mDspSeq);
     }
 
+    Q_INVOKABLE void onCommandResetGroupCount()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendResetGCntCmd(mDspSeq, 1);
+    }
+
 
 
 //  down layer ===================================================================================
@@ -391,6 +407,7 @@ public slots:
         setWCUnderWarningWeight(dto.mDspForm.mWCSetting.mUnderWarningWeight);
         setWCUnderWeight       (dto.mDspForm.mWCSetting.mUnderWeight       );
         setWCTareWeight        (dto.mDspForm.mWCSetting.mTareWeight        );
+        setGroupCount          (dto.mDspForm.mCommSetting.mGroupCount      );
     }
 
     void onChangedLastErr(EventDto dto)
@@ -408,6 +425,7 @@ public slots:
         setMDCurrSignal        (dto.mMDStatus.mSignal);
         setWCCurrWeight        (dto.mWCStatus.mCurrWeight);
         setWCCurrEventType     (dto.mWCStatus.mErrorType);
+        setGroupCurrCount      (dto.mCommStatus.mGroupCurrCount);
     }
 
     void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)

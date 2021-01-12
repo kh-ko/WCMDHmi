@@ -2,7 +2,8 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 
@@ -50,7 +51,7 @@ Rectangle{
         anchors.leftMargin: 0
         leftMargin : 20
 
-        textValue: mainViewModel.wcTrendsOptionLastN == EnumDefine.TRENDSOPTION_TOTAL_SINCE_START ?qsTr("Trends (ALL)") : qsTr("Trends (") + mainViewModel.wcTrendsLastNValue + ")"
+        textValue: mainViewModel.wcTrendsOptionLastN == EnumDef.TRENDSOPTION_TOTAL_SINCE_START ?qsTr("Trends (ALL)") : qsTr("Trends (") + mainViewModel.wcTrendsLastNValue + ")"
 
     }
 
@@ -152,9 +153,9 @@ Rectangle{
         anchors.fill: parent
 
         onClicked: {
-            ViewManager.popupTrendsOption.isUnderToOver     = mainViewModel.wcTrendsOptionH == EnumDefine.TRENDSOPTION_H_UNDER_TO_OVER
-            ViewManager.popupTrendsOption.isTotal           = mainViewModel.wcTrendsOptionFilter == EnumDefine.TRENDSOPTION_FILTER_TOTAL
-            ViewManager.popupTrendsOption.isTotalSinceStart = mainViewModel.wcTrendsOptionLastN == EnumDefine.TRENDSOPTION_TOTAL_SINCE_START
+            ViewManager.popupTrendsOption.isUnderToOver     = mainViewModel.wcTrendsOptionH == EnumDef.TRENDSOPTION_H_UNDER_TO_OVER
+            ViewManager.popupTrendsOption.isTotal           = mainViewModel.wcTrendsOptionFilter == EnumDef.TRENDSOPTION_FILTER_TOTAL
+            ViewManager.popupTrendsOption.isTotalSinceStart = mainViewModel.wcTrendsOptionLastN == EnumDef.TRENDSOPTION_TOTAL_SINCE_START
             ViewManager.popupTrendsOption.lastNValue        = mainViewModel.wcTrendsLastNValue
             ViewManager.popupTrendsOption.visible = true;
         }

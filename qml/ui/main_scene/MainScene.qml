@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import ViewManager 1.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import "."
 import "../../control/"
 import "./main_view"
@@ -29,6 +29,7 @@ Item {
     function factoryReset(value)
     {
         popupProductSettingInHome.close();
+        popupGroupSettingInHome.close();
 
         currView = "factoryresetView";
         viewContainer.clear();
@@ -38,24 +39,27 @@ Item {
     function moveProductView()
     {
         popupProductSettingInHome.close();
+        popupGroupSettingInHome.close();
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"isProductVew" : true, "selMenu" : EnumDefine.MENU_PRODUCT_SETTING})
+        viewContainer.push(menuView, {"isProductVew" : true, "selMenu" : QmlEnumDef.MENU_PRODUCT_SETTING})
     }
 
     function moveLoggingDataView(selDevice)
     {
         popupProductSettingInHome.close();
+        popupGroupSettingInHome.close();
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"selDevice" : selDevice, "selMenu" : EnumDefine.MENU_LOGGING_DATA, "isLoggingVew" : true})
+        viewContainer.push(menuView, {"selDevice" : selDevice, "selMenu" : QmlEnumDef.MENU_LOGGING_DATA, "isLoggingVew" : true})
     }
 
     function moveMenuView(selDevice, selMenu, isSuper)
     {
         popupProductSettingInHome.close();
+        popupGroupSettingInHome.close();
 
         currView = "menuView";
         viewContainer.clear();
@@ -65,6 +69,7 @@ Item {
     function moveMainView()
     {
         popupProductSettingInHome.close();
+        popupGroupSettingInHome.close();
 
         currView = "mainView"
         viewContainer.clear();
@@ -82,6 +87,13 @@ Item {
     function showWCSetting()
     {
         scene.toSettingMenuName = "Weight"
+        inputPassword.textValue = ""
+        ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+    }
+
+    function showGroupSetting()
+    {
+        scene.toSettingMenuName = "Group"
         inputPassword.textValue = ""
         ViewManager.keypad.showKeypad(inputPassword.getVInputText())
     }
@@ -197,7 +209,7 @@ Item {
             }
             else
             {
-                popupSelMenu.selDevice = EnumDefine.DEVICE_METAL_DETECTOR
+                popupSelMenu.selDevice = QmlEnumDef.DEVICE_METAL_DETECTOR
                 menuPassword.textValue = ""
                 ViewManager.keypad.showKeypad(menuPassword.getVInputText())
             }
@@ -241,6 +253,10 @@ Item {
                 {
                     popupProductSettingInHome.showWCSetting()
                 }
+                else if(scene.toSettingMenuName == "Group")
+                {
+                    popupGroupSettingInHome.show()
+                }
             }
             else
             {
@@ -256,6 +272,11 @@ Item {
 
     PopupProductSettingInHome{
         id : popupProductSettingInHome
+        anchors.fill: parent
+    }
+
+    PopupGroupSettingInHome{
+        id : popupGroupSettingInHome
         anchors.fill: parent
     }
 
@@ -279,7 +300,7 @@ Item {
             }
             else
             {
-                moveMenuView(popupSelMenu.selDevice , EnumDefine.MENU_PRODUCT_SETTING, scene.isSuper)
+                moveMenuView(popupSelMenu.selDevice , QmlEnumDef.MENU_PRODUCT_SETTING, scene.isSuper)
             }
         }
 
@@ -294,11 +315,11 @@ Item {
             {
                 if(model.onCommandCompareAdminPwd(value))
                 {
-                    moveMenuView(popupSelMenu.selDevice, EnumDefine.MENU_PRODUCT_SETTING, true)
+                    moveMenuView(popupSelMenu.selDevice, QmlEnumDef.MENU_PRODUCT_SETTING, true)
                 }
                 else if(model.onCommandComparePwd(value))
                 {
-                    moveMenuView(popupSelMenu.selDevice, EnumDefine.MENU_PRODUCT_SETTING, false)
+                    moveMenuView(popupSelMenu.selDevice, QmlEnumDef.MENU_PRODUCT_SETTING, false)
                 }
                 else
                 {

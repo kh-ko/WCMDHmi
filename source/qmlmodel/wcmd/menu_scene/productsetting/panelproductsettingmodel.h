@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QMap>
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 #include "source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.h"
 
@@ -43,7 +43,7 @@ signals:
     void signalEventChangedProductCount      (int     value);
     void signalEventChangedLookProductSeq    (quint64 value);
     void signalEventChangedSelectedProductSeq(quint64 value);
-    void signalEventResultSaveProductSetting (int     error);
+    void signalEventResultSaveProductSetting (bool isEmptyNo, bool isInvalidWC, int svcErr);
 
 public slots:
     Q_INVOKABLE void onCommandSetOrder(int order)
@@ -85,14 +85,14 @@ public slots:
     Q_INVOKABLE void onCommandAddProduct()
     {
         PDSettingDto dto = pProductSP->getDummyPD();
-        dto.mDspForm.mWCSetting.mDynamicFactor = pLSettingSP->mHMISetting.mDynamicFactor;
+        //dto.mDspForm.mWCSetting.mDynamicFactor = pLSettingSP->mHMISetting.mDynamicFactor;
         mEditViewItemModel.setNewSetting(dto);
     }
     Q_INVOKABLE void onCommandApplyProduct()
     {
         if(mEditViewItemModel.getNo() < 1)
         {
-            emit signalEventResultSaveProductSetting(EnumDefine::DatabaseErrorType::EMPTY_PRODUCT_NO);
+            emit signalEventResultSaveProductSetting(true, false, 0);
             return;
         }
 
@@ -101,7 +101,7 @@ public slots:
            mEditViewItemModel.getNormalWeight()         <  mEditViewItemModel.getOverWarningWeight() &&
            mEditViewItemModel.getOverWarningWeight()    <=  mEditViewItemModel.getOverWeight()))
         {
-            emit signalEventResultSaveProductSetting(EnumDefine::DatabaseErrorType::INVAILD_WEIGHT_CHECKER_SETTING);
+            emit signalEventResultSaveProductSetting(false, true, 0);
             return;
         }
 
@@ -130,14 +130,14 @@ public slots:
             ret = pProductSP->editPD(newSetting);
         }
 
-        if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
+        if(ret == EnumDef::PDERR_NONE)
         {
             loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(newSetting.mSeq);
         }
 
-        signalEventResultSaveProductSetting(ret);
+        signalEventResultSaveProductSetting(false, false, ret);
     }
     Q_INVOKABLE void onCommandCancleProduct()
     {
@@ -148,13 +148,13 @@ public slots:
     {
         int ret = pProductSP->removePD(mEditViewItemModel.mModel.mSeq);
 
-        if(ret == EnumDefine::DatabaseErrorType::DB_NONE_ERROR)
+        if(ret == EnumDef::PDERR_NONE)
         {
             loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(getLookProductSeq());
         }
-        signalEventResultSaveProductSetting(ret);
+        signalEventResultSaveProductSetting(false, false, ret);
     }
 
 public slots:

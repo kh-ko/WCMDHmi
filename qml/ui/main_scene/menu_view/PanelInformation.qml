@@ -5,7 +5,7 @@ import FontManager 1.0
 import "."
 import "../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelInformationModel 1.0
 
 UiPanel {
@@ -271,7 +271,7 @@ UiPanel {
 
     Image{
         id : imageDevice
-        height: 500
+        height: 439
         fillMode: Image.PreserveAspectFit
         source: "Infomation/image_device/device.png"
         anchors.top: parent.top
@@ -280,81 +280,6 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: divider.right
         anchors.leftMargin: 20
-    }
-
-    UiInputNumber{
-        id : inputSensorLength
-        width: 800
-        height: 60
-        anchors.topMargin: 10
-        anchors.top: inputDistToRejector.bottom
-        anchors.leftMargin: 40
-        anchors.left: divider.right
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-
-        isDisable: !uiPanel.isAdmin
-        isHighlight: informationModel.isEditSensorLength
-        bgColor: uiPanel.bgColor
-        labelText : qsTr("⑤ Sensor length")
-        postfix: "mm"
-        inputWidth: 170
-
-        numberValue: informationModel.sensorLength
-
-        onSignalChangeValue: {
-            informationModel.onCommandSetSensorLength(value)
-        }
-    }
-
-    UiInputNumber{
-        id : inputDistToRejector
-        width: 800
-        height: 60
-        anchors.topMargin: 10
-        anchors.top: inputDistBtwSensor.bottom
-        anchors.leftMargin: 40
-        anchors.left: divider.right
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-
-        isDisable: !uiPanel.isAdmin
-        isHighlight: informationModel.isEditDistToRejector
-        bgColor: uiPanel.bgColor
-        labelText : qsTr("④ Distance to rejector")
-        postfix: "mm"
-        inputWidth: 170
-
-        numberValue: informationModel.distToRejector
-
-        onSignalChangeValue: {
-            informationModel.onCommandSetDistToRejector(value)
-        }
-    }
-
-    UiInputNumber{
-        id : inputDistBtwSensor
-        width: 800
-        height: 60
-        anchors.topMargin: 10
-        anchors.top: inputDistBtwPhotoToSensor.bottom
-        anchors.leftMargin: 40
-        anchors.left: divider.right
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-
-        isDisable: !uiPanel.isAdmin
-        isHighlight: informationModel.isEditDistBtwSensor
-        bgColor: uiPanel.bgColor
-        labelText : qsTr("③ Distance between sensor")
-        postfix: "mm"
-        inputWidth: 170
-
-        numberValue: informationModel.distBtwSensor
-
-        onSignalChangeValue: {
-            informationModel.onCommandSetDistBtwSensor(value)
-        }
     }
 
     UiInputNumber{
@@ -383,7 +308,6 @@ UiPanel {
         }
     }
 
-
     UiInputNumber{
         id : inputDistBtwPhotoToSensor
         width: 800
@@ -409,6 +333,154 @@ UiPanel {
         }
     }
 
+
+    UiInputNumber{
+        id : inputDistBtwSensor
+        width: 800
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputDistBtwPhotoToSensor.bottom
+        anchors.leftMargin: 40
+        anchors.left: divider.right
+        anchors.right: parent.right
+        anchors.rightMargin: 40
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditDistBtwSensor
+        bgColor: uiPanel.bgColor
+        labelText : qsTr("③ Distance between sensor")
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.distBtwSensor
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetDistBtwSensor(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSensorLength
+        width: 800
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputDistBtwSensor.bottom
+        anchors.leftMargin: 40
+        anchors.left: divider.right
+        anchors.right: parent.right
+        anchors.rightMargin: 40
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditSensorLength
+        bgColor: uiPanel.bgColor
+        labelText : qsTr("④ Sensor length")
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.sensorLength
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetSensorLength(value)
+        }
+    }
+
+    UiLabelSystem{
+        id : labelSorter
+        height: 60
+        width: 700
+        anchors.topMargin: 10
+        anchors.top: inputSensorLength.bottom
+        anchors.left: divider.right
+        anchors.leftMargin: 40
+
+        textValue: qsTr("⑤ Distance to Sorter")
+    }
+
+    UiInputNumber{
+        id : inputSorter01
+        width: 170
+        height: 60
+        anchors.top: labelSorter.bottom
+        anchors.topMargin: 0
+        anchors.left: divider.right
+        anchors.leftMargin: 40
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditDistToSorter01
+        bgColor: uiPanel.bgColor
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.distToSorter01
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetDistToSorter01(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter02
+        width: 170
+        height: 60
+        anchors.verticalCenter: inputSorter01.verticalCenter
+        anchors.left: inputSorter01.right
+        anchors.leftMargin: 20
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditDistToSorter02
+        bgColor: uiPanel.bgColor
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.distToSorter02
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetDistToSorter02(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter03
+        width: 170
+        height: 60
+        anchors.verticalCenter: inputSorter01.verticalCenter
+        anchors.left: inputSorter02.right
+        anchors.leftMargin: 20
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditDistToSorter03
+        bgColor: uiPanel.bgColor
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.distToSorter03
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetDistToSorter03(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter04
+        width: 170
+        height: 60
+        anchors.verticalCenter: inputSorter01.verticalCenter
+        anchors.left: inputSorter03.right
+        anchors.leftMargin: 20
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditDistToSorter04
+        bgColor: uiPanel.bgColor
+        postfix: "mm"
+        inputWidth: 170
+
+        numberValue: informationModel.distToSorter04
+
+        onSignalChangeValue: {
+            informationModel.onCommandSetDistToSorter04(value)
+        }
+    }
+
     UiButton{
         id : btnApply
         width : 164
@@ -423,13 +495,16 @@ UiPanel {
                  informationModel.isEditMaxWeight                 ||
                  informationModel.isEditDistBtwPhotoToSensor      ||
                  informationModel.isEditDistBtwSensor             ||
-                 informationModel.isEditDistToRejector            ||
                  informationModel.isEditDistToWC                  ||
                  informationModel.isEditSensorLength              ||
-                 informationModel.isEditDeviceNumber
+                 informationModel.isEditDeviceNumber              ||
+                 informationModel.isEditDistToSorter01            ||
+                 informationModel.isEditDistToSorter02            ||
+                 informationModel.isEditDistToSorter03            ||
+                 informationModel.isEditDistToSorter04
 
 
-        type : EnumDefine.BUTTON_TYPE_BLUE
+        type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")
 
         onSignalEventClicked:
@@ -461,7 +536,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:2;anchors_width:759}D{i:3;anchors_width:759}D{i:4;anchors_width:759}
-D{i:5;anchors_width:759}
+    D{i:0;formeditorZoom:0.75}D{i:2}D{i:3}D{i:4}D{i:5}
 }
 ##^##*/

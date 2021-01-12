@@ -3,22 +3,22 @@
 
 #pragma pack(push, 1)
 struct StDspCommand{
-    unsigned short mZero      ;
-    unsigned short mFR        ;
-    unsigned short mWCCarib   ;
-    unsigned short mRun       ;
-    unsigned short mReserved01;
-    unsigned short mWCGraphOn ;
-    unsigned short mMDGraphOn ;
-    unsigned short mReserved02;
-    unsigned int   mDeviceID  ;
+    unsigned short mZero               ;
+    unsigned short mFR                 ;
+    unsigned short mWCCarib            ;
+    unsigned short mRun                ;
+    unsigned short mResetGroupCurrCount; // [edit]
+    unsigned short mWCGraphOn          ;
+    unsigned short mMDGraphOn          ;
+    unsigned short mReserved02         ;
+    unsigned int   mDeviceID           ;
 };
 
 struct StDspDevCommSetting{
     unsigned int   mLampTime               ;
     unsigned int   mBuzzerTime             ;
-    unsigned int   mRejectorRunTimeRatio   ;
-    unsigned int   mRejectorOpenTime       ;
+    unsigned int   mDummy01                ;
+    unsigned int   mDummy02                ;
     unsigned int   mSpeedConverter         ;
     unsigned short mMotorDirection         ;
     unsigned short mMotorType              ;
@@ -26,6 +26,14 @@ struct StDspDevCommSetting{
     unsigned short mMotorWCRatio           ;
     unsigned short mMotorRJRatio           ;
     unsigned short mMachineMode            ; // 1 = alu, 2 = wc, 3 = combi
+    unsigned int   mSorter01RunTimeRatio   ; // [add]
+    unsigned int   mSorter01OpenTime       ; // [add]
+    unsigned int   mSorter02RunTimeRatio   ; // [add]
+    unsigned int   mSorter02OpenTime       ; // [add]
+    unsigned int   mSorter03RunTimeRatio   ; // [add]
+    unsigned int   mSorter03OpenTime       ; // [add]
+    unsigned int   mSorter04RunTimeRatio   ; // [add]
+    unsigned int   mSorter04OpenTime       ; // [add]
 };
 
 struct StDspDevWCSetting{
@@ -51,10 +59,14 @@ struct StDspDevMDSetting{
 
 struct StDspDevSizeSetting{
     unsigned short mSensorLength           ;
-    unsigned short mDistanceToRejector     ;
+    unsigned short mDummy                  ;
     unsigned short mDistanceBtwSensor      ;
     unsigned short mDistanceToWeightChecker;
     unsigned short mDistancePhotoToSensor  ;
+    unsigned short mDistToSorter01         ; // [add]
+    unsigned short mDistToSorter02         ; // [add]
+    unsigned short mDistToSorter03         ; // [add]
+    unsigned short mDistToSorter04         ; // [add]
 };
 
 struct StDspPDCommSetting{
@@ -62,7 +74,11 @@ struct StDspPDCommSetting{
     unsigned short mLength                 ;
     unsigned short mSpeed                  ;
     unsigned int   mMotorAccelerationTime  ;
-    unsigned int   mTargetCount            ; // [add]
+    unsigned int   mMotorDecelerationTime  ; // [add]
+    unsigned int   mGroupCount             ; // [add]
+    unsigned short mGroupMotion            ; // [add]
+    unsigned short mGroupLamp              ; // [add]
+    unsigned short mGroupBuzzer            ; // [add]
 };
 
 struct StDspPDWCSetting{
@@ -75,15 +91,20 @@ struct StDspPDWCSetting{
     unsigned short mNGMotion               ;
     unsigned int   mDynamicFactor          ;
     unsigned short mEnableEtcError         ;
+    unsigned short mNGLamp                 ; // [add]
+    unsigned short mNGBuzzer               ; // [add]
 };
 
 struct StDspPDMDSetting{
     unsigned short mSenstivity;
     unsigned short mNGMotion  ;
+    unsigned short mNGLamp    ; // [add]
+    unsigned short mNGBuzzer  ; // [add]
 };
 
 struct StDspCommStatus{
     unsigned short mRun;
+    unsigned int   mGroupCurrCount; // [add]
 };
 
 struct StDspWCStatus{

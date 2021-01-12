@@ -3,7 +3,8 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import ViewManager 1.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import "."
 import "../../control/"
 import "./main_view"
@@ -43,25 +44,21 @@ Rectangle {
         }
 
         onSignalResultSaveProductSetting: {
-            if(error === EnumDefine.SQL_ERROR)
+            if(error === EnumDef.PDERR_NONE)
             {
-                ViewManager.toast.show(qsTr("SQL error is occured."))
+                ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
-            else if(error === EnumDefine.NOT_EXIST_SEQ)
+            else if(error === EnumDef.PDERR_NOT_EXIST)
             {
                 ViewManager.toast.show(qsTr("This product dose not exist."))
             }
-            else if(error === EnumDefine.ALREADY_NO_ERROR)
+            else if(error === EnumDef.PDERR_SAME_PD_NUM)
             {
                 ViewManager.toast.show(qsTr("The Product no already exists."))
             }
-            else if(error === EnumDefine.EMPTY_PRODUCT_NO)
-            {
-                ViewManager.toast.show(qsTr("Please enter product no."))
-            }
             else
             {
-                ViewManager.toast.show(qsTr("Your settings have been saved."))
+                ViewManager.toast.show(qsTr("SQL error is occured."))
             }
         }
 
@@ -84,7 +81,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         title: qsTr("Metal senstivity setting")
 
-        type : EnumDefine.PANEL_TYPE_POPUP
+        type : QmlEnumDef.PANEL_TYPE_POPUP
 
         MouseArea{
             anchors.fill: parent
@@ -359,7 +356,7 @@ Rectangle {
             anchors.bottomMargin: 20
 
             clip: true
-            type : EnumDefine.PANEL_TYPE_DROP
+            type : QmlEnumDef.PANEL_TYPE_DROP
 
             Canvas{
                 property int centerY : height*0.5
@@ -834,7 +831,7 @@ Rectangle {
             anchors.right: btnClose.left
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
 
             visible: model.isEditSenstivity
 
@@ -852,7 +849,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            type : EnumDefine.BUTTON_TYPE_POPUP
+            type : QmlEnumDef.BUTTON_TYPE_POPUP
 
             onSignalEventClicked: {
                 panel.signalEventClose()

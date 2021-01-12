@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.VirtualKeyboard 2.4
 import FontManager 1.0
 import ViewManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import "."
 
 Item {
@@ -18,35 +18,35 @@ Item {
         control.vinputText = vinputText
         textLabel.text = vinputText.labelText
 
-        if(control.vinputText.textInputType === EnumDefine.INT_MODE)
+        if(control.vinputText.textInputType === QmlEnumDef.INT_MODE)
         {
             virtualTextField.maximumLength = 32767
             virtualTextField.inputMethodHints = Qt.ImhDigitsOnly
             virtualTextField.echoMode = TextInput.Normal
             virtualTextField.validator = null
         }
-        else if(control.vinputText.textInputType === EnumDefine.PASSWD_MODE)
+        else if(control.vinputText.textInputType === QmlEnumDef.PASSWD_MODE)
         {
             virtualTextField.maximumLength = 32767
             virtualTextField.inputMethodHints = Qt.ImhDigitsOnly
             virtualTextField.echoMode = TextInput.Password
             virtualTextField.validator = null
         }
-        else if(control.vinputText.textInputType === EnumDefine.STRING_MODE)
+        else if(control.vinputText.textInputType === QmlEnumDef.STRING_MODE)
         {
             virtualTextField.maximumLength = control.vinputText.maxLength
             virtualTextField.inputMethodHints = Qt.ImhNone
             virtualTextField.echoMode = TextInput.Normal
             virtualTextField.validator = null
         }
-        if(control.vinputText.textInputType === EnumDefine.FLOAT_MODE)
+        if(control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE)
         {
             virtualTextField.maximumLength = 32767
             virtualTextField.inputMethodHints = Qt.ImhDigitsOnly
             virtualTextField.echoMode = TextInput.Normal
             virtualTextField.validator = null
         }
-        if(control.vinputText.textInputType === EnumDefine.IP_MODE)
+        if(control.vinputText.textInputType === QmlEnumDef.IP_MODE)
         {
             virtualTextField.maximumLength = control.vinputText.maxLength
             virtualTextField.inputMethodHints = Qt.ImhDigitsOnly
@@ -133,21 +133,24 @@ Item {
 
         Keys.onReleased: {
 
-            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === EnumDefine.INT_MODE || control.vinputText.textInputType === EnumDefine.FLOAT_MODE || control.vinputText.textInputType === EnumDefine.IP_MODE))
+            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.IP_MODE))
             {
 
                 virtualTextField.text = virtualTextField.text.trim()
 
-                if(control.vinputText.textInputType === EnumDefine.INT_MODE)
+                if(control.vinputText.textInputType === QmlEnumDef.INT_MODE)
                 {
-                    var intValue = parseInt(virtualTextField.text.replace(/,/g,""))
+                    if(virtualTextField.text != "-")
+                    {
+                        var intValue = parseInt(virtualTextField.text.replace(/,/g,""))
 
-                    if(control.vinputText.isLocaleStyle)
-                        virtualTextField.text = intValue.toLocaleString(ViewManager.locale, 'f', 0)
-                    else
-                        virtualTextField.text = intValue
+                        if(control.vinputText.isLocaleStyle)
+                            virtualTextField.text = intValue.toLocaleString(ViewManager.locale, 'f', 0)
+                        else
+                            virtualTextField.text = intValue
+                    }
                 }
-                else if(control.vinputText.textInputType === EnumDefine.FLOAT_MODE)
+                else if(control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE)
                 {
                     var dotIdx = virtualTextField.text.indexOf(".")
 
@@ -181,7 +184,7 @@ Item {
                 }
             }
 
-            if(control.vinputText.textInputType === EnumDefine.STRING_MODE)
+            if(control.vinputText.textInputType === QmlEnumDef.STRING_MODE)
             {
                 virtualTextField.text = virtualTextField.text.replace(/,/g,"")
                 virtualTextField.text = virtualTextField.text.replace(/'/g,"")

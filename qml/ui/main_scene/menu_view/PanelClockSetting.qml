@@ -4,7 +4,7 @@ import ViewManager 1.0
 import "."
 import "../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelClockSettingModel 1.0
 
 UiPanel {
@@ -217,7 +217,7 @@ UiPanel {
         anchors.bottomMargin: 40
         width: 200
 
-        type : EnumDefine.BUTTON_TYPE_BLUE
+        type : QmlEnumDef.BUTTON_TYPE_BLUE
 
         textValue: qsTr("Apply")
         onSignalEventClicked: {

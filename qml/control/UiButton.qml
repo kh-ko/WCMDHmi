@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import FontManager 1.0
 
@@ -14,13 +14,13 @@ Item {
     width: 200
     height: 200
 
-    property color btnColor : type == EnumDefine.BUTTON_TYPE_DEFAULT ? "#333333" :
-                              type == EnumDefine.BUTTON_TYPE_UP_PANEL? "#434343" :
-                              type == EnumDefine.BUTTON_TYPE_POPUP   ? "#535353" :
-                              type == EnumDefine.BUTTON_TYPE_BLUE    ? "#0085FF" :
-                              type == EnumDefine.BUTTON_TYPE_METAL   ? "#70B603" : "#333333"
+    property color btnColor : type == QmlEnumDef.BUTTON_TYPE_DEFAULT ? "#333333" :
+                              type == QmlEnumDef.BUTTON_TYPE_UP_PANEL? "#434343" :
+                              type == QmlEnumDef.BUTTON_TYPE_POPUP   ? "#535353" :
+                              type == QmlEnumDef.BUTTON_TYPE_BLUE    ? "#0085FF" :
+                              type == QmlEnumDef.BUTTON_TYPE_METAL   ? "#70B603" : "#333333"
 
-    property color textColor : type == EnumDefine.BUTTON_TYPE_DEFAULT ? "#ACACAC" : "#FFFFFF"
+    property color textColor : type == QmlEnumDef.BUTTON_TYPE_DEFAULT ? "#ACACAC" : "#FFFFFF"
 
     property bool isDisable : false
     property bool isPress : false

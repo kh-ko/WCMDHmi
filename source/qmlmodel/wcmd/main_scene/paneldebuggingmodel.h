@@ -11,6 +11,11 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint16 mLength                      READ getLength                             NOTIFY signalEventChangedLength                            );
     Q_PROPERTY(quint16 mSpeed                       READ getSpeed                              NOTIFY signalEventChangedSpeed                             );
     Q_PROPERTY(quint32 mMotorAccelerationTime       READ getMotorAccelerationTime              NOTIFY signalEventChangedMotorAccelerationTime             );
+    Q_PROPERTY(quint32 mMotorDecelerationTime       READ getMotorDecelerationTime              NOTIFY signalEventChangedMotorDecelerationTime             );
+    Q_PROPERTY(quint32 mGroupCount                  READ getGroupCount                         NOTIFY signalEventChangedGroupCount                        );
+    Q_PROPERTY(quint16 mGroupMotion                 READ getGroupMotion                        NOTIFY signalEventChangedGroupMotion                       );
+    Q_PROPERTY(quint16 mGroupLamp                   READ getGroupLamp                          NOTIFY signalEventChangedGroupLamp                         );
+    Q_PROPERTY(quint16 mGroupBuzzer                 READ getGroupBuzzer                        NOTIFY signalEventChangedGroupBuzzer                       );
     Q_PROPERTY(quint32 mUnderWeight                 READ getUnderWeight                        NOTIFY signalEventChangedUnderWeight                       );
     Q_PROPERTY(quint32 mUnderWarningWeight          READ getUnderWarningWeight                 NOTIFY signalEventChangedUnderWarningWeight                );
     Q_PROPERTY(quint32 mNormalWeight                READ getNormalWeight                       NOTIFY signalEventChangedNormalWeight                      );
@@ -19,8 +24,13 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mTareWeight                  READ getTareWeight                         NOTIFY signalEventChangedTareWeight                        );
     Q_PROPERTY(quint16 mWCNGMotion                  READ getWCNGMotion                         NOTIFY signalEventChangedWCNGMotion                        );
     Q_PROPERTY(quint16 mWCEnableEtcError            READ getWCEnableEtcError                   NOTIFY signalEventChangedWCEnableEtcError                  );
+    Q_PROPERTY(quint32 mDynamicFactor               READ getDynamicFactor                      NOTIFY signalEventChangedDynamicFactor                     );
     Q_PROPERTY(quint16 mMDSenstivity                READ getMDSenstivity                       NOTIFY signalEventChangedMDSenstivity                      );
     Q_PROPERTY(quint16 mMDNGMotion                  READ getMDNGMotion                         NOTIFY signalEventChangedMDNGMotion                        );
+    Q_PROPERTY(quint16 mWCNGLamp                    READ getWCNGLamp                           NOTIFY signalEventChangedWCNGLamp                          );
+    Q_PROPERTY(quint16 mWCNGBuzzer                  READ getWCNGBuzzer                         NOTIFY signalEventChangedWCNGBuzzer                        );
+    Q_PROPERTY(quint16 mMDNGLamp                    READ getMDNGLamp                           NOTIFY signalEventChangedMDNGLamp                          );
+    Q_PROPERTY(quint16 mMDNGBuzzer                  READ getMDNGBuzzer                         NOTIFY signalEventChangedMDNGBuzzer                        );
     Q_PROPERTY(quint32 mLampTime                    READ getLampTime                           NOTIFY signalEventChangedLampTime                          );
     Q_PROPERTY(quint32 mBuzzerTime                  READ getBuzzerTime                         NOTIFY signalEventChangedBuzzerTime                        );
     Q_PROPERTY(quint32 mSpeedConverter              READ getSpeedConverter                     NOTIFY signalEventChangedSpeedConverter                    );
@@ -29,14 +39,23 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint16 mMotorMDRatio                READ getMotorMDRatio                       NOTIFY signalEventChangedMotorMDRatio                      );
     Q_PROPERTY(quint16 mMotorWCRatio                READ getMotorWCRatio                       NOTIFY signalEventChangedMotorWCRatio                      );
     Q_PROPERTY(quint16 mMotorRJRatio                READ getMotorRJRatio                       NOTIFY signalEventChangedMotorRJRatio                      );
+    Q_PROPERTY(quint32 mSorter01RunTimeRatio        READ getSorter01RunTimeRatio               NOTIFY signalEventChangedSorter01RunTimeRatio              );
+    Q_PROPERTY(quint32 mSorter01OpenTime            READ getSorter01OpenTime                   NOTIFY signalEventChangedSorter01OpenTime                  );
+    Q_PROPERTY(quint32 mSorter02RunTimeRatio        READ getSorter02RunTimeRatio               NOTIFY signalEventChangedSorter02RunTimeRatio              );
+    Q_PROPERTY(quint32 mSorter02OpenTime            READ getSorter02OpenTime                   NOTIFY signalEventChangedSorter02OpenTime                  );
+    Q_PROPERTY(quint32 mSorter03RunTimeRatio        READ getSorter03RunTimeRatio               NOTIFY signalEventChangedSorter03RunTimeRatio              );
+    Q_PROPERTY(quint32 mSorter03OpenTime            READ getSorter03OpenTime                   NOTIFY signalEventChangedSorter03OpenTime                  );
+    Q_PROPERTY(quint32 mSorter04RunTimeRatio        READ getSorter04RunTimeRatio               NOTIFY signalEventChangedSorter04RunTimeRatio              );
+    Q_PROPERTY(quint32 mSorter04OpenTime            READ getSorter04OpenTime                   NOTIFY signalEventChangedSorter04OpenTime                  );
+    Q_PROPERTY(quint16 mDistToSorter01              READ getDistToSorter01                     NOTIFY signalEventChangedDistToSorter01                    );
+    Q_PROPERTY(quint16 mDistToSorter02              READ getDistToSorter02                     NOTIFY signalEventChangedDistToSorter02                    );
+    Q_PROPERTY(quint16 mDistToSorter03              READ getDistToSorter03                     NOTIFY signalEventChangedDistToSorter03                    );
+    Q_PROPERTY(quint16 mDistToSorter04              READ getDistToSorter04                     NOTIFY signalEventChangedDistToSorter04                    );
     Q_PROPERTY(quint16 mMachineMode                 READ getMachineMode                        NOTIFY signalEventChangedMachineMode                       );
     Q_PROPERTY(quint16 mSensorLength                READ getSensorLength                       NOTIFY signalEventChangedSensorLength                      );
-    Q_PROPERTY(quint16 mDistanceToRejector          READ getDistanceToRejector                 NOTIFY signalEventChangedDistanceToRejector                );
     Q_PROPERTY(bool    mMDPhotoIsOn                 READ getMDPhotoIsOn                        NOTIFY signalEventChangedMDPhotoIsOn                       );
     Q_PROPERTY(bool    mWCPhotoIsOn                 READ getWCPhotoIsOn                        NOTIFY signalEventChangedWCPhotoIsOn                       );
-    Q_PROPERTY(quint32 mRejectorRunTimeRatio        READ getRejectorRunTimeRatio               NOTIFY signalEventChangedRejectorRunTimeRatio              );
     Q_PROPERTY(quint32 mStaticFactor                READ getStaticFactor                       NOTIFY signalEventChangedStaticFactor                      );
-    Q_PROPERTY(quint32 mDynamicFactor               READ getDynamicFactor                      NOTIFY signalEventChangedDynamicFactor                     );
     Q_PROPERTY(quint32 mScaler                      READ getScaler                             NOTIFY signalEventChangedScaler                            );
     Q_PROPERTY(quint32 mDisplayStability            READ getDisplayStability                   NOTIFY signalEventChangedDisplayStability                  );
     Q_PROPERTY(quint32 mMeasureCueSign              READ getMeasureCueSign                     NOTIFY signalEventChangedMeasureCueSign                    );
@@ -52,11 +71,15 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mStaticStandardWeight        READ getStaticStandardWeight               NOTIFY signalEventChangedStaticStandardWeight              );
     Q_PROPERTY(quint32 mDynamicBaseWeight           READ getDynamicBaseWeight                  NOTIFY signalEventChangedDynamicBaseWeight                 );
     Q_PROPERTY(quint16 mSensorCnt                   READ getSensorCnt                          NOTIFY signalEventChangedSensorCnt                         );
-    Q_PROPERTY(quint32 mRejectorOpenTime            READ getRejectorOpenTime                   NOTIFY signalEventChangedRejectorOpenTime                  );
     Q_PROPERTY(bool    mDiffSeq                     READ getDiffSeq                            NOTIFY signalEventChangedDiffSeq                           );
     Q_PROPERTY(bool    mDiffLength                  READ getDiffLength                         NOTIFY signalEventChangedDiffLength                        );
     Q_PROPERTY(bool    mDiffSpeed                   READ getDiffSpeed                          NOTIFY signalEventChangedDiffSpeed                         );
-    Q_PROPERTY(quint32 mDiffMotorAccelerationTime   READ getDiffMotorAccelerationTime          NOTIFY signalEventChangedDiffMotorAccelerationTime         );
+    Q_PROPERTY(bool    mDiffMotorAccelerationTime   READ getDiffMotorAccelerationTime          NOTIFY signalEventChangedDiffMotorAccelerationTime         );
+    Q_PROPERTY(bool    mDiffMotorDecelerationTime   READ getDiffMotorDecelerationTime          NOTIFY signalEventChangedDiffMotorDecelerationTime         );
+    Q_PROPERTY(bool    mDiffGroupCount              READ getDiffGroupCount                     NOTIFY signalEventChangedDiffGroupCount                    );
+    Q_PROPERTY(bool    mDiffGroupMotion             READ getDiffGroupMotion                    NOTIFY signalEventChangedDiffGroupMotion                   );
+    Q_PROPERTY(bool    mDiffGroupLamp               READ getDiffGroupLamp                      NOTIFY signalEventChangedDiffGroupLamp                     );
+    Q_PROPERTY(bool    mDiffGroupBuzzer             READ getDiffGroupBuzzer                    NOTIFY signalEventChangedDiffGroupBuzzer                   );
     Q_PROPERTY(bool    mDiffUnderWeight             READ getDiffUnderWeight                    NOTIFY signalEventChangedDiffUnderWeight                   );
     Q_PROPERTY(bool    mDiffUnderWarningWeight      READ getDiffUnderWarningWeight             NOTIFY signalEventChangedDiffUnderWarningWeight            );
     Q_PROPERTY(bool    mDiffNormalWeight            READ getDiffNormalWeight                   NOTIFY signalEventChangedDiffNormalWeight                  );
@@ -65,8 +88,13 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffTareWeight              READ getDiffTareWeight                     NOTIFY signalEventChangedDiffTareWeight                    );
     Q_PROPERTY(bool    mDiffWCNGMotion              READ getDiffWCNGMotion                     NOTIFY signalEventChangedDiffWCNGMotion                    );
     Q_PROPERTY(bool    mDiffWCEnableEtcError        READ getDiffWCEnableEtcError               NOTIFY signalEventChangedDiffWCEnableEtcError              );
+    Q_PROPERTY(bool    mDiffDynamicFactor           READ getDiffDynamicFactor                  NOTIFY signalEventChangedDiffDynamicFactor                 );
     Q_PROPERTY(bool    mDiffMDSenstivity            READ getDiffMDSenstivity                   NOTIFY signalEventChangedDiffMDSenstivity                  );
     Q_PROPERTY(bool    mDiffMDNGMotion              READ getDiffMDNGMotion                     NOTIFY signalEventChangedDiffMDNGMotion                    );
+    Q_PROPERTY(bool    mDiffWCNGLamp                READ getDiffWCNGLamp                       NOTIFY signalEventChangedDiffWCNGLamp                      );
+    Q_PROPERTY(bool    mDiffWCNGBuzzer              READ getDiffWCNGBuzzer                     NOTIFY signalEventChangedDiffWCNGBuzzer                    );
+    Q_PROPERTY(bool    mDiffMDNGLamp                READ getDiffMDNGLamp                       NOTIFY signalEventChangedDiffMDNGLamp                      );
+    Q_PROPERTY(bool    mDiffMDNGBuzzer              READ getDiffMDNGBuzzer                     NOTIFY signalEventChangedDiffMDNGBuzzer                    );
     Q_PROPERTY(bool    mDiffLampTime                READ getDiffLampTime                       NOTIFY signalEventChangedDiffLampTime                      );
     Q_PROPERTY(bool    mDiffBuzzerTime              READ getDiffBuzzerTime                     NOTIFY signalEventChangedDiffBuzzerTime                    );
     Q_PROPERTY(bool    mDiffSpeedConverter          READ getDiffSpeedConverter                 NOTIFY signalEventChangedDiffSpeedConverter                );
@@ -76,13 +104,22 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffMotorMDRatio            READ getDiffMotorMDRatio                   NOTIFY signalEventChangedDiffMotorMDRatio                  );
     Q_PROPERTY(bool    mDiffMotorWCRatio            READ getDiffMotorWCRatio                   NOTIFY signalEventChangedDiffMotorWCRatio                  );
     Q_PROPERTY(bool    mDiffMotorRJRatio            READ getDiffMotorRJRatio                   NOTIFY signalEventChangedDiffMotorRJRatio                  );
+    Q_PROPERTY(bool    mDiffDistToSorter01          READ getDiffDistToSorter01                 NOTIFY signalEventChangedDiffDistToSorter01                );
+    Q_PROPERTY(bool    mDiffDistToSorter02          READ getDiffDistToSorter02                 NOTIFY signalEventChangedDiffDistToSorter02                );
+    Q_PROPERTY(bool    mDiffDistToSorter03          READ getDiffDistToSorter03                 NOTIFY signalEventChangedDiffDistToSorter03                );
+    Q_PROPERTY(bool    mDiffDistToSorter04          READ getDiffDistToSorter04                 NOTIFY signalEventChangedDiffDistToSorter04                );
+    Q_PROPERTY(bool    mDiffSorter01RunTimeRatio    READ getDiffSorter01RunTimeRatio           NOTIFY signalEventChangedDiffSorter01RunTimeRatio          );
+    Q_PROPERTY(bool    mDiffSorter01OpenTime        READ getDiffSorter01OpenTime               NOTIFY signalEventChangedDiffSorter01OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter02RunTimeRatio    READ getDiffSorter02RunTimeRatio           NOTIFY signalEventChangedDiffSorter02RunTimeRatio          );
+    Q_PROPERTY(bool    mDiffSorter02OpenTime        READ getDiffSorter02OpenTime               NOTIFY signalEventChangedDiffSorter02OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter03RunTimeRatio    READ getDiffSorter03RunTimeRatio           NOTIFY signalEventChangedDiffSorter03RunTimeRatio          );
+    Q_PROPERTY(bool    mDiffSorter03OpenTime        READ getDiffSorter03OpenTime               NOTIFY signalEventChangedDiffSorter03OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter04RunTimeRatio    READ getDiffSorter04RunTimeRatio           NOTIFY signalEventChangedDiffSorter04RunTimeRatio          );
+    Q_PROPERTY(bool    mDiffSorter04OpenTime        READ getDiffSorter04OpenTime               NOTIFY signalEventChangedDiffSorter04OpenTime              );
     Q_PROPERTY(bool    mDiffMDPhotoIsOn             READ getDiffMDPhotoIsOn                    NOTIFY signalEventChangedDiffMDPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffWCPhotoIsOn             READ getDiffWCPhotoIsOn                    NOTIFY signalEventChangedDiffWCPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffSensorLength            READ getDiffSensorLength                   NOTIFY signalEventChangedDiffSensorLength                  );
-    Q_PROPERTY(bool    mDiffDistanceToRejector      READ getDiffDistanceToRejector             NOTIFY signalEventChangedDiffDistanceToRejector            );
-    Q_PROPERTY(bool    mDiffRejectorRunTimeRatio    READ getDiffRejectorRunTimeRatio           NOTIFY signalEventChangedDiffRejectorRunTimeRatio          );
     Q_PROPERTY(bool    mDiffStaticFactor            READ getDiffStaticFactor                   NOTIFY signalEventChangedDiffStaticFactor                  );
-    Q_PROPERTY(bool    mDiffDynamicFactor           READ getDiffDynamicFactor                  NOTIFY signalEventChangedDiffDynamicFactor                 );
     Q_PROPERTY(bool    mDiffScaler                  READ getDiffScaler                         NOTIFY signalEventChangedDiffScaler                        );
     Q_PROPERTY(bool    mDiffDisplayStability        READ getDiffDisplayStability               NOTIFY signalEventChangedDiffDisplayStability              );
     Q_PROPERTY(bool    mDiffMeasureCueSign          READ getDiffMeasureCueSign                 NOTIFY signalEventChangedDiffMeasureCueSign                );
@@ -98,7 +135,6 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffStaticStandardWeight    READ getDiffStaticStandardWeight           NOTIFY signalEventChangedDiffStaticStandardWeight          );
     Q_PROPERTY(bool    mDiffDynamicBaseWeight       READ getDiffDynamicBaseWeight              NOTIFY signalEventChangedDiffDynamicBaseWeight             );
     Q_PROPERTY(bool    mDiffSensorCnt               READ getDiffSensorCnt                      NOTIFY signalEventChangedDiffSensorCnt                     );
-    Q_PROPERTY(bool    mDiffRejectorOpenTime        READ getDiffRejectorOpenTime               NOTIFY signalEventChangedDiffRejectorOpenTime              );
 
 public:
     quint64 mDspSeq                     = 0;
@@ -106,6 +142,11 @@ public:
     quint16 mLength                     ;
     quint16 mSpeed                      ;
     quint32 mMotorAccelerationTime      ;
+    quint32 mMotorDecelerationTime      ;
+    quint32 mGroupCount                 ;
+    quint32 mGroupMotion                ;
+    quint16 mGroupLamp                  ;
+    quint16 mGroupBuzzer                ;
     quint32 mUnderWeight                ;
     quint32 mUnderWarningWeight         ;
     quint32 mNormalWeight               ;
@@ -114,8 +155,13 @@ public:
     quint32 mTareWeight                 ;
     quint16 mWCNGMotion                 ;
     quint16 mWCEnableEtcError           ;
+    quint32 mDynamicFactor              ;
     quint16 mMDSenstivity               ;
     quint16 mMDNGMotion                 ;
+    quint16 mWCNGLamp                   ;
+    quint16 mWCNGBuzzer                 ;
+    quint16 mMDNGLamp                   ;
+    quint16 mMDNGBuzzer                 ;
     quint32 mLampTime                   ;
     quint32 mBuzzerTime                 ;
     quint32 mSpeedConverter             ;
@@ -125,13 +171,22 @@ public:
     quint16 mMotorMDRatio               ;
     quint16 mMotorWCRatio               ;
     quint16 mMotorRJRatio               ;
+    quint32 mSorter01RunTimeRatio       ;
+    quint32 mSorter01OpenTime           ;
+    quint32 mSorter02RunTimeRatio       ;
+    quint32 mSorter02OpenTime           ;
+    quint32 mSorter03RunTimeRatio       ;
+    quint32 mSorter03OpenTime           ;
+    quint32 mSorter04RunTimeRatio       ;
+    quint32 mSorter04OpenTime           ;
+    quint16 mDistToSorter01             ;
+    quint16 mDistToSorter02             ;
+    quint16 mDistToSorter03             ;
+    quint16 mDistToSorter04             ;
     quint16 mSensorLength               ;
-    quint16 mDistanceToRejector         ;
     bool    mMDPhotoIsOn                ;
     bool    mWCPhotoIsOn                ;
-    quint32 mRejectorRunTimeRatio       ;
     quint32 mStaticFactor               ;
-    quint32 mDynamicFactor              ;
     quint32 mScaler                     ;
     quint32 mDisplayStability           ;
     quint32 mMeasureCueSign             ;
@@ -147,12 +202,16 @@ public:
     quint32 mStaticStandardWeight       ;
     quint32 mDynamicBaseWeight          ;
     quint16 mSensorCnt                  ;
-    quint32 mRejectorOpenTime           ;
 
     bool    mDiffSeq                    ;
     bool    mDiffLength                 ;
     bool    mDiffSpeed                  ;
     bool    mDiffMotorAccelerationTime  ;
+    bool    mDiffMotorDecelerationTime  ;
+    bool    mDiffGroupCount             ;
+    bool    mDiffGroupMotion            ;
+    bool    mDiffGroupLamp              ;
+    bool    mDiffGroupBuzzer            ;
     bool    mDiffUnderWeight            ;
     bool    mDiffUnderWarningWeight     ;
     bool    mDiffNormalWeight           ;
@@ -163,6 +222,10 @@ public:
     bool    mDiffWCEnableEtcError       ;
     bool    mDiffMDSenstivity           ;
     bool    mDiffMDNGMotion             ;
+    bool    mDiffWCNGLamp               ;
+    bool    mDiffWCNGBuzzer             ;
+    bool    mDiffMDNGLamp               ;
+    bool    mDiffMDNGBuzzer             ;
     bool    mDiffLampTime               ;
     bool    mDiffBuzzerTime             ;
     bool    mDiffSpeedConverter         ;
@@ -172,11 +235,21 @@ public:
     bool    mDiffMotorMDRatio           ;
     bool    mDiffMotorWCRatio           ;
     bool    mDiffMotorRJRatio           ;
+    bool    mDiffSorter01RunTimeRatio   ;
+    bool    mDiffSorter01OpenTime       ;
+    bool    mDiffSorter02RunTimeRatio   ;
+    bool    mDiffSorter02OpenTime       ;
+    bool    mDiffSorter03RunTimeRatio   ;
+    bool    mDiffSorter03OpenTime       ;
+    bool    mDiffSorter04RunTimeRatio   ;
+    bool    mDiffSorter04OpenTime       ;
+    bool    mDiffDistToSorter01         ;
+    bool    mDiffDistToSorter02         ;
+    bool    mDiffDistToSorter03         ;
+    bool    mDiffDistToSorter04         ;
     bool    mDiffSensorLength           ;
-    bool    mDiffDistanceToRejector     ;
     bool    mDiffMDPhotoIsOn            ;
     bool    mDiffWCPhotoIsOn            ;
-    bool    mDiffRejectorRunTimeRatio   ;
     bool    mDiffStaticFactor           ;
     bool    mDiffDynamicFactor          ;
     bool    mDiffScaler                 ;
@@ -194,12 +267,16 @@ public:
     bool    mDiffStaticStandardWeight   ;
     bool    mDiffDynamicBaseWeight      ;
     bool    mDiffSensorCnt              ;
-    bool    mDiffRejectorOpenTime       ;
 
     quint16 getSeq                        (){ return mSeq                        ;}
     quint16 getLength                     (){ return mLength                     ;}
     quint16 getSpeed                      (){ return mSpeed                      ;}
     quint32 getMotorAccelerationTime      (){ return mMotorAccelerationTime      ;}
+    quint32 getMotorDecelerationTime      (){ return mMotorDecelerationTime      ;}
+    quint32 getGroupCount                 (){ return mGroupCount                 ;}
+    quint16 getGroupMotion                (){ return mGroupMotion                ;}
+    quint16 getGroupLamp                  (){ return mGroupLamp                  ;}
+    quint16 getGroupBuzzer                (){ return mGroupBuzzer                ;}
     quint32 getUnderWeight                (){ return mUnderWeight                ;}
     quint32 getUnderWarningWeight         (){ return mUnderWarningWeight         ;}
     quint32 getNormalWeight               (){ return mNormalWeight               ;}
@@ -208,8 +285,13 @@ public:
     quint32 getTareWeight                 (){ return mTareWeight                 ;}
     quint16 getWCNGMotion                 (){ return mWCNGMotion                 ;}
     quint16 getWCEnableEtcError           (){ return mWCEnableEtcError           ;}
+    quint32 getDynamicFactor              (){ return mDynamicFactor              ;}
     quint16 getMDSenstivity               (){ return mMDSenstivity               ;}
     quint16 getMDNGMotion                 (){ return mMDNGMotion                 ;}
+    quint16 getWCNGLamp                   (){ return mWCNGLamp                   ;}
+    quint16 getWCNGBuzzer                 (){ return mWCNGBuzzer                 ;}
+    quint16 getMDNGLamp                   (){ return mMDNGLamp                   ;}
+    quint16 getMDNGBuzzer                 (){ return mMDNGBuzzer                 ;}
     quint32 getLampTime                   (){ return mLampTime                   ;}
     quint32 getBuzzerTime                 (){ return mBuzzerTime                 ;}
     quint32 getSpeedConverter             (){ return mSpeedConverter             ;}
@@ -219,13 +301,22 @@ public:
     quint16 getMotorMDRatio               (){ return mMotorMDRatio               ;}
     quint16 getMotorWCRatio               (){ return mMotorWCRatio               ;}
     quint16 getMotorRJRatio               (){ return mMotorRJRatio               ;}
+    quint32 getSorter01RunTimeRatio       (){ return mSorter01RunTimeRatio       ;}
+    quint32 getSorter01OpenTime           (){ return mSorter01OpenTime           ;}
+    quint32 getSorter02RunTimeRatio       (){ return mSorter02RunTimeRatio       ;}
+    quint32 getSorter02OpenTime           (){ return mSorter02OpenTime           ;}
+    quint32 getSorter03RunTimeRatio       (){ return mSorter03RunTimeRatio       ;}
+    quint32 getSorter03OpenTime           (){ return mSorter03OpenTime           ;}
+    quint32 getSorter04RunTimeRatio       (){ return mSorter04RunTimeRatio       ;}
+    quint32 getSorter04OpenTime           (){ return mSorter04OpenTime           ;}
+    quint16 getDistToSorter01             (){ return mDistToSorter01             ;}
+    quint16 getDistToSorter02             (){ return mDistToSorter02             ;}
+    quint16 getDistToSorter03             (){ return mDistToSorter03             ;}
+    quint16 getDistToSorter04             (){ return mDistToSorter04             ;}
     quint16 getSensorLength               (){ return mSensorLength               ;}
-    quint16 getDistanceToRejector         (){ return mDistanceToRejector         ;}
     bool    getMDPhotoIsOn                (){ return mMDPhotoIsOn                ;}
     bool    getWCPhotoIsOn                (){ return mWCPhotoIsOn                ;}
-    quint32 getRejectorRunTimeRatio       (){ return mRejectorRunTimeRatio       ;}
     quint32 getStaticFactor               (){ return mStaticFactor               ;}
-    quint32 getDynamicFactor              (){ return mDynamicFactor              ;}
     quint32 getScaler                     (){ return mScaler                     ;}
     quint32 getDisplayStability           (){ return mDisplayStability           ;}
     quint32 getMeasureCueSign             (){ return mMeasureCueSign             ;}
@@ -241,11 +332,15 @@ public:
     quint32 getStaticStandardWeight       (){ return mStaticStandardWeight       ;}
     quint32 getDynamicBaseWeight          (){ return mDynamicBaseWeight          ;}
     quint16 getSensorCnt                  (){ return mSensorCnt                  ;}
-    quint32 getRejectorOpenTime           (){ return mRejectorOpenTime           ;}
     bool    getDiffSeq                    (){ return mDiffSeq                    ;}
     bool    getDiffLength                 (){ return mDiffLength                 ;}
     bool    getDiffSpeed                  (){ return mDiffSpeed                  ;}
     bool    getDiffMotorAccelerationTime  (){ return mDiffMotorAccelerationTime  ;}
+    bool    getDiffMotorDecelerationTime  (){ return mDiffMotorDecelerationTime  ;}
+    bool    getDiffGroupCount             (){ return mDiffGroupCount             ;}
+    bool    getDiffGroupMotion            (){ return mDiffGroupMotion            ;}
+    bool    getDiffGroupLamp              (){ return mDiffGroupLamp              ;}
+    bool    getDiffGroupBuzzer            (){ return mDiffGroupBuzzer            ;}
     bool    getDiffUnderWeight            (){ return mDiffUnderWeight            ;}
     bool    getDiffUnderWarningWeight     (){ return mDiffUnderWarningWeight     ;}
     bool    getDiffNormalWeight           (){ return mDiffNormalWeight           ;}
@@ -254,8 +349,13 @@ public:
     bool    getDiffTareWeight             (){ return mDiffTareWeight             ;}
     bool    getDiffWCNGMotion             (){ return mDiffWCNGMotion             ;}
     bool    getDiffWCEnableEtcError       (){ return mDiffWCEnableEtcError       ;}
+    bool    getDiffDynamicFactor          (){ return mDiffDynamicFactor          ;}
     bool    getDiffMDSenstivity           (){ return mDiffMDSenstivity           ;}
     bool    getDiffMDNGMotion             (){ return mDiffMDNGMotion             ;}
+    bool    getDiffWCNGLamp               (){ return mDiffWCNGLamp               ;}
+    bool    getDiffWCNGBuzzer             (){ return mDiffWCNGBuzzer             ;}
+    bool    getDiffMDNGLamp               (){ return mDiffMDNGLamp               ;}
+    bool    getDiffMDNGBuzzer             (){ return mDiffMDNGBuzzer             ;}
     bool    getDiffLampTime               (){ return mDiffLampTime               ;}
     bool    getDiffBuzzerTime             (){ return mDiffBuzzerTime             ;}
     bool    getDiffSpeedConverter         (){ return mDiffSpeedConverter         ;}
@@ -265,13 +365,22 @@ public:
     bool    getDiffMotorMDRatio           (){ return mDiffMotorMDRatio           ;}
     bool    getDiffMotorWCRatio           (){ return mDiffMotorWCRatio           ;}
     bool    getDiffMotorRJRatio           (){ return mDiffMotorRJRatio           ;}
+    bool    getDiffSorter01RunTimeRatio   (){ return mDiffSorter01RunTimeRatio   ;}
+    bool    getDiffSorter01OpenTime       (){ return mDiffSorter01OpenTime       ;}
+    bool    getDiffSorter02RunTimeRatio   (){ return mDiffSorter02RunTimeRatio   ;}
+    bool    getDiffSorter02OpenTime       (){ return mDiffSorter02OpenTime       ;}
+    bool    getDiffSorter03RunTimeRatio   (){ return mDiffSorter03RunTimeRatio   ;}
+    bool    getDiffSorter03OpenTime       (){ return mDiffSorter03OpenTime       ;}
+    bool    getDiffSorter04RunTimeRatio   (){ return mDiffSorter04RunTimeRatio   ;}
+    bool    getDiffSorter04OpenTime       (){ return mDiffSorter04OpenTime       ;}
+    bool    getDiffDistToSorter01         (){ return mDiffDistToSorter01         ;}
+    bool    getDiffDistToSorter02         (){ return mDiffDistToSorter02         ;}
+    bool    getDiffDistToSorter03         (){ return mDiffDistToSorter03         ;}
+    bool    getDiffDistToSorter04         (){ return mDiffDistToSorter04         ;}
     bool    getDiffSensorLength           (){ return mDiffSensorLength           ;}
-    bool    getDiffDistanceToRejector     (){ return mDiffDistanceToRejector     ;}
     bool    getDiffMDPhotoIsOn            (){ return mDiffMDPhotoIsOn            ;}
     bool    getDiffWCPhotoIsOn            (){ return mDiffWCPhotoIsOn            ;}
-    bool    getDiffRejectorRunTimeRatio   (){ return mDiffRejectorRunTimeRatio   ;}
     bool    getDiffStaticFactor           (){ return mDiffStaticFactor           ;}
-    bool    getDiffDynamicFactor          (){ return false/*mDiffDynamicFactor*/ ;}
     bool    getDiffScaler                 (){ return mDiffScaler                 ;}
     bool    getDiffDisplayStability       (){ return mDiffDisplayStability       ;}
     bool    getDiffMeasureCueSign         (){ return mDiffMeasureCueSign         ;}
@@ -287,12 +396,16 @@ public:
     bool    getDiffStaticStandardWeight   (){ return mDiffStaticStandardWeight   ;}
     bool    getDiffDynamicBaseWeight      (){ return mDiffDynamicBaseWeight      ;}
     bool    getDiffSensorCnt              (){ return mDiffSensorCnt              ;}
-    bool    getDiffRejectorOpenTime       (){ return mDiffRejectorOpenTime       ;}
 
     void setSeq                        (quint16  value){ if( value == mSeq                        ) return; mSeq                        = value; emit signalEventChangedSeq                               (value);}
     void setLength                     (quint16  value){ if( value == mLength                     ) return; mLength                     = value; emit signalEventChangedLength                            (value);}
     void setSpeed                      (quint16  value){ if( value == mSpeed                      ) return; mSpeed                      = value; emit signalEventChangedSpeed                             (value);}
     void setMotorAccelerationTime      (quint32  value){ if( value == mMotorAccelerationTime      ) return; mMotorAccelerationTime      = value; emit signalEventChangedMotorAccelerationTime             (value);}
+    void setMotorDecelerationTime      (quint32  value){ if( value == mMotorDecelerationTime      ) return; mMotorDecelerationTime      = value; emit signalEventChangedMotorDecelerationTime             (value);}
+    void setGroupCount                 (quint32  value){ if( value == mGroupCount                 ) return; mGroupCount                 = value; emit signalEventChangedGroupCount                        (value);}
+    void setGroupMotion                (quint16  value){ if( value == mGroupMotion                ) return; mGroupMotion                = value; emit signalEventChangedGroupMotion                       (value);}
+    void setGroupLamp                  (quint16  value){ if( value == mGroupLamp                  ) return; mGroupLamp                  = value; emit signalEventChangedGroupLamp                         (value);}
+    void setGroupBuzzer                (quint16  value){ if( value == mGroupBuzzer                ) return; mGroupBuzzer                = value; emit signalEventChangedGroupBuzzer                       (value);}
     void setUnderWeight                (quint32  value){ if( value == mUnderWeight                ) return; mUnderWeight                = value; emit signalEventChangedUnderWeight                       (value);}
     void setUnderWarningWeight         (quint32  value){ if( value == mUnderWarningWeight         ) return; mUnderWarningWeight         = value; emit signalEventChangedUnderWarningWeight                (value);}
     void setNormalWeight               (quint32  value){ if( value == mNormalWeight               ) return; mNormalWeight               = value; emit signalEventChangedNormalWeight                      (value);}
@@ -301,8 +414,13 @@ public:
     void setTareWeight                 (quint32  value){ if( value == mTareWeight                 ) return; mTareWeight                 = value; emit signalEventChangedTareWeight                        (value);}
     void setWCNGMotion                 (quint16  value){ if( value == mWCNGMotion                 ) return; mWCNGMotion                 = value; emit signalEventChangedWCNGMotion                        (value);}
     void setWCEnableEtcError           (quint16  value){ if( value == mWCEnableEtcError           ) return; mWCEnableEtcError           = value; emit signalEventChangedWCEnableEtcError                  (value);}
+    void setDynamicFactor              (quint32  value){ if( value == mDynamicFactor              ) return; mDynamicFactor              = value; emit signalEventChangedDynamicFactor                     (value);}
     void setMDSenstivity               (quint16  value){ if( value == mMDSenstivity               ) return; mMDSenstivity               = value; emit signalEventChangedMDSenstivity                      (value);}
     void setMDNGMotion                 (quint16  value){ if( value == mMDNGMotion                 ) return; mMDNGMotion                 = value; emit signalEventChangedMDNGMotion                        (value);}
+    void setWCNGLamp                   (quint16  value){ if( value == mWCNGLamp                   ) return; mWCNGLamp                   = value; emit signalEventChangedWCNGLamp                          (value);}
+    void setWCNGBuzzer                 (quint16  value){ if( value == mWCNGBuzzer                 ) return; mWCNGBuzzer                 = value; emit signalEventChangedWCNGBuzzer                        (value);}
+    void setMDNGLamp                   (quint16  value){ if( value == mMDNGLamp                   ) return; mMDNGLamp                   = value; emit signalEventChangedMDNGLamp                          (value);}
+    void setMDNGBuzzer                 (quint16  value){ if( value == mMDNGBuzzer                 ) return; mMDNGBuzzer                 = value; emit signalEventChangedMDNGBuzzer                        (value);}
     void setLampTime                   (quint32  value){ if( value == mLampTime                   ) return; mLampTime                   = value; emit signalEventChangedLampTime                          (value);}
     void setBuzzerTime                 (quint32  value){ if( value == mBuzzerTime                 ) return; mBuzzerTime                 = value; emit signalEventChangedBuzzerTime                        (value);}
     void setSpeedConverter             (quint32  value){ if( value == mSpeedConverter             ) return; mSpeedConverter             = value; emit signalEventChangedSpeedConverter                    (value);}
@@ -312,13 +430,22 @@ public:
     void setMotorMDRatio               (quint16  value){ if( value == mMotorMDRatio               ) return; mMotorMDRatio               = value; emit signalEventChangedMotorMDRatio                      (value);}
     void setMotorWCRatio               (quint16  value){ if( value == mMotorWCRatio               ) return; mMotorWCRatio               = value; emit signalEventChangedMotorWCRatio                      (value);}
     void setMotorRJRatio               (quint16  value){ if( value == mMotorRJRatio               ) return; mMotorRJRatio               = value; emit signalEventChangedMotorRJRatio                      (value);}
+    void setSorter01RunTimeRatio       (quint32  value){ if( value == mSorter01RunTimeRatio       ) return; mSorter01RunTimeRatio       = value; emit signalEventChangedSorter01RunTimeRatio              (value);}
+    void setSorter01OpenTime           (quint32  value){ if( value == mSorter01OpenTime           ) return; mSorter01OpenTime           = value; emit signalEventChangedSorter01OpenTime                  (value);}
+    void setSorter02RunTimeRatio       (quint32  value){ if( value == mSorter02RunTimeRatio       ) return; mSorter02RunTimeRatio       = value; emit signalEventChangedSorter02RunTimeRatio              (value);}
+    void setSorter02OpenTime           (quint32  value){ if( value == mSorter02OpenTime           ) return; mSorter02OpenTime           = value; emit signalEventChangedSorter02OpenTime                  (value);}
+    void setSorter03RunTimeRatio       (quint32  value){ if( value == mSorter03RunTimeRatio       ) return; mSorter03RunTimeRatio       = value; emit signalEventChangedSorter03RunTimeRatio              (value);}
+    void setSorter03OpenTime           (quint32  value){ if( value == mSorter03OpenTime           ) return; mSorter03OpenTime           = value; emit signalEventChangedSorter03OpenTime                  (value);}
+    void setSorter04RunTimeRatio       (quint32  value){ if( value == mSorter04RunTimeRatio       ) return; mSorter04RunTimeRatio       = value; emit signalEventChangedSorter04RunTimeRatio              (value);}
+    void setSorter04OpenTime           (quint32  value){ if( value == mSorter04OpenTime           ) return; mSorter04OpenTime           = value; emit signalEventChangedSorter04OpenTime                  (value);}
+    void setDistToSorter01             (quint16  value){ if( value == mDistToSorter01             ) return; mDistToSorter01             = value; emit signalEventChangedDistToSorter01                    (value);}
+    void setDistToSorter02             (quint16  value){ if( value == mDistToSorter02             ) return; mDistToSorter02             = value; emit signalEventChangedDistToSorter02                    (value);}
+    void setDistToSorter03             (quint16  value){ if( value == mDistToSorter03             ) return; mDistToSorter03             = value; emit signalEventChangedDistToSorter03                    (value);}
+    void setDistToSorter04             (quint16  value){ if( value == mDistToSorter04             ) return; mDistToSorter04             = value; emit signalEventChangedDistToSorter04                    (value);}
     void setSensorLength               (quint16  value){ if( value == mSensorLength               ) return; mSensorLength               = value; emit signalEventChangedSensorLength                      (value);}
-    void setDistanceToRejector         (quint16  value){ if( value == mDistanceToRejector         ) return; mDistanceToRejector         = value; emit signalEventChangedDistanceToRejector                (value);}
     void setMDPhotoIsOn                (bool     value){ if( value == mMDPhotoIsOn                ) return; mMDPhotoIsOn                = value; emit signalEventChangedMDPhotoIsOn                       (value);}
     void setWCPhotoIsOn                (bool     value){ if( value == mWCPhotoIsOn                ) return; mWCPhotoIsOn                = value; emit signalEventChangedWCPhotoIsOn                       (value);}
-    void setRejectorRunTimeRatio       (quint32  value){ if( value == mRejectorRunTimeRatio       ) return; mRejectorRunTimeRatio       = value; emit signalEventChangedRejectorRunTimeRatio              (value);}
     void setStaticFactor               (quint32  value){ if( value == mStaticFactor               ) return; mStaticFactor               = value; emit signalEventChangedStaticFactor                      (value);}
-    void setDynamicFactor              (quint32  value){ if( value == mDynamicFactor              ) return; mDynamicFactor              = value; emit signalEventChangedDynamicFactor                     (value);}
     void setScaler                     (quint32  value){ if( value == mScaler                     ) return; mScaler                     = value; emit signalEventChangedScaler                            (value);}
     void setDisplayStability           (quint32  value){ if( value == mDisplayStability           ) return; mDisplayStability           = value; emit signalEventChangedDisplayStability                  (value);}
     void setMeasureCueSign             (quint32  value){ if( value == mMeasureCueSign             ) return; mMeasureCueSign             = value; emit signalEventChangedMeasureCueSign                    (value);}
@@ -334,11 +461,15 @@ public:
     void setStaticStandardWeight       (quint32  value){ if( value == mStaticStandardWeight       ) return; mStaticStandardWeight       = value; emit signalEventChangedStaticStandardWeight              (value);}
     void setDynamicBaseWeight          (quint32  value){ if( value == mDynamicBaseWeight          ) return; mDynamicBaseWeight          = value; emit signalEventChangedDynamicBaseWeight                 (value);}
     void setSensorCnt                  (quint16  value){ if( value == mSensorCnt                  ) return; mSensorCnt                  = value; emit signalEventChangedSensorCnt                         (value);}
-    void setRejectorOpenTime           (quint32  value){ if( value == mRejectorOpenTime           ) return; mRejectorOpenTime           = value; emit signalEventChangedRejectorOpenTime                  (value);}
     void setDiffSeq                    (bool     value){ if( value == mDiffSeq                    ) return; mDiffSeq                    = value; emit signalEventChangedDiffSeq                           (value);}
     void setDiffLength                 (bool     value){ if( value == mDiffLength                 ) return; mDiffLength                 = value; emit signalEventChangedDiffLength                        (value);}
     void setDiffSpeed                  (bool     value){ if( value == mDiffSpeed                  ) return; mDiffSpeed                  = value; emit signalEventChangedDiffSpeed                         (value);}
     void setDiffMotorAccelerationTime  (bool     value){ if( value == mDiffMotorAccelerationTime  ) return; mDiffMotorAccelerationTime  = value; emit signalEventChangedDiffMotorAccelerationTime         (value);}
+    void setDiffMotorDecelerationTime  (bool     value){ if( value == mDiffMotorDecelerationTime  ) return; mDiffMotorDecelerationTime  = value; emit signalEventChangedDiffMotorDecelerationTime         (value);}
+    void setDiffGroupCount             (bool     value){ if( value == mDiffGroupCount             ) return; mDiffGroupCount             = value; emit signalEventChangedDiffGroupCount                    (value);}
+    void setDiffGroupMotion            (bool     value){ if( value == mDiffGroupMotion            ) return; mDiffGroupMotion            = value; emit signalEventChangedDiffGroupMotion                   (value);}
+    void setDiffGroupLamp              (bool     value){ if( value == mDiffGroupLamp              ) return; mDiffGroupLamp              = value; emit signalEventChangedDiffGroupLamp                     (value);}
+    void setDiffGroupBuzzer            (bool     value){ if( value == mDiffGroupBuzzer            ) return; mDiffGroupBuzzer            = value; emit signalEventChangedDiffGroupBuzzer                   (value);}
     void setDiffUnderWeight            (bool     value){ if( value == mDiffUnderWeight            ) return; mDiffUnderWeight            = value; emit signalEventChangedDiffUnderWeight                   (value);}
     void setDiffUnderWarningWeight     (bool     value){ if( value == mDiffUnderWarningWeight     ) return; mDiffUnderWarningWeight     = value; emit signalEventChangedDiffUnderWarningWeight            (value);}
     void setDiffNormalWeight           (bool     value){ if( value == mDiffNormalWeight           ) return; mDiffNormalWeight           = value; emit signalEventChangedDiffNormalWeight                  (value);}
@@ -347,8 +478,13 @@ public:
     void setDiffTareWeight             (bool     value){ if( value == mDiffTareWeight             ) return; mDiffTareWeight             = value; emit signalEventChangedDiffTareWeight                    (value);}
     void setDiffWCNGMotion             (bool     value){ if( value == mDiffWCNGMotion             ) return; mDiffWCNGMotion             = value; emit signalEventChangedDiffWCNGMotion                    (value);}
     void setDiffWCEnableEtcError       (bool     value){ if( value == mDiffWCEnableEtcError       ) return; mDiffWCEnableEtcError       = value; emit signalEventChangedDiffWCEnableEtcError              (value);}
+    void setDiffDynamicFactor          (bool     value){ if( value == mDiffDynamicFactor          ) return; mDiffDynamicFactor          = value; emit signalEventChangedDiffDynamicFactor                 (value);}
     void setDiffMDSenstivity           (bool     value){ if( value == mDiffMDSenstivity           ) return; mDiffMDSenstivity           = value; emit signalEventChangedDiffMDSenstivity                  (value);}
     void setDiffMDNGMotion             (bool     value){ if( value == mDiffMDNGMotion             ) return; mDiffMDNGMotion             = value; emit signalEventChangedDiffMDNGMotion                    (value);}
+    void setDiffWCNGLamp               (bool     value){ if( value == mDiffWCNGLamp               ) return; mDiffWCNGLamp               = value; emit signalEventChangedDiffWCNGLamp                      (value);}
+    void setDiffWCNGBuzzer             (bool     value){ if( value == mDiffWCNGBuzzer             ) return; mDiffWCNGBuzzer             = value; emit signalEventChangedDiffWCNGBuzzer                    (value);}
+    void setDiffMDNGLamp               (bool     value){ if( value == mDiffMDNGLamp               ) return; mDiffMDNGLamp               = value; emit signalEventChangedDiffMDNGLamp                      (value);}
+    void setDiffMDNGBuzzer             (bool     value){ if( value == mDiffMDNGBuzzer             ) return; mDiffMDNGBuzzer             = value; emit signalEventChangedDiffMDNGBuzzer                    (value);}
     void setDiffLampTime               (bool     value){ if( value == mDiffLampTime               ) return; mDiffLampTime               = value; emit signalEventChangedDiffLampTime                      (value);}
     void setDiffBuzzerTime             (bool     value){ if( value == mDiffBuzzerTime             ) return; mDiffBuzzerTime             = value; emit signalEventChangedDiffBuzzerTime                    (value);}
     void setDiffSpeedConverter         (bool     value){ if( value == mDiffSpeedConverter         ) return; mDiffSpeedConverter         = value; emit signalEventChangedDiffSpeedConverter                (value);}
@@ -358,13 +494,22 @@ public:
     void setDiffMotorMDRatio           (bool     value){ if( value == mDiffMotorMDRatio           ) return; mDiffMotorMDRatio           = value; emit signalEventChangedDiffMotorMDRatio                  (value);}
     void setDiffMotorWCRatio           (bool     value){ if( value == mDiffMotorWCRatio           ) return; mDiffMotorWCRatio           = value; emit signalEventChangedDiffMotorWCRatio                  (value);}
     void setDiffMotorRJRatio           (bool     value){ if( value == mDiffMotorRJRatio           ) return; mDiffMotorRJRatio           = value; emit signalEventChangedDiffMotorRJRatio                  (value);}
+    void setDiffSorter01RunTimeRatio   (bool     value){ if( value == mDiffSorter01RunTimeRatio   ) return; mDiffSorter01RunTimeRatio   = value; emit signalEventChangedDiffSorter01RunTimeRatio          (value);}
+    void setDiffSorter01OpenTime       (bool     value){ if( value == mDiffSorter01OpenTime       ) return; mDiffSorter01OpenTime       = value; emit signalEventChangedDiffSorter01OpenTime              (value);}
+    void setDiffSorter02RunTimeRatio   (bool     value){ if( value == mDiffSorter02RunTimeRatio   ) return; mDiffSorter02RunTimeRatio   = value; emit signalEventChangedDiffSorter02RunTimeRatio          (value);}
+    void setDiffSorter02OpenTime       (bool     value){ if( value == mDiffSorter02OpenTime       ) return; mDiffSorter02OpenTime       = value; emit signalEventChangedDiffSorter02OpenTime              (value);}
+    void setDiffSorter03RunTimeRatio   (bool     value){ if( value == mDiffSorter03RunTimeRatio   ) return; mDiffSorter03RunTimeRatio   = value; emit signalEventChangedDiffSorter03RunTimeRatio          (value);}
+    void setDiffSorter03OpenTime       (bool     value){ if( value == mDiffSorter03OpenTime       ) return; mDiffSorter03OpenTime       = value; emit signalEventChangedDiffSorter03OpenTime              (value);}
+    void setDiffSorter04RunTimeRatio   (bool     value){ if( value == mDiffSorter04RunTimeRatio   ) return; mDiffSorter04RunTimeRatio   = value; emit signalEventChangedDiffSorter04RunTimeRatio          (value);}
+    void setDiffSorter04OpenTime       (bool     value){ if( value == mDiffSorter04OpenTime       ) return; mDiffSorter04OpenTime       = value; emit signalEventChangedDiffSorter04OpenTime              (value);}
+    void setDiffDistToSorter01         (bool     value){ if( value == mDiffDistToSorter01         ) return; mDiffDistToSorter01         = value; emit signalEventChangedDiffDistToSorter01                (value);}
+    void setDiffDistToSorter02         (bool     value){ if( value == mDiffDistToSorter02         ) return; mDiffDistToSorter02         = value; emit signalEventChangedDiffDistToSorter02                (value);}
+    void setDiffDistToSorter03         (bool     value){ if( value == mDiffDistToSorter03         ) return; mDiffDistToSorter03         = value; emit signalEventChangedDiffDistToSorter03                (value);}
+    void setDiffDistToSorter04         (bool     value){ if( value == mDiffDistToSorter04         ) return; mDiffDistToSorter04         = value; emit signalEventChangedDiffDistToSorter04                (value);}
     void setDiffSensorLength           (bool     value){ if( value == mDiffSensorLength           ) return; mDiffSensorLength           = value; emit signalEventChangedDiffSensorLength                  (value);}
-    void setDiffDistanceToRejector     (bool     value){ if( value == mDiffDistanceToRejector     ) return; mDiffDistanceToRejector     = value; emit signalEventChangedDiffDistanceToRejector            (value);}
     void setDiffMDPhotoIsOn            (bool     value){ if( value == mDiffMDPhotoIsOn            ) return; mDiffMDPhotoIsOn            = value; emit signalEventChangedDiffMDPhotoIsOn                   (value);}
     void setDiffWCPhotoIsOn            (bool     value){ if( value == mDiffWCPhotoIsOn            ) return; mDiffWCPhotoIsOn            = value; emit signalEventChangedDiffWCPhotoIsOn                   (value);}
-    void setDiffRejectorRunTimeRatio   (bool     value){ if( value == mDiffRejectorRunTimeRatio   ) return; mDiffRejectorRunTimeRatio   = value; emit signalEventChangedDiffRejectorRunTimeRatio          (value);}
     void setDiffStaticFactor           (bool     value){ if( value == mDiffStaticFactor           ) return; mDiffStaticFactor           = value; emit signalEventChangedDiffStaticFactor                  (value);}
-    void setDiffDynamicFactor          (bool     value){ if( value == mDiffDynamicFactor          ) return; mDiffDynamicFactor          = value; emit signalEventChangedDiffDynamicFactor                 (value);}
     void setDiffScaler                 (bool     value){ if( value == mDiffScaler                 ) return; mDiffScaler                 = value; emit signalEventChangedDiffScaler                        (value);}
     void setDiffDisplayStability       (bool     value){ if( value == mDiffDisplayStability       ) return; mDiffDisplayStability       = value; emit signalEventChangedDiffDisplayStability              (value);}
     void setDiffMeasureCueSign         (bool     value){ if( value == mDiffMeasureCueSign         ) return; mDiffMeasureCueSign         = value; emit signalEventChangedDiffMeasureCueSign                (value);}
@@ -380,13 +525,17 @@ public:
     void setDiffStaticStandardWeight   (bool     value){ if( value == mDiffStaticStandardWeight   ) return; mDiffStaticStandardWeight   = value; emit signalEventChangedDiffStaticStandardWeight          (value);}
     void setDiffDynamicBaseWeight      (bool     value){ if( value == mDiffDynamicBaseWeight      ) return; mDiffDynamicBaseWeight      = value; emit signalEventChangedDiffDynamicBaseWeight             (value);}
     void setDiffSensorCnt              (bool     value){ if( value == mDiffSensorCnt              ) return; mDiffSensorCnt              = value; emit signalEventChangedDiffSensorCnt                     (value);}
-    void setDiffRejectorOpenTime       (bool     value){ if( value == mDiffRejectorOpenTime       ) return; mDiffRejectorOpenTime       = value; emit signalEventChangedDiffRejectorOpenTime              (value);}
 
 signals:
     void signalEventChangedSeq                               (quint16  value);
     void signalEventChangedLength                            (quint16  value);
     void signalEventChangedSpeed                             (quint16  value);
     void signalEventChangedMotorAccelerationTime             (quint32  value);
+    void signalEventChangedMotorDecelerationTime             (quint32  value);
+    void signalEventChangedGroupCount                        (quint32  value);
+    void signalEventChangedGroupMotion                       (quint16  value);
+    void signalEventChangedGroupLamp                         (quint16  value);
+    void signalEventChangedGroupBuzzer                       (quint16  value);
     void signalEventChangedUnderWeight                       (quint32  value);
     void signalEventChangedUnderWarningWeight                (quint32  value);
     void signalEventChangedNormalWeight                      (quint32  value);
@@ -395,8 +544,13 @@ signals:
     void signalEventChangedTareWeight                        (quint32  value);
     void signalEventChangedWCNGMotion                        (quint16  value);
     void signalEventChangedWCEnableEtcError                  (quint16  value);
+    void signalEventChangedDynamicFactor                     (quint32  value);
     void signalEventChangedMDSenstivity                      (quint16  value);
     void signalEventChangedMDNGMotion                        (quint16  value);
+    void signalEventChangedWCNGLamp                          (quint16  value);
+    void signalEventChangedWCNGBuzzer                        (quint16  value);
+    void signalEventChangedMDNGLamp                          (quint16  value);
+    void signalEventChangedMDNGBuzzer                        (quint16  value);
     void signalEventChangedLampTime                          (quint32  value);
     void signalEventChangedBuzzerTime                        (quint32  value);
     void signalEventChangedSpeedConverter                    (quint32  value);
@@ -406,13 +560,22 @@ signals:
     void signalEventChangedMotorMDRatio                      (quint16  value);
     void signalEventChangedMotorWCRatio                      (quint16  value);
     void signalEventChangedMotorRJRatio                      (quint16  value);
+    void signalEventChangedSorter01RunTimeRatio              (quint32  value);
+    void signalEventChangedSorter01OpenTime                  (quint32  value);
+    void signalEventChangedSorter02RunTimeRatio              (quint32  value);
+    void signalEventChangedSorter02OpenTime                  (quint32  value);
+    void signalEventChangedSorter03RunTimeRatio              (quint32  value);
+    void signalEventChangedSorter03OpenTime                  (quint32  value);
+    void signalEventChangedSorter04RunTimeRatio              (quint32  value);
+    void signalEventChangedSorter04OpenTime                  (quint32  value);
+    void signalEventChangedDistToSorter01                    (quint16  value);
+    void signalEventChangedDistToSorter02                    (quint16  value);
+    void signalEventChangedDistToSorter03                    (quint16  value);
+    void signalEventChangedDistToSorter04                    (quint16  value);
     void signalEventChangedSensorLength                      (quint16  value);
-    void signalEventChangedDistanceToRejector                (quint16  value);
     void signalEventChangedMDPhotoIsOn                       (bool     value);
     void signalEventChangedWCPhotoIsOn                       (bool     value);
-    void signalEventChangedRejectorRunTimeRatio              (quint32  value);
     void signalEventChangedStaticFactor                      (quint32  value);
-    void signalEventChangedDynamicFactor                     (quint32  value);
     void signalEventChangedScaler                            (quint32  value);
     void signalEventChangedDisplayStability                  (quint32  value);
     void signalEventChangedMeasureCueSign                    (quint32  value);
@@ -428,11 +591,15 @@ signals:
     void signalEventChangedStaticStandardWeight              (quint32  value);
     void signalEventChangedDynamicBaseWeight                 (quint32  value);
     void signalEventChangedSensorCnt                         (quint16  value);
-    void signalEventChangedRejectorOpenTime                  (quint32  value);
 
     void signalEventChangedDiffSeq                           (bool     value);
     void signalEventChangedDiffLength                        (bool     value);
     void signalEventChangedDiffMotorAccelerationTime         (bool     value);
+    void signalEventChangedDiffMotorDecelerationTime         (bool     value);
+    void signalEventChangedDiffGroupCount                    (bool     value);
+    void signalEventChangedDiffGroupMotion                   (bool     value);
+    void signalEventChangedDiffGroupLamp                     (bool     value);
+    void signalEventChangedDiffGroupBuzzer                   (bool     value);
     void signalEventChangedDiffSpeed                         (bool     value);
     void signalEventChangedDiffUnderWeight                   (bool     value);
     void signalEventChangedDiffUnderWarningWeight            (bool     value);
@@ -442,8 +609,13 @@ signals:
     void signalEventChangedDiffTareWeight                    (bool     value);
     void signalEventChangedDiffWCNGMotion                    (bool     value);
     void signalEventChangedDiffWCEnableEtcError              (bool     value);
+    void signalEventChangedDiffDynamicFactor                 (bool     value);
     void signalEventChangedDiffMDSenstivity                  (bool     value);
     void signalEventChangedDiffMDNGMotion                    (bool     value);
+    void signalEventChangedDiffWCNGLamp                      (bool     value);
+    void signalEventChangedDiffWCNGBuzzer                    (bool     value);
+    void signalEventChangedDiffMDNGLamp                      (bool     value);
+    void signalEventChangedDiffMDNGBuzzer                    (bool     value);
     void signalEventChangedDiffLampTime                      (bool     value);
     void signalEventChangedDiffBuzzerTime                    (bool     value);
     void signalEventChangedDiffSpeedConverter                (bool     value);
@@ -453,13 +625,22 @@ signals:
     void signalEventChangedDiffMotorMDRatio                  (bool     value);
     void signalEventChangedDiffMotorWCRatio                  (bool     value);
     void signalEventChangedDiffMotorRJRatio                  (bool     value);
+    void signalEventChangedDiffSorter01RunTimeRatio          (bool     value);
+    void signalEventChangedDiffSorter01OpenTime              (bool     value);
+    void signalEventChangedDiffSorter02RunTimeRatio          (bool     value);
+    void signalEventChangedDiffSorter02OpenTime              (bool     value);
+    void signalEventChangedDiffSorter03RunTimeRatio          (bool     value);
+    void signalEventChangedDiffSorter03OpenTime              (bool     value);
+    void signalEventChangedDiffSorter04RunTimeRatio          (bool     value);
+    void signalEventChangedDiffSorter04OpenTime              (bool     value);
+    void signalEventChangedDiffDistToSorter01                (bool     value);
+    void signalEventChangedDiffDistToSorter02                (bool     value);
+    void signalEventChangedDiffDistToSorter03                (bool     value);
+    void signalEventChangedDiffDistToSorter04                (bool     value);
     void signalEventChangedDiffSensorLength                  (bool     value);
-    void signalEventChangedDiffDistanceToRejector            (bool     value);
     void signalEventChangedDiffMDPhotoIsOn                   (bool     value);
     void signalEventChangedDiffWCPhotoIsOn                   (bool     value);
-    void signalEventChangedDiffRejectorRunTimeRatio          (bool     value);
     void signalEventChangedDiffStaticFactor                  (bool     value);
-    void signalEventChangedDiffDynamicFactor                 (bool     value);
     void signalEventChangedDiffScaler                        (bool     value);
     void signalEventChangedDiffDisplayStability              (bool     value);
     void signalEventChangedDiffMeasureCueSign                (bool     value);
@@ -475,7 +656,6 @@ signals:
     void signalEventChangedDiffStaticStandardWeight          (bool     value);
     void signalEventChangedDiffDynamicBaseWeight             (bool     value);
     void signalEventChangedDiffSensorCnt                     (bool     value);
-    void signalEventChangedDiffRejectorOpenTime              (bool     value);
 
 // down layer ================================================================================
 public slots:
@@ -487,6 +667,11 @@ public slots:
         setLength                     (remote.mCommSetting.mLength               ); setDiffLength                 (remote.mCommSetting.mLength                != pProductSP->mCurrPD.mDspForm.mCommSetting.mLength               );
         setSpeed                      (remote.mCommSetting.mSpeed                ); setDiffSpeed                  (remote.mCommSetting.mSpeed                 != pProductSP->mCurrPD.mDspForm.mCommSetting.mSpeed                );
         setMotorAccelerationTime      (remote.mCommSetting.mMotorAccelerationTime); setDiffMotorAccelerationTime  (remote.mCommSetting.mMotorAccelerationTime != pProductSP->mCurrPD.mDspForm.mCommSetting.mMotorAccelerationTime);
+        setMotorDecelerationTime      (remote.mCommSetting.mMotorDecelerationTime); setDiffMotorDecelerationTime  (remote.mCommSetting.mMotorDecelerationTime != pProductSP->mCurrPD.mDspForm.mCommSetting.mMotorDecelerationTime);
+        setGroupCount                 (remote.mCommSetting.mGroupCount           ); setDiffGroupCount             (remote.mCommSetting.mGroupCount            != pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupCount           );
+        setGroupMotion                (remote.mCommSetting.mGroupMotion          ); setDiffGroupMotion            (remote.mCommSetting.mGroupMotion           != pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupMotion          );
+        setGroupLamp                  (remote.mCommSetting.mGroupLamp            ); setDiffGroupLamp              (remote.mCommSetting.mGroupLamp             != pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupLamp            );
+        setGroupBuzzer                (remote.mCommSetting.mGroupBuzzer          ); setDiffGroupBuzzer            (remote.mCommSetting.mGroupBuzzer           != pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupBuzzer          );
         setUnderWeight                (remote.mWCSetting.mUnderWeight            ); setDiffUnderWeight            (remote.mWCSetting.mUnderWeight             != pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWeight            );
         setUnderWarningWeight         (remote.mWCSetting.mUnderWarningWeight     ); setDiffUnderWarningWeight     (remote.mWCSetting.mUnderWarningWeight      != pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWarningWeight     );
         setNormalWeight               (remote.mWCSetting.mNormalWeight           ); setDiffNormalWeight           (remote.mWCSetting.mNormalWeight            != pProductSP->mCurrPD.mDspForm.mWCSetting.mNormalWeight           );
@@ -496,9 +681,36 @@ public slots:
         setWCNGMotion                 (remote.mWCSetting.mNGMotion               ); setDiffWCNGMotion             (remote.mWCSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               );
         setWCEnableEtcError           (remote.mWCSetting.mEnableEtcError         ); setDiffWCEnableEtcError       (remote.mWCSetting.mEnableEtcError          != pProductSP->mCurrPD.mDspForm.mWCSetting.mEnableEtcError         );
         setDynamicFactor              (remote.mWCSetting.mDynamicFactor          ); setDiffDynamicFactor          (remote.mWCSetting.mDynamicFactor           != pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          );
+        setWCNGLamp                   (remote.mWCSetting.mNGLamp                 ); setDiffWCNGLamp               (remote.mWCSetting.mNGLamp                  != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 );
+        setWCNGBuzzer                 (remote.mWCSetting.mNGBuzzer               ); setDiffWCNGBuzzer             (remote.mWCSetting.mNGBuzzer                != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               );
         setMDSenstivity               (remote.mMDSetting.mSenstivity             ); setDiffMDSenstivity           (remote.mMDSetting.mSenstivity              != pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity             );
         setMDNGMotion                 (remote.mMDSetting.mNGMotion               ); setDiffMDNGMotion             (remote.mMDSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGMotion               );
-
+        setMDNGLamp                   (remote.mMDSetting.mNGLamp                 ); setDiffMDNGLamp               (remote.mMDSetting.mNGLamp                  != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGLamp                 );
+        setMDNGBuzzer                 (remote.mMDSetting.mNGBuzzer               ); setDiffMDNGBuzzer             (remote.mMDSetting.mNGBuzzer                != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGBuzzer               );
+        qDebug() <<"Remote mCommSetting.mProductNum             = " << remote.mCommSetting.mProductNum            <<"Local mCommSetting.mProductNum            = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mProductNum           ;
+        qDebug() <<"Remote mCommSetting.mLength                 = " << remote.mCommSetting.mLength                <<"Local mCommSetting.mLength                = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mLength               ;
+        qDebug() <<"Remote mCommSetting.mSpeed                  = " << remote.mCommSetting.mSpeed                 <<"Local mCommSetting.mSpeed                 = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mSpeed                ;
+        qDebug() <<"Remote mCommSetting.mMotorAccelerationTime  = " << remote.mCommSetting.mMotorAccelerationTime <<"Local mCommSetting.mMotorAccelerationTime = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mMotorAccelerationTime;
+        qDebug() <<"Remote mCommSetting.mMotorDecelerationTime  = " << remote.mCommSetting.mMotorDecelerationTime <<"Local mCommSetting.mMotorDecelerationTime = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mMotorDecelerationTime;
+        qDebug() <<"Remote mCommSetting.mGroupCount             = " << remote.mCommSetting.mGroupCount            <<"Local mCommSetting.mGroupCount            = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupCount           ;
+        qDebug() <<"Remote mCommSetting.mGroupMotion            = " << remote.mCommSetting.mGroupMotion           <<"Local mCommSetting.mGroupMotion           = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupMotion          ;
+        qDebug() <<"Remote mCommSetting.mGroupLamp              = " << remote.mCommSetting.mGroupLamp             <<"Local mCommSetting.mGroupLamp             = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupLamp            ;
+        qDebug() <<"Remote mCommSetting.mGroupBuzzer            = " << remote.mCommSetting.mGroupBuzzer           <<"Local mCommSetting.mGroupBuzzer           = " << pProductSP->mCurrPD.mDspForm.mCommSetting.mGroupBuzzer          ;
+        qDebug() <<"Remote mWCSetting.mUnderWeight              = " << remote.mWCSetting.mUnderWeight             <<"Local mWCSetting.mUnderWeight             = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWeight            ;
+        qDebug() <<"Remote mWCSetting.mUnderWarningWeight       = " << remote.mWCSetting.mUnderWarningWeight      <<"Local mWCSetting.mUnderWarningWeight      = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderWarningWeight     ;
+        qDebug() <<"Remote mWCSetting.mNormalWeight             = " << remote.mWCSetting.mNormalWeight            <<"Local mWCSetting.mNormalWeight            = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNormalWeight           ;
+        qDebug() <<"Remote mWCSetting.mOverWarningWeight        = " << remote.mWCSetting.mOverWarningWeight       <<"Local mWCSetting.mOverWarningWeight       = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight      ;
+        qDebug() <<"Remote mWCSetting.mOverWeight               = " << remote.mWCSetting.mOverWeight              <<"Local mWCSetting.mOverWeight              = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight             ;
+        qDebug() <<"Remote mWCSetting.mTareWeight               = " << remote.mWCSetting.mTareWeight              <<"Local mWCSetting.mTareWeight              = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight             ;
+        qDebug() <<"Remote mWCSetting.mNGMotion                 = " << remote.mWCSetting.mNGMotion                <<"Local mWCSetting.mNGMotion                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               ;
+        qDebug() <<"Remote.mWCSetting.mNGLamp                   = " << remote.mWCSetting.mNGLamp                  <<"Local mWCSetting.mNGLamp                  = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 ;
+        qDebug() <<"Remote.mWCSetting.mNGBuzzer                 = " << remote.mWCSetting.mNGBuzzer                <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               ;
+        qDebug() <<"Remote mWCSetting.mEnableEtcError           = " << remote.mWCSetting.mEnableEtcError          <<"Local mWCSetting.mEnableEtcError          = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mEnableEtcError         ;
+        qDebug() <<"Remote mWCSetting.mDynamicFactor            = " << remote.mWCSetting.mDynamicFactor           <<"Local mWCSetting.mDynamicFactor           = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          ;
+        qDebug() <<"Remote mMDSetting.mSenstivity               = " << remote.mMDSetting.mSenstivity              <<"Local mMDSetting.mSenstivity              = " << pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity             ;
+        qDebug() <<"Remote mMDSetting.mNGMotion                 = " << remote.mMDSetting.mNGMotion                <<"Local mMDSetting.mNGMotion                = " << pProductSP->mCurrPD.mDspForm.mMDSetting.mNGMotion               ;
+        qDebug() <<"Remote.mMDSetting.mNGLamp                   = " << remote.mMDSetting.mNGLamp                  <<"Local mMDSetting.mNGLamp                  = " << pProductSP->mCurrPD.mDspForm.mMDSetting.mNGLamp                 ;
+        qDebug() <<"Remote.mMDSetting.mNGBuzzer                 = " << remote.mMDSetting.mNGBuzzer                <<"Local mMDSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mMDSetting.mNGBuzzer               ;
     }
 
     void onChangedRemoteDevSetting(quint64 seq, DspDevSettingDto remote)
@@ -514,11 +726,21 @@ public slots:
         setMotorMDRatio               (remote.mCommSetting.mMotorMDRatio           ); setDiffMotorMDRatio           (remote.mCommSetting.mMotorMDRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorMDRatio           );
         setMotorWCRatio               (remote.mCommSetting.mMotorWCRatio           ); setDiffMotorWCRatio           (remote.mCommSetting.mMotorWCRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorWCRatio           );
         setMotorRJRatio               (remote.mCommSetting.mMotorRJRatio           ); setDiffMotorRJRatio           (remote.mCommSetting.mMotorRJRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           );
+        setSorter01RunTimeRatio       (remote.mCommSetting.mSorter01RunTimeRatio   ); setDiffSorter01RunTimeRatio   (remote.mCommSetting.mSorter01RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio   );
+        setSorter01OpenTime           (remote.mCommSetting.mSorter01OpenTime       ); setDiffSorter01OpenTime       (remote.mCommSetting.mSorter01OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime       );
+        setSorter02RunTimeRatio       (remote.mCommSetting.mSorter02RunTimeRatio   ); setDiffSorter02RunTimeRatio   (remote.mCommSetting.mSorter02RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio   );
+        setSorter02OpenTime           (remote.mCommSetting.mSorter02OpenTime       ); setDiffSorter02OpenTime       (remote.mCommSetting.mSorter02OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime       );
+        setSorter03RunTimeRatio       (remote.mCommSetting.mSorter03RunTimeRatio   ); setDiffSorter03RunTimeRatio   (remote.mCommSetting.mSorter03RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio   );
+        setSorter03OpenTime           (remote.mCommSetting.mSorter03OpenTime       ); setDiffSorter03OpenTime       (remote.mCommSetting.mSorter03OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime       );
+        setSorter04RunTimeRatio       (remote.mCommSetting.mSorter04RunTimeRatio   ); setDiffSorter04RunTimeRatio   (remote.mCommSetting.mSorter04RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio   );
+        setSorter04OpenTime           (remote.mCommSetting.mSorter04OpenTime       ); setDiffSorter04OpenTime       (remote.mCommSetting.mSorter04OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime       );
+        setDistToSorter01             (remote.mSizeSetting.mDistToSorter01         ); setDiffDistToSorter01         (remote.mSizeSetting.mDistToSorter01          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01         );
+        setDistToSorter02             (remote.mSizeSetting.mDistToSorter02         ); setDiffDistToSorter02         (remote.mSizeSetting.mDistToSorter02          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter02         );
+        setDistToSorter03             (remote.mSizeSetting.mDistToSorter03         ); setDiffDistToSorter03         (remote.mSizeSetting.mDistToSorter03          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter03         );
+        setDistToSorter04             (remote.mSizeSetting.mDistToSorter04         ); setDiffDistToSorter04         (remote.mSizeSetting.mDistToSorter04          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter04         );
         setSensorLength               (remote.mSizeSetting.mSensorLength           ); setDiffSensorLength           (remote.mSizeSetting.mSensorLength            != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           );
-        setDistanceToRejector         (remote.mSizeSetting.mDistanceToRejector     ); setDiffDistanceToRejector     (remote.mSizeSetting.mDistanceToRejector      != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector     );
         setMDPhotoIsOn                (remote.mMDSetting.mPhotoIsOn==1?true:false  ); setDiffMDPhotoIsOn            (remote.mMDSetting.mPhotoIsOn                 != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mPhotoIsOn                );
         setWCPhotoIsOn                (remote.mWCSetting.mPhotoIsOn==1?true:false  ); setDiffWCPhotoIsOn            (remote.mWCSetting.mPhotoIsOn                 != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn                );
-        setRejectorRunTimeRatio       (remote.mCommSetting.mRejectorRunTimeRatio   ); setDiffRejectorRunTimeRatio   (remote.mCommSetting.mRejectorRunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio   );
         setStaticFactor               (remote.mWCSetting.mStaticFactor             ); setDiffStaticFactor           (remote.mWCSetting.mStaticFactor              != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             );
         setScaler                     (remote.mWCSetting.mScaler                   ); setDiffScaler                 (remote.mWCSetting.mScaler                    != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   );
         setDisplayStability           (remote.mWCSetting.mDisplayStability         ); setDiffDisplayStability       (remote.mWCSetting.mDisplayStability          != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         );
@@ -535,7 +757,6 @@ public slots:
         setStaticStandardWeight       (remote.mWCSetting.mStaticStandardWeight     ); setDiffStaticStandardWeight   (remote.mWCSetting.mStaticStandardWeight      != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     );
         setDynamicBaseWeight          (remote.mWCSetting.mDynamicBaseWeight        ); setDiffDynamicBaseWeight      (remote.mWCSetting.mDynamicBaseWeight         != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        );
         setSensorCnt                  (remote.mMDSetting.mSensorCnt                ); setDiffSensorCnt              (remote.mMDSetting.mSensorCnt                 != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                );
-        setRejectorOpenTime           (remote.mCommSetting.mRejectorOpenTime       ); setDiffRejectorOpenTime       (remote.mCommSetting.mRejectorOpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime       );
 
         qDebug() <<"Remote mCommSetting.mLampTime                 = " << remote.mCommSetting.mLampTime                <<"Local mCommSetting.mLampTime                 = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime               ;
         qDebug() <<"Remote mCommSetting.mBuzzerTime               = " << remote.mCommSetting.mBuzzerTime              <<"Local mCommSetting.mBuzzerTime               = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mBuzzerTime             ;
@@ -546,11 +767,21 @@ public slots:
         qDebug() <<"Remote mCommSetting.mMotorMDRatio             = " << remote.mCommSetting.mMotorMDRatio            <<"Local mCommSetting.mMotorMDRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorMDRatio           ;
         qDebug() <<"Remote mCommSetting.mMotorWCRatio             = " << remote.mCommSetting.mMotorWCRatio            <<"Local mCommSetting.mMotorWCRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorWCRatio           ;
         qDebug() <<"Remote mCommSetting.mMotorRJRatio             = " << remote.mCommSetting.mMotorRJRatio            <<"Local mCommSetting.mMotorRJRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           ;
+        qDebug() <<"Remote mCommSetting.mSorter01RunTimeRatio     = " << remote.mCommSetting.mSorter01RunTimeRatio    <<"Local mCommSetting.mSorter01RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio   ;
+        qDebug() <<"Remote mCommSetting.mSorter01OpenTime         = " << remote.mCommSetting.mSorter01OpenTime        <<"Local mCommSetting.mSorter01OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter02RunTimeRatio     = " << remote.mCommSetting.mSorter02RunTimeRatio    <<"Local mCommSetting.mSorter02RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio   ;
+        qDebug() <<"Remote mCommSetting.mSorter02OpenTime         = " << remote.mCommSetting.mSorter02OpenTime        <<"Local mCommSetting.mSorter02OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter03RunTimeRatio     = " << remote.mCommSetting.mSorter03RunTimeRatio    <<"Local mCommSetting.mSorter03RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio   ;
+        qDebug() <<"Remote mCommSetting.mSorter03OpenTime         = " << remote.mCommSetting.mSorter03OpenTime        <<"Local mCommSetting.mSorter03OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter04RunTimeRatio     = " << remote.mCommSetting.mSorter04RunTimeRatio    <<"Local mCommSetting.mSorter04RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio   ;
+        qDebug() <<"Remote mCommSetting.mSorter04OpenTime         = " << remote.mCommSetting.mSorter04OpenTime        <<"Local mCommSetting.mSorter04OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime       ;
+        qDebug() <<"Remote mSizeSetting.mDistToSorter01           = " << remote.mSizeSetting.mDistToSorter01          <<"Local mSizeSetting.mDistToSorter01           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01         ;
+        qDebug() <<"Remote mSizeSetting.mDistToSorter02           = " << remote.mSizeSetting.mDistToSorter02          <<"Local mSizeSetting.mDistToSorter02           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter02         ;
+        qDebug() <<"Remote mSizeSetting.mDistToSorter03           = " << remote.mSizeSetting.mDistToSorter03          <<"Local mSizeSetting.mDistToSorter03           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter03         ;
+        qDebug() <<"Remote mSizeSetting.mDistToSorter04           = " << remote.mSizeSetting.mDistToSorter04          <<"Local mSizeSetting.mDistToSorter04           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter04         ;
         qDebug() <<"Remote mSizeSetting.mSensorLength             = " << remote.mSizeSetting.mSensorLength            <<"Local mSizeSetting.mSensorLength             = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           ;
-        qDebug() <<"Remote mSizeSetting.mDistanceToRejector       = " << remote.mSizeSetting.mDistanceToRejector      <<"Local mSizeSetting.mDistanceToRejector       = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToRejector     ;
         qDebug() <<"Remote mMDSetting.mPhotoIsOn                  = " << remote.mMDSetting.mPhotoIsOn                 <<"Local mMDSetting.mPhotoIsOn                  = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mPhotoIsOn                ;
         qDebug() <<"Remote mWCSetting.mPhotoIsOn                  = " << remote.mWCSetting.mPhotoIsOn                 <<"Local mWCSetting.mPhotoIsOn                  = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn                ;
-        qDebug() <<"Remote mCommSetting.mRejectorRunTimeRatio     = " << remote.mCommSetting.mRejectorRunTimeRatio    <<"Local mCommSetting.mRejectorRunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorRunTimeRatio   ;
         qDebug() <<"Remote mWCSetting.mStaticFactor               = " << remote.mWCSetting.mStaticFactor              <<"Local mWCSetting.mStaticFactor               = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             ;
         qDebug() <<"Remote mWCSetting.mScaler                     = " << remote.mWCSetting.mScaler                    <<"Local mWCSetting.mScaler                     = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   ;
         qDebug() <<"Remote mWCSetting.mDisplayStability           = " << remote.mWCSetting.mDisplayStability          <<"Local mWCSetting.mDisplayStability           = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         ;
@@ -567,7 +798,6 @@ public slots:
         qDebug() <<"Remote mWCSetting.mStaticStandardWeight       = " << remote.mWCSetting.mStaticStandardWeight      <<"Local mWCSetting.mStaticStandardWeight       = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     ;
         qDebug() <<"Remote mWCSetting.mDynamicBaseWeight          = " << remote.mWCSetting.mDynamicBaseWeight         <<"Local mWCSetting.mDynamicBaseWeight          = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        ;
         qDebug() <<"Remote mMDSetting.mSensorCnt                  = " << remote.mMDSetting.mSensorCnt                 <<"Local mMDSetting.mSensorCnt                  = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                ;
-        qDebug() <<"Remote mCommSetting.mRejectorOpenTime         = " << remote.mCommSetting.mRejectorOpenTime        <<"Local mCommSetting.mRejectorOpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mRejectorOpenTime       ;
     }
 
 

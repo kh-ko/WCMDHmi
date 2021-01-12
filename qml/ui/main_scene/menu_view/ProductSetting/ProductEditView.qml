@@ -4,13 +4,14 @@ import ViewManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ProductSettingItemModel 1.0
 
 UiPanel {
     property ProductSettingItemModel itemModel : null
     property bool isViewMode : false
     property bool isEnableWC : true
+    property bool isAdmin    : false
     signal signalEventAddCliecked();
     signal signalEventCancleCliecked();
     signal signalEventRemoveCliecked();
@@ -20,15 +21,15 @@ UiPanel {
     width: 1023
     height: 947
 
-    type : itemModel.seq === 0 ?  EnumDefine.PANEL_TYPE_UP_PANEL : EnumDefine.PANEL_TYPE_SELECT
+    type : itemModel.seq === 0 ?  QmlEnumDef.PANEL_TYPE_UP_PANEL : QmlEnumDef.PANEL_TYPE_SELECT
 
     UiLabelContent{
         id: labelGeneral
         height: 30
         anchors.right: parent.right
         anchors.rightMargin: 20
-        anchors.top: btnApply.bottom
-        anchors.topMargin: 20
+        anchors.top: parent.top
+        anchors.topMargin: 80
         anchors.left: parent.left
         anchors.leftMargin: 20
 
@@ -119,7 +120,7 @@ UiPanel {
         id: inputSpeed
         width: 320
         height: 60
-        anchors.right: inputMotorAcceleration.left
+        anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.left: inputLength.right
         anchors.leftMargin: 40
@@ -129,7 +130,7 @@ UiPanel {
         visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
-        inputWidth: 200
+        inputWidth: 420
         labelText: qsTr("· Speed")
         postfix: "m/min"
         min: 1
@@ -143,34 +144,145 @@ UiPanel {
         }
     }
 
-    UiInputFloat {
-        id: inputMotorAcceleration
-        width: 200
+    UiLabelSystem{
+        id : labelGroup
         height: 60
         anchors.right: parent.right
         anchors.rightMargin: 20
-        anchors.verticalCenter: inputLength.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.top: inputLength.bottom
+        anchors.topMargin: 10
+
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
+        textValue: qsTr("· Group")
+    }
+
+    UiInputNumber {
+        id: inputGroupCount
+        width: 292
+        height: 60
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.top : labelGroup.bottom
+        anchors.topMargin: 0
 
         isDisable : panel.isViewMode
         visible: itemModel.seq !== 0 || itemModel.isNew
 
         bgColor : panel.bgColor
-        postfix: "s"
+        inputWidth: 190
+        labelText: qsTr("  Count")
+        postfix: ""
         min: 0
-        max: 999
+        max: 999999
 
-        realValue: itemModel.motorAcceleration / 1000
-        isHighlight: itemModel.isEditMotorAcceleration
+        numberValue: itemModel.groupCount
+        isHighlight: itemModel.isEditGroupCount
 
         onSignalChangeValue: {
-            itemModel.onCommandSetMotorAcceleration((value * 1000) + 0.5)
+            itemModel.onCommandSetGroupCount(value)
+        }
+    }
+
+    UiComboBox{
+        id: comboGroupMotion
+        height: 60
+        width: 350
+        z : 1
+        anchors.left: inputGroupCount.right
+        comboWidth: 260
+        anchors.leftMargin: 20
+        anchors.verticalCenter: inputGroupCount.verticalCenter
+
+        isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew)
+
+        bgColor : panel.bgColor
+        labelText : qsTr("Motion")
+
+        listModel :comboGroupMotionOption
+        selIdx: itemModel.groupMotion
+        isHighlight: itemModel.isEditGroupMotion
+
+        ListModel{
+            id : comboGroupMotionOption
+
+            ListElement {
+                itemText : qsTr("None")
+                itemIdx : 0
+            }
+            ListElement {
+                itemText : qsTr("Stop")
+                itemIdx : 1
+            }
+            ListElement {
+                itemText : qsTr("Sorter 01")
+                itemIdx : 2
+            }
+            ListElement {
+                itemText : qsTr("Sorter 02")
+                itemIdx : 3
+            }
+            ListElement {
+                itemText : qsTr("Sorter 03")
+                itemIdx : 4
+            }
+            ListElement {
+                itemText : qsTr("Sorter 04")
+                itemIdx : 5
+            }
+        }
+
+        onSignalEventChangedSel: {
+            itemModel.onCommandSetGroupMotion(itemIdx)
+        }
+    }
+
+    UiRadioBtn{
+        id: checkGroupLampOn
+        height: 60
+        width : 128
+        anchors.left: comboGroupMotion.right
+        anchors.leftMargin: 20
+        anchors.verticalCenter: comboGroupMotion.verticalCenter
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditGroupLamp
+        isSelect: itemModel.groupLamp === 1 ? true : false
+
+        textValue : qsTr("Lamp")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetGroupLamp(itemModel.groupLamp === 0 ? 1 : 0);
+        }
+    }
+
+    UiRadioBtn{
+        id: checkGroupBuzzerOn
+        height: 60
+        width : 153
+        anchors.left: checkGroupLampOn.right
+        anchors.leftMargin: 20
+        anchors.verticalCenter: comboGroupMotion.verticalCenter
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditGroupBuzzer
+        isSelect: itemModel.groupBuzzer === 1 ? true : false
+
+        textValue : qsTr("Buzzer")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetGroupBuzzer(itemModel.groupBuzzer === 0 ? 1 : 0);
         }
     }
 
     UiDivider{
         id: divider
         width: 2
-        anchors.top: inputSpeed.bottom
+        anchors.top: inputGroupCount.bottom
         anchors.topMargin: 40
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
@@ -182,7 +294,7 @@ UiPanel {
     UiLabelContent {
         id: labelWeightChecker
         height: 30
-        anchors.top: inputLength.bottom
+        anchors.top: inputGroupCount.bottom
         anchors.leftMargin: 20
         anchors.topMargin: 40
         anchors.rightMargin: 20
@@ -192,7 +304,53 @@ UiPanel {
         textValue: qsTr("Weight checker")
         anchors.left: parent.left
         anchors.right: divider.left
+
+        UiRadioBtn{
+            id: radioWCEtcErrorOn
+            width : 120
+            anchors.right: radioWCEtcErrorOff.left
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditWCEnableEtcError && isSelect
+            isSelect: itemModel.wcEnableEtcError === 1 ? true : false
+
+            textValue : qsTr("ON")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetWCEnableEtcError(true);
+            }
+        }
+
+        UiRadioBtn{
+            id: radioWCEtcErrorOff
+            width : 120
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditWCEnableEtcError && isSelect
+            isSelect: itemModel.wcEnableEtcError === 0? true : false
+            textValue : qsTr("OFF")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetWCEnableEtcError(false)
+            }
+        }
     }
+
+
 
     UiInputFloat{
         id: inputOver
@@ -391,7 +549,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC && panel.isAdmin === true
 
         bgColor: panel.bgColor
         labelText : qsTr("· Dynamic factor")
@@ -443,7 +601,7 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: inputDyniamicFactor.bottom
+        anchors.top: panel.isAdmin === true ? inputDyniamicFactor.bottom : inputTare.bottom
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
@@ -470,12 +628,20 @@ UiPanel {
                 itemIdx : 1
             }
             ListElement {
-                itemText : qsTr("Rejector 01")
+                itemText : qsTr("Sorter 01")
                 itemIdx : 2
             }
             ListElement {
-                itemText : qsTr("Rejector 02")
+                itemText : qsTr("Sorter 02")
                 itemIdx : 3
+            }
+            ListElement {
+                itemText : qsTr("Sorter 03")
+                itemIdx : 4
+            }
+            ListElement {
+                itemText : qsTr("Sorter 04")
+                itemIdx : 5
             }
         }
 
@@ -484,6 +650,48 @@ UiPanel {
         }
     }
 
+    UiRadioBtn{
+        id: checkWCNGLampOn
+        height: 60
+        width : 128
+        anchors.right: checkWCNGBuzzerOn.left
+        anchors.rightMargin: 20
+        anchors.verticalCenter: checkWCNGBuzzerOn.verticalCenter
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditWCNGLamp
+        isSelect: itemModel.wcNGLamp === 1 ? true : false
+
+        textValue : qsTr("Lamp")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetWCNGLamp(itemModel.wcNGLamp === 0 ? 1 : 0);
+        }
+    }
+
+    UiRadioBtn{
+        id: checkWCNGBuzzerOn
+        height: 60
+        width : 153
+        anchors.top: comboWCNGMotion.bottom
+        anchors.topMargin: 10
+        anchors.right: divider.left
+        anchors.rightMargin: 20
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditWCNGBuzzer
+        isSelect: itemModel.wcNGBuzzer === 1 ? true : false
+
+        textValue : qsTr("Buzzer")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetWCNGBuzzer(itemModel.wcNGBuzzer === 0 ? 1 : 0);
+        }
+    }
+
+    /*
     UiLabelSystem{
         id : inputEnableEtcError
         height: 60
@@ -540,10 +748,84 @@ UiPanel {
             }
         }
     }
+*/
+    UiLabelContent {
+        id: labelMotor
+        height: 30
+        anchors.top: inputGroupCount.bottom
+        anchors.topMargin: 40
+        anchors.left: isEnableWC ? divider.right : parent.left
+        anchors.leftMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+
+        visible:  (itemModel.seq !== 0 || itemModel.isNew) && panel.isAdmin === true
+
+        textValue: qsTr("Motor")
+    }
+
+    UiInputFloat {
+        id: inputMotorAcceleration
+        width: 200
+        height: 60
+        anchors.right: isEnableWC? parent.right : divider.left
+        anchors.rightMargin: 20
+        anchors.left: isEnableWC ? divider.right : parent.left
+        anchors.leftMargin: 20
+        anchors.top: labelMotor.bottom
+        anchors.topMargin: 10
+
+        isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && panel.isAdmin === true
+
+        labelText : qsTr("· Motor acc")
+        inputWidth: width - 220
+        bgColor   : panel.bgColor
+        postfix   : "s"
+        min: 0
+        max: 999
+
+        realValue: itemModel.motorAcceleration / 1000
+        isHighlight: itemModel.isEditMotorAcceleration
+
+        onSignalChangeValue: {
+            itemModel.onCommandSetMotorAcceleration((value * 1000) + 0.5)
+        }
+    }
+
+    UiInputFloat {
+        id: inputMotorDeceleration
+        width: 200
+        height: 60
+        anchors.right: isEnableWC? parent.right : divider.left
+        anchors.rightMargin: 20
+        anchors.left: isEnableWC ? divider.right : parent.left
+        anchors.leftMargin: 20
+        anchors.top: inputMotorAcceleration.bottom
+        anchors.topMargin: 10
+
+        isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && panel.isAdmin === true
+
+        labelText : qsTr("· Motor dec")
+        inputWidth: width - 220
+        bgColor   : panel.bgColor
+        postfix   : "s"
+        min: 0
+        max: 999
+
+        realValue: itemModel.motorDeceleration / 1000
+        isHighlight: itemModel.isEditMotorDeceleration
+
+        onSignalChangeValue: {
+            itemModel.onCommandSetMotorDeceleration((value * 1000) + 0.5)
+        }
+    }
+
     UiLabelContent {
         id: labelMetalDetector
         height: 30
-        anchors.top: inputSpeed.bottom
+        anchors.top: inputMotorDeceleration.visible === true ? inputMotorDeceleration.bottom : inputGroupCount.bottom
         anchors.topMargin: 40
         anchors.left: isEnableWC ? divider.right : parent.left
         anchors.leftMargin: 20
@@ -585,6 +867,7 @@ UiPanel {
     }
 
     UiComboBox{
+        id : comboMDNGMotion
         height: 60
         anchors.verticalCenter: isEnableWC ? comboWCNGMotion.verticalCenter : inputSenstivity.verticalCenter
         anchors.right: parent.right
@@ -616,17 +899,66 @@ UiPanel {
                 itemIdx : 1
             }
             ListElement {
-                itemText : qsTr("Rejector 01")
+                itemText : qsTr("Sorter 01")
                 itemIdx : 2
             }
             ListElement {
-                itemText : qsTr("Rejector 02")
+                itemText : qsTr("Sorter 02")
                 itemIdx : 3
+            }
+            ListElement {
+                itemText : qsTr("Sorter 03")
+                itemIdx : 4
+            }
+            ListElement {
+                itemText : qsTr("Sorter 04")
+                itemIdx : 5
             }
         }
 
         onSignalEventChangedSel: {
             itemModel.onCommandSetMDNGMotion(itemIdx)
+        }
+    }
+
+    UiRadioBtn{
+        id: checkMDNGLampOn
+        height: 60
+        width : 128
+        anchors.right: checkMDNGBuzzerOn.left
+        anchors.rightMargin: 20
+        anchors.verticalCenter: checkMDNGBuzzerOn.verticalCenter
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditMDNGLamp
+        isSelect: itemModel.mdNGLamp === 1 ? true : false
+
+        textValue : qsTr("Lamp")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetMDNGLamp(itemModel.mdNGLamp === 0 ? 1 : 0);
+        }
+    }
+
+    UiRadioBtn{
+        id: checkMDNGBuzzerOn
+        height: 60
+        width : 153
+        anchors.top: comboMDNGMotion.bottom
+        anchors.topMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+
+        isDisable : panel.isViewMode
+        isHighlight: itemModel.isEditMDNGBuzzer
+        isSelect: itemModel.mdNGBuzzer === 1 ? true : false
+
+        textValue : qsTr("Buzzer")
+
+        onSignalEventClicked:
+        {
+            itemModel.onCommandSetMDNGBuzzer(itemModel.mdNGBuzzer === 0 ? 1 : 0);
         }
     }
 
@@ -641,11 +973,12 @@ UiPanel {
 
         isPlay : true
 
-        visible: (itemModel.isEditNo                 ||
+        visible: (itemModel.isEditNo                ||
                  itemModel.isEditName               ||
                  itemModel.isEditLength             ||
                  itemModel.isEditSpeed              ||
                  itemModel.isEditMotorAcceleration  ||
+                 itemModel.isEditMotorDeceleration  ||
                  itemModel.isEditUnderWeight        ||
                  itemModel.isEditUnderWarningWeight ||
                  itemModel.isEditNormalWeight       ||
@@ -656,10 +989,18 @@ UiPanel {
                  itemModel.isEditWCEnableEtcError   ||
                  itemModel.isEditDynamicFactor      ||
                  itemModel.isEditMDSenstivity       ||
-                 itemModel.isEditMDNGMotion)        &&
+                 itemModel.isEditMDNGMotion         ||
+                 itemModel.isEditGroupCount         ||
+                 itemModel.isEditGroupMotion        ||
+                 itemModel.isEditGroupLamp          ||
+                 itemModel.isEditGroupBuzzer        ||
+                 itemModel.isEditWCNGLamp           ||
+                 itemModel.isEditWCNGBuzzer         ||
+                 itemModel.isEditMDNGLamp           ||
+                 itemModel.isEditMDNGBuzzer        ) &&
                  !panel.isViewMode
 
-        type : EnumDefine.BUTTON_TYPE_BLUE
+        type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")
 
         onSignalEventClicked:
@@ -680,7 +1021,7 @@ UiPanel {
 
         visible : btnApply.visible
 
-        type : EnumDefine.BUTTON_TYPE_UP_PANEL
+        type : QmlEnumDef.BUTTON_TYPE_UP_PANEL
         textValue: qsTr("Cancle")
 
         onSignalEventClicked:
@@ -699,7 +1040,7 @@ UiPanel {
 
         visible : !btnApply.visible && (itemModel.seq !== 0) && !panel.isViewMode
 
-        type : EnumDefine.BUTTON_TYPE_UP_PANEL
+        type : QmlEnumDef.BUTTON_TYPE_UP_PANEL
         textValue: qsTr("Remove")
         textConfirmMsg: qsTr("Do you want to remove this product?")
 
@@ -710,8 +1051,10 @@ UiPanel {
     }
 }
 
+
+
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}
+    D{i:0;formeditorZoom:0.8999999761581421}D{i:4}
 }
 ##^##*/

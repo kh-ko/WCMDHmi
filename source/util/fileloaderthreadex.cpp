@@ -1,6 +1,6 @@
 #include "fileloaderthreadex.h"
 #include <QDebug>
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 
 FileLoaderThreadExWorker::FileLoaderThreadExWorker(QObject *parent) : QObject(parent){}
 FileLoaderThreadExWorker::~FileLoaderThreadExWorker()
@@ -27,10 +27,10 @@ void FileLoaderThreadExWorker::onCommandReadBytes(QString path, QString fileName
             qDebug() << "[FileLoaderThreadExWorker::onCommandReadBytes] file name =" << QString("%1/%2").arg(path).arg(fileName) << ",occured exception, file name = " <<  mpFile->errorString();
             delete mpFile;
             mpFile = nullptr;
-            emit signalEventOpenFile(EnumDefine::FileErrorType::FILE_ERROR_NOT_EXIST, fileName);
+            emit signalEventOpenFile(FileLoaderThreadEx::FILE_LOADER_ERR_NOT_EXIST, fileName);
             return;
         }
-        emit signalEventOpenFile(EnumDefine::FileErrorType::FILE_ERROR_NONE, fileName);
+        emit signalEventOpenFile(FileLoaderThreadEx::FILE_LOADER_ERR_NONE, fileName);
         return;
     }
 
@@ -42,7 +42,7 @@ void FileLoaderThreadExWorker::onCommandReadBytes(QString path, QString fileName
 
     QByteArray content = mpFile->read(maxLen);
 
-    emit signalEventReadBytes(EnumDefine::FileErrorType::FILE_ERROR_NONE, content);
+    emit signalEventReadBytes(FileLoaderThreadEx::FILE_LOADER_ERR_NONE, content);
 }
 
 void FileLoaderThreadExWorker::close()

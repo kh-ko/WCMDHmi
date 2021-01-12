@@ -5,13 +5,15 @@ import "."
 import "../../../control"
 import "./ProductSetting"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import EnumDef 1.0
+import QmlEnumDef 1.0
 import PanelProductSettingModel 1.0
 import ProductSettingItemModel 1.0
 
 UiPanel {
 
     property bool isViewMode : false
+    property bool isAdmin    : false
     id: panel
 
     width : 1518
@@ -49,47 +51,35 @@ UiPanel {
         onSignalEventResultSaveProductSetting: {
             //busyIndi.visible = false;
 
-            if(error === EnumDefine.SQL_ERROR)
-            {
-                ViewManager.toast.show(qsTr("SQL error is occured."))
-            }
-            else if(error === EnumDefine.NOT_EXIST_SEQ)
-            {
-                ViewManager.toast.show(qsTr("This product dose not exist."))
-            }
-            else if(error === EnumDefine.ALREADY_NO_ERROR)
-            {
-                ViewManager.toast.show(qsTr("The Product no already exists."))
-            }
-            else if(error === EnumDefine.EMPTY_PRODUCT_NO)
-            {
-                ViewManager.toast.show(qsTr("Please enter product no."))
-            }
-            else if(error === EnumDefine.ZERO_PRODUCT_LENGTH)
-            {
-                ViewManager.toast.show(qsTr("Invalid product length."))
-            }
-            else if(error === EnumDefine.ZERO_PRODUCT_SEPPD)
-            {
-                ViewManager.toast.show(qsTr("Invalid product speed."))
-            }
-            else if(error === EnumDefine.INVAILD_WEIGHT_CHECKER_SETTING)
-            {
-                ViewManager.toast.show(qsTr("Invalid weight checker setting."))
-            }
-            else if(error === EnumDefine.INVAILD_METAL_DETECTOR_SETTING)
-            {
-                ViewManager.toast.show(qsTr("Invalid metal detector setting."))
-            }
-            else if(error === EnumDefine.REMOVE_SEL_PRODUCT)
-            {
-                ViewManager.toast.show(qsTr("can not remove selected product."))
-            }
-            else
+            if(isInvalidWC == false && isEmptyNo == false && svcErr == EnumDef.PDERR_NONE)
             {
                 loadList()
 
                 ViewManager.toast.show(qsTr("Your settings have been saved."))
+            }
+            else if(isInvalidWC == true)
+            {
+                ViewManager.toast.show(qsTr("Invalid weight checker setting."))
+            }
+            else if(isEmptyNo == true)
+            {
+                ViewManager.toast.show(qsTr("Please enter product no."))
+            }
+            else if(svcErr == EnumDef.PDERR_NOT_EXIST)
+            {
+                ViewManager.toast.show(qsTr("This product dose not exist."))
+            }
+            else if(svcErr == EnumDef.PDERR_SAME_PD_NUM)
+            {
+                ViewManager.toast.show(qsTr("The Product no already exists."))
+            }
+            else if(svcErr == EnumDef.PDERR_SELECTED)
+            {
+                iewManager.toast.show(qsTr("can not remove selected product."))
+            }
+            else
+            {
+                ViewManager.toast.show(qsTr("SQL error is occured."))
             }
         }
 
@@ -146,7 +136,7 @@ UiPanel {
         {
             height : 100
             width : 495
-            type : productSettingModel.lookProductSeq === productSeq ? EnumDefine.PANEL_TYPE_SELECT : EnumDefine.PANEL_TYPE_NONE
+            type : productSettingModel.lookProductSeq === productSeq ? QmlEnumDef.PANEL_TYPE_SELECT : QmlEnumDef.PANEL_TYPE_NONE
 
             MouseArea{
                 anchors.fill: parent
@@ -219,6 +209,7 @@ UiPanel {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
 
+        isAdmin: panel.isAdmin
         isEnableWC: productSettingModel.isEnableWC
         isViewMode : panel.isViewMode
         itemModel : productSettingModel.onCommandGetEditViewItemModel()

@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import "../../../control"
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import PanelPDSelectModel 1.0
 
@@ -111,7 +111,7 @@ Dialog {
             height: 60
             width: 180
             textValue : qsTr("Close")
-            type : EnumDefine.BUTTON_TYPE_UP_PANEL
+            type : QmlEnumDef.BUTTON_TYPE_UP_PANEL
             anchors.top: parent.top
             anchors.topMargin: 20
             anchors.right: parent.right
@@ -165,7 +165,7 @@ Dialog {
 
             height : 80
             width : 500
-            type : mouseArea.isPress ? EnumDefine.PANEL_TYPE_SELECT : EnumDefine.PANEL_TYPE_UP_PANEL
+            type : mouseArea.isPress ? QmlEnumDef.PANEL_TYPE_SELECT : QmlEnumDef.PANEL_TYPE_UP_PANEL
 
             MouseArea{
                 property bool isPress : false

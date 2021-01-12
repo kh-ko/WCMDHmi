@@ -4,7 +4,7 @@ import ViewManager 1.0
 import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import EnumDef 1.0
 import LoggingDataModel 1.0
 
 Item {
@@ -53,37 +53,37 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            textValue: model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_NORMAL_TYPE           ? qsTr("PASS"               ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_WARNING_TYPE    ? qsTr("UNDER WARNING"      ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_WARNING_TYPE     ? qsTr("OVER WARNING"       ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_TYPE            ? qsTr("UNDER NG"           ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_TYPE             ? qsTr("OVER NG"            ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETCERROR_TYPE         ? qsTr("ETC NG"             ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE  ? qsTr("ETC NG"             ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.APP_START_TYPE               ? qsTr("POWER ON"           ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.APP_EXIT_TYPE                ? qsTr("POWER OFF"          ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.METAL_CHECKUP_TYPE           ? qsTr("CHECK"              ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_STATIC_CARI_TYPE      ? qsTr("STATIC CALIBRATION" ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_DYNAMIC_CARI_TYPE     ? qsTr("DYNAMIC CALIBRATION"):
-                       model.onCommandGetEventItem(idx) === EnumDefine.RUN_TYPE                     ? qsTr("RUN"                ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.STOP_TYPE                    ? qsTr("STOP"               ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.METAL_TRADE_TYPE             ? qsTr("PASS"               ):
-                       model.onCommandGetEventItem(idx) === EnumDefine.METAL_DETECT_TYPE            ? qsTr("NG"                 ):""
+            textValue: model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_NORMAL           ? qsTr("PASS"               ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER_WARNING    ? qsTr("UNDER WARNING"      ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER_WARNING     ? qsTr("OVER WARNING"       ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER            ? qsTr("UNDER NG"           ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER             ? qsTr("OVER NG"            ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETCERROR         ? qsTr("ETC NG"             ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETC_METAL_ERROR  ? qsTr("ETC NG"             ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_APP_START               ? qsTr("POWER ON"           ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_APP_EXIT                ? qsTr("POWER OFF"          ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_CHECKUP           ? qsTr("CHECK"              ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_STATIC_CARI      ? qsTr("STATIC CALIBRATION" ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_DYNAMIC_CARI     ? qsTr("DYNAMIC CALIBRATION"):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_RUN                     ? qsTr("RUN"                ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_STOP                    ? qsTr("STOP"               ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_TRADE             ? qsTr("PASS"               ):
+                       model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_DETECT            ? qsTr("NG"                 ):""
 
 
             Image{
-                source: model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_WARNING_TYPE   ? "img_eventicon/down_01_yellow.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_WARNING_TYPE    ? "img_eventicon/down_01_yellow.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_TYPE           ? "img_eventicon/wc_down.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_TYPE            ? "img_eventicon/wc_up.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETCERROR_TYPE        ? "img_eventicon/etc_error.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE ? "img_eventicon/etc_error.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.METAL_CHECKUP_TYPE          ? (model.onCommandGetWeightItem(idx) === "FAIL" ?"img_eventicon/md_checkup_fail.png":"img_eventicon/md_checkup_pass.png") :
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_STATIC_CARI_TYPE     ? "img_eventicon/static_calib.png" :
-                        model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_DYNAMIC_CARI_TYPE    ? "img_eventicon/dynamic_calibsvg.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.RUN_TYPE                    ? "img_eventicon/run_small.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.STOP_TYPE                   ? "img_eventicon/stop_small.png":
-                        model.onCommandGetEventItem(idx) === EnumDefine.METAL_DETECT_TYPE           ? "img_eventicon/metaldetect.png":""
+                source: model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER_WARNING   ? "img_eventicon/down_01_yellow.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER_WARNING    ? "img_eventicon/down_01_yellow.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER           ? "img_eventicon/wc_down.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER            ? "img_eventicon/wc_up.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETCERROR        ? "img_eventicon/etc_error.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETC_METAL_ERROR ? "img_eventicon/etc_error.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_CHECKUP          ? (model.onCommandGetWeightItem(idx) === "FAIL" ?"img_eventicon/md_checkup_fail.png":"img_eventicon/md_checkup_pass.png") :
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_STATIC_CARI     ? "img_eventicon/static_calib.png" :
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_DYNAMIC_CARI    ? "img_eventicon/dynamic_calibsvg.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_RUN                    ? "img_eventicon/run_small.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_STOP                   ? "img_eventicon/stop_small.png":
+                        model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_DETECT           ? "img_eventicon/metaldetect.png":""
 
                 //rotation: model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ERROR_OVER || model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ERROR_OVERWARNING ? 180 : 0
                 anchors.right: parent.right
@@ -97,22 +97,22 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            horizontalAlignment : model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_NORMAL_TYPE            ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_WARNING_TYPE     ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_WARNING_TYPE      ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_UNDER_TYPE             ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_OVER_TYPE              ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETCERROR_TYPE          ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_ETC_METAL_ERROR_TYPE   ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.APP_START_TYPE                ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.APP_EXIT_TYPE                 ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.METAL_CHECKUP_TYPE            ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_STATIC_CARI_TYPE       ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.WEIGHT_DYNAMIC_CARI_TYPE      ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.RUN_TYPE                      ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.STOP_TYPE                     ? Text.AlignHCenter:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.METAL_TRADE_TYPE              ? Text.AlignRight:
-                                  model.onCommandGetEventItem(idx) === EnumDefine.METAL_DETECT_TYPE             ? Text.AlignRight: Text.AlignHCenter
+            horizontalAlignment : model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_NORMAL            ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER_WARNING     ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER_WARNING      ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_UNDER             ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_OVER              ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETCERROR          ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_ETC_METAL_ERROR   ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_APP_START                ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_APP_EXIT                 ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_CHECKUP            ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_STATIC_CARI       ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_WEIGHT_DYNAMIC_CARI      ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_RUN                      ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_STOP                     ? Text.AlignHCenter:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_TRADE              ? Text.AlignRight:
+                                  model.onCommandGetEventItem(idx) === EnumDef.ET_METAL_DETECT             ? Text.AlignRight: Text.AlignHCenter
 
             textValue: model.onCommandGetWeightItem(idx)
         }

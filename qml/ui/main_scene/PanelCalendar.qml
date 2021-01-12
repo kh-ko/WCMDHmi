@@ -3,7 +3,6 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
 import ViewManager 1.0
 import FontManager 1.0
-import EnumDefine 1.0
 import "."
 import "../../control/"
 

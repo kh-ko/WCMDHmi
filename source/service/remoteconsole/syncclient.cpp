@@ -1,6 +1,6 @@
 #include "syncclient.h"
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 void SyncClient::sendAleadySync()
@@ -209,7 +209,7 @@ void SyncClient::onTimeout()
 
 void SyncClient::onSignalEventOpenFile(int error, QString fileName)
 {
-    if(error == EnumDefine::FileErrorType::FILE_ERROR_NONE)
+    if(error == FileLoaderThreadEx::FILE_LOADER_ERR_NONE)
     {
         sendFileName(fileName);
     }
@@ -228,7 +228,7 @@ void SyncClient::onSignalEventEof()
 
 void SyncClient::onSignalEventReadBytes(int error, QByteArray content)
 {
-    if(error == EnumDefine::FileErrorType::FILE_ERROR_NONE)
+    if(error == FileLoaderThreadEx::FILE_LOADER_ERR_NONE)
     {
         sendFileContent(content);
     }

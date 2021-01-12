@@ -23,13 +23,14 @@
 #define DSP_GROUP_ID_WC_GRAPH        14
 #define DSP_GROUP_ID_MD_GRAPH        15
 
-#define DSP_COMMANDBLOCK_STARTADDR_ZERO    ((quint64)((char *)(&(((StDspCommand *)(0x00))->mZero     ))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_FR      ((quint64)((char *)(&(((StDspCommand *)(0x00))->mFR       ))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_WCCARIB ((quint64)((char *)(&(((StDspCommand *)(0x00))->mWCCarib  ))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_RUN     ((quint64)((char *)(&(((StDspCommand *)(0x00))->mRun      ))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_WCGON   ((quint64)((char *)(&(((StDspCommand *)(0x00))->mWCGraphOn))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_MDGON   ((quint64)((char *)(&(((StDspCommand *)(0x00))->mMDGraphOn))))/2
-#define DSP_COMMANDBLOCK_STARTADDR_DEVID   ((quint64)((char *)(&(((StDspCommand *)(0x00))->mDeviceID ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_ZERO             ((quint64)((char *)(&(((StDspCommand *)(0x00))->mZero               ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_FR               ((quint64)((char *)(&(((StDspCommand *)(0x00))->mFR                 ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_WCCARIB          ((quint64)((char *)(&(((StDspCommand *)(0x00))->mWCCarib            ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_RUN              ((quint64)((char *)(&(((StDspCommand *)(0x00))->mRun                ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_WCGON            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mWCGraphOn          ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_MDGON            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mMDGraphOn          ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_DEVID            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mDeviceID           ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_GROUP_CURR_COUNT ((quint64)((char *)(&(((StDspCommand *)(0x00))->mResetGroupCurrCount))))/2
 
 struct StDspBlockTag{
     char           mGroupID   ;
@@ -300,6 +301,10 @@ public:
     void setCmdDeviceID(unsigned int value)
     {
         mCommandBlock.mData.mDeviceID = value;
+    }
+    void setCmdResetGroupCurrCount(unsigned short value)
+    {
+        mCommandBlock.mData.mResetGroupCurrCount = value;
     }
     void setDevCommSetting(StDspDevCommSetting * commSetting)
     {

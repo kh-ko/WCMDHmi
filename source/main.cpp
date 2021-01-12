@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include <QCursor>
 #include <QtQuickControls2/QQuickStyle>
-#include "source/globaldef/GlobalDefine.h"
 #include "source/logger/nsdebug.h"
 #include "source/qmlmodel/wcmd/mainmodel.h"
 #include "source/qmlmodel/wcmd/introscenemodel.h"
@@ -24,8 +23,10 @@
 #include "source/qmlmodel/wcmd/menu_scene/clocksetting/panelclocksettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/checkup/panelwcdynamiccalibraionmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h"
+#include "source/qmlmodel/wcmd/main_scene/panelgroupsettinginhomemodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelfullmdmodel.h"
 #include "source/qmlmodel/wcmd/main_scene/panelpdselectmodel.h"
+#include "source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h"
 #include "source/service/coreservice.h"
 #include "source/util/mouseeventspy.h"
 
@@ -54,7 +55,8 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
-    qmlRegisterUncreatableType<EnumDefine>("EnumDefine", 1, 0, "EnumDefine", "");
+    qmlRegisterUncreatableType<QmlEnumDef>("QmlEnumDef", 1, 0, "QmlEnumDef", "");
+    qmlRegisterUncreatableType<EnumDef>("EnumDef", 1, 0, "EnumDef", "");
 
 
     qRegisterMetaType<DevSettingDto>();
@@ -95,9 +97,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<PanelClockSettingModel>("PanelClockSettingModel", 1, 0, "PanelClockSettingModel");
     qmlRegisterType<PanelWCDynamicCalibrationModel>("PanelWCDynamicCalibrationModel", 1, 0, "PanelWCDynamicCalibrationModel");
     qmlRegisterType<PanelWCSettingInHomeModel>("PanelWCSettingInHomeModel", 1, 0, "PanelWCSettingInHomeModel");
+    qmlRegisterType<PanelGroupSettingInHomeModel>("PanelGroupSettingInHomeModel", 1, 0, "PanelGroupSettingInHomeModel");
     qmlRegisterType<PanelFullMDModel>("PanelFullMDModel", 1, 0, "PanelFullMDModel");
     qmlRegisterType<PanelPDSelectModel>("PanelPDSelectModel", 1, 0, "PanelPDSelectModel");
-
+    qmlRegisterType<PanelMaxErrorSettingModel>("PanelMaxErrorSettingModel", 1, 0, "PanelMaxErrorSettingModel");
     qmlRegisterSingletonType<MouseEventSpy>("MouseEventSpy", 1, 0, "MouseEventSpy", MouseEventSpy::singletonProvider);
     qmlRegisterSingletonType(QUrl("qrc:/uiengine/ViewManager.qml"), "ViewManager", 1, 0, "ViewManager");
     qmlRegisterSingletonType(QUrl("qrc:/uiengine/FontManager.qml"), "FontManager", 1, 0, "FontManager");

@@ -21,9 +21,7 @@ SOURCES += \
         source/service/remoteconsole/syncserverservice.cpp \
         source/thread/historybackupthread.cpp \
         source/util/etcutil.cpp \
-        source/util/fileloaderthread.cpp \
         source/util/fileloaderthreadex.cpp \
-        source/util/filereader.cpp \
         source/util/mouseeventspy.cpp
 
 RESOURCES += qml/qml.qrc
@@ -40,8 +38,7 @@ target.path = /home/pi/apps/$${TARGET}
 INSTALLS += target
 
 HEADERS += \
-    source/globaldef/EnumDefine.h \
-    source/globaldef/GlobalDefine.h \
+    source/globaldef/qmlenumdef.h \
     source/logger/nsdebug.h \
     source/qmlmodel/wcmd/introscenemodel.h \
     source/qmlmodel/wcmd/main_scene/FactoryResetViewModel.h \
@@ -49,6 +46,7 @@ HEADERS += \
     source/qmlmodel/wcmd/main_scene/panelbackupmodel.h \
     source/qmlmodel/wcmd/main_scene/paneldebuggingmodel.h \
     source/qmlmodel/wcmd/main_scene/panelfullmdmodel.h \
+    source/qmlmodel/wcmd/main_scene/panelgroupsettinginhomemodel.h \
     source/qmlmodel/wcmd/main_scene/panelpdselectmodel.h \
     source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h \
     source/qmlmodel/wcmd/mainmodel.h \
@@ -63,6 +61,7 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.h \
     source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.h \
+    source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/productsettingitemmodel.h \
     source/service/coreservice.h \
@@ -124,9 +123,7 @@ HEADERS += \
     source/service/work/worksprovider.h \
     source/thread/historybackupthread.h \
     source/util/etcutil.h \
-    source/util/fileloaderthread.h \
     source/util/fileloaderthreadex.h \
-    source/util/filereader.h \
     source/util/mouseeventspy.h
 
 DISTFILES +=

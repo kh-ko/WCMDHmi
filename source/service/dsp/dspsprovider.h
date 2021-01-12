@@ -112,6 +112,7 @@ public :
     void sendWCGraphOnCmd(quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendWCGraphOn (value);}
     void sendMDGraphOnCmd(quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendMDGraphOn (value);}
     void sendDspIDCmd    (quint64 dspSeq, quint32 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevID     (value);}
+    void sendResetGCntCmd(quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendResetGCnt (value);}
     void sendDevSetting  (quint64 dspSeq, DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevSetting(value);}
     void sendPDSetting   (quint64 dspSeq, DspPDSettingDto  value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendPDSetting (value);}
 

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 
 Item {
@@ -55,7 +55,7 @@ Item {
         id: bg
         anchors.fill: parent
 
-        type : EnumDefine.PANEL_TYPE_METAL
+        type : QmlEnumDef.PANEL_TYPE_METAL
         title: qsTr("Metal detector")
 
         UiProgressBar{

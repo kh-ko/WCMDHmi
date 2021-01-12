@@ -2,7 +2,8 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
-import EnumDefine 1.0
+import QmlEnumDef 1.0
+import EnumDef 1.0
 import ViewManager 1.0
 import MainViewModel 1.0
 import FontManager 1.0
@@ -28,9 +29,12 @@ Item {
     property var  tradeWeight       : mainViewModel.wcTradeTotalWeight
     property real tare              : mainViewModel.wcTareWeight
     property bool isDetail          : mainViewModel.isDetail
+    property int  groupCurrCount    : mainViewModel.groupCurrCount
+    property int  groupCount        : mainViewModel.groupCount
 
     signal signalEvnetZeroClicked()
     signal signalEditWCSetting()
+    signal signalEditGroupSetting()
 
     id : panel
 
@@ -73,7 +77,7 @@ Item {
         id: bg
         anchors.fill: parent
 
-        type : EnumDefine.PANEL_TYPE_WEIGHT
+        type : QmlEnumDef.PANEL_TYPE_WEIGHT
         title: qsTr("Weight checker")
 
         UiButton{
@@ -103,15 +107,101 @@ Item {
             viewMode: mainViewModel.wcViewMode
 
             onSignalEventClickedDev: {
-                mainViewModel.onCommandSetWCViewMode(EnumDefine.WC_VIEWMODE_DELTA)
+                mainViewModel.onCommandSetWCViewMode(EnumDef.WC_VIEWMODE_DELTA)
             }
 
             onSignalEventClickedNumber: {
-                mainViewModel.onCommandSetWCViewMode(EnumDefine.WC_VIEWMODE_CURRENT)
+                mainViewModel.onCommandSetWCViewMode(EnumDef.WC_VIEWMODE_CURRENT)
             }
 
             onSignalEventClickedTrends: {
-                mainViewModel.onCommandSetWCViewMode(EnumDefine.WC_VIEWMODE_TRENDS)
+                mainViewModel.onCommandSetWCViewMode(EnumDef.WC_VIEWMODE_TRENDS)
+            }
+        }
+
+        Rectangle{
+            id: boxGroup
+            width: 577
+            height: 80
+            color: "#59000000"
+            radius: 10
+            anchors.verticalCenter: textTare.verticalCenter
+            anchors.left: wcView.left
+            anchors.leftMargin: 250
+            visible: (mainViewModel.wcViewMode !== EnumDef.WC_VIEWMODE_TRENDS) && panel.groupCount > 0
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    panel.signalEditGroupSetting()
+                }
+            }
+
+            Rectangle{
+                id : labelBoxGroupCount
+                anchors.left: parent.left
+                anchors.leftMargin: 2
+                anchors.verticalCenter: parent.verticalCenter
+                height: parent.height -4
+                width: height
+
+                color: "#59000000"
+                radius: 10
+
+                Text{
+                    id:labelGroupCount
+                    width: 330
+                    height: 55
+
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignHCenter
+                    font.pixelSize: 40
+                    font.family: FontManager.nanumGothicBName
+
+                    color : "#FFFFFF"
+                    text: "G"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+
+            Text{
+                id:textGroupCount
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: labelBoxGroupCount.right
+                anchors.leftMargin: 10
+                anchors.right: btnGroupCountReset.left
+                anchors.rightMargin: 10
+
+                verticalAlignment: Text.AlignVCenter
+                fontSizeMode: Text.HorizontalFit
+                horizontalAlignment : Text.AlignRight
+                font.pixelSize: 50
+
+                font.family: FontManager.nanumGothicBName
+                elide: Text.ElideRight
+
+                color : "#FFFFFF"
+                text: (panel.groupCurrCount).toLocaleString(ViewManager.locale, 'f', 0) + "/" + (panel.groupCount).toLocaleString(ViewManager.locale, 'f', 0)
+            }
+
+            UiButtonConfirm{
+                id : btnGroupCountReset
+                height: parent.height -4
+                width  : 120
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 2
+
+                textValue : qsTr("Reset")
+                textConfirmMsg : qsTr("Do you want to recount the group count?")
+                isShadow : false
+                radius : 5
+
+                onSignalEventClicked: {
+                    mainViewModel.onCommandResetGroupCount();
+                }
             }
         }
 
@@ -126,7 +216,7 @@ Item {
             font.family: FontManager.nanumGothicBName
             elide: Text.ElideRight
 
-            visible: mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_TRENDS
+            visible: (mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_TRENDS) && panel.groupCount > 0
             color : "#ACACAC"
             text: qsTr("Current weight")
             anchors.verticalCenter: textCurrentWeight.verticalCenter
@@ -145,7 +235,7 @@ Item {
             font.family: FontManager.nanumGothicBName
             elide: Text.ElideRight
 
-            visible: mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_TRENDS
+            visible: mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_TRENDS
             color : "#FFFFFF"
             text: (panel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
             anchors.horizontalCenterOffset: 60
@@ -198,8 +288,8 @@ Item {
                 anchors.fill: parent
 
                 isWait        : mainViewModel.wait === 0 ? false : true
-                visible       : mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_CURRENT || mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_DELTA
-                isDevMode     : mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_DELTA
+                visible       : mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_CURRENT || mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_DELTA
+                isDevMode     : mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_DELTA
                 currWeight    : panel.currWeight
                 currEventType : panel.currEventType
                 //avgWeight     : panel.avgWeight
@@ -217,7 +307,7 @@ Item {
                 anchors.fill: parent
                 anchors.margins: 20
 
-                visible     : mainViewModel.wcViewMode === EnumDefine.WC_VIEWMODE_TRENDS
+                visible     : mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_TRENDS
                 overWeight  : panel.overWeight
                 underWeight : panel.underWeight
                 normalWeight: panel.normalWeight

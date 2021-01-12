@@ -4,7 +4,6 @@
 #include <QObject>
 
 #include "source/service/def/datetimeform.h"
-#include "source/globaldef/GlobalDefine.h"
 #include "source/service/coreservice.h"
 
 class PanelFullMDModel : public QObject

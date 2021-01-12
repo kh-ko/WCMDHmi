@@ -18,6 +18,8 @@ class EnumDef: public QObject{
     Q_ENUMS(eEventType)
     Q_ENUMS(eNGMotion)
     Q_ENUMS(eRunMode)
+    Q_ENUMS(eWCGPointType)
+    Q_ENUMS(eWCCalibType)
 
 public:
     enum eDspFRState {
@@ -117,15 +119,33 @@ public:
     enum eNGMotion{
         NG_MOTION_NON = 0,
         NG_MOTION_STOP = 1,
-        NG_MOTION_REJECT_01 = 2,
-        NG_MOTION_REJECT_02 = 3,
+        NG_MOTION_SORTER_01 = 2,
+        NG_MOTION_SORTER_02 = 3,
+        NG_MOTION_SORTER_03 = 4,
+        NG_MOTION_SORTER_04 = 5,
     };
 
     enum eRunMode{
         RUN_MODE_STOP = 0,
         RUN_MODE_RUN = 1,
         RUN_MODE_CHECKUP_RUN = 2,
-        RUN_MODE_DETECT_OFF_RUN = 3
+        RUN_MODE_DETECT_OFF_RUN = 3,
+        RUN_MODE_ROUND_RUN = 4
+    };
+
+    enum eWCGPointType{
+          WCG_POINT_TYPE_POINT = 0,
+          WCG_POINT_TYPE_IN_PORTER_ON = 1,
+          WCG_POINT_TYPE_IN_PORTER_OFF = 2,
+          WCG_POINT_TYPE_MEASURE_START = 3,
+          WCG_POINT_TYPE_MEASURE_END = 4,
+          WCG_POINT_TYPE_OUT_PORTER_ON = 5,
+          WCG_POINT_TYPE_OUT_PORTER_OFF = 6,
+    };
+
+    enum eWCCalibType{
+            WC_CALIB_TYPE_STATIC = 0,
+            WC_CALIB_TYPE_DYNAMIC = 1
     };
 
 };

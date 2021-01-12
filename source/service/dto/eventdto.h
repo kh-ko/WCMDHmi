@@ -70,6 +70,21 @@ public:
         }
     }
 
+    static bool isWeightCheckEvent(quint16 eventType)
+    {
+        switch(eventType)
+        {
+            case EnumDef::ET_WEIGHT_NORMAL_CHECK       :
+            case EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK:
+            case EnumDef::ET_WEIGHT_OVER_WARNING_CHECK :
+            case EnumDef::ET_WEIGHT_UNDER_CHECK        :
+            case EnumDef::ET_WEIGHT_OVER_CHECK         :
+            case EnumDef::ET_WEIGHT_ETCERROR_CHECK     :
+                return true;
+            default: return false;
+        }
+    }
+
     static bool isMetalDetectEvent(quint16 eventType)
     {
         switch(eventType)

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QProcess>
 
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/util/etcutil.h"
 #include "source/service/coreservice.h"
 #include "source/thread/historybackupthread.h"
@@ -164,7 +164,7 @@ public slots:
 
         if(getIsProc())
         {
-            emit signalEventComplete(EnumDefine::BackupResult::BACKUP_ING);
+            emit signalEventComplete(QmlEnumDef::BACKUP_ING);
             return;
         }
 
@@ -198,7 +198,7 @@ public slots:
 
         QDate date(mEndYear,mEndMonth,mEndDay);
 
-        if(value == EnumDefine::BackupResult::BACKUP_NONE_ERROR)
+        if(value == QmlEnumDef::BACKUP_NONE_ERROR)
             pLSettingSP->setBackupLastDate(date);
 
         emit signalEventComplete(value);

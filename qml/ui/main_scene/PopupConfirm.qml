@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import FontManager 1.0
 import MainViewModel 1.0
@@ -77,7 +77,7 @@ Rectangle {
             anchors.bottomMargin: 20
 
             textValue: qsTr("Cancle")
-            type : EnumDefine.BUTTON_TYPE_BLUE
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
 
             onSignalEventClicked:
             {

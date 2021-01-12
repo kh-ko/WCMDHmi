@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
-#include "source/globaldef/EnumDefine.h"
+#include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
 
 class PanelWCStaticCaribrationModel : public QObject
@@ -57,7 +57,7 @@ public slots:
 
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
-        pDspSP->sendWCCaribCmd(mDspSeq, EnumDefine::WCCalibType::WC_CALIB_STATIC);
+        pDspSP->sendWCCaribCmd(mDspSeq, EnumDef::WC_CALIB_TYPE_STATIC);
     }
 
     Q_INVOKABLE void onCommandSetStandardWeight(quint32 value)
@@ -73,7 +73,7 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        if(dto.mEvent.mEventType == EnumDefine::EventType::WEIGHT_STATIC_CARI_TYPE)
+        if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_STATIC_CARI)
         {
             setIsBusy(false);
 

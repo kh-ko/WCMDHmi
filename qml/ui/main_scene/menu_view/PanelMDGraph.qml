@@ -5,7 +5,7 @@ import "."
 import "../../../control"
 import "./graph"
 import QtQuick.Layouts 1.3
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import PanelMDGraphModel 1.0
 
 UiPanel {
@@ -158,7 +158,7 @@ UiPanel {
                 anchors.leftMargin: 0
 
                 isSelect : true
-                viewMode : EnumDefine.MD_GRAPH_SMALL
+                viewMode : QmlEnumDef.MD_GRAPH_SMALL
 
                 graphModel : model.onCommandGetGraphModel(selIdx)
 
@@ -238,7 +238,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 0
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible: model.sensorCnt > 1 //panel.sensorCnt > 0
 
                     graphModel : model.onCommandGetGraphModel(0)
@@ -256,7 +256,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 1
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible:  model.sensorCnt > 1
 
                     graphModel : model.onCommandGetGraphModel(1)
@@ -272,7 +272,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 2
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible: model.sensorCnt > 2
 
                     graphModel : model.onCommandGetGraphModel(2)
@@ -288,7 +288,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 3
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible:  model.sensorCnt > 3
 
                     graphModel : model.onCommandGetGraphModel(3)
@@ -304,7 +304,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 4
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible:  model.sensorCnt > 4
 
                     graphModel : model.onCommandGetGraphModel(4)
@@ -320,7 +320,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 5
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible: model.sensorCnt > 5
 
                     graphModel : model.onCommandGetGraphModel(5)
@@ -336,7 +336,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 6
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible:  model.sensorCnt > 6
 
                     graphModel : model.onCommandGetGraphModel(6)
@@ -352,7 +352,7 @@ UiPanel {
                     Layout.fillWidth: true
 
                     isSelect : panel.selIdx == 7
-                    viewMode     : EnumDefine.MD_GRAPH_SMALL
+                    viewMode     : QmlEnumDef.MD_GRAPH_SMALL
                     visible:  model.sensorCnt > 7
 
                     graphModel : model.onCommandGetGraphModel(7)

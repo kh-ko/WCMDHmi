@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import FontManager 1.0
-import EnumDefine 1.0
+import QmlEnumDef 1.0
 import ViewManager 1.0
 import "."
 
@@ -53,7 +53,7 @@ Item {
         anchors.rightMargin: 0
 
         textHAlign: Text.AlignLeft
-        textInputType : EnumDefine.PASSWD_MODE
+        textInputType : QmlEnumDef.PASSWD_MODE
         maxLength: 4
 
         labelText : control.labelText
