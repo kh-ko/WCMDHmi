@@ -160,8 +160,6 @@ public slots:
 
         StDspWCG * pGData = (StDspWCG *)dto.mGraphData.data();
 
-        qDebug() << "[debug] point cnt = " << pGData->mPointCnt;
-
         mTotalRuntimePointCnt = pGData->mPointCnt * 40;
 
         for(int i = 0; i < pGData->mPointCnt; i ++)

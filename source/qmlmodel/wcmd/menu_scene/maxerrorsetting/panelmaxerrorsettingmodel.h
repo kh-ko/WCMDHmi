@@ -62,6 +62,13 @@ public:
         setMaxError(pLSettingSP->mMaxError);
     }
 
+    ~PanelMaxErrorSettingModel()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
+    }
+
 signals:
     void    signalEventChangedTimes         (int     value);
     void    signalEventChangedAverage       (quint32 value);
@@ -149,8 +156,6 @@ public slots:
     void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
-
-        qDebug() << "[debug] onAddedDspEvent : type = " << dto.mEvent.mEventType << " , value = " << dto.mEvent.mEventValue;
 
         if(EventDto::isWeightCheckEvent(dto.mEvent.mEventType) && dto.mEvent.mEventType != EnumDef::ET_WEIGHT_ETCERROR_CHECK)
         {

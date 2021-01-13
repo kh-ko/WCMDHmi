@@ -490,7 +490,9 @@ private:
             return;
 
         //QByteArray sendBuf = mSendQueue.getSendPacketBuffer();
-        //qDebug() << "[debug] snd packet = " << sendBuf.toHex();
+
+        //if(sendBuf.at(7) == 0x66)
+        //    qDebug() << "[debug] snd packet = " << sendBuf.toHex();
 
         if(mpSock->writeDatagram(mSendQueue.getSendPacketBuffer(), mHostAddr, mPort) < 1)
         {
@@ -548,10 +550,14 @@ private:
         {
             DspStatusDto dto = mRcvDataStore.getStatusDto();
 
-            if(mSndDataStore.mCommandBlock.mData.mWCGraphOn != dto.mWCStatus.mIsGraphOn||
-               mSndDataStore.mCommandBlock.mData.mMDGraphOn != dto.mMDStatus.mIsGraphOn )
+            if(mSndDataStore.mCommandBlock.mData.mWCGraphOn != dto.mWCStatus.mIsGraphOn)
             {
+                qDebug() << "[debug] diff wd graph status";
                 sendWCGraphOn(mSndDataStore.getCmdWCGraphOn());
+            }
+            if(mSndDataStore.mCommandBlock.mData.mMDGraphOn != dto.mMDStatus.mIsGraphOn )
+            {
+                 qDebug() << "[debug] diff md graph status";
                 sendMDGraphOn(mSndDataStore.getCmdMDGraphOn());
             }
 
