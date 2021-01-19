@@ -135,6 +135,7 @@ public slots:
             loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(newSetting.mSeq);
+            onCommandSetSelectProduct(newSetting.mSeq);
         }
 
         signalEventResultSaveProductSetting(false, false, ret);
@@ -144,9 +145,9 @@ public slots:
         mEditViewItemModel.setData(0);
         onCommandSetLookProduct(getLookProductSeq());
     }
-    Q_INVOKABLE void onCommandRemoveProduct()
+    Q_INVOKABLE void onCommandRemoveProduct(quint64 pdSeq)
     {
-        int ret = pProductSP->removePD(mEditViewItemModel.mModel.mSeq);
+        int ret = pProductSP->removePD(pdSeq);//mEditViewItemModel.mModel.mSeq);
 
         if(ret == EnumDef::PDERR_NONE)
         {

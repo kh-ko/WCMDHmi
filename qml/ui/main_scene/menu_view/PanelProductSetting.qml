@@ -75,7 +75,7 @@ UiPanel {
             }
             else if(svcErr == EnumDef.PDERR_SELECTED)
             {
-                iewManager.toast.show(qsTr("can not remove selected product."))
+                ViewManager.toast.show(qsTr("can not remove selected product."))
             }
             else
             {
@@ -224,7 +224,21 @@ UiPanel {
         }
 
         onSignalEventRemoveCliecked: {
-            productSettingModel.onCommandRemoveProduct()
+            var removeSeq = productSettingModel.selectedProductSeq;
+
+            for(var i = 0; i < productSettingModel.productCount; i ++)
+            {
+                var itemModel = productSettingModel.onCommandGetItemModel(i);
+
+                if(itemModel.seq !== productSettingModel.selectedProductSeq)
+                {
+                    productSettingModel.onCommandSetSelectProduct(itemModel.seq)
+                    productSettingModel.onCommandSetLookProduct(itemModel.seq)
+                    break;
+                }
+            }
+
+            productSettingModel.onCommandRemoveProduct(removeSeq)
         }
     }
 
