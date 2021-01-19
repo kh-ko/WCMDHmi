@@ -16,6 +16,8 @@ Item {
     property string currView : "mainView"
     property bool   isPreView : true
     property string toSettingMenuName : ""
+    property var    selDevLoggingMenu : QmlEnumDef.DEVICE_METAL_DETECTOR
+    property var    selDevGraphMenu   : QmlEnumDef.DEVICE_METAL_DETECTOR
 
     id: scene
     width : 1920
@@ -46,24 +48,24 @@ Item {
         viewContainer.push(menuView, {"isProductVew" : true, "selMenu" : QmlEnumDef.MENU_PRODUCT_SETTING})
     }
 
-    function moveLoggingDataView(selDevice)
+    function moveLoggingDataView()
     {
         popupProductSettingInHome.close();
         popupGroupSettingInHome.close();
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"selDevice" : selDevice, "selMenu" : QmlEnumDef.MENU_LOGGING_DATA, "isLoggingVew" : true})
+        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "selMenu" : QmlEnumDef.MENU_LOGGING_DATA, "isLoggingVew" : true})
     }
 
-    function moveMenuView(selDevice, selMenu, isSuper)
+    function moveMenuView(selMenu, isSuper)
     {
         popupProductSettingInHome.close();
         popupGroupSettingInHome.close();
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"selDevice" : selDevice, "selMenu" : selMenu, "isSuper" : isSuper})
+        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "selMenu" : selMenu, "isSuper" : isSuper})
     }
 
     function moveMainView()
@@ -203,16 +205,8 @@ Item {
             if(currView == "menuView")
                 return;
 
-            if(model.isWCEnable)
-            {
-                popupSelMenu.visible = true;
-            }
-            else
-            {
-                popupSelMenu.selDevice = QmlEnumDef.DEVICE_METAL_DETECTOR
-                menuPassword.textValue = ""
-                ViewManager.keypad.showKeypad(menuPassword.getVInputText())
-            }
+            menuPassword.textValue = ""
+            ViewManager.keypad.showKeypad(menuPassword.getVInputText())
         }
 
         onSignalEventShutdownClicked: {
@@ -286,45 +280,26 @@ Item {
         anchors.fill: parent
     }
 
-    PopupSelectMenu
-    {
-        id : popupSelMenu
-        anchors.fill: parent
+    UiInputPassword{
+        id : menuPassword
+        width: 0
+        height: 0
+        textValue: ""
+        labelText : qsTr("Please enter your password.")
 
-        onSignalEventClose: {
-
-            if(scene.isLock)
+        onSignalChangeText:
+        {
+            if(model.onCommandCompareAdminPwd(value))
             {
-                menuPassword.textValue = ""
-                ViewManager.keypad.showKeypad(menuPassword.getVInputText())
+                moveMenuView(QmlEnumDef.MENU_PRODUCT_SETTING, true)
+            }
+            else if(model.onCommandComparePwd(value))
+            {
+                moveMenuView(QmlEnumDef.MENU_PRODUCT_SETTING, false)
             }
             else
             {
-                moveMenuView(popupSelMenu.selDevice , QmlEnumDef.MENU_PRODUCT_SETTING, scene.isSuper)
-            }
-        }
-
-        UiInputPassword{
-            id : menuPassword
-            width: 0
-            height: 0
-            textValue: ""
-            labelText : qsTr("Please enter your password.")
-
-            onSignalChangeText:
-            {
-                if(model.onCommandCompareAdminPwd(value))
-                {
-                    moveMenuView(popupSelMenu.selDevice, QmlEnumDef.MENU_PRODUCT_SETTING, true)
-                }
-                else if(model.onCommandComparePwd(value))
-                {
-                    moveMenuView(popupSelMenu.selDevice, QmlEnumDef.MENU_PRODUCT_SETTING, false)
-                }
-                else
-                {
-                    toast.show(qsTr("Please check password"));
-                }
+                toast.show(qsTr("Please check password"));
             }
         }
     }

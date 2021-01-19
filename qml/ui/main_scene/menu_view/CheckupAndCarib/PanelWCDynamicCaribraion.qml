@@ -40,6 +40,10 @@ UiPanel {
         easing.type: Easing.Linear
     }
 
+    MouseArea{
+        anchors.fill: parent
+    }
+
     UiPanel{
         id : panelMessageBox
         height: 260

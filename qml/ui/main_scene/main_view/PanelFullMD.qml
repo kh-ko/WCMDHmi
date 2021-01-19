@@ -419,10 +419,11 @@ Item {
             if(model.onCommandCompareAdminPwd(value) || model.onCommandComparePwd(value))
             {
                 model.onCommandApplySenstivity();
+                ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
             else
             {
-                toast.show(qsTr("Please check password"));
+                ViewManager.toast.show(qsTr("Please check password"));
             }
         }
     }

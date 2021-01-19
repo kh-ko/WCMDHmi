@@ -47,7 +47,7 @@ Item {
             anchors.leftMargin: 20
             anchors.verticalCenter: parent.verticalCenter
 
-            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL || panel.errorType === EnumDef.ET_NONE ? false : true
             fillMode: Image.PreserveAspectFit
         }
 
@@ -61,7 +61,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL || panel.errorType === EnumDef.ET_NONE  ? false : true
             textValue : panel.errorTime
         }
 
@@ -80,7 +80,7 @@ Item {
 
             fillMode: Image.PreserveAspectFit
 
-            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL ? false : true
+            visible: panel.errorType === EnumDef.ET_WEIGHT_NORMAL || panel.errorType === EnumDef.ET_NONE  ? false : true
         }
 
 

@@ -98,9 +98,14 @@ Item {
 
         onSignalEventClickedLastError: {
             if(model.lastErrorType === EnumDef.ET_METAL_DETECT)
-                ViewManager.mainScene.moveLoggingDataView(QmlEnumDef.DEVICE_METAL_DETECTOR);
-            else if (model.lastErrorType === EnumDef.ET_WEIGHT_OVER || model.lastErrorType === EnumDef.ET_WEIGHT_UNDER || model.lastErrorType === EnumDef.ET_WEIGHT_ETCERROR || model.lastErrorType === EnumDef.ET_WEIGHT_ETC_METAL_ERROR)
-                ViewManager.mainScene.moveLoggingDataView(QmlEnumDef.DEVICE_WEIGHT_CHECKER);
+                ViewManager.mainScene.selDevLoggingMenu = QmlEnumDef.DEVICE_METAL_DETECTOR;
+            else if(model.lastErrorType === EnumDef.ET_WEIGHT_ETCERROR || model.lastErrorType === EnumDef.ET_WEIGHT_UNDER || model.lastErrorType === EnumDef.ET_WEIGHT_OVER)
+                ViewManager.mainScene.selDevLoggingMenu = QmlEnumDef.DEVICE_WEIGHT_CHECKER;
+
+            if(model.isEnableWC == false)
+                ViewManager.mainScene.selDevLoggingMenu = QmlEnumDef.DEVICE_METAL_DETECTOR;
+
+            ViewManager.mainScene.moveLoggingDataView();
         }
     }
 

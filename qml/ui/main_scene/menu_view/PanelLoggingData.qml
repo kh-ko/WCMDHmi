@@ -9,26 +9,22 @@ import QmlEnumDef 1.0
 import LoggingDataModel 1.0
 
 UiPanel {
-    property int selDevice : QmlEnumDef.DEVICE_METAL_DETECTOR // isWeightChecker
+    property var  isWCEnable
     property bool isViewMode : false
     property bool isAdmin : false
-    title: selDevice == QmlEnumDef.DEVICE_METAL_DETECTOR ? qsTr("Metal detector") : qsTr("Weight checker")
-
+    property var  selectDevice : ViewManager.mainScene.selDevLoggingMenu
     id : panel
 
     width : 1518
     height: 987
 
     Component.onCompleted: {
-        if(panel.isViewMode)
-        {
-            loggingDataModel.onCommandSearch()
-        }
+        loggingDataModel.onCommandSetSelectDevice(panel.selectDevice)
+        loggingDataModel.onCommandSearch()
     }
 
     LoggingDataModel{
         id : loggingDataModel
-        isWeightEvent: panel.selDevice == QmlEnumDef.DEVICE_WEIGHT_CHECKER
 
         onSignalEventCompletedSearch: {
 
@@ -41,68 +37,48 @@ UiPanel {
         }
     }
 
+    UiComboBox {
+        id: comboSelDev
+        z : 2
+        height: 60
+        anchors.top: parent.top
+        anchors.topMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        width : 300
 
-    UiButton{
-        id : btnBackup
-        width: 164
-        height: 80
-        anchors.verticalCenter: inputStartDate.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: 20
+        bgColor: panel.bgColor
+        selIdx: panel.selectDevice
+        listModel: comboSelDevOption
+        visible: panel.isWCEnable
 
-        visible: !panel.isViewMode
-        textValue: qsTr("Backup")
-
-        onSignalEventClicked: {
-            ViewManager.mainScene.backupData();
+        ListModel {
+            id : comboSelDevOption
+            ListElement {
+                itemText : qsTr("Metal detector")
+                itemIdx : 0
+            }
+            ListElement {
+                itemText : qsTr("Weight checker")
+                itemIdx : 1
+            }
         }
-    }
 
-    UiButtonConfirm
-    {
-        id : btnStatisticsInit
-        width: 164
-        height: 80
-        anchors.verticalCenter: btnBackup.verticalCenter
-        anchors.right: btnBackup.left
-        anchors.rightMargin: 20
-
-        visible: !panel.isViewMode
-        textValue: qsTr("D/P count<br>reset")
-        textConfirmMsg: qsTr("Do you want to reset display count?")
-
-        onSignalEventClicked: {
-            loggingDataModel.onCommandResetStatistics()
-        }
-    }
-
-    UiButtonConfirm
-    {
-        id : btnLogginDataReset
-        width: 164
-        height: 80
-        anchors.verticalCenter: btnStatisticsInit.verticalCenter
-        anchors.right: btnStatisticsInit.left
-        anchors.rightMargin: 20
-
-        visible: !panel.isViewMode && panel.isAdmin
-        textValue: qsTr("Logging<br>reset")
-        textConfirmMsg: qsTr("Do you want to reset logging data?")
-
-        onSignalEventClicked: {
-            ViewManager.mainScene.factoryReset(true);
+        onSignalEventChangedSel: {
+            ViewManager.mainScene.selDevLoggingMenu = itemIdx
+            loggingDataModel.onCommandSetSelectDevice(panel.selectDevice)
+            loggingDataModel.onCommandSearch();
         }
     }
 
     UiComboBox {
         id: comboFilter
-        z : 2
+        z : 1
         height: 60
-        anchors.topMargin: 115
-        width : 270
+        width : 300
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: parent.top
+        anchors.verticalCenter: btnBackup.verticalCenter
 
         bgColor: panel.bgColor
         selIdx: loggingDataModel.selectFilter
@@ -124,14 +100,16 @@ UiPanel {
             loggingDataModel.onCommandSearch();
         }
     }
+
     UiInputDate
     {
         id : inputStartDate
 
-        width: 439
+        width: 337
+        height: 60
         anchors.left: comboFilter.right
         anchors.leftMargin: 20
-        anchors.verticalCenter: comboFilter.verticalCenter
+        anchors.verticalCenter: btnBackup.verticalCenter
 
         //isDisable: true
         isCalendarMode: true
@@ -153,14 +131,67 @@ UiPanel {
         height: 80
         anchors.left: inputStartDate.right
         anchors.leftMargin: 20
+        anchors.verticalCenter: btnBackup.verticalCenter
+
         textValue: qsTr("Search")
-        anchors.verticalCenter: inputStartDate.verticalCenter
 
         onSignalEventClicked: {
             loggingDataModel.onCommandSearch()
             //calendar.visible = true;
         }
+    }
 
+    UiButtonConfirm
+    {
+        id : btnLogginDataReset
+        width: 164
+        height: 80
+        anchors.verticalCenter: btnBackup.verticalCenter
+        anchors.right: btnStatisticsInit.left
+        anchors.rightMargin: 20
+
+        visible: !panel.isViewMode && panel.isAdmin
+        textValue: qsTr("Logging<br>reset")
+        textConfirmMsg: qsTr("Do you want to reset logging data?")
+
+        onSignalEventClicked: {
+            ViewManager.mainScene.factoryReset(true);
+        }
+    }
+
+    UiButtonConfirm
+    {
+        id : btnStatisticsInit
+        width: 164
+        height: 80
+        anchors.verticalCenter: btnBackup.verticalCenter
+        anchors.right: btnBackup.left
+        anchors.rightMargin: 20
+
+        visible: !panel.isViewMode
+        textValue: qsTr("D/P count<br>reset")
+        textConfirmMsg: qsTr("Do you want to reset display count?")
+
+        onSignalEventClicked: {
+            loggingDataModel.onCommandResetStatistics()
+        }
+    }
+
+    UiButton{
+        id : btnBackup
+        width: 164
+        height: 80
+        anchors.top: comboSelDev.bottom
+        anchors.topMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+
+        visible: !panel.isViewMode
+        textValue: qsTr("Backup")
+
+        onSignalEventClicked: {
+            ViewManager.mainScene.backupData();
+        }
     }
 
     UiLabelContent{
@@ -168,10 +199,11 @@ UiPanel {
 
         height: 40
         width: 300
+        anchors.top: btnBackup.bottom
+        anchors.topMargin: 20
         anchors.right: parent.right
         anchors.rightMargin: 20
-        anchors.bottom: divider.top
-        anchors.bottomMargin: 10
+
         horizontalAlignment : Text.AlignRight
 
         textValue: qsTr("Total count : ") + loggingDataModel.totalCnt.toLocaleString(ViewManager.locale, 'f', 0)
@@ -184,8 +216,8 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: inputStartDate.bottom
-        anchors.topMargin: 100
+        anchors.top: labelTotalCount.bottom
+        anchors.topMargin: 10
     }
 
     RowLayout{
@@ -266,7 +298,7 @@ UiPanel {
             anchors.rightMargin: 0
             height : 40
 
-            isWeightColumVisible : panel.selDevice == QmlEnumDef.DEVICE_WEIGHT_CHECKER
+            isWeightColumVisible : loggingDataModel.selectDevice === QmlEnumDef.DEVICE_WEIGHT_CHECKER
             model : loggingDataModel
             idx   : dataIdx
         }
@@ -355,6 +387,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:10;anchors_width:164}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/

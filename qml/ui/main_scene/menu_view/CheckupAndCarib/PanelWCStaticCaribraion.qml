@@ -26,6 +26,10 @@ UiPanel {
         }
     }
 
+    MouseArea{
+        anchors.fill: parent
+    }
+
     UiPanel{
         id : panelMessageBox
         height: 260

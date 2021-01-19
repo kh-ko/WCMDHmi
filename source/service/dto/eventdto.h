@@ -293,6 +293,15 @@ public:
                 .arg(mEValue);
     }
 
+    void reset()
+    {
+        mDspSeq   = 0;
+        mPDSeq    = 0;
+        mPDHisIdx = 0;
+        mEType    = EnumDef::ET_NONE;
+        mEValue   = 0;
+    }
+
     bool isStartEvent()
     {
         if(mEType == EnumDef::ET_APP_START)

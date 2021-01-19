@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 import ViewManager 1.0
 import FontManager 1.0
 import "."
-import "../../../control"
+import "../../../../control"
 import QtQuick.Layouts 1.3
 import QmlEnumDef 1.0
 import PanelMDCheckupModel 1.0
@@ -13,6 +13,8 @@ UiPanel {
     id: uiPanel
     width : 1519
     height: 997
+
+    signal signalEventCloseClicked()
 
     function startNextStep()
     {
@@ -32,6 +34,10 @@ UiPanel {
     {
         aniCount.stop();
         timerProgress.value = 10;
+    }
+
+    MouseArea{
+        anchors.fill: parent
     }
 
     PanelMDCheckupModel{
@@ -622,6 +628,22 @@ UiPanel {
         BusyIndicator{
             anchors.fill: parent
             visible: mdCheckupModel.susStep03State === 1
+        }
+    }
+
+    UiButton{
+        id: btnComplete
+        height: 80
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 40
+        anchors.right: parent.right
+        anchors.rightMargin: 40
+        width: 200
+
+        textValue: qsTr("Close")
+
+        onSignalEventClicked: {
+            uiPanel.signalEventCloseClicked()
         }
     }
 }

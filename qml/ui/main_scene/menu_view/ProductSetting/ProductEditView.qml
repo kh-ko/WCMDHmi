@@ -168,7 +168,7 @@ UiPanel {
         anchors.topMargin: 0
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         inputWidth: 190
@@ -196,7 +196,7 @@ UiPanel {
         anchors.verticalCenter: inputGroupCount.verticalCenter
 
         isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew)
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
         bgColor : panel.bgColor
         labelText : qsTr("Motion")
@@ -247,7 +247,9 @@ UiPanel {
         anchors.leftMargin: 20
         anchors.verticalCenter: comboGroupMotion.verticalCenter
 
+        textMargin : 10
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
         isHighlight: itemModel.isEditGroupLamp
         isSelect: itemModel.groupLamp === 1 ? true : false
 
@@ -267,7 +269,9 @@ UiPanel {
         anchors.leftMargin: 20
         anchors.verticalCenter: comboGroupMotion.verticalCenter
 
+        textMargin : 10
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
         isHighlight: itemModel.isEditGroupBuzzer
         isSelect: itemModel.groupBuzzer === 1 ? true : false
 
@@ -615,6 +619,7 @@ UiPanel {
         listModel :comboWCNGMotionOption
         selIdx: itemModel.wcNGMotion
         isHighlight: itemModel.isEditWCNGMotion
+        z : 3
 
         ListModel{
             id : comboWCNGMotionOption
@@ -658,7 +663,9 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.verticalCenter: checkWCNGBuzzerOn.verticalCenter
 
+        textMargin : 10
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
         isHighlight: itemModel.isEditWCNGLamp
         isSelect: itemModel.wcNGLamp === 1 ? true : false
 
@@ -677,12 +684,14 @@ UiPanel {
         anchors.top: comboWCNGMotion.bottom
         anchors.topMargin: 10
         anchors.right: divider.left
-        anchors.rightMargin: 20
+        anchors.rightMargin: 10
 
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
         isHighlight: itemModel.isEditWCNGBuzzer
         isSelect: itemModel.wcNGBuzzer === 1 ? true : false
 
+        textMargin : 10
         textValue : qsTr("Buzzer")
 
         onSignalEventClicked:
@@ -869,16 +878,18 @@ UiPanel {
     UiComboBox{
         id : comboMDNGMotion
         height: 60
-        anchors.verticalCenter: isEnableWC ? comboWCNGMotion.verticalCenter : inputSenstivity.verticalCenter
-        anchors.right: parent.right
+        anchors.verticalCenter: isEnableWC ? comboWCNGMotion.verticalCenter : undefined //inputSenstivity.verticalCenter
+        anchors.top: isEnableWC ? undefined : inputSenstivity.bottom
+        anchors.topMargin: isEnableWC ? undefined : 10
+        anchors.right: isEnableWC? parent.right : divider.left
         anchors.rightMargin: 20
-        anchors.left: divider.right
+        anchors.left: isEnableWC ? divider.right : parent.left
         anchors.leftMargin: 20
 
         isDisable : panel.isViewMode
         visible: itemModel.seq !== 0 || itemModel.isNew
 
-        isUpMode: isEnableWC ? true : false
+        isUpMode: true
         bgColor : panel.bgColor
         labelText : qsTr("· NG motion")
         comboWidth: width - 220
@@ -929,7 +940,9 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.verticalCenter: checkMDNGBuzzerOn.verticalCenter
 
+        textMargin : 10
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew)
         isHighlight: itemModel.isEditMDNGLamp
         isSelect: itemModel.mdNGLamp === 1 ? true : false
 
@@ -944,13 +957,15 @@ UiPanel {
     UiRadioBtn{
         id: checkMDNGBuzzerOn
         height: 60
-        width : 153
+        width : 140
         anchors.top: comboMDNGMotion.bottom
         anchors.topMargin: 10
-        anchors.right: parent.right
+        anchors.right: isEnableWC? parent.right : divider.left
         anchors.rightMargin: 20
 
+        textMargin : 10
         isDisable : panel.isViewMode
+        visible: (itemModel.seq !== 0 || itemModel.isNew)
         isHighlight: itemModel.isEditMDNGBuzzer
         isSelect: itemModel.mdNGBuzzer === 1 ? true : false
 
@@ -1055,6 +1070,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}D{i:4}
+    D{i:0;formeditorZoom:0.8999999761581421}
 }
 ##^##*/

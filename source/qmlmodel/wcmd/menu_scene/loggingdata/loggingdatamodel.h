@@ -27,7 +27,7 @@ class LoggingDataModel : public QObject
     Q_PROPERTY(int     totalCnt       READ getTotalCnt                                    NOTIFY signalEventChangedTotalCnt)
     Q_PROPERTY(int     totalPage      READ getTotalPage                                   NOTIFY signalEventChangedTotalPage)
     Q_PROPERTY(int     currentPageIdx READ getCurrentPageIdx                              NOTIFY signalEventChangedCurrentPageIdx)
-    Q_PROPERTY(bool    isWeightEvent  READ getIsWeightEvent       WRITE setIsWeightEvent  NOTIFY signalEventChangedIsWeightEvent)
+    Q_PROPERTY(int     selectDevice   READ getSelectDevice                                NOTIFY signalEventChangedSelectDevice)
     Q_PROPERTY(int     selectFilter   READ getSelectFilter                                NOTIFY signalEventChangedSelectFilter)
     Q_PROPERTY(int     startYear      READ getStartYear                                   NOTIFY signalEventChangedStartYear)
     Q_PROPERTY(int     startMonth     READ getStartMonth                                  NOTIFY signalEventChangedStartMonth)
@@ -45,7 +45,7 @@ public:
     int         mTotalCnt      ;
     int         mTotalPage     ;
     int         mCurrentPageIdx;
-    bool        mIsWeightEvent ;
+    int         mSelectDevice   = QmlEnumDef::DEVICE_WEIGHT_CHECKER;
     int         mSelectOption  ;
     int         mSelectFilter  ;
     int         mStartYear     ;
@@ -62,7 +62,7 @@ public:
     int         getTotalCnt      (){return mTotalCnt      ;}
     int         getTotalPage     (){return mTotalPage     ;}
     int         getCurrentPageIdx(){return mCurrentPageIdx;}
-    bool        getIsWeightEvent (){return mIsWeightEvent ;}
+    int         getSelectDevice  (){return mSelectDevice  ;}
     int         getSelectFilter  (){return mSelectFilter  ;}
     int         getStartYear     (){return mStartYear     ;}
     int         getStartMonth    (){return mStartMonth    ;}
@@ -73,7 +73,7 @@ public:
     void        setTotalCnt      (int     value){ mTotalCnt       = value; emit signalEventChangedTotalCnt      (mTotalCnt      );}
     void        setTotalPage     (int     value){ mTotalPage      = value; emit signalEventChangedTotalPage     (mTotalPage     );}
     void        setCurrentPageIdx(int     value){ mCurrentPageIdx = value; emit signalEventChangedCurrentPageIdx(mCurrentPageIdx);}
-    void        setIsWeightEvent (bool    value){ mIsWeightEvent  = value; emit signalEventChangedIsWeightEvent (mIsWeightEvent );}
+    void        setSelectDevice  (int     value){ mSelectDevice   = value; emit signalEventChangedSelectDevice  (mSelectDevice  );}
     void        setSelectFilter  (int     value){ mSelectFilter   = value; emit signalEventChangedSelectFilter  (mSelectFilter  );}
     void        setStartYear     (int     value){ mStartYear      = value; emit signalEventChangedStartYear     (mStartYear     );}
     void        setStartMonth    (int     value){ mStartMonth     = value; emit signalEventChangedStartMonth    (mStartMonth    );}
@@ -85,7 +85,7 @@ signals:
     void signalEventChangedTotalCnt(int value);
     void signalEventChangedTotalPage(int value);
     void signalEventChangedCurrentPageIdx(int value);
-    void signalEventChangedIsWeightEvent(bool value);
+    void signalEventChangedSelectDevice(int value);
     void signalEventChangedSelectFilter(int value);
     void signalEventChangedStartYear( int value );
     void signalEventChangedStartMonth( int value );
@@ -189,7 +189,7 @@ public slots:
         {
             return (mListItem[listIdx].mValue & (0x01 << 6)) == 0 ? "FAIL" : "PASS";
         }
-        else if(EventDto::isMetalDetectEvent(eventType))
+        else if(EventDto::isMDEvent(eventType))
         {
             QString fmt("%1%2");
             return fmt.arg(QString::number(mListItem[listIdx].mValue)).arg(" mv");
@@ -204,6 +204,10 @@ public slots:
     Q_INVOKABLE void    onCommandResetStatistics()
     {
         pWorkSP->clearStats();
+    }
+    Q_INVOKABLE void onCommandSetSelectDevice(int dev)
+    {
+        setSelectDevice(dev);
     }
 
 signals:
@@ -228,10 +232,10 @@ public  slots:
             if(event.isCheckEvent())
                 continue;
 
-            if(getIsWeightEvent() && (event.isMDEvent() || event.isMetalCheckup()))
+            if(mSelectDevice == QmlEnumDef::DEVICE_WEIGHT_CHECKER && (event.isMDEvent() || event.isMetalCheckup()))
                 continue;
 
-            if(!getIsWeightEvent() && (event.isWCEvent() || event.isWeightCarib()))
+            if(mSelectDevice == QmlEnumDef::DEVICE_METAL_DETECTOR  && (event.isWCEvent() || event.isWeightCarib()))
                 continue;
 
             if(getSelectFilter() == QmlEnumDef::SearchFilter::SEARCH_FILTER_WITHOUT_TRADE && event.isTrade())
@@ -271,7 +275,7 @@ public:
         setStartMonth(date.month());
         setStartDay(date.day());
 
-        onCommandSearch();
+        //onCommandSearch();
     }
     ~LoggingDataModel(){
         closeFile();

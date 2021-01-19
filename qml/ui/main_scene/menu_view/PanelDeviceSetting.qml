@@ -1521,38 +1521,6 @@ UiPanel {
     }*/
 
     UiButton{
-        id : btnHMIOut
-        width: 164
-        height: 80
-        anchors.verticalCenter: btnFactoryReset.verticalCenter
-        anchors.right: btnFactoryReset.left
-        anchors.rightMargin: 20
-
-        visible: panel.isAdmin
-        textValue: qsTr("HMI out")
-
-        onSignalEventClicked: {
-            ViewManager.minimizeWindow()
-        }
-    }
-
-    UiButtonConfirm{
-        id : btnFactoryReset
-        width: 164
-        height: 80
-        anchors.verticalCenter: btnApply.verticalCenter
-        anchors.right: btnApply.left
-        anchors.rightMargin: 20
-
-        visible: panel.isAdmin
-        textValue: qsTr("Factory<br>reset")
-        textConfirmMsg: qsTr("Do you want factory reset ?")
-        onSignalEventClicked: {
-            ViewManager.mainScene.factoryReset(false);
-        }
-    }
-
-    UiButton{
         id : btnApply
         width : 164
         height: 80

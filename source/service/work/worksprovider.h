@@ -121,6 +121,10 @@ public:
         openWriter();
         onChangedCurrPDSetting(pProductSP->mCurrPD);
 
+
+        mLastErrEvent.reset();
+        emit signalEventChangedLastErr(mLastErrEvent);
+
     }
     PDStatsDto * findPDStats(quint64 pdSeq)
     {
@@ -172,7 +176,7 @@ public slots:
 
         write(dto.toString());
 
-        if(dto.isWeightNGEvent() || dto.isMetalDetectEvent())
+        if((dto.isWeightNGEvent() && dto.mEType != EnumDef::ET_WEIGHT_ETC_METAL_ERROR) || dto.isMetalDetectEvent())
         {
             mLastErrEvent = dto;
             emit signalEventChangedLastErr(mLastErrEvent);

@@ -81,7 +81,6 @@
         <file>ui/main_scene/PopupTrendsOption.qml</file>
         <file>ui/main_scene/main_view/PanelMDDetectNotify.qml</file>
         <file>ui/main_scene/main_view/PanelWCNGNotify.qml</file>
-        <file>ui/main_scene/PopupSelectMenu.qml</file>
         <file>ui/main_scene/menu_view/PanelProductSetting.qml</file>
         <file>ui/main_scene/menu_view/PanelLoggingData.qml</file>
         <file>ui/main_scene/menu_view/PanelDeviceSetting.qml</file>
@@ -102,13 +101,9 @@
         <file>ui/main_scene/factoryreset_view/FactoryResetView.qml</file>
         <file>ui/main_scene/menu_view/Infomation/image_device/device.png</file>
         <file>control/UiButtonAni.qml</file>
-        <file>ui/main_scene/menu_view/PanelMDCheckup.qml</file>
-        <file>ui/main_scene/menu_view/PanelWCCaribration.qml</file>
-        <file>ui/main_scene/menu_view/WCCaribraion/PanelWCStaticCaribraion.qml</file>
-        <file>ui/main_scene/menu_view/WCCaribraion/PanelWCDynamicCaribraion.qml</file>
+        <file>ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>ui/main_scene/main_view/img_panelweightsimple/tare.png</file>
-        <file>ui/main_scene/menu_view/WCCaribraion/PanelWCCalibarationMenu.qml</file>
         <file>ui/main_scene/menu_view/LoggingData/img_eventicon/dynamic_calibsvg.png</file>
         <file>ui/main_scene/menu_view/LoggingData/img_eventicon/md_checkup_fail.png</file>
         <file>ui/main_scene/menu_view/LoggingData/img_eventicon/md_checkup_pass.png</file>
@@ -162,5 +157,9 @@
         <file>control/UiScrollView.qml</file>
         <file>ui/main_scene/menu_view/PanelMaxErrorSetting.qml</file>
         <file>ui/main_scene/PopupGroupSettingInHome.qml</file>
+        <file>ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml</file>
+        <file>ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml</file>
+        <file>ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml</file>
+        <file>ui/main_scene/menu_view/PanelGraph.qml</file>
     </qresource>
 </RCC>

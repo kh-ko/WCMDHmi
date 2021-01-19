@@ -143,6 +143,7 @@ UiPanel {
 
                 onClicked:
                 {
+                    productSettingModel.onCommandSetSelectProduct(productSeq)
                     productSettingModel.onCommandSetLookProduct(productSeq)
                 }
             }

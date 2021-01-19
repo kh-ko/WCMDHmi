@@ -21,7 +21,7 @@ UiPanel {
 
     width : 1518
     height : 997
-    title: qsTr("Weight checker")
+    //title: qsTr("Weight checker")
 
     PanelWCGraphModel
     {
@@ -33,7 +33,7 @@ UiPanel {
         anchors.fill: parent
         anchors.rightMargin: (parent.width / 2) + 20
         anchors.leftMargin: 20
-        anchors.topMargin: panel.titleHeight
+        anchors.topMargin: 75
         anchors.bottomMargin: 20
 
         UiLabelSystem
@@ -118,7 +118,7 @@ UiPanel {
         anchors.fill: parent
         anchors.rightMargin: 20
         anchors.leftMargin: (parent.width / 2) + 20
-        anchors.topMargin: panel.titleHeight
+        anchors.topMargin: 75
         anchors.bottomMargin: 20
 
         Item {

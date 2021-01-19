@@ -10,6 +10,7 @@ Item {
     property bool isProductVew : false
     property bool isLoggingVew : false
     property bool isSuper    : true
+    property bool isWCEnable : true
     property int  selDevice  : QmlEnumDef.DEVICE_WEIGHT_CHECKER
     property int  selMenu    : QmlEnumDef.MENU_PRODUCT_SETTING
 
@@ -33,7 +34,7 @@ Item {
                 viewContainer.push(panelProductSetting, {"isViewMode" : element.isProductVew, "isAdmin" : element.isSuper})
                 break;
             case QmlEnumDef.MENU_LOGGING_DATA   :
-                viewContainer.push(panelLoggingData, {"selDevice":element.selDevice, "isViewMode" : element.isLoggingVew, "isAdmin" : element.isSuper})
+                viewContainer.push(panelLoggingData, {"isViewMode" : element.isLoggingVew, "isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable})
                 break;
             case QmlEnumDef.MENU_DEVICE_SETTING :
                 viewContainer.push(panelDeviceSetting,{"isAdmin":element.isSuper})
@@ -42,14 +43,7 @@ Item {
                 viewContainer.push(panelInformation, {"isAdmin":element.isSuper})
                 break;
             case QmlEnumDef.MENU_GRAPH          :
-                if(selDevice === QmlEnumDef.DEVICE_METAL_DETECTOR)
-                {
-                    viewContainer.push(panelMDGraph)
-                }
-                else
-                {
-                    viewContainer.push(panelWCGraph)
-                }
+                 viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable})
                 break;
             case QmlEnumDef.MENU_ETC_SETTING    :
                 //viewContainer.push(panelEtcSetting)
@@ -121,7 +115,7 @@ Item {
                     selMenu = QmlEnumDef.MENU_LOGGING_DATA
 
                     viewContainer.clear()
-                    viewContainer.push(panelLoggingData,{"selDevice":element.selDevice, "isAdmin" : element.isSuper})
+                    viewContainer.push(panelLoggingData,{"isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable})
                 }
             }
 
@@ -131,7 +125,7 @@ Item {
                 Layout.fillWidth: true
 
                 visible: !element.isLoggingVew && !element.isProductVew
-                textValue: element.selDevice === QmlEnumDef.DEVICE_WEIGHT_CHECKER ? qsTr("CALIBRATION") : qsTr("CHECKUP")
+                textValue: element.isWCEnable == true ? qsTr("CALIBRATION<br>/ CHECKUP") :  qsTr("CHECKUP")
                 isOn : selMenu === QmlEnumDef.MENU_CHECK_UP
 
                 onSignalEventClicked:
@@ -142,11 +136,7 @@ Item {
                     selMenu = QmlEnumDef.MENU_CHECK_UP
 
                     viewContainer.clear()
-
-                    if(selDevice == QmlEnumDef.DEVICE_METAL_DETECTOR)
-                        viewContainer.push(panelMDCheckup)
-                    else
-                        viewContainer.push(panelWCCaribraion)
+                    viewContainer.push(panelWCCaribMDCheckUp, {"isWCEnable" : element.isWCEnable})
 
                 }
             }
@@ -156,8 +146,8 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
-                visible: !element.isLoggingVew && !element.isProductVew && element.isSuper
-                textValue: qsTr("Max error")
+                visible: !element.isLoggingVew && !element.isProductVew && element.isSuper && (isWCEnable === true)
+                textValue: qsTr("MAX ERROR")
                 isOn : selMenu === QmlEnumDef.MENU_MAX_ERROR
 
                 onSignalEventClicked:
@@ -216,10 +206,7 @@ Item {
 
                     viewContainer.clear()
 
-                    if(selDevice == QmlEnumDef.DEVICE_METAL_DETECTOR)
-                        viewContainer.push(panelMDGraph)
-                    else
-                        viewContainer.push(panelWCGraph)
+                    viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable})
                 }
             }
 
@@ -282,16 +269,14 @@ Item {
         anchors.topMargin: 0
     }
 
-    Component{ id : panelProductSetting; PanelProductSetting {anchors.fill: parent}}
-    Component{ id : panelLoggingData;    PanelLoggingData    {anchors.fill: parent}}
-    Component{ id : panelMDCheckup;      PanelMDCheckup      {anchors.fill: parent}}
-    Component{ id : panelWCCaribraion;   PanelWCCaribration  {anchors.fill: parent}}
-    Component{ id : panelDeviceSetting;  PanelDeviceSetting  {anchors.fill: parent}}
-    Component{ id : panelInformation;    PanelInformation    {anchors.fill: parent}}
-    Component{ id : panelWCGraph;        PanelWCGraph        {anchors.fill: parent}}
-    Component{ id : panelMDGraph;        PanelMDGraph        {anchors.fill: parent}}
-    Component{ id : panelClockSetting;   PanelClockSetting   {anchors.fill: parent}}
-    Component{ id : panelMaxErrorSetting;PanelMaxErrorSetting{anchors.fill: parent}}
+    Component{ id : panelProductSetting;  PanelProductSetting  {anchors.fill: parent}}
+    Component{ id : panelLoggingData;     PanelLoggingData     {anchors.fill: parent}}
+    Component{ id : panelWCCaribMDCheckUp;PanelWCCaribMDCheckup{anchors.fill: parent}}
+    Component{ id : panelDeviceSetting;   PanelDeviceSetting   {anchors.fill: parent}}
+    Component{ id : panelInformation;     PanelInformation     {anchors.fill: parent}}
+    Component{ id : panelGraph;           PanelGraph           {anchors.fill: parent}}
+    Component{ id : panelClockSetting;    PanelClockSetting    {anchors.fill: parent}}
+    Component{ id : panelMaxErrorSetting; PanelMaxErrorSetting {anchors.fill: parent}}
 }
 
 

@@ -8,7 +8,7 @@ Item {
     property alias textValue :  label.text
     property bool isPress : false
     property bool isDisable :false
-
+    property var  textMargin : 20
     id : control
     width: 200
     height: 75
@@ -44,10 +44,10 @@ Item {
         id : label
 
         height: parent.height
-        width: parent.width - bg.width - 20
+        width: parent.width - bg.width - control.textMargin
         anchors.verticalCenter: bg.verticalCenter
         anchors.left: bg.right
-        anchors.leftMargin: 20
+        anchors.leftMargin: control.textMargin
 
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment : Text.AlignLeft

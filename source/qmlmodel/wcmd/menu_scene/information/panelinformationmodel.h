@@ -166,6 +166,7 @@ public:
         setHomepage                  (pLSettingSP->mInformation.mHomepage                                    );
         setMaxWeight                 (pLSettingSP->mInformation.mMaxWeight                                   );
         setSensorLength              (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           );
+        setDistBtwSensor             (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor      );
         setDistToWC                  (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker);
         setDistBtwPhotoToSensor      (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor  );
         setDistToSorter01            (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01         );

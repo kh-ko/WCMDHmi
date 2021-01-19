@@ -22,7 +22,7 @@ UiPanel {
 
     width : 1518
     height : 997
-    title: qsTr("Metal detector")
+    //title: qsTr("Metal detector")
 
     PanelMDGraphModel
     {
