@@ -553,7 +553,7 @@ UiPanel {
         id : labelSorter01
         height: 60
         width : 92
-        anchors.topMargin: 10
+        anchors.topMargin: -10
         anchors.top: btnApply.bottom
         anchors.left: dividerGeneralWeightChecker.right
         anchors.leftMargin: 20
@@ -802,7 +802,7 @@ UiPanel {
         }
     }
 
-    UiInputFloat{
+    UiInputNumber{
         id : inputMeasureCueSign
         height: 60
         anchors.topMargin: 10
@@ -816,21 +816,67 @@ UiPanel {
         isHighlight: settingModel.isEditMeasureCueSign
         bgColor: panel.bgColor
         labelText : qsTr("· Measure cue sign")
-        postfix: "s"
+        postfix: "ms"
         inputWidth: 170
-        fixedN: 2
-        realValue: settingModel.measureCueSign / 1000.0
+        numberValue: settingModel.measureCueSign
 
         onSignalChangeValue: {
-            settingModel.onCommandSetMeasureCueSign((value * 1000) + 0.5)
+            settingModel.onCommandSetMeasureCueSign(value)
         }
     }
 
+    UiInputNumber{
+        id : inputMeasureCSection
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputMeasureCueSign.bottom
+        anchors.leftMargin: 20
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin && settingModel.isEnableWC
+        isHighlight: settingModel.isEditMeasureSection
+        bgColor: panel.bgColor
+        labelText : qsTr("· Measure section")
+        postfix: "ms"
+        inputWidth: 170
+        numberValue: settingModel.measureSection
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetMeasureSection(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputFilterCoefficient
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputMeasureCSection.bottom
+        anchors.leftMargin: 20
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin && settingModel.isEnableWC
+        isHighlight: settingModel.isEditFilterCoefficient
+        bgColor: panel.bgColor
+        labelText : qsTr("· Filter Coefficient")
+        inputWidth: 170
+
+        numberValue: settingModel.filterCoefficient
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetFilterCoefficient(value)
+        }
+    }
+
+    /*
     UiInputFloat{
         id : inputMinStaticWeight
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputMeasureCueSign.bottom
+        anchors.top: inputMeasureCSection.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -873,12 +919,13 @@ UiPanel {
             settingModel.onCommandSetMinDynamicWeight((value * 1000) + 0.5)
         }
     }
+    */
 
     UiInputFloat{
         id : inputScaler
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputMinDynamicWeight.bottom
+        anchors.top: inputFilterCoefficient.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -1570,7 +1617,10 @@ UiPanel {
                  settingModel.isEditSimpleSens02        ||
                  settingModel.isEditSimpleSens03        ||
                  settingModel.isEditSimpleSens04        ||
-                 settingModel.isEditSimpleSens05
+                 settingModel.isEditSimpleSens05        ||
+                 settingModel.isEditFilterCoefficient   ||
+                 settingModel.isEditMeasureCueSign      ||
+                 settingModel.isEditMeasureSection
 
         type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")

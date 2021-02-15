@@ -32,7 +32,9 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint32 mSorter04RunTimeRatio             READ getSorter04RunTimeRatio          NOTIFY  signalEventChangedSorter04RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter04OpenTime                 READ getSorter04OpenTime              NOTIFY  signalEventChangedSorter04OpenTime          )
     Q_PROPERTY(quint32 displayStability                  READ getDisplayStability              NOTIFY  signalEventChangedDisplayStability          )
+    Q_PROPERTY(quint16 filterCoefficient                 READ getFilterCoefficient             NOTIFY  signalEventChangedFilterCoefficient         )
     Q_PROPERTY(quint32 measureCueSign                    READ getMeasureCueSign                NOTIFY  signalEventChangedMeasureCueSign            )
+    Q_PROPERTY(quint32 measureSection                    READ getMeasureSection                NOTIFY  signalEventChangedMeasureSection            )
     Q_PROPERTY(quint32 minStaticWeight                   READ getMinStaticWeight               NOTIFY  signalEventChangedMinStaticWeight           )
     Q_PROPERTY(quint32 minDynamicWeight                  READ getMinDynamicWeight              NOTIFY  signalEventChangedMinDynamicWeight          )
     Q_PROPERTY(quint32 scaler                            READ getScaler                        NOTIFY  signalEventChangedScaler                    )
@@ -76,7 +78,9 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditSorter04RunTimeRatio        READ getIsEditSorter04RunTimeRatio            NOTIFY  signalEventChangedIsEditSorter04RunTimeRatio       )
     Q_PROPERTY(bool    isEditSorter04OpenTime            READ getIsEditSorter04OpenTime                NOTIFY  signalEventChangedIsEditSorter04OpenTime           )
     Q_PROPERTY(bool    isEditDisplayStability            READ getIsEditDisplayStability                NOTIFY  signalEventChangedIsEditDisplayStability           )
+    Q_PROPERTY(bool    isEditFilterCoefficient           READ getIsEditFilterCoefficient               NOTIFY  signalEventChangedIsEditFilterCoefficient          )
     Q_PROPERTY(bool    isEditMeasureCueSign              READ getIsEditMeasureCueSign                  NOTIFY  signalEventChangedIsEditMeasureCueSign             )
+    Q_PROPERTY(bool    isEditMeasureSection              READ getIsEditMeasureSection                  NOTIFY  signalEventChangedIsEditMeasureSection             )
     Q_PROPERTY(bool    isEditMinStaticWeight             READ getIsEditMinStaticWeight                 NOTIFY  signalEventChangedIsEditMinStaticWeight            )
     Q_PROPERTY(bool    isEditMinDynamicWeight            READ getIsEditMinDynamicWeight                NOTIFY  signalEventChangedIsEditMinDynamicWeight           )
     Q_PROPERTY(bool    isEditScaler                      READ getIsEditScaler                          NOTIFY  signalEventChangedIsEditScaler                     )
@@ -120,7 +124,9 @@ public:
     quint32  mSorter04RunTimeRatio          ;
     quint32  mSorter04OpenTime              ;
     quint32  mDisplayStability              ;
+    quint16  mFilterCoefficient             ;
     quint32  mMeasureCueSign                ;
+    quint32  mMeasureSection                ;
     quint32  mMinStaticWeight               ;
     quint32  mMinDynamicWeight              ;
     quint32  mScaler                        ;
@@ -164,7 +170,9 @@ public:
     bool     mIsEditSorter04RunTimeRatio    ;
     bool     mIsEditSorter04OpenTime        ;
     bool     mIsEditDisplayStability        ;
+    bool     mIsEditFilterCoefficient       ;
     bool     mIsEditMeasureCueSign          ;
+    bool     mIsEditMeasureSection          ;
     bool     mIsEditMinStaticWeight         ;
     bool     mIsEditMinDynamicWeight        ;
     bool     mIsEditScaler                  ;
@@ -207,7 +215,9 @@ public:
     quint32  getSorter04RunTimeRatio         (){ return mSorter04RunTimeRatio          ;}
     quint32  getSorter04OpenTime             (){ return mSorter04OpenTime              ;}
     quint32  getDisplayStability             (){ return mDisplayStability              ;}
+    quint16  getFilterCoefficient            (){ return mFilterCoefficient             ;}
     quint32  getMeasureCueSign               (){ return mMeasureCueSign                ;}
+    quint32  getMeasureSection               (){ return mMeasureSection                ;}
     quint32  getMinStaticWeight              (){ return mMinStaticWeight               ;}
     quint32  getMinDynamicWeight             (){ return mMinDynamicWeight              ;}
     quint32  getScaler                       (){ return mScaler                        ;}
@@ -251,7 +261,9 @@ public:
     bool     getIsEditSorter04RunTimeRatio   (){ return mIsEditSorter04RunTimeRatio    ;}
     bool     getIsEditSorter04OpenTime       (){ return mIsEditSorter04OpenTime        ;}
     bool     getIsEditDisplayStability       (){ return mIsEditDisplayStability        ;}
+    bool     getIsEditFilterCoefficient      (){ return mIsEditFilterCoefficient       ;}
     bool     getIsEditMeasureCueSign         (){ return mIsEditMeasureCueSign          ;}
+    bool     getIsEditMeasureSection         (){ return mIsEditMeasureSection          ;}
     bool     getIsEditMinStaticWeight        (){ return mIsEditMinStaticWeight         ;}
     bool     getIsEditMinDynamicWeight       (){ return mIsEditMinDynamicWeight        ;}
     bool     getIsEditScaler                 (){ return mIsEditScaler                  ;}
@@ -294,7 +306,9 @@ public:
     void setSorter04RunTimeRatio         (quint32  value){ if(value == mSorter04RunTimeRatio      ) return; mSorter04RunTimeRatio       = value; setIsEditSorter04RunTimeRatio   (true);  emit signalEventChangedSorter04RunTimeRatio      (value);}
     void setSorter04OpenTime             (quint32  value){ if(value == mSorter04OpenTime          ) return; mSorter04OpenTime           = value; setIsEditSorter04OpenTime       (true);  emit signalEventChangedSorter04OpenTime          (value);}
     void setDisplayStability             (quint32  value){ if(value == mDisplayStability          ) return; mDisplayStability           = value; setIsEditDisplayStability       (true);  emit signalEventChangedDisplayStability          (value);}
+    void setFilterCoefficient            (quint16  value){ if(value == mFilterCoefficient         ) return; mFilterCoefficient          = value; setIsEditFilterCoefficient      (true);  emit signalEventChangedFilterCoefficient         (value);}
     void setMeasureCueSign               (quint32  value){ if(value == mMeasureCueSign            ) return; mMeasureCueSign             = value; setIsEditMeasureCueSign         (true);  emit signalEventChangedMeasureCueSign            (value);}
+    void setMeasureSection               (quint32  value){ if(value == mMeasureSection            ) return; mMeasureSection             = value; setIsEditMeasureSection         (true);  emit signalEventChangedMeasureSection            (value);}
     void setMinStaticWeight              (quint32  value){ if(value == mMinStaticWeight           ) return; mMinStaticWeight            = value; setIsEditMinStaticWeight        (true);  emit signalEventChangedMinStaticWeight           (value);}
     void setMinDynamicWeight             (quint32  value){ if(value == mMinDynamicWeight          ) return; mMinDynamicWeight           = value; setIsEditMinDynamicWeight       (true);  emit signalEventChangedMinDynamicWeight          (value);}
     void setScaler                       (quint32  value){ if(value == mScaler                    ) return; mScaler                     = value; setIsEditScaler                 (true);  emit signalEventChangedScaler                    (value);}
@@ -338,7 +352,9 @@ public:
     void setIsEditSorter04RunTimeRatio   (bool     value){ if(value == mIsEditSorter04RunTimeRatio) return; mIsEditSorter04RunTimeRatio = value; emit signalEventChangedIsEditSorter04RunTimeRatio(value);}
     void setIsEditSorter04OpenTime       (bool     value){ if(value == mIsEditSorter04OpenTime    ) return; mIsEditSorter04OpenTime     = value; emit signalEventChangedIsEditSorter04OpenTime    (value);}
     void setIsEditDisplayStability       (bool     value){ if(value == mIsEditDisplayStability    ) return; mIsEditDisplayStability     = value; emit signalEventChangedIsEditDisplayStability    (value);}
+    void setIsEditFilterCoefficient      (bool     value){ if(value == mIsEditFilterCoefficient   ) return; mIsEditFilterCoefficient    = value; emit signalEventChangedIsEditFilterCoefficient   (value);}
     void setIsEditMeasureCueSign         (bool     value){ if(value == mIsEditMeasureCueSign      ) return; mIsEditMeasureCueSign       = value; emit signalEventChangedIsEditMeasureCueSign      (value);}
+    void setIsEditMeasureSection         (bool     value){ if(value == mIsEditMeasureSection      ) return; mIsEditMeasureSection       = value; emit signalEventChangedIsEditMeasureSection      (value);}
     void setIsEditMinStaticWeight        (bool     value){ if(value == mIsEditMinStaticWeight     ) return; mIsEditMinStaticWeight      = value; emit signalEventChangedIsEditMinStaticWeight     (value);}
     void setIsEditMinDynamicWeight       (bool     value){ if(value == mIsEditMinDynamicWeight    ) return; mIsEditMinDynamicWeight     = value; emit signalEventChangedIsEditMinDynamicWeight    (value);}
     void setIsEditScaler                 (bool     value){ if(value == mIsEditScaler              ) return; mIsEditScaler               = value; emit signalEventChangedIsEditScaler              (value);}
@@ -366,6 +382,9 @@ public:
         setConfirmPassword              (""                                                 );
         setIsDayMode                    (pLSettingSP->mHMISetting.mIsDayMode                                  );
         setIsDebugMode                  (pLSettingSP->mHMISetting.mIsDebugMode                                );
+        setFilterCoefficient            (pLSettingSP->mPdBaseSetting.mFilterCoefficient                       );
+        setMeasureCueSign               (pLSettingSP->mPdBaseSetting.mMeasureCueSign                          );
+        setMeasureSection               (pLSettingSP->mPdBaseSetting.mMeasureSection                          );
         setLampTime                     (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime             );
         setBuzzerTime                   (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mBuzzerTime           );
         setSpeedConverter               (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSpeedConverter       );
@@ -383,7 +402,6 @@ public:
         setSorter04RunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio );
         setSorter04OpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime     );
         setDisplayStability             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability       );
-        setMeasureCueSign               (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign         );
         setMinStaticWeight              (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight        );
         setMinDynamicWeight             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight       );
         setScaler                       (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                 );
@@ -426,7 +444,9 @@ public:
         setIsEditSorter04RunTimeRatio         ( false );
         setIsEditSorter04OpenTime             ( false );
         setIsEditDisplayStability             ( false );
+        setIsEditFilterCoefficient            ( false );
         setIsEditMeasureCueSign               ( false );
+        setIsEditMeasureSection               ( false );
         setIsEditMinStaticWeight              ( false );
         setIsEditMinDynamicWeight             ( false );
         setIsEditScaler                       ( false );
@@ -477,7 +497,9 @@ signals:
     void signalEventChangedSorter04RunTimeRatio         (quint32  value);
     void signalEventChangedSorter04OpenTime             (quint32  value);
     void signalEventChangedDisplayStability             (quint32  value);
+    void signalEventChangedFilterCoefficient            (quint16  value);
     void signalEventChangedMeasureCueSign               (quint32  value);
+    void signalEventChangedMeasureSection               (quint32  value);
     void signalEventChangedMinStaticWeight              (quint32  value);
     void signalEventChangedMinDynamicWeight             (quint32  value);
     void signalEventChangedScaler                       (quint32  value);
@@ -521,7 +543,9 @@ signals:
     void signalEventChangedIsEditSorter04RunTimeRatio   (bool     value);
     void signalEventChangedIsEditSorter04OpenTime       (bool     value);
     void signalEventChangedIsEditDisplayStability       (bool     value);
+    void signalEventChangedIsEditFilterCoefficient      (bool     value);
     void signalEventChangedIsEditMeasureCueSign         (bool     value);
+    void signalEventChangedIsEditMeasureSection         (bool     value);
     void signalEventChangedIsEditMinStaticWeight        (bool     value);
     void signalEventChangedIsEditMinDynamicWeight       (bool     value);
     void signalEventChangedIsEditScaler                 (bool     value);
@@ -578,7 +602,6 @@ public slots:
         dto.mDspForm.mCommSetting.mSorter04RunTimeRatio = mSorter04RunTimeRatio;
         dto.mDspForm.mCommSetting.mSorter04OpenTime     = mSorter04OpenTime    ;
         dto.mDspForm.mWCSetting.mDisplayStability       = mDisplayStability;
-        dto.mDspForm.mWCSetting.mMeasureCueSign         = mMeasureCueSign;
         dto.mDspForm.mWCSetting.mMinStaticWeight        = mMinStaticWeight;
         dto.mDspForm.mWCSetting.mMinDynamicWeight       = mMinDynamicWeight;
         dto.mDspForm.mWCSetting.mScaler                 = mScaler;
@@ -606,6 +629,12 @@ public slots:
         hmiDto.mSimpleSenstivity04 = mSimpleSens04;
         hmiDto.mSimpleSenstivity05 = mSimpleSens05;
         pLSettingSP->setHMISetting(hmiDto);
+
+        PdBaseSettingDto pdBaseSettingDto = pLSettingSP->mPdBaseSetting;
+        pdBaseSettingDto.mMeasureCueSign    = mMeasureCueSign    ;
+        pdBaseSettingDto.mFilterCoefficient = mFilterCoefficient ;
+        pdBaseSettingDto.mMeasureSection    = mMeasureSection    ;
+        pLSettingSP->setPdBaseSetting(pdBaseSettingDto);
 
         reset();
 
@@ -636,7 +665,9 @@ public slots:
     Q_INVOKABLE void onCommandSetSorter04RunTimeRatio         (quint32  value){setSorter04RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter04OpenTime             (quint32  value){setSorter04OpenTime             (value);}
     Q_INVOKABLE void onCommandSetDisplayStability             (quint32  value){setDisplayStability             (value);}
+    Q_INVOKABLE void onCommandSetFilterCoefficient            (quint16  value){setFilterCoefficient            (value);}
     Q_INVOKABLE void onCommandSetMeasureCueSign               (quint32  value){setMeasureCueSign               (value);}
+    Q_INVOKABLE void onCommandSetMeasureSection               (quint32  value){setMeasureSection               (value);}
     Q_INVOKABLE void onCommandSetMinStaticWeight              (quint32  value){setMinStaticWeight              (value);}
     Q_INVOKABLE void onCommandSetMinDynamicWeight             (quint32  value){setMinDynamicWeight             (value);}
     Q_INVOKABLE void onCommandSetScaler                       (quint32  value){setScaler                       (value);}

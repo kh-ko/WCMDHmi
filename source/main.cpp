@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QCursor>
 #include <QtQuickControls2/QQuickStyle>
+#include <QStyleHints>
 #include "source/logger/nsdebug.h"
 #include "source/qmlmodel/wcmd/mainmodel.h"
 #include "source/qmlmodel/wcmd/introscenemodel.h"
@@ -46,6 +47,8 @@ int main(int argc, char *argv[])
 #else
     QGuiApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
+
+    //QGuiApplication::styleHints()->setMousePressAndHoldInterval(200);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/ui/main.qml"));

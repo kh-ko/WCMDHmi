@@ -98,6 +98,10 @@ private:
     const QString mHMISettingSimpleSenstivity04Key          = "hmisetting/SimpleSenstivity04"     ;
     const QString mHMISettingSimpleSenstivity05Key          = "hmisetting/SimpleSenstivity05"     ;
 
+    const QString mPdBaseSettingMeasureCueSignKey           = "pdbasesetting/MeasureCueSign"      ;
+    const QString mPdBaseSettingFilterCoefficientKey        = "pdbasesetting/FilterCoefficient"   ;
+    const QString mPdBaseSettingMeasureSectionKey           = "pdbasesetting/MeasureSection"      ;
+
     const QString mEtcSettingMaxErrorKey                    = "etcsetting/MaxError"               ;
 
 public:
@@ -123,6 +127,7 @@ public:
     QDate                    mBackupLastDate ;
     DevSettingDto            mDevSetting     ;
     HMISettingDto            mHMISetting     ;
+    PdBaseSettingDto         mPdBaseSetting  ;
     quint32                  mMaxError       ;
 
     explicit LocalSettingSProvider(QObject * parent = nullptr):QObject(parent)
@@ -244,6 +249,15 @@ public:
         emit signalEventChangedHMISetting(mHMISetting);
     }
 
+    void setPdBaseSetting(PdBaseSettingDto dto)
+    {
+        CHECK_FALSE_RETURN(mIsRunning)
+
+        internalSetPdBaseSetting(dto);
+
+        emit signalEventChangedPdBaseSetting(mPdBaseSetting);
+    }
+
     void setMaxError(quint32 value)
     {
         CHECK_FALSE_RETURN(mIsRunning)
@@ -359,6 +373,10 @@ private:
         mHMISetting.mSimpleSenstivity04                            = mpSetting->value(mHMISettingSimpleSenstivity04Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_04                       ).toInt()   ;
         mHMISetting.mSimpleSenstivity05                            = mpSetting->value(mHMISettingSimpleSenstivity05Key         , pDefaultSP->HMI_SETTING_SAMPLE_SENSTIVITY_05                       ).toInt()   ;
 
+        mPdBaseSetting.mFilterCoefficient                          = mpSetting->value(mPdBaseSettingFilterCoefficientKey       , pDefaultSP->PD_DEFAULT_SETTING_FILTER_COEFFICIENT                  ).toInt()   ;
+        mPdBaseSetting.mMeasureCueSign                             = mpSetting->value(mPdBaseSettingMeasureCueSignKey          , pDefaultSP->PD_DEFAULT_SETTING_MEASURE_CUE_SIGN                    ).toInt()   ;
+        mPdBaseSetting.mMeasureSection                             = mpSetting->value(mPdBaseSettingMeasureSectionKey          , pDefaultSP->PD_DEFAULT_SETTING_MEASURE_SECTION                     ).toInt()   ;
+
         mMaxError                                                  = mpSetting->value(mEtcSettingMaxErrorKey                   , pDefaultSP->ETC_SETTING_MAX_ERROR                                  ).toInt()   ;
 
         internalSetInformation    (mInformation);
@@ -370,6 +388,7 @@ private:
         internalSetBackupLastDate (mBackupLastDate);
         internalSetDevSetting     (mDevSetting);
         internalSetHMISetting     (mHMISetting);
+        internalSetPdBaseSetting  (mPdBaseSetting);
         internalSetMaxError       (mMaxError);
     }
 
@@ -496,6 +515,15 @@ private:
         mpSetting->setValue(mHMISettingSimpleSenstivity05Key         , dto.mSimpleSenstivity05);
     }
 
+    void internalSetPdBaseSetting(PdBaseSettingDto dto)
+    {
+        mPdBaseSetting = dto;
+
+        mpSetting->setValue(mPdBaseSettingFilterCoefficientKey       , dto.mFilterCoefficient   );
+        mpSetting->setValue(mPdBaseSettingMeasureCueSignKey          , dto.mMeasureCueSign      );
+        mpSetting->setValue(mPdBaseSettingMeasureSectionKey          , dto.mMeasureSection      );
+    }
+
     void internalSetMaxError(quint32 value)
     {
         mMaxError = value;
@@ -515,6 +543,7 @@ signals:
     void signalEventChangedBackupLastDate(QDate date);
     void signalEventChangedDevSetting(DevSettingDto dto);
     void signalEventChangedHMISetting(HMISettingDto dto);
+    void signalEventChangedPdBaseSetting(PdBaseSettingDto dto);
     void signalEventChangedMaxError(quint32 value);
 };
 #endif // LOCALSETTINGSPROVIDER_H

@@ -17,5 +17,6 @@
 #include "source/service/dto/pdstatsdto.h"
 #include "source/service/dto/eventdto.h"
 #include "source/service/dto/trendsitemdto.h"
+#include "source/service/dto/pdbasesettingdto.h"
 #include "source/service/dto/enum/enumdef.h"
 #endif // INCLUDESVCDTO_H

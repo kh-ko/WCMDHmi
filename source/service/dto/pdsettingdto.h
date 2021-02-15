@@ -11,7 +11,7 @@ public:
     QString mName           ;
     DspPDSettingDto mDspForm;
 
-    PDSettingDto(){}
+    PDSettingDto(){ setDefaultValue(); }
     PDSettingDto(const PDSettingDto& copy) :
         mSeq    (copy.mSeq),
         mName   (copy.mName),
@@ -45,30 +45,33 @@ public:
     {
         mSeq  = 0;
         mName = "product";
-        mDspForm.mCommSetting.mProductNum            = pDefaultSP->PD_SETTING_NUM           ;
-        mDspForm.mCommSetting.mLength                = pDefaultSP->PD_SETTING_LEN           ;
-        mDspForm.mCommSetting.mSpeed                 = pDefaultSP->PD_SETTING_SPEED         ;
-        mDspForm.mCommSetting.mMotorAccelerationTime = pDefaultSP->PD_SETTING_MOTOR_ACCTIME ;
-        mDspForm.mCommSetting.mMotorDecelerationTime = pDefaultSP->PD_SETTING_MOTOR_DECTIME ;
-        mDspForm.mCommSetting.mGroupCount            = pDefaultSP->PD_SETTING_GROUP_COUNT   ;
-        mDspForm.mCommSetting.mGroupMotion           = pDefaultSP->PD_SETTING_GROUP_MOTION  ;
-        mDspForm.mCommSetting.mGroupLamp             = pDefaultSP->PD_SETTING_GROUP_LAMP    ;
-        mDspForm.mCommSetting.mGroupBuzzer           = pDefaultSP->PD_SETTING_GROUP_BUZZER  ;
-        mDspForm.mWCSetting.mNormalWeight            = pDefaultSP->PD_SETTING_NOR_WEIGHT    ;
-        mDspForm.mWCSetting.mUnderWarningWeight      = pDefaultSP->PD_SETTING_UNDER_W_WEIGHT;
-        mDspForm.mWCSetting.mOverWarningWeight       = pDefaultSP->PD_SETTING_OVER_W_WEIGHT ;
-        mDspForm.mWCSetting.mUnderWeight             = pDefaultSP->PD_SETTING_UNDER_WEIGHT  ;
-        mDspForm.mWCSetting.mOverWeight              = pDefaultSP->PD_SETTING_OVER_WEIGHT   ;
-        mDspForm.mWCSetting.mTareWeight              = pDefaultSP->PD_SETTING_TARE_WEIGHT   ;
-        mDspForm.mWCSetting.mNGMotion                = pDefaultSP->PD_SETTING_WC_NGMOTION   ;
-        mDspForm.mWCSetting.mNGLamp                  = pDefaultSP->PD_SETTING_WC_NG_LAMP    ;
-        mDspForm.mWCSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_WC_NG_BUZZER  ;
-        mDspForm.mWCSetting.mDynamicFactor           = pDefaultSP->PD_SETTING_DYNAMIC_FAC   ;
-        mDspForm.mWCSetting.mEnableEtcError          = pDefaultSP->PD_SETTING_ENABLE_ETC_ERR;
-        mDspForm.mMDSetting.mSenstivity              = pDefaultSP->PD_SETTING_MD_SENSTIVITY ;
-        mDspForm.mMDSetting.mNGMotion                = pDefaultSP->PD_SETTING_MD_NGMOTION   ;
-        mDspForm.mMDSetting.mNGLamp                  = pDefaultSP->PD_SETTING_MD_NG_LAMP    ;
-        mDspForm.mMDSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_MD_NG_BUZZER  ;
+        mDspForm.mCommSetting.mProductNum            = pDefaultSP->PD_SETTING_NUM                       ;
+        mDspForm.mCommSetting.mLength                = pDefaultSP->PD_SETTING_LEN                       ;
+        mDspForm.mCommSetting.mSpeed                 = pDefaultSP->PD_SETTING_SPEED                     ;
+        mDspForm.mCommSetting.mMotorAccelerationTime = pDefaultSP->PD_SETTING_MOTOR_ACCTIME             ;
+        mDspForm.mCommSetting.mMotorDecelerationTime = pDefaultSP->PD_SETTING_MOTOR_DECTIME             ;
+        mDspForm.mCommSetting.mGroupCount            = pDefaultSP->PD_SETTING_GROUP_COUNT               ;
+        mDspForm.mCommSetting.mGroupMotion           = pDefaultSP->PD_SETTING_GROUP_MOTION              ;
+        mDspForm.mCommSetting.mGroupLamp             = pDefaultSP->PD_SETTING_GROUP_LAMP                ;
+        mDspForm.mCommSetting.mGroupBuzzer           = pDefaultSP->PD_SETTING_GROUP_BUZZER              ;
+        mDspForm.mWCSetting.mNormalWeight            = pDefaultSP->PD_SETTING_NOR_WEIGHT                ;
+        mDspForm.mWCSetting.mUnderWarningWeight      = pDefaultSP->PD_SETTING_UNDER_W_WEIGHT            ;
+        mDspForm.mWCSetting.mOverWarningWeight       = pDefaultSP->PD_SETTING_OVER_W_WEIGHT             ;
+        mDspForm.mWCSetting.mUnderWeight             = pDefaultSP->PD_SETTING_UNDER_WEIGHT              ;
+        mDspForm.mWCSetting.mOverWeight              = pDefaultSP->PD_SETTING_OVER_WEIGHT               ;
+        mDspForm.mWCSetting.mTareWeight              = pDefaultSP->PD_SETTING_TARE_WEIGHT               ;
+        mDspForm.mWCSetting.mNGMotion                = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
+        mDspForm.mWCSetting.mNGLamp                  = pDefaultSP->PD_SETTING_WC_NG_LAMP                ;
+        mDspForm.mWCSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_WC_NG_BUZZER              ;
+        mDspForm.mWCSetting.mDynamicFactor           = pDefaultSP->PD_SETTING_DYNAMIC_FAC               ;
+        mDspForm.mWCSetting.mEnableEtcError          = pDefaultSP->PD_SETTING_ENABLE_ETC_ERR            ;
+        mDspForm.mWCSetting.mFilterCoefficient       = pDefaultSP->PD_DEFAULT_SETTING_FILTER_COEFFICIENT;
+        mDspForm.mWCSetting.mMeasureCueSign          = pDefaultSP->PD_DEFAULT_SETTING_MEASURE_CUE_SIGN  ;
+        mDspForm.mWCSetting.mMeasureSection          = pDefaultSP->PD_DEFAULT_SETTING_MEASURE_SECTION   ;
+        mDspForm.mMDSetting.mSenstivity              = pDefaultSP->PD_SETTING_MD_SENSTIVITY             ;
+        mDspForm.mMDSetting.mNGMotion                = pDefaultSP->PD_SETTING_MD_NGMOTION               ;
+        mDspForm.mMDSetting.mNGLamp                  = pDefaultSP->PD_SETTING_MD_NG_LAMP                ;
+        mDspForm.mMDSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_MD_NG_BUZZER              ;
     }
 
     bool setValue(QString value, QString divider)
@@ -112,6 +115,9 @@ public:
             else if(key == "MDNGMotion"           ){ findFieldCnt++; mDspForm.mMDSetting.mNGMotion                = value.toUInt()     ;}
             else if(key == "MDNGLamp"             ){ findFieldCnt++; mDspForm.mMDSetting.mNGLamp                  = value.toUInt()     ;}
             else if(key == "MDNGBuzzer"           ){ findFieldCnt++; mDspForm.mMDSetting.mNGBuzzer                = value.toUInt()     ;}
+            else if(key == "FilterCoefficient"    ){ findFieldCnt++; mDspForm.mWCSetting.mFilterCoefficient       = value.toUInt()     ;}
+            else if(key == "MeasureCueSign"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureCueSign          = value.toUInt()     ;}
+            else if(key == "MeasureSection"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureSection          = value.toUInt()     ;}
         }
 
         return findFieldCnt == 0 ? false : true;
@@ -138,7 +144,10 @@ public:
                        "MDSenstivity:%45%46"
                        "MDNGMotion:%47%48"
                        "MDNGLamp:%49%50"
-                       "MDNGBuzzer:%51")
+                       "MDNGBuzzer:%51%52"
+                       "FilterCoefficient:%53%54"
+                       "MeasureCueSign:%55%56"
+                       "MeasureSection:%57"   )
                 .arg(mSeq                                        ).arg(divider)
                 .arg(mDspForm.mCommSetting.mProductNum           ).arg(divider)
                 .arg(mName                                       ).arg(divider)
@@ -164,7 +173,10 @@ public:
                 .arg(mDspForm.mMDSetting.mSenstivity             ).arg(divider)
                 .arg(mDspForm.mMDSetting.mNGMotion               ).arg(divider)
                 .arg(mDspForm.mMDSetting.mNGLamp                 ).arg(divider)
-                .arg(mDspForm.mMDSetting.mNGBuzzer               );
+                .arg(mDspForm.mMDSetting.mNGBuzzer               ).arg(divider)
+                .arg(mDspForm.mWCSetting.mFilterCoefficient      ).arg(divider)
+                .arg(mDspForm.mWCSetting.mMeasureCueSign         ).arg(divider)
+                .arg(mDspForm.mWCSetting.mMeasureSection         );
     }
 };
 

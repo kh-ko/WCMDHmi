@@ -29,6 +29,9 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint16 mMDNGMotion                  READ getMDNGMotion                         NOTIFY signalEventChangedMDNGMotion                        );
     Q_PROPERTY(quint16 mWCNGLamp                    READ getWCNGLamp                           NOTIFY signalEventChangedWCNGLamp                          );
     Q_PROPERTY(quint16 mWCNGBuzzer                  READ getWCNGBuzzer                         NOTIFY signalEventChangedWCNGBuzzer                        );
+    Q_PROPERTY(quint16 mFilterCoefficient           READ getFilterCoefficient                  NOTIFY signalEventChangedFilterCoefficient                 );
+    Q_PROPERTY(quint32 mMeasureCueSign              READ getMeasureCueSign                     NOTIFY signalEventChangedMeasureCueSign                    );
+    Q_PROPERTY(quint32 mMeasureSection              READ getMeasureSection                     NOTIFY signalEventChangedMeasureSection                    );
     Q_PROPERTY(quint16 mMDNGLamp                    READ getMDNGLamp                           NOTIFY signalEventChangedMDNGLamp                          );
     Q_PROPERTY(quint16 mMDNGBuzzer                  READ getMDNGBuzzer                         NOTIFY signalEventChangedMDNGBuzzer                        );
     Q_PROPERTY(quint32 mLampTime                    READ getLampTime                           NOTIFY signalEventChangedLampTime                          );
@@ -58,7 +61,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mStaticFactor                READ getStaticFactor                       NOTIFY signalEventChangedStaticFactor                      );
     Q_PROPERTY(quint32 mScaler                      READ getScaler                             NOTIFY signalEventChangedScaler                            );
     Q_PROPERTY(quint32 mDisplayStability            READ getDisplayStability                   NOTIFY signalEventChangedDisplayStability                  );
-    Q_PROPERTY(quint32 mMeasureCueSign              READ getMeasureCueSign                     NOTIFY signalEventChangedMeasureCueSign                    );
+    //Q_PROPERTY(quint32 mMeasureCueSign              READ getMeasureCueSign                     NOTIFY signalEventChangedMeasureCueSign                    );
     Q_PROPERTY(quint32 mMinStaticWeight             READ getMinStaticWeight                    NOTIFY signalEventChangedMinStaticWeight                   );
     Q_PROPERTY(quint32 mMinDynamicWeight            READ getMinDynamicWeight                   NOTIFY signalEventChangedMinDynamicWeight                  );
     Q_PROPERTY(quint16 mMode                        READ getMode                               NOTIFY signalEventChangedMode                              );
@@ -93,6 +96,9 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffMDNGMotion              READ getDiffMDNGMotion                     NOTIFY signalEventChangedDiffMDNGMotion                    );
     Q_PROPERTY(bool    mDiffWCNGLamp                READ getDiffWCNGLamp                       NOTIFY signalEventChangedDiffWCNGLamp                      );
     Q_PROPERTY(bool    mDiffWCNGBuzzer              READ getDiffWCNGBuzzer                     NOTIFY signalEventChangedDiffWCNGBuzzer                    );
+    Q_PROPERTY(bool    mDiffFilterCoefficient       READ getDiffFilterCoefficient              NOTIFY signalEventChangedDiffFilterCoefficient             );
+    Q_PROPERTY(bool    mDiffMeasureCueSign          READ getDiffMeasureCueSign                 NOTIFY signalEventChangedDiffMeasureCueSign                );
+    Q_PROPERTY(bool    mDiffMeasureSection          READ getDiffMeasureSection                 NOTIFY signalEventChangedDiffMeasureSection                );
     Q_PROPERTY(bool    mDiffMDNGLamp                READ getDiffMDNGLamp                       NOTIFY signalEventChangedDiffMDNGLamp                      );
     Q_PROPERTY(bool    mDiffMDNGBuzzer              READ getDiffMDNGBuzzer                     NOTIFY signalEventChangedDiffMDNGBuzzer                    );
     Q_PROPERTY(bool    mDiffLampTime                READ getDiffLampTime                       NOTIFY signalEventChangedDiffLampTime                      );
@@ -122,7 +128,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffStaticFactor            READ getDiffStaticFactor                   NOTIFY signalEventChangedDiffStaticFactor                  );
     Q_PROPERTY(bool    mDiffScaler                  READ getDiffScaler                         NOTIFY signalEventChangedDiffScaler                        );
     Q_PROPERTY(bool    mDiffDisplayStability        READ getDiffDisplayStability               NOTIFY signalEventChangedDiffDisplayStability              );
-    Q_PROPERTY(bool    mDiffMeasureCueSign          READ getDiffMeasureCueSign                 NOTIFY signalEventChangedDiffMeasureCueSign                );
+    //Q_PROPERTY(bool    mDiffMeasureCueSign          READ getDiffMeasureCueSign                 NOTIFY signalEventChangedDiffMeasureCueSign                );
     Q_PROPERTY(bool    mDiffMinStaticWeight         READ getDiffMinStaticWeight                NOTIFY signalEventChangedDiffMinStaticWeight               );
     Q_PROPERTY(bool    mDiffMinDynamicWeight        READ getDiffMinDynamicWeight               NOTIFY signalEventChangedDiffMinDynamicWeight              );
     Q_PROPERTY(bool    mDiffMode                    READ getDiffMode                           NOTIFY signalEventChangedDiffMode                          );
@@ -155,6 +161,9 @@ public:
     quint32 mTareWeight                 ;
     quint16 mWCNGMotion                 ;
     quint16 mWCEnableEtcError           ;
+    quint16 mFilterCoefficient          ;
+    quint32 mMeasureCueSign             ;
+    quint32 mMeasureSection             ;
     quint32 mDynamicFactor              ;
     quint16 mMDSenstivity               ;
     quint16 mMDNGMotion                 ;
@@ -189,7 +198,7 @@ public:
     quint32 mStaticFactor               ;
     quint32 mScaler                     ;
     quint32 mDisplayStability           ;
-    quint32 mMeasureCueSign             ;
+    //quint32 mMeasureCueSign             ;
     quint32 mMinStaticWeight            ;
     quint32 mMinDynamicWeight           ;
     quint16 mMode                       ;
@@ -224,6 +233,9 @@ public:
     bool    mDiffMDNGMotion             ;
     bool    mDiffWCNGLamp               ;
     bool    mDiffWCNGBuzzer             ;
+    bool    mDiffFilterCoefficient      ;
+    bool    mDiffMeasureCueSign         ;
+    bool    mDiffMeasureSection         ;
     bool    mDiffMDNGLamp               ;
     bool    mDiffMDNGBuzzer             ;
     bool    mDiffLampTime               ;
@@ -254,7 +266,7 @@ public:
     bool    mDiffDynamicFactor          ;
     bool    mDiffScaler                 ;
     bool    mDiffDisplayStability       ;
-    bool    mDiffMeasureCueSign         ;
+    //bool    mDiffMeasureCueSign         ;
     bool    mDiffMinStaticWeight        ;
     bool    mDiffMinDynamicWeight       ;
     bool    mDiffMode                   ;
@@ -290,6 +302,9 @@ public:
     quint16 getMDNGMotion                 (){ return mMDNGMotion                 ;}
     quint16 getWCNGLamp                   (){ return mWCNGLamp                   ;}
     quint16 getWCNGBuzzer                 (){ return mWCNGBuzzer                 ;}
+    quint16 getFilterCoefficient          (){ return mFilterCoefficient          ;}
+    quint32 getMeasureCueSign             (){ return mMeasureCueSign             ;}
+    quint32 getMeasureSection             (){ return mMeasureSection             ;}
     quint16 getMDNGLamp                   (){ return mMDNGLamp                   ;}
     quint16 getMDNGBuzzer                 (){ return mMDNGBuzzer                 ;}
     quint32 getLampTime                   (){ return mLampTime                   ;}
@@ -319,7 +334,7 @@ public:
     quint32 getStaticFactor               (){ return mStaticFactor               ;}
     quint32 getScaler                     (){ return mScaler                     ;}
     quint32 getDisplayStability           (){ return mDisplayStability           ;}
-    quint32 getMeasureCueSign             (){ return mMeasureCueSign             ;}
+    //quint32 getMeasureCueSign             (){ return mMeasureCueSign             ;}
     quint32 getMinStaticWeight            (){ return mMinStaticWeight            ;}
     quint32 getMinDynamicWeight           (){ return mMinDynamicWeight           ;}
     quint16 getMode                       (){ return mMode                       ;}
@@ -354,6 +369,9 @@ public:
     bool    getDiffMDNGMotion             (){ return mDiffMDNGMotion             ;}
     bool    getDiffWCNGLamp               (){ return mDiffWCNGLamp               ;}
     bool    getDiffWCNGBuzzer             (){ return mDiffWCNGBuzzer             ;}
+    bool    getDiffFilterCoefficient      (){ return mDiffFilterCoefficient      ;}
+    bool    getDiffMeasureCueSign         (){ return mDiffMeasureCueSign         ;}
+    bool    getDiffMeasureSection         (){ return mDiffMeasureSection         ;}
     bool    getDiffMDNGLamp               (){ return mDiffMDNGLamp               ;}
     bool    getDiffMDNGBuzzer             (){ return mDiffMDNGBuzzer             ;}
     bool    getDiffLampTime               (){ return mDiffLampTime               ;}
@@ -383,7 +401,7 @@ public:
     bool    getDiffStaticFactor           (){ return mDiffStaticFactor           ;}
     bool    getDiffScaler                 (){ return mDiffScaler                 ;}
     bool    getDiffDisplayStability       (){ return mDiffDisplayStability       ;}
-    bool    getDiffMeasureCueSign         (){ return mDiffMeasureCueSign         ;}
+    //bool    getDiffMeasureCueSign         (){ return mDiffMeasureCueSign         ;}
     bool    getDiffMinStaticWeight        (){ return mDiffMinStaticWeight        ;}
     bool    getDiffMinDynamicWeight       (){ return mDiffMinDynamicWeight       ;}
     bool    getDiffMode                   (){ return mDiffMode                   ;}
@@ -419,6 +437,9 @@ public:
     void setMDNGMotion                 (quint16  value){ if( value == mMDNGMotion                 ) return; mMDNGMotion                 = value; emit signalEventChangedMDNGMotion                        (value);}
     void setWCNGLamp                   (quint16  value){ if( value == mWCNGLamp                   ) return; mWCNGLamp                   = value; emit signalEventChangedWCNGLamp                          (value);}
     void setWCNGBuzzer                 (quint16  value){ if( value == mWCNGBuzzer                 ) return; mWCNGBuzzer                 = value; emit signalEventChangedWCNGBuzzer                        (value);}
+    void setFilterCoefficient          (quint16  value){ if( value == mFilterCoefficient          ) return; mFilterCoefficient          = value; emit signalEventChangedFilterCoefficient                 (value);}
+    void setMeasureCueSign             (quint32  value){ if( value == mMeasureCueSign             ) return; mMeasureCueSign             = value; emit signalEventChangedMeasureCueSign                    (value);}
+    void setMeasureSection             (quint32  value){ if( value == mMeasureSection             ) return; mMeasureSection             = value; emit signalEventChangedMeasureSection                    (value);}
     void setMDNGLamp                   (quint16  value){ if( value == mMDNGLamp                   ) return; mMDNGLamp                   = value; emit signalEventChangedMDNGLamp                          (value);}
     void setMDNGBuzzer                 (quint16  value){ if( value == mMDNGBuzzer                 ) return; mMDNGBuzzer                 = value; emit signalEventChangedMDNGBuzzer                        (value);}
     void setLampTime                   (quint32  value){ if( value == mLampTime                   ) return; mLampTime                   = value; emit signalEventChangedLampTime                          (value);}
@@ -448,7 +469,7 @@ public:
     void setStaticFactor               (quint32  value){ if( value == mStaticFactor               ) return; mStaticFactor               = value; emit signalEventChangedStaticFactor                      (value);}
     void setScaler                     (quint32  value){ if( value == mScaler                     ) return; mScaler                     = value; emit signalEventChangedScaler                            (value);}
     void setDisplayStability           (quint32  value){ if( value == mDisplayStability           ) return; mDisplayStability           = value; emit signalEventChangedDisplayStability                  (value);}
-    void setMeasureCueSign             (quint32  value){ if( value == mMeasureCueSign             ) return; mMeasureCueSign             = value; emit signalEventChangedMeasureCueSign                    (value);}
+    //void setMeasureCueSign             (quint32  value){ if( value == mMeasureCueSign             ) return; mMeasureCueSign             = value; emit signalEventChangedMeasureCueSign                    (value);}
     void setMinStaticWeight            (quint32  value){ if( value == mMinStaticWeight            ) return; mMinStaticWeight            = value; emit signalEventChangedMinStaticWeight                   (value);}
     void setMinDynamicWeight           (quint32  value){ if( value == mMinDynamicWeight           ) return; mMinDynamicWeight           = value; emit signalEventChangedMinDynamicWeight                  (value);}
     void setMode                       (quint16  value){ if( value == mMode                       ) return; mMode                       = value; emit signalEventChangedMode                              (value);}
@@ -483,6 +504,9 @@ public:
     void setDiffMDNGMotion             (bool     value){ if( value == mDiffMDNGMotion             ) return; mDiffMDNGMotion             = value; emit signalEventChangedDiffMDNGMotion                    (value);}
     void setDiffWCNGLamp               (bool     value){ if( value == mDiffWCNGLamp               ) return; mDiffWCNGLamp               = value; emit signalEventChangedDiffWCNGLamp                      (value);}
     void setDiffWCNGBuzzer             (bool     value){ if( value == mDiffWCNGBuzzer             ) return; mDiffWCNGBuzzer             = value; emit signalEventChangedDiffWCNGBuzzer                    (value);}
+    void setDiffFilterCoefficient      (bool     value){ if( value == mDiffFilterCoefficient      ) return; mDiffFilterCoefficient      = value; emit signalEventChangedDiffFilterCoefficient             (value);}
+    void setDiffMeasureCueSign         (bool     value){ if( value == mDiffMeasureCueSign         ) return; mDiffMeasureCueSign         = value; emit signalEventChangedDiffMeasureCueSign                (value);}
+    void setDiffMeasureSection         (bool     value){ if( value == mDiffMeasureSection         ) return; mDiffMeasureSection         = value; emit signalEventChangedDiffMeasureSection                (value);}
     void setDiffMDNGLamp               (bool     value){ if( value == mDiffMDNGLamp               ) return; mDiffMDNGLamp               = value; emit signalEventChangedDiffMDNGLamp                      (value);}
     void setDiffMDNGBuzzer             (bool     value){ if( value == mDiffMDNGBuzzer             ) return; mDiffMDNGBuzzer             = value; emit signalEventChangedDiffMDNGBuzzer                    (value);}
     void setDiffLampTime               (bool     value){ if( value == mDiffLampTime               ) return; mDiffLampTime               = value; emit signalEventChangedDiffLampTime                      (value);}
@@ -512,7 +536,7 @@ public:
     void setDiffStaticFactor           (bool     value){ if( value == mDiffStaticFactor           ) return; mDiffStaticFactor           = value; emit signalEventChangedDiffStaticFactor                  (value);}
     void setDiffScaler                 (bool     value){ if( value == mDiffScaler                 ) return; mDiffScaler                 = value; emit signalEventChangedDiffScaler                        (value);}
     void setDiffDisplayStability       (bool     value){ if( value == mDiffDisplayStability       ) return; mDiffDisplayStability       = value; emit signalEventChangedDiffDisplayStability              (value);}
-    void setDiffMeasureCueSign         (bool     value){ if( value == mDiffMeasureCueSign         ) return; mDiffMeasureCueSign         = value; emit signalEventChangedDiffMeasureCueSign                (value);}
+    //void setDiffMeasureCueSign         (bool     value){ if( value == mDiffMeasureCueSign         ) return; mDiffMeasureCueSign         = value; emit signalEventChangedDiffMeasureCueSign                (value);}
     void setDiffMinStaticWeight        (bool     value){ if( value == mDiffMinStaticWeight        ) return; mDiffMinStaticWeight        = value; emit signalEventChangedDiffMinStaticWeight               (value);}
     void setDiffMinDynamicWeight       (bool     value){ if( value == mDiffMinDynamicWeight       ) return; mDiffMinDynamicWeight       = value; emit signalEventChangedDiffMinDynamicWeight              (value);}
     void setDiffMode                   (bool     value){ if( value == mDiffMode                   ) return; mDiffMode                   = value; emit signalEventChangedDiffMode                          (value);}
@@ -549,6 +573,9 @@ signals:
     void signalEventChangedMDNGMotion                        (quint16  value);
     void signalEventChangedWCNGLamp                          (quint16  value);
     void signalEventChangedWCNGBuzzer                        (quint16  value);
+    void signalEventChangedFilterCoefficient                 (quint16  value);
+    void signalEventChangedMeasureCueSign                    (quint32  value);
+    void signalEventChangedMeasureSection                    (quint32  value);
     void signalEventChangedMDNGLamp                          (quint16  value);
     void signalEventChangedMDNGBuzzer                        (quint16  value);
     void signalEventChangedLampTime                          (quint32  value);
@@ -578,7 +605,7 @@ signals:
     void signalEventChangedStaticFactor                      (quint32  value);
     void signalEventChangedScaler                            (quint32  value);
     void signalEventChangedDisplayStability                  (quint32  value);
-    void signalEventChangedMeasureCueSign                    (quint32  value);
+    //void signalEventChangedMeasureCueSign                    (quint32  value);
     void signalEventChangedMinStaticWeight                   (quint32  value);
     void signalEventChangedMinDynamicWeight                  (quint32  value);
     void signalEventChangedMode                              (quint16  value);
@@ -614,6 +641,9 @@ signals:
     void signalEventChangedDiffMDNGMotion                    (bool     value);
     void signalEventChangedDiffWCNGLamp                      (bool     value);
     void signalEventChangedDiffWCNGBuzzer                    (bool     value);
+    void signalEventChangedDiffFilterCoefficient             (bool     value);
+    void signalEventChangedDiffMeasureCueSign                (bool     value);
+    void signalEventChangedDiffMeasureSection                (bool     value);
     void signalEventChangedDiffMDNGLamp                      (bool     value);
     void signalEventChangedDiffMDNGBuzzer                    (bool     value);
     void signalEventChangedDiffLampTime                      (bool     value);
@@ -643,7 +673,7 @@ signals:
     void signalEventChangedDiffStaticFactor                  (bool     value);
     void signalEventChangedDiffScaler                        (bool     value);
     void signalEventChangedDiffDisplayStability              (bool     value);
-    void signalEventChangedDiffMeasureCueSign                (bool     value);
+    //void signalEventChangedDiffMeasureCueSign                (bool     value);
     void signalEventChangedDiffMinStaticWeight               (bool     value);
     void signalEventChangedDiffMinDynamicWeight              (bool     value);
     void signalEventChangedDiffMode                          (bool     value);
@@ -683,6 +713,9 @@ public slots:
         setDynamicFactor              (remote.mWCSetting.mDynamicFactor          ); setDiffDynamicFactor          (remote.mWCSetting.mDynamicFactor           != pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          );
         setWCNGLamp                   (remote.mWCSetting.mNGLamp                 ); setDiffWCNGLamp               (remote.mWCSetting.mNGLamp                  != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 );
         setWCNGBuzzer                 (remote.mWCSetting.mNGBuzzer               ); setDiffWCNGBuzzer             (remote.mWCSetting.mNGBuzzer                != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               );
+        setFilterCoefficient          (remote.mWCSetting.mFilterCoefficient      ); setDiffFilterCoefficient      (remote.mWCSetting.mFilterCoefficient       != pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient      );
+        setMeasureCueSign             (remote.mWCSetting.mMeasureCueSign         ); setDiffMeasureCueSign         (remote.mWCSetting.mMeasureCueSign          != pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign         );
+        setMeasureSection             (remote.mWCSetting.mMeasureSection         ); setDiffMeasureSection         (remote.mWCSetting.mMeasureSection          != pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection         );
         setMDSenstivity               (remote.mMDSetting.mSenstivity             ); setDiffMDSenstivity           (remote.mMDSetting.mSenstivity              != pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity             );
         setMDNGMotion                 (remote.mMDSetting.mNGMotion               ); setDiffMDNGMotion             (remote.mMDSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGMotion               );
         setMDNGLamp                   (remote.mMDSetting.mNGLamp                 ); setDiffMDNGLamp               (remote.mMDSetting.mNGLamp                  != pProductSP->mCurrPD.mDspForm.mMDSetting.mNGLamp                 );
@@ -705,6 +738,9 @@ public slots:
         qDebug() <<"Remote mWCSetting.mNGMotion                 = " << remote.mWCSetting.mNGMotion                <<"Local mWCSetting.mNGMotion                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               ;
         qDebug() <<"Remote.mWCSetting.mNGLamp                   = " << remote.mWCSetting.mNGLamp                  <<"Local mWCSetting.mNGLamp                  = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 ;
         qDebug() <<"Remote.mWCSetting.mNGBuzzer                 = " << remote.mWCSetting.mNGBuzzer                <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               ;
+        qDebug() <<"Remote.mWCSetting.mFilterCoefficient        = " << remote.mWCSetting.mFilterCoefficient       <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient      ;
+        qDebug() <<"Remote.mWCSetting.mMeasureCueSign           = " << remote.mWCSetting.mMeasureCueSign          <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign         ;
+        qDebug() <<"Remote.mWCSetting.mMeasureSection           = " << remote.mWCSetting.mMeasureSection          <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection         ;
         qDebug() <<"Remote mWCSetting.mEnableEtcError           = " << remote.mWCSetting.mEnableEtcError          <<"Local mWCSetting.mEnableEtcError          = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mEnableEtcError         ;
         qDebug() <<"Remote mWCSetting.mDynamicFactor            = " << remote.mWCSetting.mDynamicFactor           <<"Local mWCSetting.mDynamicFactor           = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          ;
         qDebug() <<"Remote mMDSetting.mSenstivity               = " << remote.mMDSetting.mSenstivity              <<"Local mMDSetting.mSenstivity              = " << pProductSP->mCurrPD.mDspForm.mMDSetting.mSenstivity             ;
@@ -744,7 +780,7 @@ public slots:
         setStaticFactor               (remote.mWCSetting.mStaticFactor             ); setDiffStaticFactor           (remote.mWCSetting.mStaticFactor              != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             );
         setScaler                     (remote.mWCSetting.mScaler                   ); setDiffScaler                 (remote.mWCSetting.mScaler                    != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   );
         setDisplayStability           (remote.mWCSetting.mDisplayStability         ); setDiffDisplayStability       (remote.mWCSetting.mDisplayStability          != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         );
-        setMeasureCueSign             (remote.mWCSetting.mMeasureCueSign           ); setDiffMeasureCueSign         (remote.mWCSetting.mMeasureCueSign            != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           );
+        //setMeasureCueSign             (remote.mWCSetting.mMeasureCueSign           ); setDiffMeasureCueSign         (remote.mWCSetting.mMeasureCueSign            != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           );
         setMinStaticWeight            (remote.mWCSetting.mMinStaticWeight          ); setDiffMinStaticWeight        (remote.mWCSetting.mMinStaticWeight           != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight          );
         setMinDynamicWeight           (remote.mWCSetting.mMinDynamicWeight         ); setDiffMinDynamicWeight       (remote.mWCSetting.mMinDynamicWeight          != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight         );
         setMode                       (remote.mMDSetting.mDetectMode               ); setDiffMode                   (remote.mMDSetting.mDetectMode                != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode               );
@@ -785,7 +821,7 @@ public slots:
         qDebug() <<"Remote mWCSetting.mStaticFactor               = " << remote.mWCSetting.mStaticFactor              <<"Local mWCSetting.mStaticFactor               = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor             ;
         qDebug() <<"Remote mWCSetting.mScaler                     = " << remote.mWCSetting.mScaler                    <<"Local mWCSetting.mScaler                     = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler                   ;
         qDebug() <<"Remote mWCSetting.mDisplayStability           = " << remote.mWCSetting.mDisplayStability          <<"Local mWCSetting.mDisplayStability           = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability         ;
-        qDebug() <<"Remote mWCSetting.mMeasureCueSign             = " << remote.mWCSetting.mMeasureCueSign            <<"Local mWCSetting.mMeasureCueSign             = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           ;
+        //qDebug() <<"Remote mWCSetting.mMeasureCueSign             = " << remote.mWCSetting.mMeasureCueSign            <<"Local mWCSetting.mMeasureCueSign             = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMeasureCueSign           ;
         qDebug() <<"Remote mWCSetting.mMinStaticWeight            = " << remote.mWCSetting.mMinStaticWeight           <<"Local mWCSetting.mMinStaticWeight            = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight          ;
         qDebug() <<"Remote mWCSetting.mMinDynamicWeight           = " << remote.mWCSetting.mMinDynamicWeight          <<"Local mWCSetting.mMinDynamicWeight           = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight         ;
         qDebug() <<"Remote mMDSetting.mDetectMode                 = " << remote.mMDSetting.mDetectMode                <<"Local mMDSetting.mDetectMode                 = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode               ;

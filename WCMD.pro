@@ -90,6 +90,7 @@ HEADERS += \
     source/service/dto/eventdto.h \
     source/service/dto/hmisettingdto.h \
     source/service/dto/informationdto.h \
+    source/service/dto/pdbasesettingdto.h \
     source/service/dto/pdsettingdto.h \
     source/service/dto/pdstatsdto.h \
     source/service/dto/securitydto.h \

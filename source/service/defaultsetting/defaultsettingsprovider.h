@@ -91,13 +91,13 @@ public:
     quint16                           DEV_SETTING_MOTOR_WC_RATIO         = 100                                   ;
     quint16                           DEV_SETTING_MOTOR_RJ_RATIO         = 100                                   ;
     quint32                           DEV_SETTING_SORTER_01_RUNTIME_RATIO= 1500                                  ;
-    quint32                           DEV_SETTING_SORTER_01_OPENTIME     = 400                                   ;
+    quint32                           DEV_SETTING_SORTER_01_OPENTIME     = 0                                     ;
     quint32                           DEV_SETTING_SORTER_02_RUNTIME_RATIO= 1500                                  ;
-    quint32                           DEV_SETTING_SORTER_02_OPENTIME     = 400                                   ;
+    quint32                           DEV_SETTING_SORTER_02_OPENTIME     = 0                                     ;
     quint32                           DEV_SETTING_SORTER_03_RUNTIME_RATIO= 1500                                  ;
-    quint32                           DEV_SETTING_SORTER_03_OPENTIME     = 400                                   ;
+    quint32                           DEV_SETTING_SORTER_03_OPENTIME     = 0                                     ;
     quint32                           DEV_SETTING_SORTER_04_RUNTIME_RATIO= 1500                                  ;
-    quint32                           DEV_SETTING_SORTER_04_OPENTIME     = 400                                   ;
+    quint32                           DEV_SETTING_SORTER_04_OPENTIME     = 0                                     ;
     EnumDef::eMachineMode             DEV_SETTING_MACHINE_MODE           = EnumDef::MACHINE_MODE_COMBI           ;
     quint32                           DEV_SETTING_DP_STABILITY           = 1                                     ;
     quint32                           DEV_SETTING_MEASURE_CUE_SIGN       = 300                                   ;
@@ -131,6 +131,10 @@ public:
     quint16                           HMI_SETTING_SAMPLE_SENSTIVITY_03   = 0                                     ;
     quint16                           HMI_SETTING_SAMPLE_SENSTIVITY_04   = 0                                     ;
     quint16                           HMI_SETTING_SAMPLE_SENSTIVITY_05   = 0                                     ;
+
+    quint16                           PD_DEFAULT_SETTING_FILTER_COEFFICIENT = 1                                 ;
+    quint32                           PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = 200                                ;
+    quint32                           PD_DEFAULT_SETTING_MEASURE_SECTION    = 100                                ;
 
     quint32                           ETC_SETTING_MAX_ERROR              = 100                                   ;
 
@@ -241,8 +245,10 @@ public:
             else if(key == "HMI_SETTING_SAMPLE_SENSTIVITY_03"   ){ HMI_SETTING_SAMPLE_SENSTIVITY_03   = value.toUInt()                                   ;}
             else if(key == "HMI_SETTING_SAMPLE_SENSTIVITY_04"   ){ HMI_SETTING_SAMPLE_SENSTIVITY_04   = value.toUInt()                                   ;}
             else if(key == "HMI_SETTING_SAMPLE_SENSTIVITY_05"   ){ HMI_SETTING_SAMPLE_SENSTIVITY_05   = value.toUInt()                                   ;}
+            else if(key == "PD_DEFAULT_SETTING_FILTER_COEFFICIENT"){ PD_DEFAULT_SETTING_FILTER_COEFFICIENT = value.toUInt()                              ;}
+            else if(key == "PD_DEFAULT_SETTING_MEASURE_CUE_SIGN  "){ PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = value.toUInt()                              ;}
+            else if(key == "PD_DEFAULT_SETTING_MEASURE_SECTION   "){ PD_DEFAULT_SETTING_MEASURE_SECTION    = value.toUInt()                              ;}
             else if(key == "ETC_SETTING_MAX_ERROR"              ){ ETC_SETTING_MAX_ERROR              = value.toUInt()                                   ;}
-
         }
 
         emit signalEventStarted();

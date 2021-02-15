@@ -27,7 +27,7 @@ class MainViewModel : public QObject
     Q_PROPERTY(quint32 wcTareWeight           READ getWCTareWeight            NOTIFY signalEventChangedWCTareWeight        )
     Q_PROPERTY(quint16 wait                   READ getWait                    NOTIFY signalEventChangedWait                )
     Q_PROPERTY(quint16 mdCurrSignal           READ getMDCurrSignal            NOTIFY signalEventChangedMDCurrSignal        )
-    Q_PROPERTY(quint32 wcCurrWeight           READ getWCCurrWeight            NOTIFY signalEventChangedWCCurrWeight        )
+    Q_PROPERTY(qint32  wcCurrWeight           READ getWCCurrWeight            NOTIFY signalEventChangedWCCurrWeight        )
     Q_PROPERTY(quint16 wcCurrEventType        READ getWCCurrEventType         NOTIFY signalEventChangedWCCurrEventType     )
     Q_PROPERTY(int     mdTotalCnt             READ getMDTotalCnt              NOTIFY signalEventChangedMDTotalCnt          )
     Q_PROPERTY(int     mdDetectCnt            READ getMDDetectCnt             NOTIFY signalEventChangedMDDetectCnt         )

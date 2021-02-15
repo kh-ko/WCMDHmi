@@ -25,9 +25,24 @@ UiPanel {
             if(canvasFilter.available )
             {
                 canvasFilter.requestPaint()
-                startLine.anchors.leftMargin     = canvasFilter.width * (graphModel.measuredStartIdx / graphModel.timingPointCnt) ;
-                measuredLine .anchors.leftMargin = canvasFilter.width * (graphModel.measuredIdx      / graphModel.timingPointCnt) ;
-                endLine.anchors.leftMargin       = canvasFilter.width * (graphModel.measuredEndIdx   / graphModel.timingPointCnt) ;
+            }
+
+            for(var i = 0; i < measureAreaContainer.children.length; i ++)
+            {
+                measureAreaContainer.children[i].destroy();
+            }
+
+            if(graphModel.onCommandMeasureAreaCnt() > 0)
+            {
+                for(var i =0; i < graphModel.onCommandMeasureAreaCnt(); i ++)
+                {
+                    var measurePointCnt = graphModel.onCommandGetGraphMeasurePointCntList(i)
+                    var areaWidth = canvasFilter.width * (measurePointCnt / graphModel.timingPointCnt)
+                    var areaStartIdx = graphModel.onCommandGetGraphMeasureStartIdxList(i);
+
+                    var areaStartX = canvasFilter.width * (areaStartIdx / graphModel.timingPointCnt)
+                    measureArea.createObject(measureAreaContainer, {"height":canvasFilter.height, "width":areaWidth, "x" : areaStartX, "y":0});
+                }
             }
         }
 
@@ -46,6 +61,11 @@ UiPanel {
                 canvasFilter.requestPaint()
             }
         }
+    }
+
+    Item{
+        id : measureAreaContainer
+        anchors.fill: canvasFilter
     }
 
     Canvas{
@@ -477,47 +497,77 @@ UiPanel {
     }
 
     Rectangle {
-        id: startLine
+        id: measureCueSignLine
 
-        width:1
+        width:2
         anchors.top: canvasFilter.top
         anchors.topMargin: 0
         anchors.bottom: canvasFilter.bottom
         anchors.bottomMargin: 0
         anchors.left: canvasFilter.left
-        anchors.leftMargin: 0//graphModel.measuredStartIdx
+        anchors.leftMargin: graphModel.timingPointCnt === 0 ? 0 :canvasFilter.width * (graphModel.measuredCueLineIdx / graphModel.timingPointCnt)
 
-        color: "#D9001B"
+        color: "#0085FF"
+        visible: graphModel.isEditable
 
     }
 
     Rectangle {
-        id: endLine
+        id: measureSectionLine
 
-        width:1
+        width:2
         anchors.top: canvasFilter.top
         anchors.topMargin: 0
         anchors.bottom: canvasFilter.bottom
         anchors.bottomMargin: 0
         anchors.left: canvasFilter.left
-        anchors.leftMargin: 0 //200
+        anchors.leftMargin: graphModel.timingPointCnt === 0 ? 0 :canvasFilter.width * (graphModel.measuredSectionLineIdx / graphModel.timingPointCnt)
 
-        color: "#D9001B"
+        color: "#FFFF00"
+        visible: graphModel.isEditable
     }
 
-    Rectangle {
-        id: measuredLine
+    MouseArea{
 
-        width:1
-        anchors.top: canvasFilter.top
-        anchors.topMargin: 0
-        anchors.bottom: canvasFilter.bottom
-        anchors.bottomMargin: 0
-        anchors.left: canvasFilter.left
-        anchors.leftMargin: 0 //200
+        property var selectLine : 0
+        anchors.fill: canvasFilter;
+        drag.target: parent
 
-        color: "#ACACAC"
+        visible: graphModel.isEditable
+
+        onPressed: {
+            console.debug("[debug] onPress mX : " + mouseX + ", measuredLine03.anchors.leftMargin : " + measureCueSignLine.anchors.leftMargin + ", measuredLine04.anchors.leftMargin :" + measureSectionLine.anchors.leftMargin)
+
+            if( mouseX > (measureSectionLine.anchors.leftMargin - 10) && mouseX <  (measureSectionLine.anchors.leftMargin + 10))
+                selectLine = 4;
+            else if( mouseX > (measureCueSignLine.anchors.leftMargin - 10) && mouseX <  (measureCueSignLine.anchors.leftMargin + 10))
+                selectLine = 3;
+            else
+                selectLine = 0;
+        }
+
+        onMouseXChanged:
+        {
+            console.debug("[debug] selectLine" + selectLine)
+
+            if(selectLine == 3){
+                var cueSigneIdx = (mouseX / canvasFilter.width) *  graphModel.timingPointCnt
+
+                console.debug("[debug] cueSigneIdx" + cueSigneIdx)
+
+                graphModel.onCommandSetMeasureCueSignLineIdx(cueSigneIdx)
+            }
+            else if(selectLine == 4){
+                var sectionIdx = (mouseX / canvasFilter.width) *  graphModel.timingPointCnt
+
+                console.debug("[debug] sectionIdx" + cueSigneIdx)
+
+                graphModel.onCommandSetMeasureSectionLineIdx(sectionIdx)
+            }
+        }
     }
+
+    Component{ id : measureArea; Rectangle{ color :"#59D9001B" } }
 
 }
 

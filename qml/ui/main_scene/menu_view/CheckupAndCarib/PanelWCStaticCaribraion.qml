@@ -158,6 +158,18 @@ UiPanel {
             text: (caribratinModel.currentWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
             verticalAlignment: Text.AlignVCenter
 
+            UiButton{
+                height: 80; width: 200
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.leftMargin: 40
+
+                textValue: qsTr("ZERO")
+
+                onSignalEventClicked: {
+                    caribratinModel.onCommandZERO()
+                }
+            }
         }
     }
 

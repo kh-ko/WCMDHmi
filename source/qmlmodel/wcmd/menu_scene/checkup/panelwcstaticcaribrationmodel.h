@@ -51,6 +51,14 @@ signals:
     void    signalEventCompleteCalibration();
 
 public slots:
+    Q_INVOKABLE void onCommandZERO()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendZeroCmd(mDspSeq);
+        //pDspSP->sendWCCaribCmd(mDspSeq, EnumDef::WC_CALIB_TYPE_DYNAMIC);
+    }
+
     Q_INVOKABLE void onCommandCaribration()
     {
         setIsBusy(true);

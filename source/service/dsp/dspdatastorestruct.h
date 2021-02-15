@@ -63,10 +63,10 @@ struct StDspDevSizeSetting{
     unsigned short mDistanceBtwSensor      ;
     unsigned short mDistanceToWeightChecker;
     unsigned short mDistancePhotoToSensor  ;
-    unsigned short mDistToSorter01         ; // [add]
-    unsigned short mDistToSorter02         ; // [add]
-    unsigned short mDistToSorter03         ; // [add]
-    unsigned short mDistToSorter04         ; // [add]
+    unsigned short mDistToSorter01         ;
+    unsigned short mDistToSorter02         ;
+    unsigned short mDistToSorter03         ;
+    unsigned short mDistToSorter04         ;
 };
 
 struct StDspPDCommSetting{
@@ -74,11 +74,11 @@ struct StDspPDCommSetting{
     unsigned short mLength                 ;
     unsigned short mSpeed                  ;
     unsigned int   mMotorAccelerationTime  ;
-    unsigned int   mMotorDecelerationTime  ; // [add]
-    unsigned int   mGroupCount             ; // [add]
-    unsigned short mGroupMotion            ; // [add]
-    unsigned short mGroupLamp              ; // [add]
-    unsigned short mGroupBuzzer            ; // [add]
+    unsigned int   mMotorDecelerationTime  ;
+    unsigned int   mGroupCount             ;
+    unsigned short mGroupMotion            ;
+    unsigned short mGroupLamp              ;
+    unsigned short mGroupBuzzer            ;
 };
 
 struct StDspPDWCSetting{
@@ -91,20 +91,23 @@ struct StDspPDWCSetting{
     unsigned short mNGMotion               ;
     unsigned int   mDynamicFactor          ;
     unsigned short mEnableEtcError         ;
-    unsigned short mNGLamp                 ; // [add]
-    unsigned short mNGBuzzer               ; // [add]
+    unsigned short mNGLamp                 ;
+    unsigned short mNGBuzzer               ;
+    unsigned short mFilterCoefficient      ;
+    unsigned int   mMeasureCueSign         ;
+    unsigned int   mMeasureSection         ;
 };
 
 struct StDspPDMDSetting{
     unsigned short mSenstivity;
     unsigned short mNGMotion  ;
-    unsigned short mNGLamp    ; // [add]
-    unsigned short mNGBuzzer  ; // [add]
+    unsigned short mNGLamp    ;
+    unsigned short mNGBuzzer  ;
 };
 
 struct StDspCommStatus{
     unsigned short mRun;
-    unsigned int   mGroupCurrCount; // [add]
+    unsigned int   mGroupCurrCount;
 };
 
 struct StDspWCStatus{

@@ -92,7 +92,7 @@ Item {
             color: currEventType === EnumDef.ET_WEIGHT_OVER ? "#F59A23":
                    currEventType === EnumDef.ET_WEIGHT_UNDER ? "#D9001B" : "#FFFFFF"
             horizontalAlignment: Text.AlignRight
-            fontSizeMode: Text.FixedSize
+            fontSizeMode: Text.HorizontalFit
             verticalAlignment: Text.AlignVCenter
             font.pointSize: isDevMode? 220 : 250
             font.family: FontManager.nanumGothicBName
@@ -234,6 +234,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}D{i:1;anchors_height:100;anchors_width:50}D{i:3;anchors_width:125}
+    D{i:0;formeditorZoom:0.5}D{i:1}D{i:3}
 }
 ##^##*/

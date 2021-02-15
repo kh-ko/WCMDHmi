@@ -1,8 +1,9 @@
 import QtQuick.Window 2.12
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 import "../../../control"
 import QmlEnumDef 1.0
 import ViewManager 1.0
@@ -72,7 +73,7 @@ Dialog {
         id :panel
 
         anchors.centerIn: parent
-        height: 900 / ViewManager.scale
+        height: 1000 / ViewManager.scale
         scale: ViewManager.scale
 
         UiComboBox {
@@ -133,7 +134,7 @@ Dialog {
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
+            anchors.bottomMargin: 20
 
             ScrollBar.horizontal.interactive: false
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -150,6 +151,26 @@ Dialog {
                 spacing: 10
             }
         }
+
+        /*
+        UiButton{
+            id : btnNewPD
+            height: 60
+            width: 200
+            textValue : qsTr("+ New product")
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+
+            onSignalEventClicked: {
+
+                dialog.close();
+            }
+
+        }
+        */
     }
 
     Component{
@@ -209,3 +230,9 @@ Dialog {
     }
 }
 
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

@@ -27,6 +27,12 @@ UiPanel {
         onSignalEventCompleteCalibration: {
             ViewManager.toast.show(qsTr("Calibration is complete."))
         }
+
+        onSignalEventInvalidCalibration: {
+            var msg = qsTr("Calibration is invalid.<br>Please perform the calibration again.")
+            var msgBox = messageBox.createObject(panel,{"message":msg,"textColor":"#D9001B"})
+            msgBox.open();
+        }
     }
 
     NumberAnimation {
@@ -178,7 +184,7 @@ UiPanel {
             Text{
                 id: labelDynamicFactorr
                 x: 600
-                width : 393
+                width : 370
                 anchors.top : parent.top
                 anchors.topMargin: 0
                 anchors.bottom: parent.bottom
@@ -218,8 +224,9 @@ UiPanel {
                 text: (caribratinModel.dynamicFactor / 10000000.0).toLocaleString(ViewManager.locale, 'f', 7) //caribratinModel.dynamicFactor
 
             }
-
         }
+
+
 
         Item{
             id: boxCurrWeight
@@ -294,6 +301,20 @@ UiPanel {
                 onSignalEventClicked:
                 {
                     caribratinModel.onCommandSetRefWeight(caribratinModel.currWeight)
+                }
+            }
+
+            UiButton{
+                width: 200
+                height: 80
+                textValue: qsTr("ZERO")
+                anchors.left: parent.right
+                anchors.rightMargin: 0
+                anchors.verticalCenter: textCurrWeight.verticalCenter
+
+                onSignalEventClicked:
+                {
+                    caribratinModel.onCommandZERO()
                 }
             }
 
@@ -485,11 +506,20 @@ UiPanel {
         }
     }
 
+    Component
+    {
+        id : messageBox
+        UiMessageBox
+        {
+
+        }
+    }
+
 
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:13}D{i:11}D{i:16}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/

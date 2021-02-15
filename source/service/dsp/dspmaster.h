@@ -377,8 +377,8 @@ private slots:
             if(pItem->mIsFRPacket == true)
             {
                 mFRState = EnumDef::DSP_FR_STATE_SUCC;
-                delete pItem;
             }
+            delete pItem;
         }
 
         setIsConnect(true);

@@ -4,9 +4,9 @@ import FontManager 1.0
 Item {
     property alias horizontalAlignment : textContent.horizontalAlignment
     property alias textValue           : textContent.text
+    property alias textColor           : textContent.color
     property int   rightMargin         : 0
     property int   leftMargin          : 0
-
     id : control
 
     Text{

@@ -78,8 +78,17 @@ signals:
     void    signalEventChangedMovingWeight (quint32 value);
     void    signalEventChangedCurrWeight   (quint32 value);
     void    signalEventCompleteCalibration (             );
+    void    signalEventInvalidCalibration  (             );
 
 public slots:
+    Q_INVOKABLE void onCommandZERO()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        pDspSP->sendZeroCmd(mDspSeq);
+        //pDspSP->sendWCCaribCmd(mDspSeq, EnumDef::WC_CALIB_TYPE_DYNAMIC);
+    }
+
     Q_INVOKABLE void onCommandCaribration()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
@@ -130,10 +139,22 @@ public slots:
         if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_DYNAMIC_CARI)
         {
             PDSettingDto setting = pProductSP->mCurrPD;
-            setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
-            pProductSP->editPD(setting);
 
-            emit signalEventCompleteCalibration();
+            qDebug() << "[debug] df = " << dto.mEvent.mEventValue;
+
+            if(dto.mEvent.mEventValue < 5000000 || dto.mEvent.mEventValue > 15000000)
+            {
+                setting.mDspForm.mWCSetting.mDynamicFactor = 10000000;
+                pProductSP->editPD(setting);
+                emit signalEventInvalidCalibration();
+            }
+            else
+            {
+                setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
+                pProductSP->editPD(setting);
+                emit signalEventCompleteCalibration();
+            }
+
         }
     }
 

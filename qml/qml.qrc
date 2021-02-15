@@ -161,5 +161,18 @@
         <file>ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml</file>
         <file>ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml</file>
         <file>ui/main_scene/menu_view/PanelGraph.qml</file>
+        <file>ui/main_scene/main_view/PanelAutoProductSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelGeneralSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelLengthSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelBeltSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelWeightSetting.qml</file>
+        <file>ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml</file>
+        <file>control/UiMessageBox.qml</file>
+        <file>control/img_btn/left-blue.png</file>
+        <file>control/img_btn/left-yellow.png</file>
+        <file>control/img_btn/right-blue.png</file>
+        <file>control/img_btn/right-yellow.png</file>
+        <file>control/img_btn/error-mark.png</file>
     </qresource>
 </RCC>

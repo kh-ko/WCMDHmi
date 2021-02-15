@@ -200,6 +200,15 @@ Item {
 
         }
     }
+
+    Component
+    {
+        id : panelAutoProductSetting
+        PanelAutoProductSetting
+        {
+
+        }
+    }
 }
 
 
