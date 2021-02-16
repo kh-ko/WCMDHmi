@@ -111,11 +111,14 @@ struct StDspCommStatus{
 };
 
 struct StDspWCStatus{
-    unsigned short mWait      ;
-    unsigned short mAlarm     ;
-    unsigned int   mCurrWeight;
-    unsigned short mErrorType ;
-    unsigned short mIsGraphOn ;
+    unsigned short mWait           ;
+    unsigned short mAlarm          ;
+    unsigned int   mCurrWeight     ;
+    unsigned short mErrorType      ;
+    unsigned short mIsGraphOn      ;
+    unsigned short mMaxPDCntPerMin ; // 분당
+    unsigned short mCurrPDCntPerMin; // 순간 분당속도
+    unsigned short mPDCntPerMin    ; // 분당 생산량
 };
 
 struct StDspMDStatus{

@@ -120,17 +120,73 @@ UiPanel {
             }
         }
 
+
+
+
+
+        /*
+MaxPDCntPerMin
+CurrPDCntPerMin
+PDCntPerMin
+*/
         UiLabelSystem
         {
-            id: labelRuntimeGraph
-            width: 231
-            height: 80
-            anchors.top: inputMinMax.bottom
-            anchors.topMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
+            id : labelMaxPDCntPerMin
 
-            textValue: qsTr("· Runtime graph")
+            height: 60; width: 110
+            anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0
+
+            textValue: qsTr("· Max PD")
+        }
+
+        UiLabelContent {
+            id: textMaxPDCntPerMin
+            width: 115
+            height: 60
+            textValue: model.maxPDCntPerMin
+            anchors.left: labelMaxPDCntPerMin.right
+            anchors.leftMargin: 10
+            anchors.verticalCenter: labelMaxPDCntPerMin.verticalCenter
+        }
+
+        UiLabelSystem
+        {
+            id : labelCurrPDCntPerMin
+
+            height: 60; width: 118
+            anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textMaxPDCntPerMin.right; anchors.leftMargin: 10
+
+            textValue: qsTr("· Mmt PD")
+        }
+
+        UiLabelContent {
+            id: textCurrPDCntPerMin
+            width: 115
+            height: 60
+            textValue: model.currPDCntPerMin
+            anchors.left: labelCurrPDCntPerMin.right
+            anchors.leftMargin: 10
+            anchors.verticalCenter: labelCurrPDCntPerMin.verticalCenter
+        }
+
+        UiLabelSystem
+        {
+            id : labelPDCntPerMin
+
+            height: 60; width: 105
+            anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textCurrPDCntPerMin.right; anchors.leftMargin: 10
+
+            textValue: qsTr("· Min PD")
+        }
+
+        UiLabelContent {
+            id: textPDCntPerMin
+            width: 115
+            height: 60
+            textValue: model.pdCntPerMin
+            anchors.left: labelPDCntPerMin.right
+            anchors.leftMargin: 10
+            anchors.verticalCenter: labelPDCntPerMin.verticalCenter
         }
 
 /*
@@ -151,10 +207,24 @@ UiPanel {
             }
         }
 */
+
+        UiLabelSystem
+        {
+            id: labelRuntimeGraph
+            width: 231
+            height: 80
+            anchors.top: labelMaxPDCntPerMin.bottom
+            anchors.topMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+
+            textValue: qsTr("· Runtime graph")
+        }
+
         WeightCheckerGraph{
             id : graphRuntime
             anchors.top : labelRuntimeGraph.bottom
-            anchors.topMargin: 70
+            anchors.topMargin: 10
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             anchors.left: parent.left
@@ -211,7 +281,7 @@ UiPanel {
             max : 500
 
             numberValue: model.filterCoefficient
-            isDisable: ! model.isEditable
+            //isDisable: ! model.isEditable
             isHighlight: model.isEditFilterCoefficient
 
             onSignalChangeValue:
@@ -243,7 +313,7 @@ UiPanel {
                 max : 99999
 
                 numberValue: model.measureCueSign
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
                 isHighlight: model.isEditMeasureCueSign
 
                 onSignalChangeValue:
@@ -308,7 +378,7 @@ UiPanel {
                 max : 99999
 
                 numberValue: model.measureSection
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
                 isHighlight: model.isEditMeasureSection
 
                 onSignalChangeValue:
@@ -397,10 +467,9 @@ UiPanel {
 
         isPlay : true
 
-        visible: model.isEditable                &&(
-                 model.isEditFilterCoefficient    ||
+        visible: model.isEditFilterCoefficient    ||
                  model.isEditMeasureCueSign       ||
-                 model.isEditMeasureSection)
+                 model.isEditMeasureSection
 
         type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")
@@ -449,6 +518,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:1}D{i:10}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/

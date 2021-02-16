@@ -18,6 +18,9 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(int      minRange                READ      getMinRange                    NOTIFY      signalEventChangedMinRange               )
     Q_PROPERTY(int      maxRange                READ      getMaxRange                    NOTIFY      signalEventChangedMaxRange               )
     Q_PROPERTY(qint32   eventValue              READ      getEventValue                  NOTIFY      signalEventChangedEventValue             )
+    Q_PROPERTY(qint16   maxPDCntPerMin          READ      getMaxPDCntPerMin              NOTIFY      signalEventChangedMaxPDCntPerMin         )
+    Q_PROPERTY(qint16   currPDCntPerMin         READ      getCurrPDCntPerMin             NOTIFY      signalEventChangedCurrPDCntPerMin        )
+    Q_PROPERTY(qint16   pdCntPerMin             READ      getPDCntPerMin                 NOTIFY      signalEventChangedPDCntPerMin            )
     Q_PROPERTY(int      range                   READ      getRange                       NOTIFY      signalEventChangedRange                  )
     Q_PROPERTY(int      measuredStartIdx        READ      getMeasuredStartIdx            NOTIFY      signalEventChangedMeasuredStartIdx       )
     Q_PROPERTY(int      measuredCueLineIdx      READ      getMeasuredCueLineIdx          NOTIFY      signalEventChangedMeasuredCueLineIdx     )
@@ -51,6 +54,9 @@ public:
     bool                    mIsRawGraphOn           = false;
     bool                    mIsPause                = false;
     quint32                 mEventValue             = 0;
+    quint16                 mMaxPDCntPerMin         = 0;
+    quint16                 mCurrPDCntPerMin        = 0;
+    quint16                 mPDCntPerMin            = 0;
     int                     mRange                  = 0;
     int                     mMeasuredStartIdx       = -1;
     int                     mMeasuredCueLineIdx     = -1;
@@ -77,6 +83,9 @@ public:
     int     getMinRange               (){return *ptrMinRang()             ;}
     int     getMaxRange               (){return *ptrMaxRang()             ;}
     qint32  getEventValue             (){return mEventValue               ;}
+    qint16  getMaxPDCntPerMin         (){return mMaxPDCntPerMin           ;}
+    qint16  getCurrPDCntPerMin        (){return mCurrPDCntPerMin          ;}
+    qint16  getPDCntPerMin            (){return mPDCntPerMin              ;}
     int     getRange                  (){return mRange                    ;}
     int     getMeasuredStartIdx       (){return mMeasuredStartIdx         ;}
     int     getMeasuredCueLineIdx     (){return mMeasuredCueLineIdx       ;}
@@ -95,7 +104,7 @@ public:
     bool    getIsEditMeasureCueSign   (){return mIsEditMeasureCueSign     ;}
     bool    getIsEditMeasureSection   (){return mIsEditMeasureSection     ;}
 
-    void setIsEditable      (bool value){if(value == mIsEditable      ) return; mIsEditable       = value; qDebug() << "[debug]isEditable : " << mIsEditable; if(mIsEditable == false) loadPDSetting(); emit signalEventChangedIsEditable      (value);}
+    void setIsEditable      (bool value){if(value == mIsEditable      ) return; mIsEditable       = value; emit signalEventChangedIsEditable      (value);}
     void setIsRawGraphOn    (bool value){if(value == mIsRawGraphOn    ) return; mIsRawGraphOn     = value; emit signalEventChangedIsRawGraphOn    (value);}
     void setIsPause         (bool value){if(value == mIsPause         ) return; mIsPause          = value; emit signalEventChangedIsPause         (value);}
     void setMinRange        (int  value, bool force)
@@ -133,6 +142,9 @@ public:
         emit signalEventChangedMaxRange(value);
     }
     void setEventValue             (quint32 value){if(value == mEventValue             ) return; mEventValue              = value; emit signalEventChangedEventValue             (value);}
+    void setMaxPDCntPerMin         (qint16  value){if(value == mMaxPDCntPerMin         ) return; mMaxPDCntPerMin          = value; emit signalEventChangedMaxPDCntPerMin         (value);}
+    void setCurrPDCntPerMin        (qint16  value){if(value == mCurrPDCntPerMin        ) return; mCurrPDCntPerMin         = value; emit signalEventChangedCurrPDCntPerMin        (value);}
+    void setPDCntPerMin            (qint16  value){if(value == mPDCntPerMin            ) return; mPDCntPerMin             = value; emit signalEventChangedPDCntPerMin            (value);}
     void setRange                  (int     value){if(value == mRange                  ) return; mRange                   = value; emit signalEventChangedRange                  (value);}
     void setMeasuredStartIdx       (int     value){if(value == mMeasuredStartIdx       ) return; mMeasuredStartIdx        = value; emit signalEventChangedMeasuredStartIdx       (value);}
     void setMeasuredCueLineIdx     (int     value){if(value == mMeasuredCueLineIdx     ) return; mMeasuredCueLineIdx      = value; emit signalEventChangedMeasuredCueLineIdx     (value);}
@@ -155,6 +167,9 @@ signals:
     void signalEventChangedMinRange               (int     value);
     void signalEventChangedMaxRange               (int     value);
     void signalEventChangedEventValue             (quint32 value);
+    void signalEventChangedMaxPDCntPerMin         (qint16  value);
+    void signalEventChangedCurrPDCntPerMin        (qint16  value);
+    void signalEventChangedPDCntPerMin            (qint16  value);
     void signalEventChangedRange                  (int     value);
     void signalEventChangedMeasuredStartIdx       (int     value);
     void signalEventChangedMeasuredCueLineIdx     (int     value);
@@ -306,12 +321,18 @@ public slots:
 
     Q_INVOKABLE void onCommandSetMeasureCueSign(quint32 value)
     {
-        onCommandSetMeasureCueSignLineIdx(getMeasuredStartIdx() + (value / mXTimeInterval));
+        if(mIsEditable == false)
+            setMeasureCueSign(value);
+        else
+            onCommandSetMeasureCueSignLineIdx(getMeasuredStartIdx() + (value / mXTimeInterval));
     }
 
     Q_INVOKABLE void onCommandSetMeasureSection(quint32 value)
     {
-        onCommandSetMeasureSectionLineIdx(getMeasuredCueLineIdx() + (value / mXTimeInterval));
+        if(mIsEditable == false)
+            setMeasureSection(value);
+        else
+            onCommandSetMeasureSectionLineIdx(getMeasuredCueLineIdx() + (value / mXTimeInterval));
     }
 
 public slots:
@@ -319,7 +340,10 @@ public slots:
     {
         CHECK_FALSE_RETURN((dspSeq == mDspSeq));
 
-        setEventValue(dto.mWCStatus.mCurrWeight);
+        setEventValue     (dto.mWCStatus.mCurrWeight     );
+        setMaxPDCntPerMin (dto.mWCStatus.mMaxPDCntPerMin );
+        setCurrPDCntPerMin(dto.mWCStatus.mCurrPDCntPerMin);
+        setPDCntPerMin    (dto.mWCStatus.mPDCntPerMin    );
     }
 
     void onAddedWCG(quint64 dspSeq, DspWCGDto dto)
