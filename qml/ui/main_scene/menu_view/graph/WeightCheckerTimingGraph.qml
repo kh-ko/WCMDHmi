@@ -15,7 +15,6 @@ UiPanel {
 
     type : QmlEnumDef.PANEL_TYPE_DROP
 
-
     Component.onCompleted: {
     }
 
@@ -34,7 +33,7 @@ UiPanel {
 
             if(graphModel.onCommandMeasureAreaCnt() > 0)
             {
-                for(var i =0; i < graphModel.onCommandMeasureAreaCnt(); i ++)
+                for( i =0; i < graphModel.onCommandMeasureAreaCnt(); i ++)
                 {
                     var measurePointCnt = graphModel.onCommandGetGraphMeasurePointCntList(i)
                     var areaWidth = canvasFilter.width * (measurePointCnt / graphModel.timingPointCnt)
@@ -508,7 +507,7 @@ UiPanel {
         anchors.leftMargin: graphModel.timingPointCnt === 0 ? 0 :canvasFilter.width * (graphModel.measuredCueLineIdx / graphModel.timingPointCnt)
 
         color: "#0085FF"
-        visible: graphModel.isEditable
+        visible: graphModel.measuredStartIdx > 0
 
     }
 
@@ -524,7 +523,7 @@ UiPanel {
         anchors.leftMargin: graphModel.timingPointCnt === 0 ? 0 :canvasFilter.width * (graphModel.measuredSectionLineIdx / graphModel.timingPointCnt)
 
         color: "#FFFF00"
-        visible: graphModel.isEditable
+        visible: graphModel.measuredStartIdx > 0
     }
 
     MouseArea{
@@ -533,7 +532,7 @@ UiPanel {
         anchors.fill: canvasFilter;
         drag.target: parent
 
-        visible: graphModel.isEditable
+        visible: graphModel.measuredStartIdx > 0
 
         onPressed: {
             console.debug("[debug] onPress mX : " + mouseX + ", measuredLine03.anchors.leftMargin : " + measureCueSignLine.anchors.leftMargin + ", measuredLine04.anchors.leftMargin :" + measureSectionLine.anchors.leftMargin)
@@ -563,6 +562,28 @@ UiPanel {
                 console.debug("[debug] sectionIdx" + cueSigneIdx)
 
                 graphModel.onCommandSetMeasureSectionLineIdx(sectionIdx)
+            }
+        }
+    }
+
+    Rectangle {
+        height: 80; width: 80
+        anchors.bottom: parent.bottom; anchors.bottomMargin: 20; anchors.right: parent.right; anchors.rightMargin: 20
+
+        color : "#59000000"
+        radius: 40
+
+        Image{
+            anchors.verticalCenter: parent.verticalCenter; anchors.horizontalCenter: parent.horizontalCenter
+
+            source: graphModel.isTimingGraphPause ? "/ui/main_scene/img/graph/play.png" : "/ui/main_scene/img/graph/pause.png"
+        }
+
+        MouseArea{
+            anchors.fill: parent
+
+            onClicked: {
+                graphModel.onCommandSetTimingGraphPlayPause()
             }
         }
     }

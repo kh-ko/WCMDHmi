@@ -14,7 +14,7 @@ class PanelWCDynamicCalibrationModel : public QObject
     Q_PROPERTY(quint16 pdNum          READ getPdNum         NOTIFY signalEventChangedPdNum        )
     Q_PROPERTY(QString pdName         READ getPdName        NOTIFY signalEventChangedPdName       )
     Q_PROPERTY(quint32 dynamicFactor  READ getDynamicFactor NOTIFY signalEventChangedDynamicFactor)
-    Q_PROPERTY(quint32 currWeight     READ getCurrWeight    NOTIFY signalEventChangedCurrWeight   )
+    Q_PROPERTY(qint32  currWeight     READ getCurrWeight    NOTIFY signalEventChangedCurrWeight   )
     Q_PROPERTY(quint32 refWeight      READ getRefWeight     NOTIFY signalEventChangedRefWeight    )
     Q_PROPERTY(quint32 movingWeight   READ getMovingWeight  NOTIFY signalEventChangedMovingWeight )
 
@@ -24,7 +24,7 @@ public:
     quint16 mPdNum        ;
     QString mPdName       ;
     quint32 mDynamicFactor;
-    quint32 mCurrWeight   ;
+    qint32  mCurrWeight   ;
     quint32 mRefWeight    ;
     quint32 mMovingWeight ;
 
@@ -32,7 +32,7 @@ public:
     quint16 getPdNum        (){ return mPdNum        ;}
     QString getPdName       (){ return mPdName       ;}
     quint32 getDynamicFactor(){ return mDynamicFactor;}
-    quint32 getCurrWeight   (){ return mCurrWeight   ;}
+    qint32  getCurrWeight   (){ return mCurrWeight   ;}
     quint32 getRefWeight    (){ return mRefWeight    ;}
     quint32 getMovingWeight (){ return mMovingWeight ;}
 
@@ -40,7 +40,7 @@ public:
     void    setPdNum        (quint16 value){ if(value == mPdNum        ) return; mPdNum         = value; emit signalEventChangedPdNum        (value);}
     void    setPdName       (QString value){ if(value == mPdName       ) return; mPdName        = value; emit signalEventChangedPdName       (value);}
     void    setDynamicFactor(quint32 value){ if(value == mDynamicFactor) return; mDynamicFactor = value; emit signalEventChangedDynamicFactor(value);}
-    void    setCurrWeight   (quint32 value){ if(value == mCurrWeight   ) return; mCurrWeight    = value; emit signalEventChangedCurrWeight   (value);}
+    void    setCurrWeight   (qint32  value){ if(value == mCurrWeight   ) return; mCurrWeight    = value; emit signalEventChangedCurrWeight   (value);}
     void    setRefWeight    (quint32 value){ if(value == mRefWeight    ) return; mRefWeight     = value; emit signalEventChangedRefWeight    (value);}
     void    setMovingWeight (quint32 value){ if(value == mMovingWeight ) return; mMovingWeight  = value; emit signalEventChangedMovingWeight (value);}
 
@@ -76,7 +76,7 @@ signals:
     void    signalEventChangedDynamicFactor(quint32 value);
     void    signalEventChangedRefWeight    (quint32 value);
     void    signalEventChangedMovingWeight (quint32 value);
-    void    signalEventChangedCurrWeight   (quint32 value);
+    void    signalEventChangedCurrWeight   (qint32  value);
     void    signalEventCompleteCalibration (             );
     void    signalEventInvalidCalibration  (             );
 

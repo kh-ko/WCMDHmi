@@ -132,7 +132,7 @@ public:
     quint16                           HMI_SETTING_SAMPLE_SENSTIVITY_04   = 0                                     ;
     quint16                           HMI_SETTING_SAMPLE_SENSTIVITY_05   = 0                                     ;
 
-    quint16                           PD_DEFAULT_SETTING_FILTER_COEFFICIENT = 1                                 ;
+    quint16                           PD_DEFAULT_SETTING_FILTER_COEFFICIENT = 25                                 ;
     quint32                           PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = 200                                ;
     quint32                           PD_DEFAULT_SETTING_MEASURE_SECTION    = 100                                ;
 

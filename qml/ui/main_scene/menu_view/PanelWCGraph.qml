@@ -324,28 +324,14 @@ PDCntPerMin
 
             }
 
-            Image{
-
-                anchors.verticalCenter: inputMeasureCueSign.verticalCenter; anchors.left: inputMeasureCueSign.left; anchors.leftMargin: 0
-
-                visible: model.diffCueSignGab
-                source: "/control/img_btn/error-mark.png"
-
-            }
-
             UiButton{
-
-                Component.onCompleted: {
-                    console.debug("[debug]model.isEditable : " + model.isEditable)
-                }
-
                 height: 60; width: (inputMeasureCueSign.width / 2) - 10
                 anchors.top: inputMeasureCueSign.bottom; anchors.topMargin: 10; anchors.left: inputMeasureCueSign.left; anchors.leftMargin: 0
 
                 isImage : true; imageSource:"/control/img_btn/left-blue.png"
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
                 onSignalEventClicked: {
-                    model.onCommandSetMeasureCueSignLineIdx(model.measuredCueLineIdx - 1)
+                    model.onCommandSetMeasureCueSign(model.measureCueSign - 10)
                 }
 
             }
@@ -355,10 +341,10 @@ PDCntPerMin
                 anchors.top: inputMeasureCueSign.bottom; anchors.topMargin: 10; anchors.right: inputMeasureCueSign.right; anchors.rightMargin: 0
 
                 isImage : true; imageSource:"/control/img_btn/right-blue.png"
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
 
                 onSignalEventClicked: {
-                    model.onCommandSetMeasureCueSignLineIdx(model.measuredCueLineIdx + 1)
+                    model.onCommandSetMeasureCueSign(model.measureCueSign + 10)
                 }
 
             }
@@ -388,25 +374,15 @@ PDCntPerMin
                 }
             }
 
-
-            Image{
-
-                anchors.verticalCenter: inputMeasureSection.verticalCenter; anchors.left: inputMeasureSection.left; anchors.leftMargin: 0
-
-                visible: model.diffCueSignGab
-                source: "/control/img_btn/error-mark.png"
-
-            }
-
             UiButton{
                 height: 60; width: (inputMeasureSection.width / 2) - 10
                 anchors.top: inputMeasureSection.bottom; anchors.topMargin: 10; anchors.left: inputMeasureSection.left; anchors.leftMargin: 0
 
                 isImage : true; imageSource:"/control/img_btn/left-yellow.png"
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
 
                 onSignalEventClicked: {
-                    model.onCommandSetMeasureSectionLineIdx(model.measuredSectionLineIdx - 1)
+                    model.onCommandSetMeasureSection(model.measureSection - 10);
                 }
             }
 
@@ -415,10 +391,10 @@ PDCntPerMin
                 anchors.top: inputMeasureSection.bottom; anchors.topMargin: 10; anchors.right: inputMeasureSection.right; anchors.rightMargin: 0
 
                 isImage : true; imageSource:"/control/img_btn/right-yellow.png"
-                isDisable: ! model.isEditable
+                //isDisable: ! model.isEditable
 
                 onSignalEventClicked: {
-                    model.onCommandSetMeasureSectionLineIdx(model.measuredSectionLineIdx + 1)
+                    model.onCommandSetMeasureSection(model.measureSection + 10);
                 }
             }
 

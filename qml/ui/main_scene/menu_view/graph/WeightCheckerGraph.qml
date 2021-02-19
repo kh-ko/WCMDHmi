@@ -72,7 +72,7 @@ UiPanel {
             {
                 var value = panel.graphModel.onCommandGetRuntimeRawPointValue(i);
                 var yPosition = height - (height * (value / graphModel.range))
-                var xPosition = width * (i / graphModel.totalRuntimePointCnt)
+                var xPosition = width * (i / graphModel.runtimePointCnt)
 
                 if(i === 0)
                 {
@@ -122,7 +122,7 @@ UiPanel {
             {
                 var value = panel.graphModel.onCommandGetRuntimePointValue(i);
                 var yPosition = height - (height * (value / graphModel.range))
-                var xPosition = width * (i / graphModel.totalRuntimePointCnt)
+                var xPosition = width * (i / graphModel.runtimePointCnt)
 
                 if(i === 0)
                 {

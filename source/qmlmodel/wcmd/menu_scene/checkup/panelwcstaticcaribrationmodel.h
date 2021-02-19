@@ -11,21 +11,21 @@ class PanelWCStaticCaribrationModel : public QObject
     Q_OBJECT
     Q_PROPERTY(bool    isBusy            READ getIsBusy           NOTIFY signalEventChangedIsBusy        )
     Q_PROPERTY(quint32 standardWeight    READ getStandardWeight   NOTIFY signalEventChangedStandardWeight)
-    Q_PROPERTY(quint32 currentWeight     READ getCurrentWeight    NOTIFY signalEventChangedCurrentWeight )
+    Q_PROPERTY(qint32  currentWeight     READ getCurrentWeight    NOTIFY signalEventChangedCurrentWeight )
 
 public:
     quint64 mDspSeq        = 0;
     bool    mIsBusy        ;
     quint32 mStandardWeight;
-    quint32 mCurrentWeight ;
+    qint32  mCurrentWeight ;
 
     bool    getIsBusy        (){ return mIsBusy        ;}
     quint32 getStandardWeight(){ return mStandardWeight;}
-    quint32 getCurrentWeight (){ return mCurrentWeight ;}
+    qint32  getCurrentWeight (){ return mCurrentWeight ;}
 
     void    setIsBusy        (bool    value) { if(value == mIsBusy)         return; mIsBusy         = value; emit signalEventChangedIsBusy        (value);}
     void    setStandardWeight(quint32 value) { if(value == mStandardWeight) return; mStandardWeight = value; emit signalEventChangedStandardWeight(value);}
-    void    setCurrentWeight (quint32 value) { if(value == mCurrentWeight ) return; mCurrentWeight  = value; emit signalEventChangedCurrentWeight (value);}
+    void    setCurrentWeight (qint32  value) { if(value == mCurrentWeight ) return; mCurrentWeight  = value; emit signalEventChangedCurrentWeight (value);}
 
     explicit PanelWCStaticCaribrationModel(QObject *parent = nullptr) : QObject(parent)
     {
@@ -45,7 +45,7 @@ public:
 signals:
     void    signalEventChangedIsBusy        (bool    value);
     void    signalEventChangedStandardWeight(quint32 value);
-    void    signalEventChangedCurrentWeight (quint32 value);
+    void    signalEventChangedCurrentWeight (qint32  value);
 
     void    signalCommandWeightCarib(quint16 deviceSeq, quint16 type);
     void    signalEventCompleteCalibration();

@@ -174,5 +174,7 @@
         <file>control/img_btn/right-blue.png</file>
         <file>control/img_btn/right-yellow.png</file>
         <file>control/img_btn/error-mark.png</file>
+        <file>ui/main_scene/img/graph/pause.png</file>
+        <file>ui/main_scene/img/graph/play.png</file>
     </qresource>
 </RCC>
