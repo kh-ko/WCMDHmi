@@ -29,6 +29,7 @@
 #define DSP_COMMANDBLOCK_STARTADDR_RUN              ((quint64)((char *)(&(((StDspCommand *)(0x00))->mRun                ))))/2
 #define DSP_COMMANDBLOCK_STARTADDR_WCGON            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mWCGraphOn          ))))/2
 #define DSP_COMMANDBLOCK_STARTADDR_MDGON            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mMDGraphOn          ))))/2
+#define DSP_COMMANDBLOCK_STARTADDR_REF_V_RESET      ((quint64)((char *)(&(((StDspCommand *)(0x00))->mRefVoltageReset    ))))/2
 #define DSP_COMMANDBLOCK_STARTADDR_DEVID            ((quint64)((char *)(&(((StDspCommand *)(0x00))->mDeviceID           ))))/2
 #define DSP_COMMANDBLOCK_STARTADDR_GROUP_CURR_COUNT ((quint64)((char *)(&(((StDspCommand *)(0x00))->mResetGroupCurrCount))))/2
 
@@ -221,6 +222,12 @@ public:
         return mCommandBlock.mData.mMDGraphOn;
     }
 
+    unsigned short getCmdRefVoltageReset()
+    {
+        return mCommandBlock.mData.mRefVoltageReset;
+    }
+
+
     DspDevSettingDto getDevSettingDto()
     {
         DspDevSettingDto ret;
@@ -297,6 +304,10 @@ public:
     void setCmdMDGraphOn(unsigned short value)
     {
         mCommandBlock.mData.mMDGraphOn = value;
+    }
+    void setCmdRefVoltageReset(unsigned short value)
+    {
+        mCommandBlock.mData.mWCGraphOn = value;
     }
     void setCmdDeviceID(unsigned int value)
     {

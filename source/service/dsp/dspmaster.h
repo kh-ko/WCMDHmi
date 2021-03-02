@@ -142,6 +142,22 @@ public :
             delete pItem;
         }
     }
+    void sendRefVoltageReset(unsigned short value)
+    {
+        DspSendQueueItem * pItem = new (DspSendQueueItem);
+        mSndDataStore.setCmdRefVoltageReset(value);
+
+        pItem->mPacket.setFuncCode(DSP_FUNCCODE_MULTIBLOCK_WRITE);
+        pItem->mPacket.addWriteBlock(mSndDataStore.mCommandBlock .mTag.mGroupID, DSP_COMMANDBLOCK_STARTADDR_REF_V_RESET, 1, mSndDataStore.mCommandBlock.mTag.mDataPtr);
+        if(mSendQueue.push(pItem))
+        {
+            sendPacketInQueue();
+        }
+        else
+        {
+            delete pItem;
+        }
+    }
     void sendDevID(unsigned int value)
     {
         DspSendQueueItem * pItem = new (DspSendQueueItem);

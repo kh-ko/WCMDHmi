@@ -83,8 +83,8 @@ public:
     int                               TR_LAST_N_VALUE                    = 100;
     QString                           BACKUP_LAST_DATE                   = "2020/01/01";
     quint32                           DEV_SETTING_BUZZERTIME             = 1000                                  ;
-    quint32                           DEV_SETTING_LAMPTIME               = 1000                                  ;                                   ;
-    quint32                           DEV_SETTING_SPEED_CONVERTER        = 2070000                               ;
+    quint32                           DEV_SETTING_LAMPTIME               = 1000                                  ;
+    quint32                           DEV_SETTING_SPEED_CONVERTER        = 2110000                               ;
     EnumDef::eMotorDirection          DEV_SETTING_MOTOR_DIR              = EnumDef::MOTOR_DIRECTION_RIGHT_TO_LEFT;
     EnumDef::eMotorType               DEV_SETTING_MOTOR_TYPE             = EnumDef::MOTORTYPE_MOTOR_3_PHASE      ;
     quint16                           DEV_SETTING_MOTOR_MD_RATIO         = 100                                   ;
@@ -108,6 +108,7 @@ public:
     quint16                           DEV_SETTING_WC_PHOTO_IS_ON         = true                                  ;
     quint32                           DEV_SETTING_STATIC_STANDARD_WEIGHT = 10000                                 ;
     quint32                           DEV_SETTING_DYNAMIC_BASE_WEIGHT    = 10000                                 ;
+    qint16                            DEV_SETTING_REF_VOLTAGE            = 4465                                  ;
     EnumDef::eSensorMode              DEV_SETTING_DETECT_MODE            = EnumDef::SENS_MODE_INDEPENDENT        ;
     quint32                           DEV_SETTING_DETECT_DETECT_TIME     = 500                                   ;
     quint32                           DEV_SETTING_RUN_DETECT_TIME        = 1000                                  ;
@@ -223,6 +224,7 @@ public:
             else if(key == "DEV_SETTING_WC_PHOTO_IS_ON"         ){ DEV_SETTING_WC_PHOTO_IS_ON         = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_STATIC_STANDARD_WEIGHT" ){ DEV_SETTING_STATIC_STANDARD_WEIGHT = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_DYNAMIC_BASE_WEIGHT"    ){ DEV_SETTING_DYNAMIC_BASE_WEIGHT    = value.toUInt()                                   ;}
+            else if(key == "DEV_SETTING_REF_VOLTAGE"            ){ DEV_SETTING_REF_VOLTAGE            = value.toInt()                                    ;}
             else if(key == "DEV_SETTING_DETECT_MODE"            ){ DEV_SETTING_DETECT_MODE            = (EnumDef::eSensorMode)value.toUInt()             ;}
             else if(key == "DEV_SETTING_DETECT_DETECT_TIME"     ){ DEV_SETTING_DETECT_DETECT_TIME     = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_RUN_DETECT_TIME"        ){ DEV_SETTING_RUN_DETECT_TIME        = value.toUInt()                                   ;}

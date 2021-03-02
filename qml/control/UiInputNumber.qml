@@ -17,6 +17,7 @@ Item {
 
     property alias  postfix      : inputText.postfix
 
+    property var    inputType   : QmlEnumDef.INT_MODE
     property string fillZero    : ""
     property bool   isLocaleStyle : true
     property var    numberValue    : 1000
@@ -57,7 +58,7 @@ Item {
         anchors.rightMargin: 0
 
         textHAlign: Text.AlignRight
-        textInputType : QmlEnumDef.INT_MODE
+        textInputType : control.inputType //QmlEnumDef.INT_MODE
 
         labelText : control.labelText
         isLocaleStyle: control.isLocaleStyle

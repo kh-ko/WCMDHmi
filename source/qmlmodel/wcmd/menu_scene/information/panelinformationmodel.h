@@ -9,6 +9,7 @@
 class PanelInformationModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool    isEnableWC                   READ getIsEnableWC                  NOTIFY  signalEventChangedIsEnableWC           )
     Q_PROPERTY(QString company                      READ getCompany                     NOTIFY  signalEventChangedCompany              )
     Q_PROPERTY(QString model                        READ getModel                       NOTIFY  signalEventChangedModel                )
     Q_PROPERTY(int     deviceNumber                 READ getDeviceNumber                NOTIFY  signalEventChangedDeviceNumber         )
@@ -42,6 +43,7 @@ class PanelInformationModel : public QObject
 
 public:
     quint64 mDspSeq                    = 0;
+    bool    mIsEnableWC                = true;
     QString mCompany                   ;
     QString mModel                     ;
     int     mDeviceNumber              ;
@@ -73,6 +75,7 @@ public:
     bool    mIsEditDistToSorter03      ;
     bool    mIsEditDistToSorter04      ;
 
+    bool    getIsEnableWC                (){ return mIsEnableWC                ;}
     QString getCompany                   (){ return mCompany                   ;}
     QString getModel                     (){ return mModel                     ;}
     int     getDeviceNumber              (){ return mDeviceNumber              ;}
@@ -104,6 +107,7 @@ public:
     bool    getIsEditDistToSorter03      (){ return mIsEditDistToSorter03      ;}
     bool    getIsEditDistToSorter04      (){ return mIsEditDistToSorter04      ;}
 
+    void    setIsEnableWC                (bool     value){ if(value == mIsEnableWC                ) return; mIsEnableWC                 = value; emit signalEventChangedIsEnableWC                (value);}
     void    setCompany                   (QString  value){ if(value == mCompany                   ) return; mCompany                    = value; emit signalEventChangedCompany                   (value);}
     void    setModel                     (QString  value){ if(value == mModel                     ) return; mModel                      = value; emit signalEventChangedModel                     (value);}
     void    setDeviceNumber              (int      value){ if(value == mDeviceNumber              ) return; mDeviceNumber               = value; setIsEditDeviceNumber        (true);             emit signalEventChangedDeviceNumber              (value);}
@@ -188,6 +192,7 @@ public:
     }
 
 signals:
+    void signalEventChangedIsEnableWC                (bool     value);
     void signalEventChangedCompany                   (QString  value);
     void signalEventChangedModel                     (QString  value);
     void signalEventChangedDeviceNumber              (int      value);
@@ -271,6 +276,7 @@ public slots:
     Q_INVOKABLE void onCommandSetDistToSorter02            (quint16  value){setDistToSorter02       (value);}
     Q_INVOKABLE void onCommandSetDistToSorter03            (quint16  value){setDistToSorter03       (value);}
     Q_INVOKABLE void onCommandSetDistToSorter04            (quint16  value){setDistToSorter04       (value);}
+    Q_INVOKABLE void onCommandRefVoltageReset              (              ){pDspSP->sendAllRefVoltageResetCmd();}
 
 };
 

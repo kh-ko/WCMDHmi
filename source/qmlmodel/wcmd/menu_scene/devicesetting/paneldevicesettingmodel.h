@@ -41,6 +41,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint32 staticFactor                      READ getStaticFactor                  NOTIFY  signalEventChangedStaticFactor              )
     Q_PROPERTY(quint32 standardWeight                    READ getStandardWeight                NOTIFY  signalEventChangedStandardWeight            )
     Q_PROPERTY(quint32 refWeight                         READ getRefWeight                     NOTIFY  signalEventChangedRefWeight                 )
+    Q_PROPERTY(qint16  refVoltage                        READ getRefVoltage                    NOTIFY  signalEventChangedRefVoltage                )
     Q_PROPERTY(bool    wcPhotoOn                         READ getWCPhotoOn                     NOTIFY  signalEventChangedWCPhotoOn                 )
     Q_PROPERTY(quint16 mode                              READ getMode                          NOTIFY  signalEventChangedMode                      )
     Q_PROPERTY(quint32 detectDetectTime                  READ getDetectDetectTime              NOTIFY  signalEventChangedDetectDetectTime          )
@@ -87,6 +88,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditStaticFactor                READ getIsEditStaticFactor                    NOTIFY  signalEventChangedIsEditStaticFactor               )
     Q_PROPERTY(bool    isEditStandardWeight              READ getIsEditStandardWeight                  NOTIFY  signalEventChangedIsEditStandardWeight             )
     Q_PROPERTY(bool    isEditRefWeight                   READ getIsEditRefWeight                       NOTIFY  signalEventChangedIsEditRefWeight                  )
+    Q_PROPERTY(bool    isEditRefVoltage                  READ getIsEditRefVoltage                      NOTIFY  signalEventChangedIsEditRefVoltage                 )
     Q_PROPERTY(bool    isEditWCPhotoOn                   READ getIsEditWCPhotoOn                       NOTIFY  signalEventChangedIsEditWCPhotoOn                  )
     Q_PROPERTY(bool    isEditMode                        READ getIsEditMode                            NOTIFY  signalEventChangedIsEditMode                       )
     Q_PROPERTY(bool    isEditDetectDetectTime            READ getIsEditDetectDetectTime                NOTIFY  signalEventChangedIsEditDetectDetectTime           )
@@ -133,6 +135,7 @@ public:
     quint32  mStaticFactor                  ;
     quint32  mStandardWeight                ;
     quint32  mRefWeight                     ;
+    qint16   mRefVoltage                    ;
     bool     mWCPhotoOn                     ;
     quint16  mMode                          ;
     quint32  mDetectDetectTime              ;
@@ -179,6 +182,7 @@ public:
     bool     mIsEditStaticFactor            ;
     bool     mIsEditStandardWeight          ;
     bool     mIsEditRefWeight               ;
+    bool     mIsEditRefVoltage              ;
     bool     mIsEditWCPhotoOn               ;
     bool     mIsEditMode                    ;
     bool     mIsEditDetectDetectTime        ;
@@ -224,6 +228,7 @@ public:
     quint32  getStaticFactor                 (){ return mStaticFactor                  ;}
     quint32  getStandardWeight               (){ return mStandardWeight                ;}
     quint32  getRefWeight                    (){ return mRefWeight                     ;}
+    qint16   getRefVoltage                   (){ return mRefVoltage                    ;}
     bool     getWCPhotoOn                    (){ return mWCPhotoOn                     ;}
     quint16  getMode                         (){ return mMode                          ;}
     quint32  getDetectDetectTime             (){ return mDetectDetectTime              ;}
@@ -270,6 +275,7 @@ public:
     bool     getIsEditStaticFactor           (){ return mIsEditStaticFactor            ;}
     bool     getIsEditStandardWeight         (){ return mIsEditStandardWeight          ;}
     bool     getIsEditRefWeight              (){ return mIsEditRefWeight               ;}
+    bool     getIsEditRefVoltage             (){ return mIsEditRefVoltage              ;}
     bool     getIsEditWCPhotoOn              (){ return mIsEditWCPhotoOn               ;}
     bool     getIsEditMode                   (){ return mIsEditMode                    ;}
     bool     getIsEditDetectDetectTime       (){ return mIsEditDetectDetectTime        ;}
@@ -313,8 +319,9 @@ public:
     void setMinDynamicWeight             (quint32  value){ if(value == mMinDynamicWeight          ) return; mMinDynamicWeight           = value; setIsEditMinDynamicWeight       (true);  emit signalEventChangedMinDynamicWeight          (value);}
     void setScaler                       (quint32  value){ if(value == mScaler                    ) return; mScaler                     = value; setIsEditScaler                 (true);  emit signalEventChangedScaler                    (value);}
     void setStaticFactor                 (quint32  value){ if(value == mStaticFactor              ) return; mStaticFactor               = value; setIsEditStaticFactor           (true);  emit signalEventChangedStaticFactor              (value);}
-    void setStandardWeight               (quint32  value){ if(value == mStandardWeight            ) return; mStandardWeight             = value; setIsEditStandardWeight         (true);  emit signalEventChangedStandardWeight             (value);}
+    void setStandardWeight               (quint32  value){ if(value == mStandardWeight            ) return; mStandardWeight             = value; setIsEditStandardWeight         (true);  emit signalEventChangedStandardWeight            (value);}
     void setRefWeight                    (quint32  value){ if(value == mRefWeight                 ) return; mRefWeight                  = value; setIsEditRefWeight              (true);  emit signalEventChangedRefWeight                 (value);}
+    void setRefVoltage                   (qint16   value){ if(value == mRefVoltage                ) return; mRefVoltage                 = value; setIsEditRefVoltage             (true);  emit signalEventChangedRefVoltage                (value);}
     void setWCPhotoOn                    (bool     value){ if(value == mWCPhotoOn                 ) return; mWCPhotoOn                  = value; setIsEditWCPhotoOn              (true);  emit signalEventChangedWCPhotoOn                 (value);}
     void setMode                         (quint16  value){ if(value == mMode                      ) return; mMode                       = value; setIsEditMode                   (true);  emit signalEventChangedMode                      (value);}
     void setDetectDetectTime             (quint32  value){ if(value == mDetectDetectTime          ) return; mDetectDetectTime           = value; setIsEditDetectDetectTime       (true);  emit signalEventChangedDetectDetectTime          (value);}
@@ -361,6 +368,7 @@ public:
     void setIsEditStaticFactor           (bool     value){ if(value == mIsEditStaticFactor        ) return; mIsEditStaticFactor         = value; emit signalEventChangedIsEditStaticFactor        (value);}
     void setIsEditStandardWeight         (bool     value){ if(value == mIsEditStandardWeight      ) return; mIsEditStandardWeight       = value; emit signalEventChangedIsEditStandardWeight      (value);}
     void setIsEditRefWeight              (bool     value){ if(value == mIsEditRefWeight           ) return; mIsEditRefWeight            = value; emit signalEventChangedIsEditRefWeight           (value);}
+    void setIsEditRefVoltage             (bool     value){ if(value == mIsEditRefVoltage          ) return; mIsEditRefVoltage           = value; emit signalEventChangedIsEditRefVoltage          (value);}
     void setIsEditWCPhotoOn              (bool     value){ if(value == mIsEditWCPhotoOn           ) return; mIsEditWCPhotoOn            = value; emit signalEventChangedIsEditWCPhotoOn           (value);}
     void setIsEditMode                   (bool     value){ if(value == mIsEditMode                ) return; mIsEditMode                 = value; emit signalEventChangedIsEditMode                (value);}
     void setIsEditDetectDetectTime       (bool     value){ if(value == mIsEditDetectDetectTime    ) return; mIsEditDetectDetectTime     = value; emit signalEventChangedIsEditDetectDetectTime    (value);}
@@ -408,6 +416,7 @@ public:
         setStaticFactor                 (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticFactor           );
         setStandardWeight               (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight   );
         setRefWeight                    (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight      );
+        setRefVoltage                   (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mRefVoltage             );
         setWCPhotoOn                    (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mPhotoIsOn==1?true:false);
         setMode                         (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectMode             );
         setDetectDetectTime             (pLSettingSP->mDevSetting.mDspForm.mMDSetting.mDetectDetectTime       );
@@ -453,6 +462,7 @@ public:
         setIsEditStaticFactor                 ( false );
         setIsEditStandardWeight               ( false );
         setIsEditRefWeight                    ( false );
+        setIsEditRefVoltage                   ( false );
         setIsEditWCPhotoOn                    ( false );
         setIsEditMode                         ( false );
         setIsEditDetectDetectTime             ( false );
@@ -506,6 +516,7 @@ signals:
     void signalEventChangedStaticFactor                 (quint32  value);
     void signalEventChangedStandardWeight               (quint32  value);
     void signalEventChangedRefWeight                    (quint32  value);
+    void signalEventChangedRefVoltage                   (qint16   value);
     void signalEventChangedWCPhotoOn                    (bool     value);
     void signalEventChangedMode                         (quint16  value);
     void signalEventChangedDetectDetectTime             (quint32  value);
@@ -552,6 +563,7 @@ signals:
     void signalEventChangedIsEditStaticFactor           (bool     value);
     void signalEventChangedIsEditStandardWeight         (bool     value);
     void signalEventChangedIsEditRefWeight              (bool     value);
+    void signalEventChangedIsEditRefVoltage             (bool     value);
     void signalEventChangedIsEditWCPhotoOn              (bool     value);
     void signalEventChangedIsEditMode                   (bool     value);
     void signalEventChangedIsEditDetectDetectTime       (bool     value);
@@ -609,6 +621,7 @@ public slots:
         dto.mDspForm.mWCSetting.mPhotoIsOn              = mWCPhotoOn == true? 1 : 0;
         dto.mDspForm.mWCSetting.mStaticStandardWeight   = mStandardWeight;
         dto.mDspForm.mWCSetting.mDynamicBaseWeight      = mRefWeight;
+        dto.mDspForm.mWCSetting.mRefVoltage             = mRefVoltage;
         dto.mDspForm.mMDSetting.mDetectMode             = mMode;
         dto.mDspForm.mMDSetting.mDetectDetectTime       = mDetectDetectTime;
         dto.mDspForm.mMDSetting.mRunDetectTime          = mRunDetectTime;
@@ -674,6 +687,7 @@ public slots:
     Q_INVOKABLE void onCommandSetStaticFactor                 (quint32  value){setStaticFactor                 (value);}
     Q_INVOKABLE void onCommandSetStandardWeight               (quint32  value){setStandardWeight               (value);}
     Q_INVOKABLE void onCommandSetRefWeight                    (quint32  value){setRefWeight                    (value);}
+    Q_INVOKABLE void onCommandSetRefVoltage                   (qint16   value){setRefVoltage                   (value);}
     Q_INVOKABLE void onCommandSetWCPhotoOn                    (bool     value){setWCPhotoOn                    (value);}
     Q_INVOKABLE void onCommandSetMode                         (quint16  value){setMode                         (value);}
     Q_INVOKABLE void onCommandSetDetectDetectTime             (quint32  value){setDetectDetectTime             (value);}

@@ -53,6 +53,13 @@ Item {
             virtualTextField.echoMode = TextInput.Normal
             virtualTextField.validator = ipExpValidator
         }
+        if(control.vinputText.textInputType === QmlEnumDef.S_INT_MODE)
+        {
+            virtualTextField.maximumLength = 32767
+            virtualTextField.inputMethodHints = Qt.ImhFormattedNumbersOnly
+            virtualTextField.echoMode = TextInput.Normal
+            virtualTextField.validator = null
+        }
 
         virtualTextField.text = control.vinputText.getTextValue();
 
@@ -133,12 +140,12 @@ Item {
 
         Keys.onReleased: {
 
-            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.IP_MODE))
+            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.IP_MODE || control.vinputText.textInputType === QmlEnumDef.S_INT_MODE))
             {
 
                 virtualTextField.text = virtualTextField.text.trim()
 
-                if(control.vinputText.textInputType === QmlEnumDef.INT_MODE)
+                if(control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.S_INT_MODE)
                 {
                     if(virtualTextField.text != "-")
                     {

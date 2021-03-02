@@ -73,6 +73,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mSignalDelayTime             READ getSignalDelayTime                    NOTIFY signalEventChangedSignalDelayTime                   );
     Q_PROPERTY(quint32 mStaticStandardWeight        READ getStaticStandardWeight               NOTIFY signalEventChangedStaticStandardWeight              );
     Q_PROPERTY(quint32 mDynamicBaseWeight           READ getDynamicBaseWeight                  NOTIFY signalEventChangedDynamicBaseWeight                 );
+    Q_PROPERTY(qint16  mRefVoltage                  READ getRefVoltage                         NOTIFY signalEventChangedRefVoltage                        );
     Q_PROPERTY(quint16 mSensorCnt                   READ getSensorCnt                          NOTIFY signalEventChangedSensorCnt                         );
     Q_PROPERTY(bool    mDiffSeq                     READ getDiffSeq                            NOTIFY signalEventChangedDiffSeq                           );
     Q_PROPERTY(bool    mDiffLength                  READ getDiffLength                         NOTIFY signalEventChangedDiffLength                        );
@@ -140,6 +141,7 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffSignalDelayTime         READ getDiffSignalDelayTime                NOTIFY signalEventChangedDiffSignalDelayTime               );
     Q_PROPERTY(bool    mDiffStaticStandardWeight    READ getDiffStaticStandardWeight           NOTIFY signalEventChangedDiffStaticStandardWeight          );
     Q_PROPERTY(bool    mDiffDynamicBaseWeight       READ getDiffDynamicBaseWeight              NOTIFY signalEventChangedDiffDynamicBaseWeight             );
+    Q_PROPERTY(bool    mDiffRefVoltage              READ getDiffRefVoltage                     NOTIFY signalEventChangedDiffRefVoltage                    );
     Q_PROPERTY(bool    mDiffSensorCnt               READ getDiffSensorCnt                      NOTIFY signalEventChangedDiffSensorCnt                     );
 
 public:
@@ -210,6 +212,7 @@ public:
     quint32 mSignalDelayTime            ;
     quint32 mStaticStandardWeight       ;
     quint32 mDynamicBaseWeight          ;
+    qint16  mRefVoltage                 ;
     quint16 mSensorCnt                  ;
 
     bool    mDiffSeq                    ;
@@ -278,6 +281,7 @@ public:
     bool    mDiffSignalDelayTime        ;
     bool    mDiffStaticStandardWeight   ;
     bool    mDiffDynamicBaseWeight      ;
+    bool    mDiffRefVoltage             ;
     bool    mDiffSensorCnt              ;
 
     quint16 getSeq                        (){ return mSeq                        ;}
@@ -346,6 +350,7 @@ public:
     quint32 getSignalDelayTime            (){ return mSignalDelayTime            ;}
     quint32 getStaticStandardWeight       (){ return mStaticStandardWeight       ;}
     quint32 getDynamicBaseWeight          (){ return mDynamicBaseWeight          ;}
+    qint16  getRefVoltage                 (){ return mRefVoltage                 ;}
     quint16 getSensorCnt                  (){ return mSensorCnt                  ;}
     bool    getDiffSeq                    (){ return mDiffSeq                    ;}
     bool    getDiffLength                 (){ return mDiffLength                 ;}
@@ -413,6 +418,7 @@ public:
     bool    getDiffSignalDelayTime        (){ return mDiffSignalDelayTime        ;}
     bool    getDiffStaticStandardWeight   (){ return mDiffStaticStandardWeight   ;}
     bool    getDiffDynamicBaseWeight      (){ return mDiffDynamicBaseWeight      ;}
+    bool    getDiffRefVoltage             (){ return mDiffRefVoltage             ;}
     bool    getDiffSensorCnt              (){ return mDiffSensorCnt              ;}
 
     void setSeq                        (quint16  value){ if( value == mSeq                        ) return; mSeq                        = value; emit signalEventChangedSeq                               (value);}
@@ -481,6 +487,7 @@ public:
     void setSignalDelayTime            (quint32  value){ if( value == mSignalDelayTime            ) return; mSignalDelayTime            = value; emit signalEventChangedSignalDelayTime                   (value);}
     void setStaticStandardWeight       (quint32  value){ if( value == mStaticStandardWeight       ) return; mStaticStandardWeight       = value; emit signalEventChangedStaticStandardWeight              (value);}
     void setDynamicBaseWeight          (quint32  value){ if( value == mDynamicBaseWeight          ) return; mDynamicBaseWeight          = value; emit signalEventChangedDynamicBaseWeight                 (value);}
+    void setRefVoltage                 (qint16   value){ if( value == mRefVoltage                 ) return; mRefVoltage                 = value; emit signalEventChangedRefVoltage                        (value);}
     void setSensorCnt                  (quint16  value){ if( value == mSensorCnt                  ) return; mSensorCnt                  = value; emit signalEventChangedSensorCnt                         (value);}
     void setDiffSeq                    (bool     value){ if( value == mDiffSeq                    ) return; mDiffSeq                    = value; emit signalEventChangedDiffSeq                           (value);}
     void setDiffLength                 (bool     value){ if( value == mDiffLength                 ) return; mDiffLength                 = value; emit signalEventChangedDiffLength                        (value);}
@@ -548,6 +555,7 @@ public:
     void setDiffSignalDelayTime        (bool     value){ if( value == mDiffSignalDelayTime        ) return; mDiffSignalDelayTime        = value; emit signalEventChangedDiffSignalDelayTime               (value);}
     void setDiffStaticStandardWeight   (bool     value){ if( value == mDiffStaticStandardWeight   ) return; mDiffStaticStandardWeight   = value; emit signalEventChangedDiffStaticStandardWeight          (value);}
     void setDiffDynamicBaseWeight      (bool     value){ if( value == mDiffDynamicBaseWeight      ) return; mDiffDynamicBaseWeight      = value; emit signalEventChangedDiffDynamicBaseWeight             (value);}
+    void setDiffRefVoltage             (bool     value){ if( value == mDiffRefVoltage             ) return; mDiffRefVoltage             = value; emit signalEventChangedDiffRefVoltage                    (value);}
     void setDiffSensorCnt              (bool     value){ if( value == mDiffSensorCnt              ) return; mDiffSensorCnt              = value; emit signalEventChangedDiffSensorCnt                     (value);}
 
 signals:
@@ -617,6 +625,7 @@ signals:
     void signalEventChangedSignalDelayTime                   (quint32  value);
     void signalEventChangedStaticStandardWeight              (quint32  value);
     void signalEventChangedDynamicBaseWeight                 (quint32  value);
+    void signalEventChangedRefVoltage                        (qint16   value);
     void signalEventChangedSensorCnt                         (quint16  value);
 
     void signalEventChangedDiffSeq                           (bool     value);
@@ -685,6 +694,7 @@ signals:
     void signalEventChangedDiffSignalDelayTime               (bool     value);
     void signalEventChangedDiffStaticStandardWeight          (bool     value);
     void signalEventChangedDiffDynamicBaseWeight             (bool     value);
+    void signalEventChangedDiffRefVoltage                    (bool     value);
     void signalEventChangedDiffSensorCnt                     (bool     value);
 
 // down layer ================================================================================
@@ -792,6 +802,7 @@ public slots:
         setSignalDelayTime            (remote.mMDSetting.mSignalDelayTime          ); setDiffSignalDelayTime        (remote.mMDSetting.mSignalDelayTime           != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSignalDelayTime          );
         setStaticStandardWeight       (remote.mWCSetting.mStaticStandardWeight     ); setDiffStaticStandardWeight   (remote.mWCSetting.mStaticStandardWeight      != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     );
         setDynamicBaseWeight          (remote.mWCSetting.mDynamicBaseWeight        ); setDiffDynamicBaseWeight      (remote.mWCSetting.mDynamicBaseWeight         != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        );
+        setRefVoltage                 (remote.mWCSetting.mRefVoltage               ); setDiffRefVoltage             (remote.mWCSetting.mRefVoltage                != pLSettingSP->mDevSetting.mDspForm.mWCSetting.mRefVoltage               );
         setSensorCnt                  (remote.mMDSetting.mSensorCnt                ); setDiffSensorCnt              (remote.mMDSetting.mSensorCnt                 != pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                );
 
         qDebug() <<"Remote mCommSetting.mLampTime                 = " << remote.mCommSetting.mLampTime                <<"Local mCommSetting.mLampTime                 = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mLampTime               ;
@@ -833,6 +844,7 @@ public slots:
         qDebug() <<"Remote mMDSetting.mSignalDelayTime            = " << remote.mMDSetting.mSignalDelayTime           <<"Local mMDSetting.mSignalDelayTime            = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSignalDelayTime          ;
         qDebug() <<"Remote mWCSetting.mStaticStandardWeight       = " << remote.mWCSetting.mStaticStandardWeight      <<"Local mWCSetting.mStaticStandardWeight       = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight     ;
         qDebug() <<"Remote mWCSetting.mDynamicBaseWeight          = " << remote.mWCSetting.mDynamicBaseWeight         <<"Local mWCSetting.mDynamicBaseWeight          = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight        ;
+        qDebug() <<"Remote mWCSetting.mRefVoltage                 = " << remote.mWCSetting.mRefVoltage                <<"Local mWCSetting.mRefVoltage                 = " << pLSettingSP->mDevSetting.mDspForm.mWCSetting.mRefVoltage               ;
         qDebug() <<"Remote mMDSetting.mSensorCnt                  = " << remote.mMDSetting.mSensorCnt                 <<"Local mMDSetting.mSensorCnt                  = " << pLSettingSP->mDevSetting.mDspForm.mMDSetting.mSensorCnt                ;
     }
 

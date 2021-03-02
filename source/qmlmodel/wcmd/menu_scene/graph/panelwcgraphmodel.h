@@ -17,6 +17,7 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(int      range                   READ      getRange                       NOTIFY      signalEventChangedRange                  )
     Q_PROPERTY(int      lineInterval            READ      getLineInterval                NOTIFY      signalEventChangedLineInterval           )
 
+    Q_PROPERTY(qint16   adcValue                READ      getAdcValue                    NOTIFY      signalEventChangedAdcValue               )
     Q_PROPERTY(qint32   eventValue              READ      getEventValue                  NOTIFY      signalEventChangedEventValue             )
     Q_PROPERTY(qint16   maxPDCntPerMin          READ      getMaxPDCntPerMin              NOTIFY      signalEventChangedMaxPDCntPerMin         )
     Q_PROPERTY(qint16   currPDCntPerMin         READ      getCurrPDCntPerMin             NOTIFY      signalEventChangedCurrPDCntPerMin        )
@@ -47,6 +48,7 @@ public:
     int             mRange                  = 0;
     int             mLineInterval           = 1000;
 
+    qint16          mAdcValue               = 0;
     quint32         mEventValue             = 0;
     quint16         mMaxPDCntPerMin         = 0;
     quint16         mCurrPDCntPerMin        = 0;
@@ -86,6 +88,7 @@ public:
     int      getRange                   (){return mRange                    ;}
     int      getLineInterval            (){return mLineInterval             ;}
 
+    qint16   getAdcValue                (){return mAdcValue                 ;}
     qint32   getEventValue              (){return mEventValue               ;}
     qint16   getMaxPDCntPerMin          (){return mMaxPDCntPerMin           ;}
     qint16   getCurrPDCntPerMin         (){return mCurrPDCntPerMin          ;}
@@ -145,6 +148,7 @@ public:
     void setRange                  (int     value){if(value == mRange                  ) return; mRange                   = value; emit signalEventChangedRange                  (value);}
     void setLineInterval           (int     value){if(value == mLineInterval           ) return; mLineInterval            = value; emit signalEventChangedLineInterval           (value);}
 
+    void setAdcValue               (qint16  value){if(value == mAdcValue               ) return; mAdcValue                = value; emit signalEventChangedAdcValue               (value);}
     void setEventValue             (quint32 value){if(value == mEventValue             ) return; mEventValue              = value; emit signalEventChangedEventValue             (value);}
     void setMaxPDCntPerMin         (qint16  value){if(value == mMaxPDCntPerMin         ) return; mMaxPDCntPerMin          = value; emit signalEventChangedMaxPDCntPerMin         (value);}
     void setCurrPDCntPerMin        (qint16  value){if(value == mCurrPDCntPerMin        ) return; mCurrPDCntPerMin         = value; emit signalEventChangedCurrPDCntPerMin        (value);}
@@ -192,6 +196,7 @@ signals:
     void signalEventChangedMinRange               (int     value);
     void signalEventChangedMaxRange               (int     value);
     void signalEventChangedLineInterval           (int     value);
+    void signalEventChangedAdcValue               (qint16  value);
     void signalEventChangedEventValue             (qint32  value);
     void signalEventChangedMaxPDCntPerMin         (qint16  value);
     void signalEventChangedCurrPDCntPerMin        (qint16  value);
@@ -315,6 +320,7 @@ public slots:
         setMaxPDCntPerMin (dto.mWCStatus.mMaxPDCntPerMin );
         setCurrPDCntPerMin(dto.mWCStatus.mCurrPDCntPerMin);
         setPDCntPerMin    (dto.mWCStatus.mPDCntPerMin    );
+        setAdcValue       (dto.mWCStatus.mADC            );
     }
 
     void onAddedWCG(quint64 dspSeq, DspWCGDto dto)

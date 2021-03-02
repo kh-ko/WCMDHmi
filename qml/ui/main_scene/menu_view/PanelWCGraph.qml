@@ -221,6 +221,31 @@ PDCntPerMin
             textValue: qsTr("· Runtime graph")
         }
 
+        UiLabelSystem
+        {
+            id: labelAdcValue
+            x: 432
+            width: 76
+            height: 80
+            anchors.verticalCenter: labelRuntimeGraph.verticalCenter
+            anchors.right: textAdcValue.left
+            anchors.rightMargin: 20
+
+            textValue: qsTr("ADC")
+        }
+
+        UiLabelContent {
+            id: textAdcValue
+            x: 557
+            width: 162
+            height: 60
+            textValue: model.adcValue
+            anchors.right: graphRuntime.right
+            anchors.rightMargin: 0
+            anchors.verticalCenter: labelRuntimeGraph.verticalCenter
+        }
+
+
         WeightCheckerGraph{
             id : graphRuntime
             anchors.top : labelRuntimeGraph.bottom

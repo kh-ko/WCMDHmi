@@ -10,7 +10,7 @@ struct StDspCommand{
     unsigned short mResetGroupCurrCount; // [edit]
     unsigned short mWCGraphOn          ;
     unsigned short mMDGraphOn          ;
-    unsigned short mReserved02         ;
+    unsigned short mRefVoltageReset    ; //[add]
     unsigned int   mDeviceID           ;
 };
 
@@ -25,15 +25,15 @@ struct StDspDevCommSetting{
     unsigned short mMotorMDRatio           ;
     unsigned short mMotorWCRatio           ;
     unsigned short mMotorRJRatio           ;
-    unsigned short mMachineMode            ; // 1 = alu, 2 = wc, 3 = combi
-    unsigned int   mSorter01RunTimeRatio   ; // [add]
-    unsigned int   mSorter01OpenTime       ; // [add]
-    unsigned int   mSorter02RunTimeRatio   ; // [add]
-    unsigned int   mSorter02OpenTime       ; // [add]
-    unsigned int   mSorter03RunTimeRatio   ; // [add]
-    unsigned int   mSorter03OpenTime       ; // [add]
-    unsigned int   mSorter04RunTimeRatio   ; // [add]
-    unsigned int   mSorter04OpenTime       ; // [add]
+    unsigned short mMachineMode            ;
+    unsigned int   mSorter01RunTimeRatio   ;
+    unsigned int   mSorter01OpenTime       ;
+    unsigned int   mSorter02RunTimeRatio   ;
+    unsigned int   mSorter02OpenTime       ;
+    unsigned int   mSorter03RunTimeRatio   ;
+    unsigned int   mSorter03OpenTime       ;
+    unsigned int   mSorter04RunTimeRatio   ;
+    unsigned int   mSorter04OpenTime       ;
 };
 
 struct StDspDevWCSetting{
@@ -46,6 +46,7 @@ struct StDspDevWCSetting{
     unsigned short mPhotoIsOn              ;
     unsigned int   mStaticStandardWeight   ;
     unsigned int   mDynamicBaseWeight      ;
+             short mRefVoltage             ; // [add]
 };
 
 struct StDspDevMDSetting{
@@ -119,6 +120,7 @@ struct StDspWCStatus{
     unsigned short mMaxPDCntPerMin ; // 분당
     unsigned short mCurrPDCntPerMin; // 순간 분당속도
     unsigned short mPDCntPerMin    ; // 분당 생산량
+             short mADC            ;
 };
 
 struct StDspMDStatus{

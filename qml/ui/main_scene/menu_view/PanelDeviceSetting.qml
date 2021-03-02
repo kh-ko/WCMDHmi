@@ -1099,6 +1099,29 @@ UiPanel {
         }
     }
 
+    UiInputNumber{
+        id : inputRefVoltage
+        height: 60
+        anchors.topMargin: 10
+        anchors.top: inputWeightPhotoOn.bottom
+        anchors.leftMargin: 20
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin && settingModel.isEnableWC
+        inputType: QmlEnumDef.S_INT_MODE
+        isHighlight: settingModel.isEditRefVoltage
+        bgColor: panel.bgColor
+        labelText : qsTr("· Ref Voltage")
+        inputWidth: 170
+
+        numberValue: settingModel.refVoltage
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetRefVoltage(value)
+        }
+    }
     UiDivider
     {
         id : dividerWCMD
@@ -1607,6 +1630,7 @@ UiPanel {
                  settingModel.isEditStandardWeight      ||
                  settingModel.isEditRefWeight           ||
                  settingModel.isEditWCPhotoOn           ||
+                 settingModel.isEditRefVoltage          ||
                  settingModel.isEditMode                ||
                  settingModel.isEditDetectDetectTime    ||
                  settingModel.isEditRunDetectTime       ||

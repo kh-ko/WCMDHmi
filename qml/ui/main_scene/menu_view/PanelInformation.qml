@@ -10,7 +10,7 @@ import PanelInformationModel 1.0
 
 UiPanel {
     property bool isAdmin : false
-
+    property bool isEnableWC : true
     id: uiPanel
 
     width : 1518
@@ -482,6 +482,22 @@ UiPanel {
     }
 
     UiButton{
+        id : btnRefVoltageReset
+        width: 164
+        height: 80
+        anchors.verticalCenter: btnApply.verticalCenter
+        anchors.right: btnHMIOut.left
+        anchors.rightMargin: 20
+
+        visible: uiPanel.isAdmin && informationModel.isEnableWC
+        textValue: qsTr("Ref Vol<br>Reset")
+
+        onSignalEventClicked: {
+            informationModel.onCommandRefVoltageReset()
+        }
+    }
+
+    UiButton{
         id : btnHMIOut
         width: 164
         height: 80
@@ -568,6 +584,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:2}D{i:3}D{i:4}D{i:5}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/

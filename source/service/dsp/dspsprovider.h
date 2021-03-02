@@ -106,24 +106,26 @@ public :
         return nullptr;
     }
 
-    void sendZeroCmd     (quint64 dspSeq                         ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendZero      (1    );}
-    void sendWCCaribCmd  (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendWCCarib   (value);}
-    void sendRunCmd      (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendRun       (value);}
-    void sendWCGraphOnCmd(quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendWCGraphOn (value);}
-    void sendMDGraphOnCmd(quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendMDGraphOn (value);}
-    void sendDspIDCmd    (quint64 dspSeq, quint32 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevID     (value);}
-    void sendResetGCntCmd(quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendResetGCnt (value);}
-    void sendDevSetting  (quint64 dspSeq, DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevSetting(value);}
-    void sendPDSetting   (quint64 dspSeq, DspPDSettingDto  value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendPDSetting (value);}
+    void sendZeroCmd           (quint64 dspSeq                         ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendZero           (1    );}
+    void sendWCCaribCmd        (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendWCCarib        (value);}
+    void sendRunCmd            (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendRun            (value);}
+    void sendWCGraphOnCmd      (quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendWCGraphOn      (value);}
+    void sendMDGraphOnCmd      (quint64 dspSeq, bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendMDGraphOn      (value);}
+    void sendRefVoltageResetCmd(quint64 dspSeq                         ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendRefVoltageReset(1    );}
+    void sendDspIDCmd          (quint64 dspSeq, quint32 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevID          (value);}
+    void sendResetGCntCmd      (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendResetGCnt      (value);}
+    void sendDevSetting        (quint64 dspSeq, DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevSetting     (value);}
+    void sendPDSetting         (quint64 dspSeq, DspPDSettingDto  value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendPDSetting      (value);}
 
-    void sendAllZeroCmd        (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendZero          (1    );}}
-    void sendAllWCCaribCmd     (quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendWCCarib       (value);}}
-    void sendAllRunCmd         (quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendRun           (value);}}
-    void sendAllWCGraphOnCmd   (bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendWCGraphOn     (value);}}
-    void sendAllMDGraphOnCmd   (bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendMDGraphOn     (value);}}
-    void sendAllDevSetting     (DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendDevSetting    (value);}}
-    void sendAllPDSetting      (DspPDSettingDto value  ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendPDSetting     (value);}}
-    void sendAllReadAlwaysData (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendReadAlwaysData(     );}}
+    void sendAllZeroCmd           (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendZero           (1    );}}
+    void sendAllWCCaribCmd        (quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendWCCarib        (value);}}
+    void sendAllRunCmd            (quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendRun            (value);}}
+    void sendAllWCGraphOnCmd      (bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendWCGraphOn      (value);}}
+    void sendAllMDGraphOnCmd      (bool value             ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendMDGraphOn      (value);}}
+    void sendAllRefVoltageResetCmd(                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendRefVoltageReset(1    );}}
+    void sendAllDevSetting        (DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendDevSetting     (value);}}
+    void sendAllPDSetting         (DspPDSettingDto value  ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendPDSetting      (value);}}
+    void sendAllReadAlwaysData    (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendReadAlwaysData (     );}}
 
 signals:
     void signalEventStarted                         ();

@@ -72,6 +72,7 @@ private:
     const QString mDevWCSettingWCPhotoIsOnKey               = "dspsetting/WCPhotoIsOn"            ;
     const QString mDevWCSettingStaticStandardWeightKey      = "dspsetting/StaticStandardWeight"   ;
     const QString mDevWCSettingDynamicBaseWeightKey         = "dspsetting/DynamicBaseWeight"      ;
+    const QString mDevWCSettingRefVoltageKey                = "dspsetting/RefVoltage"             ;
 
     const QString mDevMDSettingModeKey                      = "dspsetting/Mode"                   ;
     const QString mDevMDSettingDetectDetectTimeKey          = "dspsetting/DetectDetectTime"       ;
@@ -347,6 +348,7 @@ private:
         mDevSetting.mDspForm.mWCSetting.mPhotoIsOn                 = mpSetting->value(mDevWCSettingWCPhotoIsOnKey              , pDefaultSP->DEV_SETTING_WC_PHOTO_IS_ON                             ).toBool() == true ? 1 : 0  ;
         mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight      = mpSetting->value(mDevWCSettingStaticStandardWeightKey     , pDefaultSP->DEV_SETTING_STATIC_STANDARD_WEIGHT                     ).toInt()   ;
         mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight         = mpSetting->value(mDevWCSettingDynamicBaseWeightKey        , pDefaultSP->DEV_SETTING_DYNAMIC_BASE_WEIGHT                        ).toInt()   ;
+        mDevSetting.mDspForm.mWCSetting.mRefVoltage                = mpSetting->value(mDevWCSettingRefVoltageKey               , pDefaultSP->DEV_SETTING_REF_VOLTAGE                                ).toInt()   ;
 
         mDevSetting.mDspForm.mMDSetting.mDetectMode                = mpSetting->value(mDevMDSettingModeKey                     , pDefaultSP->DEV_SETTING_DETECT_MODE                                ).toInt()   ;
         mDevSetting.mDspForm.mMDSetting.mDetectDetectTime          = mpSetting->value(mDevMDSettingDetectDetectTimeKey         , pDefaultSP->DEV_SETTING_DETECT_DETECT_TIME                         ).toInt()   ;
@@ -483,6 +485,7 @@ private:
         mpSetting->setValue(mDevWCSettingWCPhotoIsOnKey              , dto.mDspForm.mWCSetting.mPhotoIsOn == 1 ? true : false);
         mpSetting->setValue(mDevWCSettingStaticStandardWeightKey     , dto.mDspForm.mWCSetting.mStaticStandardWeight     );
         mpSetting->setValue(mDevWCSettingDynamicBaseWeightKey        , dto.mDspForm.mWCSetting.mDynamicBaseWeight        );
+        mpSetting->setValue(mDevWCSettingRefVoltageKey               , dto.mDspForm.mWCSetting.mRefVoltage               );
 
         mpSetting->setValue(mDevMDSettingModeKey                     , dto.mDspForm.mMDSetting.mDetectMode               );
         mpSetting->setValue(mDevMDSettingDetectDetectTimeKey         , dto.mDspForm.mMDSetting.mDetectDetectTime         );

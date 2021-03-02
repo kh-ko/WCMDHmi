@@ -25,6 +25,7 @@ public:
       PASSWD_MODE = 2,
       STRING_MODE = 3,
       IP_MODE = 4,
+      S_INT_MODE = 5,
   };
 
   enum LoggingDataMenu{
