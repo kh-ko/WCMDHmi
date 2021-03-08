@@ -157,7 +157,7 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
 
-        if(EventDto::isWeightCheckEvent(dto.mEvent.mEventType) && dto.mEvent.mEventType != EnumDef::ET_WEIGHT_ETCERROR_CHECK)
+        if(EventDto::isWeightCheckEvent(dto.mEvent.mEventType) && (dto.mEvent.mEventType != EnumDef::ET_WEIGHT_ETCERROR_CHECK && dto.mEvent.mEventType != EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK))
         {
             setTimes(mTimes + 1);
 

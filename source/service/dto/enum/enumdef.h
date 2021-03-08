@@ -113,7 +113,9 @@ public:
         ET_WEIGHT_UNDER_CHECK           = 20,
         ET_WEIGHT_OVER_CHECK            = 21,
         ET_WEIGHT_ETCERROR_CHECK        = 22,
-        ET_WEIGHT_ETC_METAL_ERROR       = 23
+        ET_WEIGHT_ETC_METAL_ERROR       = 23,
+        ET_WEIGHT_ETC_METAL_ERROR_CHECK = 24,
+        ET_WEIGHT_REF_VOLTAGE           = 25,
     };
 
     enum eNGMotion{

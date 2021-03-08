@@ -131,7 +131,8 @@ public slots:
             dto.mEvent.mEventType == EnumDef::ET_WEIGHT_OVER_WARNING_CHECK        ||
             dto.mEvent.mEventType == EnumDef::ET_WEIGHT_UNDER_CHECK               ||
             dto.mEvent.mEventType == EnumDef::ET_WEIGHT_OVER_CHECK                ||
-            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETCERROR_CHECK )
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETCERROR_CHECK            ||
+            dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK      )
         {
             return setMovingWeight(dto.mEvent.mEventValue + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }

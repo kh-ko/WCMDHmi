@@ -167,6 +167,18 @@ public slots:
 
         setIsComm(pDsp->mIsConnect);
     }
+    void onChangedRefVoltage(quint64 dspSeq, qint32 value)
+    {
+        qDebug() << "[debug]onChangedRefVoltage = " << value;
+        CHECK_FALSE_RETURN((dspSeq != 0));
+
+        DevSettingDto dto;
+        dto = pLSettingSP->mDevSetting;
+        dto.mDspForm.mWCSetting.mRefVoltage = value;
+
+        qDebug() << "[debug]onChangedRefVoltage : setDevSetting";
+        pLSettingSP->setDevSetting(dto);
+    }
 
     void onChangedDevSetting(DevSettingDto dto)
     {
@@ -195,6 +207,8 @@ public:
         ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
 
         ENABLE_SLOT_DSP_CHANGED_ISCONNECT;
+
+        ENABLE_SLOT_DSP_CHANGED_REF_VLOTAGE;
 
         CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 

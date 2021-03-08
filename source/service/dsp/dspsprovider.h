@@ -138,12 +138,15 @@ signals:
     void signalEventChangedDeviceStatus             (quint64 deviceSeq, DspStatusDto     dto);
     void signalEventChangedDeviceInfo               (quint64 deviceSeq, DspInfoDto       dto);
     void signalEventAddedEvent                      (quint64 deviceSeq, DspEventDto      dto);
+    void signalEventChangedRefVoltage               (quint64 deviceSeq, qint32         value);
     void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, DspWCGDto        dto);
     void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, DspMDGDto        dto);
 
 public slots:
     void onChangedDevSetting(DevSettingDto dto)
     {
+        qDebug() << "[debug]onChangedDevSetting : ref vol = " << dto.mDspForm.mWCSetting.mRefVoltage;
+
         CHECK_FALSE_RETURN((mIsRunning && mFRIng == false))
         sendAllDevSetting(dto.mDspForm);
     }
@@ -200,13 +203,14 @@ public slots:
         emit signalEventCompletedFactoryReset(true);
         stop();
     }
-    void onDspAddedWCG             (quint64 dspSeq, DspWCGDto        dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedWeightCheckerGraph    (dspSeq, dto);}
-    void onDspAddedMDG             (quint64 dspSeq, DspMDGDto        dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedMetalDetectorGraph    (dspSeq, dto);}
-    void onDspChangedDevSetting    (quint64 dspSeq, DspDevSettingDto dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRemoteDeviceSetting (dspSeq, dto);}
-    void onDspChangedPDSetting     (quint64 dspSeq, DspPDSettingDto  dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRemoteProductSetting(dspSeq, dto);}
-    void onDspChangedStatus        (quint64 dspSeq, DspStatusDto     dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedDeviceStatus        (dspSeq, dto);}
-    void onDspChangedInfo          (quint64 dspSeq, DspInfoDto       dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedDeviceInfo          (dspSeq, dto);}
-    void onDspAddedEvent           (quint64 dspSeq, DspEventDto      dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedEvent                 (dspSeq, dto);}
+    void onDspAddedWCG             (quint64 dspSeq, DspWCGDto        dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedWeightCheckerGraph    (dspSeq,   dto);}
+    void onDspAddedMDG             (quint64 dspSeq, DspMDGDto        dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedMetalDetectorGraph    (dspSeq,   dto);}
+    void onDspChangedDevSetting    (quint64 dspSeq, DspDevSettingDto dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRemoteDeviceSetting (dspSeq,   dto);}
+    void onDspChangedPDSetting     (quint64 dspSeq, DspPDSettingDto  dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRemoteProductSetting(dspSeq,   dto);}
+    void onDspChangedStatus        (quint64 dspSeq, DspStatusDto     dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedDeviceStatus        (dspSeq,   dto);}
+    void onDspChangedInfo          (quint64 dspSeq, DspInfoDto       dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedDeviceInfo          (dspSeq,   dto);}
+    void onDspAddedEvent           (quint64 dspSeq, DspEventDto      dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedEvent                 (dspSeq,   dto);}
+    void onDspChangedRefVoltage    (quint64 dspSeq, qint32         value){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRefVoltage          (dspSeq, value);}
 
 public :
     QList<DspMaster *> mDspList;
@@ -263,6 +267,7 @@ private :
         connect(master, SIGNAL(signalEventChangedStatus         (quint64, DspStatusDto    )), this, SLOT(onDspChangedStatus        (quint64, DspStatusDto     )));
         connect(master, SIGNAL(signalEventChangedInfo           (quint64, DspInfoDto      )), this, SLOT(onDspChangedInfo          (quint64, DspInfoDto       )));
         connect(master, SIGNAL(signalEventAddedEvent            (quint64, DspEventDto     )), this, SLOT(onDspAddedEvent           (quint64, DspEventDto      )));
+        connect(master, SIGNAL(signalEventChangedRefVoltage     (quint64, qint32          )), this, SLOT(onDspChangedRefVoltage    (quint64, qint32           )));
 
         mDspList.append(master);
     }
@@ -292,6 +297,7 @@ private :
             disconnect(master, SIGNAL(signalEventChangedStatus         (quint64, DspStatusDto    )), this, SLOT(onDspChangedStatus        (quint64, DspStatusDto     )));
             disconnect(master, SIGNAL(signalEventChangedInfo           (quint64, DspInfoDto      )), this, SLOT(onDspChangedInfo          (quint64, DspInfoDto       )));
             disconnect(master, SIGNAL(signalEventAddedEvent            (quint64, DspEventDto     )), this, SLOT(onDspAddedEvent           (quint64, DspEventDto      )));
+            disconnect(master, SIGNAL(signalEventChangedRefVoltage     (quint64, qint32          )), this, SLOT(onDspChangedRefVoltage    (quint64, qint32           )));
 
             delete master;
         }

@@ -352,6 +352,7 @@ signals:
     void signalEventChangedStatus(quint64 dspSeq, DspStatusDto dto);
     void signalEventChangedInfo(quint64 dspSeq, DspInfoDto dto);
     void signalEventAddedEvent(quint64 dspSeq, DspEventDto dto);
+    void signalEventChangedRefVoltage(quint64 dspSeq, qint32 value);
 
 
 private slots:
@@ -594,7 +595,16 @@ private:
             {
                 DspEventDto dto = mRcvDataStore.getEventDto(i);
 
-                emit signalEventAddedEvent(mSeq, dto);
+                qDebug() << "[debug]onRecevie : event Type = " << dto.mEvent.mEventType;
+
+                if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_REF_VOLTAGE)
+                {
+                    emit signalEventChangedRefVoltage(mSeq, dto.mEvent.mEventValue);
+                }
+                else
+                {
+                    emit signalEventAddedEvent(mSeq, dto);
+                }
             }
         }
     }

@@ -80,6 +80,7 @@ public:
             case EnumDef::ET_WEIGHT_UNDER_CHECK        :
             case EnumDef::ET_WEIGHT_OVER_CHECK         :
             case EnumDef::ET_WEIGHT_ETCERROR_CHECK     :
+            case EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK:
                 return true;
             default: return false;
         }
@@ -176,61 +177,63 @@ public:
 
     static int convertToIntEvent(QString str)
     {
-        if     (str == "N"              ){return EnumDef::ET_WEIGHT_NORMAL             ;}
-        else if(str == "UW"             ){return EnumDef::ET_WEIGHT_UNDER_WARNING      ;}
-        else if(str == "OW"             ){return EnumDef::ET_WEIGHT_OVER_WARNING       ;}
-        else if(str == "U"              ){return EnumDef::ET_WEIGHT_UNDER              ;}
-        else if(str == "O"              ){return EnumDef::ET_WEIGHT_OVER               ;}
-        else if(str == "ETC"            ){return EnumDef::ET_WEIGHT_ETCERROR           ;}
-        else if(str == "APP START"      ){return EnumDef::ET_APP_START                 ;}
-        else if(str == "APP EXIT"       ){return EnumDef::ET_APP_EXIT                  ;}
-        else if(str == "M CHECK"        ){return EnumDef::ET_METAL_CHECKUP             ;}
-        else if(str == "W STATIC CARI"  ){return EnumDef::ET_WEIGHT_STATIC_CARI        ;}
-        else if(str == "W DINAMIC CARI" ){return EnumDef::ET_WEIGHT_DYNAMIC_CARI       ;}
-        else if(str == "RUN"            ){return EnumDef::ET_RUN                       ;}
-        else if(str == "STOP"           ){return EnumDef::ET_STOP                      ;}
-        else if(str == "M P"            ){return EnumDef::ET_METAL_TRADE               ;}
-        else if(str == "M F"            ){return EnumDef::ET_METAL_DETECT              ;}
-        else if(str == "M P CHECK"      ){return EnumDef::ET_METAL_TRADE_CHECK         ;}
-        else if(str == "M F CHECK"      ){return EnumDef::ET_METAL_DETECT_CHECK        ;}
-        else if(str == "N CHECK"        ){return EnumDef::ET_WEIGHT_NORMAL_CHECK       ;}
-        else if(str == "UW CHECK"       ){return EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK;}
-        else if(str == "OW CHECK"       ){return EnumDef::ET_WEIGHT_OVER_WARNING_CHECK ;}
-        else if(str == "U CHECK"        ){return EnumDef::ET_WEIGHT_UNDER_CHECK        ;}
-        else if(str == "O CHECK"        ){return EnumDef::ET_WEIGHT_OVER_CHECK         ;}
-        else if(str == "ETC CHECK"      ){return EnumDef::ET_WEIGHT_ETCERROR_CHECK     ;}
-        else if(str == "WC MD F"        ){return EnumDef::ET_WEIGHT_ETC_METAL_ERROR    ;}
-        else                             {return EnumDef::ET_NONE                      ;}
+        if     (str == "N"              ){return EnumDef::ET_WEIGHT_NORMAL               ;}
+        else if(str == "UW"             ){return EnumDef::ET_WEIGHT_UNDER_WARNING        ;}
+        else if(str == "OW"             ){return EnumDef::ET_WEIGHT_OVER_WARNING         ;}
+        else if(str == "U"              ){return EnumDef::ET_WEIGHT_UNDER                ;}
+        else if(str == "O"              ){return EnumDef::ET_WEIGHT_OVER                 ;}
+        else if(str == "ETC"            ){return EnumDef::ET_WEIGHT_ETCERROR             ;}
+        else if(str == "APP START"      ){return EnumDef::ET_APP_START                   ;}
+        else if(str == "APP EXIT"       ){return EnumDef::ET_APP_EXIT                    ;}
+        else if(str == "M CHECK"        ){return EnumDef::ET_METAL_CHECKUP               ;}
+        else if(str == "W STATIC CARI"  ){return EnumDef::ET_WEIGHT_STATIC_CARI          ;}
+        else if(str == "W DINAMIC CARI" ){return EnumDef::ET_WEIGHT_DYNAMIC_CARI         ;}
+        else if(str == "RUN"            ){return EnumDef::ET_RUN                         ;}
+        else if(str == "STOP"           ){return EnumDef::ET_STOP                        ;}
+        else if(str == "M P"            ){return EnumDef::ET_METAL_TRADE                 ;}
+        else if(str == "M F"            ){return EnumDef::ET_METAL_DETECT                ;}
+        else if(str == "M P CHECK"      ){return EnumDef::ET_METAL_TRADE_CHECK           ;}
+        else if(str == "M F CHECK"      ){return EnumDef::ET_METAL_DETECT_CHECK          ;}
+        else if(str == "N CHECK"        ){return EnumDef::ET_WEIGHT_NORMAL_CHECK         ;}
+        else if(str == "UW CHECK"       ){return EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK  ;}
+        else if(str == "OW CHECK"       ){return EnumDef::ET_WEIGHT_OVER_WARNING_CHECK   ;}
+        else if(str == "U CHECK"        ){return EnumDef::ET_WEIGHT_UNDER_CHECK          ;}
+        else if(str == "O CHECK"        ){return EnumDef::ET_WEIGHT_OVER_CHECK           ;}
+        else if(str == "ETC CHECK"      ){return EnumDef::ET_WEIGHT_ETCERROR_CHECK       ;}
+        else if(str == "WC MD F CHECK"  ){return EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK;}
+        else if(str == "WC MD F"        ){return EnumDef::ET_WEIGHT_ETC_METAL_ERROR      ;}
+        else                             {return EnumDef::ET_NONE                        ;}
     }
 
     static QString convertToStrEvent(int event)
     {
         switch(event)
         {
-        case EnumDef::ET_WEIGHT_NORMAL             : return "N"             ;
-        case EnumDef::ET_WEIGHT_UNDER_WARNING      : return "UW"            ;
-        case EnumDef::ET_WEIGHT_OVER_WARNING       : return "OW"            ;
-        case EnumDef::ET_WEIGHT_UNDER              : return "U"             ;
-        case EnumDef::ET_WEIGHT_OVER               : return "O"             ;
-        case EnumDef::ET_WEIGHT_ETCERROR           : return "ETC"           ;
-        case EnumDef::ET_APP_START                 : return "APP START"     ;
-        case EnumDef::ET_APP_EXIT                  : return "APP EXIT"      ;
-        case EnumDef::ET_METAL_CHECKUP             : return "M CHECK"       ;
-        case EnumDef::ET_WEIGHT_STATIC_CARI        : return "W STATIC CARI" ;
-        case EnumDef::ET_WEIGHT_DYNAMIC_CARI       : return "W DINAMIC CARI";
-        case EnumDef::ET_RUN                       : return "RUN"           ;
-        case EnumDef::ET_STOP                      : return "STOP"          ;
-        case EnumDef::ET_METAL_TRADE               : return "M P"           ;
-        case EnumDef::ET_METAL_DETECT              : return "M F"           ;
-        case EnumDef::ET_METAL_TRADE_CHECK         : return "M P CHECK"     ;
-        case EnumDef::ET_METAL_DETECT_CHECK        : return "M F CHECK"     ;
-        case EnumDef::ET_WEIGHT_NORMAL_CHECK       : return "N CHECK"       ;
-        case EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK: return "UW CHECK"      ;
-        case EnumDef::ET_WEIGHT_OVER_WARNING_CHECK : return "OW CHECK"      ;
-        case EnumDef::ET_WEIGHT_UNDER_CHECK        : return "U CHECK"       ;
-        case EnumDef::ET_WEIGHT_OVER_CHECK         : return "O CHECK"       ;
-        case EnumDef::ET_WEIGHT_ETCERROR_CHECK     : return "ETC CHECK"     ;
-        case EnumDef::ET_WEIGHT_ETC_METAL_ERROR    : return "WC MD F"       ;
+        case EnumDef::ET_WEIGHT_NORMAL               : return "N"             ;
+        case EnumDef::ET_WEIGHT_UNDER_WARNING        : return "UW"            ;
+        case EnumDef::ET_WEIGHT_OVER_WARNING         : return "OW"            ;
+        case EnumDef::ET_WEIGHT_UNDER                : return "U"             ;
+        case EnumDef::ET_WEIGHT_OVER                 : return "O"             ;
+        case EnumDef::ET_WEIGHT_ETCERROR             : return "ETC"           ;
+        case EnumDef::ET_APP_START                   : return "APP START"     ;
+        case EnumDef::ET_APP_EXIT                    : return "APP EXIT"      ;
+        case EnumDef::ET_METAL_CHECKUP               : return "M CHECK"       ;
+        case EnumDef::ET_WEIGHT_STATIC_CARI          : return "W STATIC CARI" ;
+        case EnumDef::ET_WEIGHT_DYNAMIC_CARI         : return "W DINAMIC CARI";
+        case EnumDef::ET_RUN                         : return "RUN"           ;
+        case EnumDef::ET_STOP                        : return "STOP"          ;
+        case EnumDef::ET_METAL_TRADE                 : return "M P"           ;
+        case EnumDef::ET_METAL_DETECT                : return "M F"           ;
+        case EnumDef::ET_METAL_TRADE_CHECK           : return "M P CHECK"     ;
+        case EnumDef::ET_METAL_DETECT_CHECK          : return "M F CHECK"     ;
+        case EnumDef::ET_WEIGHT_NORMAL_CHECK         : return "N CHECK"       ;
+        case EnumDef::ET_WEIGHT_UNDER_WARNING_CHECK  : return "UW CHECK"      ;
+        case EnumDef::ET_WEIGHT_OVER_WARNING_CHECK   : return "OW CHECK"      ;
+        case EnumDef::ET_WEIGHT_UNDER_CHECK          : return "U CHECK"       ;
+        case EnumDef::ET_WEIGHT_OVER_CHECK           : return "O CHECK"       ;
+        case EnumDef::ET_WEIGHT_ETCERROR_CHECK       : return "ETC CHECK"     ;
+        case EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK: return "ETC CHECK"     ;
+        case EnumDef::ET_WEIGHT_ETC_METAL_ERROR      : return "WC MD F"       ;
         default : return "NONE";
         }
     }
