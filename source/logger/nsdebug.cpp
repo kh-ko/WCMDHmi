@@ -42,7 +42,7 @@ void NSDebug::startService()
         QString fileName = "%1/log/log_%2.txt";
         mpSelf->mfile.setFileName(fileName.arg(applicationPath).arg(currTime));
 
-        mpSelf->mfile.open(QIODevice::WriteOnly | QIODevice::Text);
+        mpSelf->mfile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Unbuffered);
         if(mpSelf->mfile.isOpen() == false)
         {
             QString error =  mpSelf->mfile.errorString();
@@ -89,7 +89,10 @@ void NSDebug::debugMessageHandler(QtMsgType type, const QMessageLogContext &cont
     }
 
     if(mpSelf->mfile.isOpen())
+    {
         mpSelf->mOut.flush();
+        mpSelf->mfile.flush();
+    }
 
 
     mpSelf->mutex.unlock();

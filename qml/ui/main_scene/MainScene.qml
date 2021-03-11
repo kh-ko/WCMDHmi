@@ -146,6 +146,7 @@ Item {
         textCompany : model.company
         textTel: model.tel
         textClock: model.clock
+        isZeroProc: model.isZeroProc
         isRun: model.isRun
         isComm : model.isComm
         isAlarm : model.isAlarm

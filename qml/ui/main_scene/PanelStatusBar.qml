@@ -9,6 +9,7 @@ Item {
     property string textCompany : "NOVASEN"
     property string textTel : "T 051 - 581 - 7071"
     property string textClock : "2020/03/27 23:05:01"
+    property bool   isZeroProc : false
     property bool   isRun : true
     property bool   isComm : true
     property bool   isAlarm : true
@@ -43,6 +44,18 @@ Item {
         horizontalAlignment : Text.AlignHCenter
         textValue: textClock
     }
+
+    Image{
+        width: 30
+        height: 30
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: indiBackup.left
+        anchors.rightMargin: 20
+
+        source: "/ui/main_scene/main_view/img_wcstatus/image-zeroproc-sel.png"
+        visible: panel.isZeroProc
+    }
+
 
     UiIndicate{
         id : indiBackup

@@ -287,6 +287,7 @@ Item {
             PanelSubWCSimple{
                 anchors.fill: parent
 
+                isZeroProc    : mainViewModel.zeroProc === 0 ? false : true
                 isWait        : mainViewModel.wait === 0 ? false : true
                 visible       : mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_CURRENT || mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_DELTA
                 isDevMode     : mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_DELTA

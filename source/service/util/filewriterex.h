@@ -25,7 +25,7 @@ public:
 
         QFile file;
         file.setFileName(QString("%1/%2").arg(path).arg(fileName));
-        file.open(QFile::WriteOnly);
+        file.open(QFile::WriteOnly | QFile::Unbuffered);
 
         if(file.isOpen() == false)
         {

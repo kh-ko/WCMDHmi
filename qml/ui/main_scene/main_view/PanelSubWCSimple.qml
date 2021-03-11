@@ -8,6 +8,7 @@ import EnumDef 1.0
 import ViewManager 1.0
 
 Item {
+    property bool isZeroProc    : false
     property bool isWait        : false
     property bool isDevMode     : false
     property int  currWeight    : 9199000
@@ -234,6 +235,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}D{i:1}D{i:3}
+    D{i:0;formeditorZoom:0.5}
 }
 ##^##*/

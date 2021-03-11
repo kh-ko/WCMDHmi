@@ -176,5 +176,7 @@
         <file>control/img_btn/error-mark.png</file>
         <file>ui/main_scene/img/graph/pause.png</file>
         <file>ui/main_scene/img/graph/play.png</file>
+        <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc.png</file>
+        <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc-sel.png</file>
     </qresource>
 </RCC>

@@ -121,6 +121,7 @@ struct StDspWCStatus{
     unsigned short mCurrPDCntPerMin; // 순간 분당속도
     unsigned short mPDCntPerMin    ; // 분당 생산량
              short mADC            ;
+             short mZeroProc       ; // [add]
 };
 
 struct StDspMDStatus{

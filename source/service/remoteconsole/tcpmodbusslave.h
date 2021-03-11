@@ -16,51 +16,18 @@
 
 #define pTcpModbusSlave TcpModbusSlave::getInstance()
 
-class TcpModbusSlave : public QObject
+class TcpModbusSlaveWorker : public QObject
 {
     Q_OBJECT
-public:
-    static TcpModbusSlave * getInstance()
+
+public slots:
+    void onStarted()
     {
-        static TcpModbusSlave *mpSelf = nullptr;
-
-        if(mpSelf == nullptr)
-        {
-            mpSelf = new TcpModbusSlave();
-        }
-
-        return mpSelf;
-    }
-
-    explicit TcpModbusSlave(QObject *parent = nullptr) : QObject(parent)
-    {
-
-    }
-    ~TcpModbusSlave()
-    {
-        close();
-    }
-
-    void start()
-    {
-        ENABLE_SLOT_TIMER_TICK;
         ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
         ENABLE_SLOT_WORK_CHANGED_STATS;
         ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
 
         open();
-    }
-
-    void stop()
-    {
-        close();
-    }
-
-private slots:
-    void onTimeTick(QDateTime now)
-    {
-        if(mpServer == nullptr)
-            open();
     }
 
     void onChangedDspStatus(quint64 dspSeq, DspStatusDto status)
@@ -146,12 +113,6 @@ private slots:
 
         close();
     }
-
-
-
-signals:
-    void signalEventStarted        ();
-    void signalEventStopped        ();
 private:
     QModbusTcpServer  * mpServer = nullptr;
     qint16              PORT     = 10502;  // 502 번을 redirect로 10502번으로 연결하였음
@@ -207,10 +168,64 @@ private:
             mpServer = nullptr;
         }
     }
+};
 
-    void writeReg()
+class TcpModbusSlave : public QObject
+{
+    Q_OBJECT
+private:
+    QThread * mpThread = nullptr;
+    TcpModbusSlaveWorker * mpWorker = nullptr;
+
+public:
+    static TcpModbusSlave * getInstance()
     {
-        mpServer->setData(QModbusDataUnit::InputRegisters, 1, 0x0011);
+        static TcpModbusSlave *mpSelf = nullptr;
+
+        if(mpSelf == nullptr)
+        {
+            mpSelf = new TcpModbusSlave();
+        }
+
+        return mpSelf;
+    }
+
+    explicit TcpModbusSlave(QObject *parent = nullptr) : QObject(parent)
+    {
+
+    }
+    ~TcpModbusSlave()
+    {
+        stop();
+    }
+
+    void start()
+    {
+        mpThread = new QThread;
+        mpWorker = new TcpModbusSlaveWorker;
+        mpWorker->moveToThread(mpThread);
+
+        connect(mpThread, &QThread::finished, mpWorker, &QObject::deleteLater);
+        connect(mpThread, &QThread::started , mpWorker, &TcpModbusSlaveWorker::onStarted);
+
+        mpThread->start();
+    }
+
+    void stop()
+    {
+        mpWorker= nullptr;
+
+        if(mpThread != nullptr)
+        {
+            if(mpThread->isRunning())
+            {
+                mpThread->quit();
+                mpThread->wait();
+            }
+
+            mpThread->deleteLater();
+            mpThread = nullptr;
+        }
     }
 };
 #endif // TCPMODBUSSLAVE_H
