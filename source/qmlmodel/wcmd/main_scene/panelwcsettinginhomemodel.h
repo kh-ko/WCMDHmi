@@ -8,6 +8,7 @@
 class PanelWCSettingInHomeModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(quint32  currWeight         READ getCurrWeight             NOTIFY signalEventChangedCurrWeight        )
     Q_PROPERTY(quint32  underWeight        READ getUnderWeight            NOTIFY signalEventChangedUnderWeight       )
     Q_PROPERTY(quint32  normalWeight       READ getNormalWeight           NOTIFY signalEventChangedNormalWeight      )
     Q_PROPERTY(quint32  overWeight         READ getOverWeight             NOTIFY signalEventChangedOverWeight        )
@@ -18,9 +19,11 @@ class PanelWCSettingInHomeModel : public QObject
     Q_PROPERTY(bool     isEditNormalWeight READ getIsEditNormalWeight     NOTIFY signalEventChangedIsEditNormalWeight)
     Q_PROPERTY(bool     isEditOverWeight   READ getIsEditOverWeight       NOTIFY signalEventChangedIsEditOverWeight  )
     Q_PROPERTY(bool     isEditUnderGap     READ getIsEditUnderGap         NOTIFY signalEventChangedIsEditUnderGap    )
-    Q_PROPERTY(bool     isEditOverGap      READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
+    Q_PROPERTY(bool     mOverGap           READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
 
 public:
+    quint64  mDspSeq      ;
+    qint32   mCurrWeight  ;
     quint32  mUnderWeight ;
     quint32  mNormalWeight;
     quint32  mOverWeight  ;
@@ -33,6 +36,12 @@ public:
     bool     mIsEditUnderGap    ;
     bool     mIsEditOverGap     ;
 
+    qint32   getCurrWeight        ()
+    {
+        if((qint32)pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight > mCurrWeight) return 0;
+
+        return mCurrWeight;
+    }
     quint32  getUnderWeight       (){ return mUnderWeight       ;}
     quint32  getNormalWeight      (){ return mNormalWeight      ;}
     quint32  getOverWeight        (){ return mOverWeight        ;}
@@ -44,11 +53,12 @@ public:
     bool     getIsEditUnderGap    (){ return mIsEditUnderGap    ;}
     bool     getIsEditOverGap     (){ return mIsEditOverGap     ;}
 
-    void     setUnderWeight       (quint32 value){ if( value == mUnderWeight        ) return; mUnderWeight         = value; setIsEditUnderWeight (true); emit signalEventChangedUnderWeight        (value);}
-    void     setNormalWeight      (quint32 value){ if( value == mNormalWeight       ) return; mNormalWeight        = value; setIsEditNormalWeight(true); emit signalEventChangedNormalWeight       (value);}
-    void     setOverWeight        (quint32 value){ if( value == mOverWeight         ) return; mOverWeight          = value; setIsEditOverWeight  (true); emit signalEventChangedOverWeight         (value);}
-    void     setUnderGap          (qint32  value){ if( value == mUnderGap           ) return; mUnderGap            = value; setIsEditUnderGap    (true); emit signalEventChangedUnderGap           (value);}
-    void     setOverGap           (qint32  value){ if( value == mOverGap            ) return; mOverGap             = value; setIsEditOverGap     (true); emit signalEventChangedOverGap            (value);}
+    void     setCurrWeight        (qint32  value){ if( value == mCurrWeight         ) return; mCurrWeight          = value; emit signalEventChangedCurrWeight        (value);}
+    void     setUnderWeight       (quint32 value){ if( value == mUnderWeight        ) return; mUnderWeight         = value; setIsEditUnderWeight (true); emit signalEventChangedUnderWeight (value);}
+    void     setNormalWeight      (quint32 value){ if( value == mNormalWeight       ) return; mNormalWeight        = value; setIsEditNormalWeight(true); emit signalEventChangedNormalWeight(value);}
+    void     setOverWeight        (quint32 value){ if( value == mOverWeight         ) return; mOverWeight          = value; setIsEditOverWeight  (true); emit signalEventChangedOverWeight  (value);}
+    void     setUnderGap          (qint32  value){ if( value == mUnderGap           ) return; mUnderGap            = value; setIsEditUnderGap    (true); emit signalEventChangedUnderGap    (value);}
+    void     setOverGap           (qint32  value){ if( value == mOverGap            ) return; mOverGap             = value; setIsEditOverGap     (true); emit signalEventChangedOverGap     (value);}
     void     setIsEditUnderWeight (bool    value){ if( value == mIsEditUnderWeight  ) return; mIsEditUnderWeight   = value; emit signalEventChangedIsEditUnderWeight  (value);}
     void     setIsEditNormalWeight(bool    value){ if( value == mIsEditNormalWeight ) return; mIsEditNormalWeight  = value; emit signalEventChangedIsEditNormalWeight (value);}
     void     setIsEditOverWeight  (bool    value){ if( value == mIsEditOverWeight   ) return; mIsEditOverWeight    = value; emit signalEventChangedIsEditOverWeight   (value);}
@@ -56,6 +66,7 @@ public:
     void     setIsEditOverGap     (bool    value){ if( value == mIsEditOverGap      ) return; mIsEditOverGap       = value; emit signalEventChangedIsEditOverGap      (value);}
 
 signals:
+    void signalEventChangedCurrWeight        (qint32  value);
     void signalEventChangedUnderWeight       (quint32 value);
     void signalEventChangedNormalWeight      (quint32 value);
     void signalEventChangedOverWeight        (quint32 value);
@@ -129,6 +140,7 @@ public slots:
             setOverWeight(mNormalWeight + mOverGap);
         }
     }
+
     Q_INVOKABLE void onCommandApply()
     {
         PDSettingDto editPD = pProductSP->mCurrPD;
@@ -152,6 +164,22 @@ public slots:
         emit signalEventResultSaveProductSetting(ret);
     }
 
+    Q_INVOKABLE qint32 onCommandCurrWeight()
+    {
+        qint32 currWeight;
+        if(pDspSP->mDspList.size() > 0)
+        {
+            DspStatusDto status = pDspSP->mDspList[0]->mRcvDataStore.getStatusDto();
+            currWeight = status.mWCStatus.mCurrWeight;
+            if(currWeight >= (qint32)pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight)
+            {
+                return status.mWCStatus.mCurrWeight;
+            }
+        }
+
+        return 0;
+    }
+
 // down layer =============================================================
 public slots:
     void onChangedCurrPDSetting(PDSettingDto dto)
@@ -161,10 +189,23 @@ public slots:
         setOverWeight  (dto.mDspForm.mWCSetting.mOverWeight  );
     }
 
+    void onChangedDspStatus(quint64 dspSeq, DspStatusDto dto)
+    {
+        CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        setCurrWeight(dto.mWCStatus.mCurrWeight);
+    }
+
 // internal layer =============================================================
 public:
     explicit PanelWCSettingInHomeModel(QObject *parent = nullptr):QObject(parent)
     {
+        if(pDspSP->mDspList.size() > 0)
+        {
+            mDspSeq = pDspSP->mDspList[0]->mSeq;
+        }
+
+        ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
         ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
         onChangedCurrPDSetting(pProductSP->mCurrPD);
 

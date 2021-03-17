@@ -372,6 +372,14 @@ public slots:
         pDspSP->sendResetGCntCmd(mDspSeq, 1);
     }
 
+    Q_INVOKABLE void onCommandSetTare(quint32 value)
+    {
+        PDSettingDto setting = pProductSP->mCurrPD;
+        setting.mDspForm.mWCSetting.mTareWeight = value;
+
+        pProductSP->editPD(setting);
+    }
+
 
 
 //  down layer ===================================================================================

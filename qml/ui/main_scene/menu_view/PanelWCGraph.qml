@@ -356,6 +356,9 @@ PDCntPerMin
                 isImage : true; imageSource:"/control/img_btn/left-blue.png"
                 //isDisable: ! model.isEditable
                 onSignalEventClicked: {
+                    if(model.measureCueSign === 0)
+                        return;
+
                     model.onCommandSetMeasureCueSign(model.measureCueSign - 10)
                 }
 
@@ -407,6 +410,10 @@ PDCntPerMin
                 //isDisable: ! model.isEditable
 
                 onSignalEventClicked: {
+
+                    if(model.measureSection === 0)
+                        return;
+
                     model.onCommandSetMeasureSection(model.measureSection - 10);
                 }
             }

@@ -11,17 +11,18 @@ Item {
         return inputText;
     }
 
+    property var    reservedValue : ""
     property alias  isHighlight  : inputText.isHighlight
     property alias  bgColor      : inputText.bgColor
     property alias  isDisable    : inputText.isDisable
-
+    property alias  pixelSize    : inputText.pixelSize
     property alias  postfix      : inputText.postfix
     property int    fixedN       : 1
 
     property bool   isLocaleStyle: true
     property real    realValue    : 1000
-    property var    min
-    property var    max
+    property var     min
+    property var     max
     property string labelText     : ""
     property int    inputWidth    : -1
 
@@ -59,6 +60,7 @@ Item {
         textHAlign      : Text.AlignRight
         textInputType   : QmlEnumDef.FLOAT_MODE
 
+        reservedValue   : control.reservedValue
         fixedN          : control.fixedN
         labelText       : control.labelText
         isLocaleStyle   : control.isLocaleStyle

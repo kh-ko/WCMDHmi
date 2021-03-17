@@ -38,6 +38,8 @@ private:
 
     const QString mGUIIsEnableWCKey                         = "gui/EnableWC"                      ;
 
+    const QString mGUIPDSortModeKey                         = "gui/PDSortMode"                    ;
+
     const QString mTRIsUnderToOverKey                       = "gui/TrendsIsUnderToOver"           ;
     const QString mTRIsTotalKey                             = "gui/TrendsIsTotal"                 ;
     const QString mTRIstotalSinceStartKey                   = "gui/TrendsIsTotalSinceStart"       ;
@@ -124,6 +126,7 @@ public:
     EnumDef::eLang           mLanguage       ;
     bool                     mIsDetail       ;
     EnumDef::eViewMode       mViewMode       ;
+    EnumDef::ePDSortMode     mPDSortMode     ;
     TrendsOptionDto          mTROption;      ;
     QDate                    mBackupLastDate ;
     DevSettingDto            mDevSetting     ;
@@ -212,6 +215,15 @@ public:
         internalSetGUIViewMode(value);
 
         emit signalEventChangedViewMode((int)value);
+    }
+
+    void setGUIPDSortMode(EnumDef::ePDSortMode value)
+    {
+        CHECK_FALSE_RETURN(mIsRunning)
+
+        internalSetGUIPDSortMode(value);
+
+        emit signalEventChangedPDSortMode((int)value);
     }
 
     void setTROption(TrendsOptionDto dto)
@@ -311,6 +323,7 @@ private:
 
         mViewMode                                                  = (EnumDef::eViewMode)mpSetting->value(mGUIViewModeKey      , pDefaultSP->GUI_VIEW_MODE                                          ).toInt()   ;
 
+        mPDSortMode                                                = (EnumDef::ePDSortMode)mpSetting->value(mGUIPDSortModeKey  , pDefaultSP->GUI_PD_SORT_MODE                                       ).toInt()   ;
         mTROption.mTrendsOptionH                                   = mpSetting->value(mTRIsUnderToOverKey                      , pDefaultSP->TR_OPTION_H                                            ).toInt()   ;
         mTROption.mTrendsOptionFilter                              = mpSetting->value(mTRIsTotalKey                            , pDefaultSP->TR_OPTION_FILTER                                       ).toInt()   ;
         mTROption.mTrendsOptionLastN                               = mpSetting->value(mTRIstotalSinceStartKey                  , pDefaultSP->TR_OPTION_TOTAL_SINCE_START                            ).toInt()   ;
@@ -386,6 +399,7 @@ private:
         internalSetLanuguage      (mLanguage);
         internalSetGUIIsDetail    (mIsDetail);
         internalSetGUIViewMode    (mViewMode);
+        internalSetGUIPDSortMode  (mPDSortMode);
         internalSetTROption       (mTROption);
         internalSetBackupLastDate (mBackupLastDate);
         internalSetDevSetting     (mDevSetting);
@@ -435,6 +449,13 @@ private:
         mViewMode = value;
 
         mpSetting->setValue(mGUIViewModeKey, value);
+    }
+
+    void internalSetGUIPDSortMode(EnumDef::ePDSortMode value)
+    {
+        mPDSortMode = value;
+
+        mpSetting->setValue(mGUIPDSortModeKey, value);
     }
 
     void internalSetTROption(TrendsOptionDto dto)
@@ -540,6 +561,7 @@ signals:
 
     void signalEventChangedIsDetail(bool value);
     void signalEventChangedViewMode(int value);
+    void signalEventChangedPDSortMode(int value);
     void signalEventChangedIsEnableWC(bool value);
     void signalEventChangedTROption(TrendsOptionDto dto);
     void signalEventChangedInformation(InformationDto dto);

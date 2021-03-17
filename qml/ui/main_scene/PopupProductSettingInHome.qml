@@ -4,8 +4,10 @@ import ViewManager 1.0
 import FontManager 1.0
 import "."
 import "../../control/"
+import MainViewModel 1.0
 
 Item {
+    property  MainViewModel mainModel
 
     width: 1920
     height: 1080

@@ -61,7 +61,10 @@ Item {
             virtualTextField.validator = null
         }
 
-        virtualTextField.text = control.vinputText.getTextValue();
+        if(control.vinputText.reservedValue != "")
+            virtualTextField.text = control.vinputText.reservedValue;
+        else
+            virtualTextField.text = control.vinputText.getTextValue();
 
         control.visible = true;
         virtualTextField.forceActiveFocus();//  .focus = true;

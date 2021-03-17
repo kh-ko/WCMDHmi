@@ -14,17 +14,14 @@ class PanelPDSelectModel : public QObject
 public:
     QList<PDSettingDto> mPDList;
 
-    static int * getOrderPtr(){ static int order = 0; return &order;}
-
     int  getOrder()
     {
-        return *getOrderPtr();
+        return pLSettingSP->mPDSortMode;
     }
 
     void setOrder(int value)
     {
-        int * pOrder = getOrderPtr();
-        *pOrder = value;
+        pLSettingSP->setGUIPDSortMode((EnumDef::ePDSortMode)value);
 
         emit signalEventChangedOrder(value);
     }
@@ -91,7 +88,7 @@ private:
         {
             PDSettingDto old = mPDList[i];
 
-            if(order == 0) // 이룸순
+            if(order == EnumDef::PD_SORT_NAME) // 이룸순
             {
                 if(old.mName == pNew->mName)
                 {

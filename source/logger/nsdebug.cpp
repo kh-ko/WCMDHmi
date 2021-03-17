@@ -42,7 +42,7 @@ void NSDebug::startService()
         QString fileName = "%1/log/log_%2.txt";
         mpSelf->mfile.setFileName(fileName.arg(applicationPath).arg(currTime));
 
-        mpSelf->mfile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Unbuffered);
+        mpSelf->mfile.open(QIODevice::WriteOnly | QIODevice::Text);
         if(mpSelf->mfile.isOpen() == false)
         {
             QString error =  mpSelf->mfile.errorString();

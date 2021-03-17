@@ -90,7 +90,8 @@ Item {
     {
         scene.toSettingMenuName = "Weight"
         inputPassword.textValue = ""
-        ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        //ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        popupProductSettingInHome.showWCSetting()
     }
 
     function showGroupSetting()

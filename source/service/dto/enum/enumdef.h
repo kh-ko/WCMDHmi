@@ -20,6 +20,7 @@ class EnumDef: public QObject{
     Q_ENUMS(eRunMode)
     Q_ENUMS(eWCGPointType)
     Q_ENUMS(eWCCalibType)
+    Q_ENUMS(ePDSortMode)
 
 public:
     enum eDspFRState {
@@ -148,6 +149,11 @@ public:
     enum eWCCalibType{
             WC_CALIB_TYPE_STATIC = 0,
             WC_CALIB_TYPE_DYNAMIC = 1
+    };
+
+    enum ePDSortMode{
+        PD_SORT_NAME  = 0,
+        PD_SORT_NUM   = 1,
     };
 
 };

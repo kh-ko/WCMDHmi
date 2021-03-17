@@ -23,16 +23,15 @@ public:
 
     quint64 mLookProductSeq;
     quint64 mSelectedProductSeq;
-    static int * getOrderPtr(){ static int order = 0; return &order;}
     bool    mIsEnableWC;
 
-    int     getOrder             (){return *getOrderPtr()            ;}
+    int     getOrder             (){return pLSettingSP->mPDSortMode  ;}
     bool    getIsEnableWC        (){return mIsEnableWC               ;}
     int     getProductCount      (){return mListProductSetting.size();}
     quint64 getLookProductSeq    (){return mLookProductSeq           ;}
     quint64 getSelectedProductSeq(){return mSelectedProductSeq       ;}
 
-    void setOrder             (int     value){ int * pOrder = getOrderPtr(); *pOrder = value;                       emit signalEventChangedOrder             (value); }
+    void setOrder             (int     value){ pLSettingSP->setGUIPDSortMode((EnumDef::ePDSortMode)value);          emit signalEventChangedOrder             (value); }
     void setIsEnableWC        (bool    value){ if(value == mIsEnableWC        )return; mIsEnableWC         = value; emit signalEventChangedIsEnableWC        (value); }
     void setLookProductSeq    (quint64 value){ if(value == mLookProductSeq    )return; mLookProductSeq     = value; emit signalEventChangedLookProductSeq    (value); }
     void setSelectedProductSeq(quint64 value){ if(value == mSelectedProductSeq)return; mSelectedProductSeq = value; emit signalEventChangedSelectedProductSeq(value); }

@@ -449,9 +449,9 @@ public:
         setWCNGBuzzer        (newProduct.mDspForm.mWCSetting.mNGBuzzer               );
         setWCEnableEtcError  (newProduct.mDspForm.mWCSetting.mEnableEtcError         );
         setDynamicFactor     (newProduct.mDspForm.mWCSetting.mDynamicFactor          );
-        setFilterCoefficient (pLSettingSP->mPdBaseSetting.mFilterCoefficient         );
-        setMeasureCueSign    (pLSettingSP->mPdBaseSetting.mMeasureCueSign            );
-        setMeasureSection    (pLSettingSP->mPdBaseSetting.mMeasureSection            );
+        setFilterCoefficient (newProduct.mDspForm.mWCSetting.mFilterCoefficient      );
+        setMeasureCueSign    (newProduct.mDspForm.mWCSetting.mMeasureCueSign         );
+        setMeasureSection    (newProduct.mDspForm.mWCSetting.mMeasureSection         );
         setMDSenstivity      (newProduct.mDspForm.mMDSetting.mSenstivity             );
         setMDNGMotion        (newProduct.mDspForm.mMDSetting.mNGMotion               );
         setMDNGLamp          (newProduct.mDspForm.mMDSetting.mNGLamp                 );

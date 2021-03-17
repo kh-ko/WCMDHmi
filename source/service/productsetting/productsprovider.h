@@ -234,11 +234,11 @@ public:
                 break;
         }
 
-        if(mPDList.size() > 0)
-            dummy = *mPDList[mPDList.size() -1];
+        //if(mPDList.size() > 0)
+        dummy = mCurrPD;//*mPDList[mPDList.size() -1];
 
         dummy.mSeq = 0;
-        dummy.mName = "product";
+        dummy.mName = " ";
         dummy.mDspForm.mCommSetting.mProductNum = pdNewNum;
         return dummy;
     }

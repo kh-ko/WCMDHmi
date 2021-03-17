@@ -77,6 +77,7 @@ public:
     EnumDef::eLang                    LANGUAGE                           = EnumDef::LANG_KOR;
     bool                              GUI_IS_DETAIL                      = false;
     EnumDef::eViewMode                GUI_VIEW_MODE                      = EnumDef::WC_VIEWMODE_CURRENT;
+    EnumDef::ePDSortMode              GUI_PD_SORT_MODE                   = EnumDef::PD_SORT_NAME;
     EnumDef::eTrendsGraphOptionH      TR_OPTION_H                        = EnumDef::TRENDSOPTION_H_UNDER_TO_OVER;
     EnumDef::eTrendsGraphOptionFilter TR_OPTION_FILTER                   = EnumDef::TRENDSOPTION_FILTER_TOTAL;
     EnumDef::eTrendsGraphOptionLastN  TR_OPTION_TOTAL_SINCE_START        = EnumDef::TRENDSOPTION_TOTAL_SINCE_START;
@@ -193,6 +194,7 @@ public:
             else if(key == "LANGUAGE"                           ){ LANGUAGE                           = (EnumDef::eLang)value.toUInt()                   ;}
             else if(key == "GUI_IS_DETAIL"                      ){ GUI_IS_DETAIL                      = value.toUInt() == 1 ? true : false               ;}
             else if(key == "GUI_VIEW_MODE"                      ){ GUI_VIEW_MODE                      = (EnumDef::eViewMode)value.toUInt()               ;}
+            else if(key == "GUI_PD_SORT_MODE"                   ){ GUI_PD_SORT_MODE                   = (EnumDef::ePDSortMode)value.toUInt()             ;}
             else if(key == "TR_OPTION_H"                        ){ TR_OPTION_H                        = (EnumDef::eTrendsGraphOptionH)value.toUInt()     ;}
             else if(key == "TR_OPTION_FILTER"                   ){ TR_OPTION_FILTER                   = (EnumDef::eTrendsGraphOptionFilter)value.toUInt();}
             else if(key == "TR_OPTION_TOTAL_SINCE_START"        ){ TR_OPTION_TOTAL_SINCE_START        = (EnumDef::eTrendsGraphOptionLastN) value.toUInt();}

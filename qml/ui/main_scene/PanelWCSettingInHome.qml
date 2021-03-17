@@ -229,6 +229,8 @@ Rectangle {
             anchors.bottomMargin: 0
             anchors.horizontalCenterOffset: -52
 
+
+            reservedValue: model.currWeight !== 0 ? (model.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) : ""
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditNormalWeight
             min : 0.1
@@ -332,7 +334,6 @@ Rectangle {
             anchors.bottom: iconOver.top
             anchors.bottomMargin: -20
             anchors.horizontalCenterOffset: -52
-
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditOverWeight
             min : 0.1

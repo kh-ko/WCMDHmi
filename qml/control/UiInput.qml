@@ -8,6 +8,7 @@ import QtGraphicalEffects 1.0
 Item {
     signal signalChangeText(string value)
 
+    property alias  pixelSize       : textContent.font.pixelSize
     property bool   isHighlight     : false
     property color  bgColor         : "#2F2F2F"
     property bool   isLocaleStyle   : true
@@ -19,6 +20,7 @@ Item {
     property alias  postfix         : textPostfix.text
     property alias  textHAlign      : textContent.horizontalAlignment
     property int    textInputType
+    property var    reservedValue   : ""
 
     id: control
 

@@ -21,6 +21,7 @@
 #define ENABLE_SLOT_LSETTING_STOP                   connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventStopped()                             ), this, SLOT(onStoppedLocalSettingSProvider()        ))
 #define ENABLE_SLOT_LSETTING_CHANGED_ISDETAIL       connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedIsDetail(bool)                 ), this, SLOT(onChangedGuiIsDetail(bool)              ))
 #define ENABLE_SLOT_LSETTING_CHANGED_VIEWMODE       connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedViewMode(int)                  ), this, SLOT(onChangedViewMode(int)                  ))
+#define ENABLE_SLOT_LSETTING_CHANGED_PDSORTMODE     connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedPDSortMode(int)                ), this, SLOT(onChangedPDSortMode(int)                ))
 #define ENABLE_SLOT_LSETTING_CHANGED_TR_OPTION      connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedTROption(TrendsOptionDto)      ), this, SLOT(onChangedTROption(TrendsOptionDto)      ))
 #define ENABLE_SLOT_LSETTING_CHANGED_INFO           connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedInformation(InformationDto)    ), this, SLOT(onChangedInformation(InformationDto)    ))
 #define ENABLE_SLOT_LSETTING_CHANGED_BACKUP_DATE    connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedBackupLastDate(QDate)          ), this, SLOT(onChangedBackupLastDate(QDate)          ))

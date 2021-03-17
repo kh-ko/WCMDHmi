@@ -178,5 +178,6 @@
         <file>ui/main_scene/img/graph/play.png</file>
         <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc.png</file>
         <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc-sel.png</file>
+        <file>ui/main_scene/img/weight_setting/tare.png</file>
     </qresource>
 </RCC>

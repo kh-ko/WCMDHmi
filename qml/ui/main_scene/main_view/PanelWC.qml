@@ -255,22 +255,23 @@ Item {
 
         }
 
-        Text{
-            id:textTare
-            height: 55
+        UiInputFloat {
+            id: textTare
+            height: 80; width: 300
+            anchors.bottom: wcView.top; anchors.bottomMargin: -20; anchors.right: wcView.right; anchors.rightMargin: 20
 
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment : Text.AlignRight
-            font.pixelSize: 50
-            font.family: FontManager.nanumGothicBName
-            elide: Text.ElideRight
+            pixelSize: 40
+            labelText: qsTr("Tare weight")
+            postfix: "g"
 
-            color : "#FFFFFF"
-            text: (panel.tare / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
-            anchors.bottom: wcView.top
-            anchors.bottomMargin: -20
-            anchors.right: wcView.right
-            anchors.rightMargin: 20
+            bgColor: "#59000000"
+            min : 0.0
+            max : 99999.9
+            realValue : panel.tare / 1000
+
+            onSignalChangeValue: {
+                mainViewModel.onCommandSetTare((value * 1000) + 0.5)
+            }
         }
 
         Item{

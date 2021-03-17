@@ -776,7 +776,7 @@ UiPanel {
         visible: panel.isAdmin && settingModel.isEnableWC
         textValue: settingModel.isEnableWC ? qsTr("Weight checker") : ""
     }
-
+/*
 
     UiInputFloat{
         id : inputDisplayStability
@@ -801,6 +801,8 @@ UiPanel {
             settingModel.onCommandSetDisplayStability((value * 10) + 0.5)
         }
     }
+
+
 
     UiInputNumber{
         id : inputMeasureCueSign
@@ -870,13 +872,13 @@ UiPanel {
             settingModel.onCommandSetFilterCoefficient(value)
         }
     }
+*/
 
-    /*
     UiInputFloat{
         id : inputMinStaticWeight
         height: 60
-        anchors.topMargin: 10
-        anchors.top: inputMeasureCSection.bottom
+        anchors.topMargin: 20
+        anchors.top: labelWeightChecker.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -919,13 +921,13 @@ UiPanel {
             settingModel.onCommandSetMinDynamicWeight((value * 1000) + 0.5)
         }
     }
-    */
+
 
     UiInputFloat{
         id : inputScaler
         height: 60
         anchors.topMargin: 10
-        anchors.top: inputFilterCoefficient.bottom
+        anchors.top: inputMinDynamicWeight.bottom
         anchors.leftMargin: 20
         anchors.left: dividerGeneralWeightChecker.right
         anchors.right: dividerWCMD.left
@@ -936,12 +938,13 @@ UiPanel {
         bgColor: panel.bgColor
         labelText : qsTr("· Display unit")
         postfix: "g"
+        fixedN : 3
         inputWidth: 170
 
         realValue: settingModel.scaler / 1000.0
 
         onSignalChangeValue: {
-            settingModel.onCommandSetScaler((value * 1000) + 0.5)
+            settingModel.onCommandSetScaler(value * 1000)
         }
     }
 
