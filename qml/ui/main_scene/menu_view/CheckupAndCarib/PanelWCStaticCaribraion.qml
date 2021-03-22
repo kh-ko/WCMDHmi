@@ -20,10 +20,6 @@ UiPanel {
 
     PanelWCStaticCaribrationModel{
         id : caribratinModel
-
-        onSignalEventCompleteCalibration: {
-            ViewManager.toast.show(qsTr("Calibration is complete."))
-        }
     }
 
     MouseArea{
@@ -32,144 +28,166 @@ UiPanel {
 
     UiPanel{
         id : panelMessageBox
-        height: 260
+        height: 296
         anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.top: parent.top
         anchors.topMargin: 20
+        anchors.bottom: currentWeightBox.top
+        anchors.bottomMargin: 40
 
         clip: true
         type : QmlEnumDef.PANEL_TYPE_DROP
 
+        ColumnLayout{
+            anchors.fill: parent; anchors.margins: 20
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
 
-        UiLabelSystem{
-            id : labelMessage01
-            height: 50
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 100
-            anchors.left: parent.left
-            anchors.leftMargin: 100
+                Text{
+                    anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.leftMargin: 40
 
-            textValue: qsTr("After put the standard weight on the scale, press 'Calibration' button.")
-        }
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignLeft
+                    font.pixelSize: 25
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
 
-        Rectangle{
-            height: 5
-            color: "#0085ff"
-            radius: 2
-            anchors.right: labelMessage01.right
-            anchors.rightMargin: 400
-            anchors.left: labelMessage01.left
-            anchors.leftMargin: 0
-            anchors.top: labelMessage01.bottom
-            anchors.topMargin: 0
+                    color : "#FFFFFF"
+                    text: qsTr("1. After emptying the product on the scale, press 'ZERO' button.")
+                }
+
+                UiButton{
+                    height: 80; width: 200
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right; anchors.rightMargin: 40
+
+                    textValue: qsTr("ZERO")
+
+                    onSignalEventClicked: {
+                        caribratinModel.onCommandZERO()
+                    }
+                }
+            }
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                visible: caribratinModel.step > QmlEnumDef.STATIC_CARIB_STEP_INIT
+
+                Text{
+                    anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.leftMargin: 40
+
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignLeft
+                    font.pixelSize: 25
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
+
+                    color : "#FFFFFF"
+                    text: qsTr("2. Please check the standard weight.")
+                }
+
+                UiInputFloat{
+                    height: 80; width: 220
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: standardWeightConfirmBtn.left; anchors.rightMargin: 20
+                    min : 0.1
+                    max : 9999.9
+                    postfix: "g"
+
+                    realValue:  caribratinModel.standardWeight / 1000
+                    onSignalChangeValue: {
+                        caribratinModel.onCommandSetStandardWeight((value * 1000) + 0.5)
+                    }
+                }
+
+                UiButton{
+                    id : standardWeightConfirmBtn
+                    height: 80; width: 200
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right; anchors.rightMargin: 40
+
+                    textValue: qsTr("Confirm")
+
+                    onSignalEventClicked: {
+                        caribratinModel.onCommandConfirmStandardWeight()
+                    }
+                }
+            }
+
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                visible: caribratinModel.step > QmlEnumDef.STATIC_CARIB_STEP_STD_WEIGHT_CHECK
+                Text{
+                    anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.leftMargin: 40
+
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignLeft
+                    font.pixelSize: 25
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
+
+                    color : "#FFFFFF"
+                    text: qsTr("3. After put the standard weight on the scale, press 'Calibration' button.")
+                }
+
+                UiButton{
+                    height: 80; width: 200
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right; anchors.rightMargin: 40
+
+                    textValue: qsTr("Calibration")
+
+                    onSignalEventClicked: {
+                        caribratinModel.onCommandCaribration()
+                    }
+                }
+            }
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                visible: caribratinModel.step > QmlEnumDef.STATIC_CARIB_STEP_CARIB_ING
+                Text{
+                    anchors.fill: parent
+
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignHCenter
+                    font.pixelSize: 100
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
+
+                    color : "#FFFFFF"
+                    text: qsTr("Calibration is complete.")
+                }
+            }
         }
     }
 
-    Item
-    {
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        anchors.bottom: btnCaribraion.top
-        anchors.bottomMargin: 0
-        anchors.top: panelMessageBox.bottom
-        anchors.topMargin: 60
-        anchors.left: parent.left
-        anchors.leftMargin: 20
+    Item{
+        id : currentWeightBox
+        height: 120; width: 1000
+        anchors.bottom: btnComplete.top; anchors.bottomMargin: 40; anchors.horizontalCenter: parent.horizontalCenter
 
-        visible: caribratinModel.step === QmlEnumDef.WC_STATIC_CARI_STEP_INIT
+        Text{
+            anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.leftMargin: 40
 
-        UiLabelSystem{
-            id : labelStandardWeight
-            width: 250
-            height: 30
-            anchors.left: parent.left
-            anchors.leftMargin: 40
-            anchors.top: parent.top
-            anchors.topMargin: 60
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 50
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
 
-            textValue: qsTr("· Standard weight");
+            color : "#ACACAC"
+            text: qsTr("Current weight")
         }
 
         Text{
-            id:textStaticWeight
-            width: 215
-            height: 60
+            anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.right: parent.right; anchors.rightMargin: 20
 
-            font.pixelSize: 40
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignRight
+            font.pixelSize: 100
             font.family: FontManager.nanumGothicName
             elide: Text.ElideRight
-            horizontalAlignment: Text.AlignRight
 
             color : "#FFFFFF"
-            text: (caribratinModel.standardWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
-            anchors.left: labelStandardWeight.right
-            anchors.leftMargin: 0
-            anchors.top: labelStandardWeight.top
-            anchors.topMargin: 0
-        }
-
-        UiInputFloat{
-            id : inputStaticWeight
-            visible: false
-            min : 0.1
-            max : 9999.9
-
-            realValue:  caribratinModel.standardWeight / 1000
-            onSignalChangeValue: {
-                caribratinModel.onCommandSetStandardWeight((value * 1000) + 0.5)
-            }
-        }
-
-        UiButton{
-            height: 80
-            anchors.verticalCenter: textStaticWeight.verticalCenter
-            anchors.left: textStaticWeight.right
-            anchors.leftMargin: 40
-            width: 200
-
-            textValue: qsTr("Edit")
-
-            onSignalEventClicked: {
-                ViewManager.keypad.showKeypad(inputStaticWeight.getVInputText())
-            }
-        }
-
-        Text{
-            color: "#ffffff"
-
-            anchors.top: textStaticWeight.bottom
-            anchors.topMargin:0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 80
-            anchors.right: parent.right
-            anchors.rightMargin: 80
-
-            font.pixelSize: 250
-            font.family: FontManager.nanumGothicName
-            elide: Text.ElideRight
-            horizontalAlignment: Text.AlignRight
-
-            text: (caribratinModel.currentWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
-            verticalAlignment: Text.AlignVCenter
-
-            UiButton{
-                height: 80; width: 200
-                anchors.top: parent.top
-                anchors.right: parent.right
-                anchors.leftMargin: 40
-
-                textValue: qsTr("ZERO")
-
-                onSignalEventClicked: {
-                    caribratinModel.onCommandZERO()
-                }
-            }
+            text: (caribratinModel.currentWeight/1000).toLocaleString(ViewManager.locale, "f", 1) + " g"
         }
     }
 
@@ -178,8 +196,8 @@ UiPanel {
         height: 80
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 40
-        anchors.right: btnCaribraion.left
-        anchors.rightMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 40
         width: 200
 
         textValue: qsTr("Close")
@@ -189,30 +207,11 @@ UiPanel {
         }
     }
 
-    UiButton{
-        id: btnCaribraion
-        height: 80
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-        width: 200
-
-        visible: caribratinModel.step === QmlEnumDef.WC_STATIC_CARI_STEP_INIT
-        textValue: qsTr("Calibraion")
-
-        type: QmlEnumDef.BUTTON_TYPE_BLUE
-
-        onSignalEventClicked: {
-            caribratinModel.onCommandCaribration()
-        }
-    }
-
     BusyIndicator{
         anchors.fill: parent
         running: true
 
-        visible: caribratinModel.isBusy
+        visible: caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_ING
     }
 }
 

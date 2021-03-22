@@ -43,17 +43,41 @@ public:
         return false;
     }
 
-    bool getSensorAlarm()
+    bool getIsWCSensorAlarm()
     {
-        return ((mWCStatus.mAlarm & 0x01) == 0x01) || ((mMDStatus.mAlarm & 0x01) == 0x01);
+        return ((mWCStatus.mAlarm & 0x01) == 0x01);
     }
-    bool getPhotoAlarm()
+    bool getIsWCPhotoAlarm()
     {
-        return ((mWCStatus.mAlarm & 0x02) == 0x02) || ((mMDStatus.mAlarm & 0x02) == 0x02);
+        return ((mWCStatus.mAlarm & 0x02) == 0x02);
     }
-    bool getMotorAlarm ()
+    bool getIsWCMortorAlarm()
     {
-        return ((mWCStatus.mAlarm & 0x04) == 0x04) || ((mMDStatus.mAlarm & 0x04) == 0x04);
+        return ((mWCStatus.mAlarm & 0x04) == 0x04);
+    }
+    bool getIsWCRJMortorAlarm()
+    {
+        return ((mWCStatus.mAlarm & 0x08) == 0x08);
+    }
+    bool getIsWCMeasureAlarm()
+    {
+        return ((mWCStatus.mAlarm & 0x10) == 0x10);
+    }
+    bool getIsMDSensorAlarm()
+    {
+        return ((mMDStatus.mAlarm & 0x01) == 0x01);
+    }
+    bool getIsMDPhotoAlarm()
+    {
+        return ((mMDStatus.mAlarm & 0x02) == 0x02);
+    }
+    bool getIsMDMortorAlarm()
+    {
+        return ((mMDStatus.mAlarm & 0x04) == 0x04);
+    }
+    bool getIsMDRJMortorAlarm()
+    {
+        return ((mMDStatus.mAlarm & 0x08) == 0x08);
     }
 };
 

@@ -419,37 +419,34 @@
 <context>
     <name>PanelDebugging</name>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="49"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="50"/>
         <source>Alarm State</source>
         <translation>알람 상태</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="60"/>
         <source>Sensor alarm</source>
-        <translation>센서 알람</translation>
+        <translation type="vanished">센서 알람</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="80"/>
         <source>Photo alarm</source>
-        <translation>포토 알람</translation>
+        <translation type="vanished">포토 알람</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="97"/>
         <source>Motor alarm</source>
-        <translation>모터 알람</translation>
+        <translation type="vanished">모터 알람</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="114"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="206"/>
         <source>DSP Setting</source>
         <translation>장비 설정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="123"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="215"/>
         <source>Lamp time : </source>
         <translation>Lamp time : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="139"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="231"/>
         <source>Buzzer time : </source>
         <translation>Buzzer time : </translation>
     </message>
@@ -462,173 +459,218 @@
         <translation type="vanished">Rejector run time ratio : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="254"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="346"/>
         <source>Static factor : </source>
         <translation>Static factor : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="270"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="362"/>
         <source>Dynamic factor : </source>
         <translation>Dynamic factor : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="155"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="247"/>
         <source>m/min → Hz : </source>
         <translation>m/min → Hz : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="171"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="61"/>
+        <source>WC Sensor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="81"/>
+        <source>WC Photo alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="96"/>
+        <source>WC Motor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="111"/>
+        <source>WC RJ Motor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="126"/>
+        <source>WC Measure section alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="140"/>
+        <source>MD Sensor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="160"/>
+        <source>MD Photo alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="175"/>
+        <source>MD Motor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="190"/>
+        <source>MD RJ Motor alarm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="263"/>
         <source>Transfer direction : </source>
         <translation>Transfer direction : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="204"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="296"/>
         <source>Loadcell length : </source>
         <translation>Loadcell length : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="286"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="378"/>
         <source>Display unit : </source>
         <translation>Display unit : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="302"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="394"/>
         <source>Display stability : </source>
         <translation>Display stability : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="318"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="410"/>
         <source>Measure cue sign : </source>
         <translation>Measure cue sign : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="334"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="426"/>
         <source>Min static weight : </source>
         <translation>Min static weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="350"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="442"/>
         <source>Min dynamic weight : </source>
         <translation>Min dynamic weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="366"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="458"/>
         <source>Metal detect mode : </source>
         <translation>Metal detect mode : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="382"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="474"/>
         <source>Distance btw sensor : </source>
         <translation>Distance btw sensor : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="398"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="490"/>
         <source>Detect-Detect time : </source>
         <translation>Detect-Detect time : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="414"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="506"/>
         <source>Run-Detect time : </source>
         <translation>Run-Detect time : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="430"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="522"/>
         <source>Dist to weight checker : </source>
         <translation>Dist to weight checker : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="446"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="538"/>
         <source>Dist btw photo to sensor : </source>
         <translation>Dist btw photo to sensor : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="462"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="554"/>
         <source>Signal delay time : </source>
         <translation>Signal delay time : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="478"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="570"/>
         <source>Product seq :</source>
         <translation>Product seq :</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="494"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="586"/>
         <source>Speed : </source>
         <translation>Speed : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="510"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="602"/>
         <source>Normal weight : </source>
         <translation>Normal weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="526"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="618"/>
         <source>Under weight : </source>
         <translation>Under weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="542"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="634"/>
         <source>Under warning weight : </source>
         <translation>Under warning weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="558"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="650"/>
         <source>Over warning weight : </source>
         <translation>Over warning weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="574"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="666"/>
         <source>Over weight : </source>
         <translation>Over weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="590"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="682"/>
         <source>Tare weight : </source>
         <translation>Tare weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="606"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="698"/>
         <source>Weight NG motion : </source>
         <translation>Weight NG motion : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="622"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="714"/>
         <source>Metal senstivity : </source>
         <translation>Metal senstivity : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="638"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="730"/>
         <source>Metal NG motion : </source>
         <translation>Metal NG motion : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="652"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="744"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="669"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="761"/>
         <source>MD Photo mode on : </source>
         <translation>MD Photo mode on : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="685"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="777"/>
         <source>WC Photo mode on : </source>
         <translation>WC Photo mode on : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="701"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="793"/>
         <source>Std Weight : </source>
         <translation>Std Weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="717"/>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="749"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="809"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="841"/>
         <source>Dynamic Std Weight : </source>
         <translation>Dynamic Std Weight : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="733"/>
+        <location filename="qml/ui/main_scene/PanelDebugging.qml" line="825"/>
         <source>SensorCnt : </source>
         <translation>SensorCnt : </translation>
     </message>
@@ -2188,7 +2230,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="234"/>
         <source>ADC</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="304"/>
@@ -2344,40 +2386,66 @@
 <context>
     <name>PanelWCStaticCaribraion</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="25"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="156"/>
         <source>Calibration is complete.</source>
         <translation>보정이 완료되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="56"/>
         <source>After put the standard weight on the scale, press &apos;Calibration&apos; button.</source>
         <oldsource>After put the standard weight on the scale, press &apos;Caribration&apos; button.</oldsource>
-        <translation>분동을 저울에 올리고, &apos;보정&apos;버튼을 선택해 주세요.</translation>
+        <translation type="vanished">분동을 저울에 올리고, &apos;보정&apos;버튼을 선택해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="94"/>
         <source>· Standard weight</source>
-        <translation>· 분동무게</translation>
+        <translation type="vanished">· 분동무게</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="134"/>
         <source>Edit</source>
-        <translation>수정</translation>
+        <translation type="vanished">수정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="167"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="59"/>
+        <source>1. After emptying the product on the scale, press &apos;ZERO&apos; button.</source>
+        <translation>1. 저울 위를 비워주시고, &apos;ZERO&apos;버튼을 선택해 주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="66"/>
         <source>ZERO</source>
         <translation>영점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="185"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="87"/>
+        <source>2. Please check the standard weight.</source>
+        <translation>2. 분동무게를 확인해 주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="108"/>
+        <source>Confirm</source>
+        <translation>확인</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="129"/>
+        <source>3. After put the standard weight on the scale, press &apos;Calibration&apos; button.</source>
+        <translation>3. 분동을 저울에 올리고, &apos;보정&apos;버튼을 선택해 주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="136"/>
+        <source>Calibration</source>
+        <translation>보정</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="177"/>
+        <source>Current weight</source>
+        <translation>현재중량</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="203"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="202"/>
         <source>Calibraion</source>
-        <translation>보정</translation>
+        <translation type="vanished">보정</translation>
     </message>
 </context>
 <context>

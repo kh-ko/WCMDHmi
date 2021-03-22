@@ -492,7 +492,7 @@ private:
 
             for(int i = 0; i < pGData->mPointCnt; i ++)
             {
-                if(mpFileWriter->newWrite(QString("%1,%2\n").arg((int)(pGData->mPoints[i].mFilterValue)).arg((int)(pGData->mPoints[i].mRawValue))) == false)
+                if(mpFileWriter->newWrite(QString("%1,%2,%3\n").arg((int)(pGData->mPoints[i].mFilterValue)).arg((int)(pGData->mPoints[i].mRawValue)).arg((int)(pGData->mPoints[i].mPointType))) == false)
                 {
                     qDebug() << "[PanelWCGraphModel::writeGraphData] graph write error!";
                     closeFile();

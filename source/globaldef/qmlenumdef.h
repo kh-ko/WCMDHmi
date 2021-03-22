@@ -14,6 +14,7 @@ class QmlEnumDef: public QObject{
   Q_ENUMS(MDGraphViewType)
   Q_ENUMS(MDCheckUpStep)
   Q_ENUMS(MDCheckUpState)
+  Q_ENUMS(StaticCaribStep)
   Q_ENUMS(SearchFilter)
   Q_ENUMS(Company)
 
@@ -107,6 +108,14 @@ public:
       CHECKUP_PASS = 2,
       CHECKUP_FAIL = 3,
 
+  };
+
+  enum StaticCaribStep{
+      STATIC_CARIB_STEP_INIT             = 0,
+      STATIC_CARIB_STEP_STD_WEIGHT_CHECK = 1,
+      STATIC_CARIB_STEP_CARIB_READY      = 2,
+      STATIC_CARIB_STEP_CARIB_ING        = 3,
+      STATIC_CARIB_STEP_CARIB_COMPLETED  = 4
   };
 
   enum SearchFilter{

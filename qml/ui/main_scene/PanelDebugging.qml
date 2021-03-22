@@ -44,21 +44,21 @@ Rectangle {
         border.width: 0
 
         UiLabelTitle{
+            id : alarmTitle
             width: 200
             height: 60
             textValue: qsTr("Alarm State")
             anchors.top: parent.top
-            anchors.topMargin: 40
+            anchors.topMargin: 10
             anchors.left: parent.left
             anchors.leftMargin: 40
         }
 
         Text{
-            width: 200
+            id : wcSensorAlarmValue
             height: 60
-            color: mainSceneModel.IsSensorAlarm ? "#FF0000" :"#acacac"
-            text: qsTr("Sensor alarm")
-            anchors.topMargin: 102
+            color: mainSceneModel.isWCSensorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("WC Sensor alarm")
 
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment : Text.AlignLeft
@@ -66,45 +66,137 @@ Rectangle {
             font.family: FontManager.nanumGothicName
             elide: Text.ElideRight
 
+            anchors.topMargin: 0
             anchors.left: parent.left
-            anchors.top: parent.top
+            anchors.top: alarmTitle.bottom
             anchors.leftMargin: 40
         }
 
 
         Text
         {
-            width: 200
+            id : wcPhotoAlarmValue
             height: 60
-            color: mainSceneModel.IsPhotoAlarm ? "#FF0000" :"#acacac"
-            text: qsTr("Photo alarm")
+            color: mainSceneModel.isWCPhotoAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("WC Photo alarm")
             font.family: FontManager.nanumGothicName
-            anchors.top: parent.top
-            anchors.left: parent.left
             font.pixelSize: 25
             verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 102
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
-            anchors.leftMargin: 246
+            anchors.verticalCenter: wcSensorAlarmValue.verticalCenter
+            anchors.left: wcSensorAlarmValue.right; anchors.leftMargin: 40
         }
 
         Text
         {
-            width: 200
+            id : wcMotorAlarmValue
             height: 60
-            color: mainSceneModel.IsMortorAlarm ? "#FF0000" :"#acacac"
-            text: qsTr("Motor alarm")
+            color: mainSceneModel.isWCMortorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("WC Motor alarm")
             font.family: FontManager.nanumGothicName
-            anchors.left: parent.left
-            anchors.top: parent.top
             font.pixelSize: 25
             verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 102
             horizontalAlignment: Text.AlignLeft
-            anchors.leftMargin: 463
             elide: Text.ElideRight
+            anchors.verticalCenter: wcSensorAlarmValue.verticalCenter
+            anchors.left: wcPhotoAlarmValue.right; anchors.leftMargin: 40
         }
+
+        Text
+        {
+            id : wcRJMotorAlarmValue
+            height: 60
+            color: mainSceneModel.isWCRJMortorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("WC RJ Motor alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: wcSensorAlarmValue.verticalCenter
+            anchors.left: wcMotorAlarmValue.right; anchors.leftMargin: 40
+        }
+
+        Text
+        {
+            id : wcMeasureSectionAlarm
+            height: 60
+            color: mainSceneModel.isWCMeasureAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("WC Measure section alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: wcSensorAlarmValue.verticalCenter
+            anchors.left: wcRJMotorAlarmValue.right; anchors.leftMargin: 40
+        }
+
+        Text{
+            id : mdSensorAlarmValue
+            height: 60
+            color: mainSceneModel.isMDSensorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("MD Sensor alarm")
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            anchors.topMargin: 0
+            anchors.left: parent.left
+            anchors.top: wcSensorAlarmValue.bottom
+            anchors.leftMargin: 40
+        }
+
+
+        Text
+        {
+            id : mdPhotoAlarmValue
+            height: 60
+            color: mainSceneModel.isMDPhotoAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("MD Photo alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: mdSensorAlarmValue.verticalCenter
+            anchors.left: mdSensorAlarmValue.right; anchors.leftMargin: 40
+        }
+
+        Text
+        {
+            id : mdMotorAlarmValue
+            height: 60
+            color: mainSceneModel.isMDMortorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("MD Motor alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: mdSensorAlarmValue.verticalCenter
+            anchors.left: mdPhotoAlarmValue.right; anchors.leftMargin: 40
+        }
+
+        Text
+        {
+            id : mdRJMotorAlarmValue
+            height: 60
+            color: mainSceneModel.isMDRJMortorAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("MD RJ Motor alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: mdSensorAlarmValue.verticalCenter
+            anchors.left: mdMotorAlarmValue.right; anchors.leftMargin: 40
+        }
+
 
         UiLabelTitle {
             width: 200
