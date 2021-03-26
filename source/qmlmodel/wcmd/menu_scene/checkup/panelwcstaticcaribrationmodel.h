@@ -89,14 +89,27 @@ public slots:
 
         if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_STATIC_CARI)
         {
-            setStep(QmlEnumDef::STATIC_CARIB_STEP_CARIB_COMPLETED);
-
             DevSettingDto devSetting = pLSettingSP->mDevSetting;
-            devSetting.mDspForm.mWCSetting.mStaticFactor = dto.mEvent.mEventValue;
-            pLSettingSP->setDevSetting(devSetting);
 
-            emit signalEventCompleteCalibration();
-            return;
+            qDebug() << "[debug] df = " << dto.mEvent.mEventValue;
+
+            if(dto.mEvent.mEventValue < 100000 || dto.mEvent.mEventValue > 5000000)
+            {
+                devSetting.mDspForm.mWCSetting.mStaticFactor = 1000000;
+                pLSettingSP->setDevSetting(devSetting);
+
+                setStep(QmlEnumDef::STATIC_CARIB_STEP_CARIB_COMPLETED_ERR);
+                emit signalEventCompleteCalibration();
+            }
+            else
+            {
+                devSetting.mDspForm.mWCSetting.mStaticFactor = dto.mEvent.mEventValue;
+                pLSettingSP->setDevSetting(devSetting);
+
+                setStep(QmlEnumDef::STATIC_CARIB_STEP_CARIB_COMPLETED);
+                emit signalEventCompleteCalibration();
+            }
+
         }
     }
 

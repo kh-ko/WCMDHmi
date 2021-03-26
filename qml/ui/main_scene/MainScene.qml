@@ -106,6 +106,8 @@ Item {
         console.debug("[MainScene.qml] : Create");
 
         currView = "mainView";
+
+        ViewManager.weightFixedN = model.weightFixedN;
         ViewManager.setMainScene(scene);
         ViewManager.setPopupTrendsOption(popupTrendsOption);
         ViewManager.setKeypad(keypad);
@@ -121,6 +123,11 @@ Item {
 
     MainSceneModel{
         id : model
+
+        onSignalEventChangedWeightFixedN :
+        {
+            ViewManager.weightFixedN = model.weightFixedN;
+        }
     }
 
     Rectangle{

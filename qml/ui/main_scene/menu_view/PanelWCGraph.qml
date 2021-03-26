@@ -69,6 +69,28 @@ UiPanel {
             }
         }
 
+        UiInputNumber {
+            id : inputGraphPointCnt
+            height: 60; width: 350
+
+            anchors.verticalCenter: labelMode.verticalCenter; anchors.right: parent.right; anchors.rightMargin: 0;
+            inputWidth: 130
+            //postfix: "g"
+            labelText: qsTr("· Graph count")
+            min : 1
+            max : 100
+
+            numberValue: model.graphPointCnt
+            //isDisable: ! model.isEditable
+            isHighlight: model.isEditGraphPointCnt
+
+            onSignalChangeValue:
+            {
+                model.onCommandSetGraphPointCnt(value)
+            }
+        }
+
+
         Item {
             id: inputMinMax
             height: 80
@@ -296,10 +318,10 @@ PDCntPerMin
 
         UiInputNumber {
             id : inputFilterCoefficient
-            width: 322
-            height: 60
-            anchors.top: labelTimingGraph.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0; anchors.right: parent.right; anchors.rightMargin: 0
-            inputWidth: 200
+            height: 60; width: 350
+
+            anchors.top: labelTimingGraph.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0;
+            inputWidth: 130
             //postfix: "g"
             labelText: qsTr("· Filter coefficient")
             min : 1
@@ -312,6 +334,23 @@ PDCntPerMin
             onSignalChangeValue:
             {
                 model.onCommandSetFilterCoefficient(value)
+            }
+        }
+
+        UiRadioBtn{
+            id: checkGroupBuzzerOn
+            height: 60; width: 322
+            anchors.top: labelTimingGraph.bottom; anchors.topMargin: 10; anchors.right: parent.right; anchors.rightMargin: 0
+
+            textMargin : 10
+            isHighlight: model.isEditAutoSetting
+            isSelect: model.autoSetting === 1 ? true : false
+
+            textValue : qsTr("Auto setting")
+
+            onSignalEventClicked:
+            {
+                model.onCommandSetAutoSetting(model.autoSetting === 0 ? 1 : 0);
             }
         }
 
@@ -477,7 +516,9 @@ PDCntPerMin
 
         visible: model.isEditFilterCoefficient    ||
                  model.isEditMeasureCueSign       ||
-                 model.isEditMeasureSection
+                 model.isEditMeasureSection       ||
+                 model.isEditGraphPointCnt        ||
+                 model.isEditAutoSetting
 
         type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")

@@ -33,9 +33,13 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(int      measuredSectionLineIdx  READ      getMeasuredSectionLineIdx      NOTIFY      signalEventChangedMeasuredSectionLineIdx )
     Q_PROPERTY(int      timingPointCnt          READ      getTimingPointCnt              NOTIFY      signalEventChangedTimingPointCnt         )
 
+    Q_PROPERTY(quint16  graphPointCnt           READ      getGraphPointCnt               NOTIFY      signalEventChangedGraphPointCnt          )
+    Q_PROPERTY(quint16  autoSetting             READ      getAutoSetting                 NOTIFY      signalEventChangedAutoSetting            )
     Q_PROPERTY(quint16  filterCoefficient       READ      getFilterCoefficient           NOTIFY      signalEventChangedFilterCoefficient      )
     Q_PROPERTY(quint32  measureCueSign          READ      getMeasureCueSign              NOTIFY      signalEventChangedMeasureCueSign         )
     Q_PROPERTY(quint32  measureSection          READ      getMeasureSection              NOTIFY      signalEventChangedMeasureSection         )
+    Q_PROPERTY(bool     isEditGraphPointCnt     READ      getIsEditGraphPointCnt         NOTIFY      signalEventChangedIsEditGraphPointCnt    )
+    Q_PROPERTY(quint16  isEditAutoSetting       READ      getIsEditAutoSetting           NOTIFY      signalEventChangedIsEditAutoSetting      )
     Q_PROPERTY(bool     isEditFilterCoefficient READ      getIsEditFilterCoefficient     NOTIFY      signalEventChangedIsEditFilterCoefficient)
     Q_PROPERTY(bool     isEditMeasureCueSign    READ      getIsEditMeasureCueSign        NOTIFY      signalEventChangedIsEditMeasureCueSign   )
     Q_PROPERTY(bool     isEditMeasureSection    READ      getIsEditMeasureSection        NOTIFY      signalEventChangedIsEditMeasureSection   )
@@ -67,9 +71,14 @@ public:
     bool            mIsTimingGraphBuffering = false;
     int             mLastPointType          = 0;
     int             mXTimeInterval          = 10;
+    quint16         mGraphPointCnt          = 10;
+    quint16         mAutoSetting            = 0;
     quint16         mFilterCoefficient      = 0;
     quint32         mMeasureCueSign         = 0;
     quint32         mMeasureSection         = 0;
+
+    bool            mIsEditGraphPointCnt    = false;
+    bool            mIsEditAutoSetting      = false;
     bool            mIsEditFilterCoefficient= false;
     bool            mIsEditMeasureCueSign   = false;
     bool            mIsEditMeasureSection   = false;
@@ -105,9 +114,13 @@ public:
     int      getMeasuredSectionLineIdx  (){return mMeasuredSectionLineIdx   ;}
     int      getTimingPointCnt          (){return mTimingGraphPoints.size() ;}
 
+    quint16  getGraphPointCnt           (){return mGraphPointCnt            ;}
+    quint16  getAutoSetting             (){return mAutoSetting              ;}
     quint16  getFilterCoefficient       (){return mFilterCoefficient        ;}
     quint32  getMeasureCueSign          (){return mMeasureCueSign           ;}
     quint32  getMeasureSection          (){return mMeasureSection           ;}
+    bool     getIsEditGraphPointCnt     (){return mIsEditGraphPointCnt      ;}
+    bool     getIsEditAutoSetting       (){return mIsEditAutoSetting        ;}
     bool     getIsEditFilterCoefficient (){return mIsEditFilterCoefficient  ;}
     bool     getIsEditMeasureCueSign    (){return mIsEditMeasureCueSign     ;}
     bool     getIsEditMeasureSection    (){return mIsEditMeasureSection     ;}
@@ -162,7 +175,8 @@ public:
     void setMeasuredStartIdx       (int     value){if(value == mMeasuredStartIdx       ) return; mMeasuredStartIdx        = value; emit signalEventChangedMeasuredStartIdx       (value);}
     void setMeasuredCueLineIdx     (int     value){if(value == mMeasuredCueLineIdx     ) return; mMeasuredCueLineIdx      = value; emit signalEventChangedMeasuredCueLineIdx     (value);}
     void setMeasuredSectionLineIdx (int     value){if(value == mMeasuredSectionLineIdx ) return; mMeasuredSectionLineIdx  = value; emit signalEventChangedMeasuredSectionLineIdx (value);}
-
+    void setGraphPointCnt          (int     value){if(value == mGraphPointCnt          ) return; mGraphPointCnt           = value; setIsEditGraphPointCnt(true)   ;  emit signalEventChangedGraphPointCnt    (value);}
+    void setAutoSetting            (quint16 value){if(value == mAutoSetting            ) return; mAutoSetting             = value; setIsEditAutoSetting(true)     ;  emit signalEventChangedAutoSetting      (value);}
     void setFilterCoefficient      (quint16 value){if(value == mFilterCoefficient      ) return; mFilterCoefficient       = value; setIsEditFilterCoefficient(true); emit signalEventChangedFilterCoefficient(value);}
     void setMeasureCueSign         (quint32 value)
     {
@@ -187,6 +201,8 @@ public:
             setMeasuredSectionLineIdx(mMeasuredCueLineIdx + (value / mXTimeInterval));
         }
     }
+    void setIsEditGraphPointCnt    (bool    value){if(value == mIsEditGraphPointCnt    ) return; mIsEditGraphPointCnt     = value; emit signalEventChangedIsEditGraphPointCnt    (value);}
+    void setIsEditAutoSetting      (bool    value){if(value == mIsEditAutoSetting      ) return; mIsEditAutoSetting       = value; emit signalEventChangedIsEditAutoSetting      (value);}
     void setIsEditFilterCoefficient(bool    value){if(value == mIsEditFilterCoefficient) return; mIsEditFilterCoefficient = value; emit signalEventChangedIsEditFilterCoefficient(value);}
     void setIsEditMeasureCueSign   (bool    value){if(value == mIsEditMeasureCueSign   ) return; mIsEditMeasureCueSign    = value; emit signalEventChangedIsEditMeasureCueSign   (value);}
     void setIsEditMeasureSection   (bool    value){if(value == mIsEditMeasureSection   ) return; mIsEditMeasureSection    = value; emit signalEventChangedIsEditMeasureSection   (value);}
@@ -210,9 +226,13 @@ signals:
     void signalEventChangedMeasuredCueLineIdx     (int     value);
     void signalEventChangedMeasuredSectionLineIdx (int     value);
     void signalEventChangedTimingPointCnt         (int     value);
+    void signalEventChangedGraphPointCnt          (quint16 value);
+    void signalEventChangedAutoSetting            (quint16 value);
     void signalEventChangedFilterCoefficient      (quint16 value);
     void signalEventChangedMeasureCueSign         (quint32 value);
     void signalEventChangedMeasureSection         (quint32 value);
+    void signalEventChangedIsEditGraphPointCnt    (bool    value);
+    void signalEventChangedIsEditAutoSetting      (bool    value);
     void signalEventChangedIsEditFilterCoefficient(bool    value);
     void signalEventChangedIsEditMeasureCueSign   (bool    value);
     void signalEventChangedIsEditMeasureSection   (bool    value);
@@ -242,17 +262,28 @@ public slots:
     Q_INVOKABLE int                         onCommandGetRuntimeRawPointValue    (int  idx  ){ return mRunTimeRawGraphPoints.at(idx) - getMinRange();}
     Q_INVOKABLE int                         onCommandGetRuntimePointValue       (int  idx  ){ return mRunTimeGraphPoints.at(idx) - getMinRange();   }
     Q_INVOKABLE int                         onCommandApply                      (          ){
-        PDSettingDto dto = pProductSP->mCurrPD;
+        DevSettingDto devSetting = pLSettingSP->mDevSetting;
+        PDSettingDto pdSetting = pProductSP->mCurrPD;
 
-        dto.mDspForm.mWCSetting.mFilterCoefficient  = mFilterCoefficient;
-        dto.mDspForm.mWCSetting.mMeasureCueSign     = mMeasureCueSign;
-        dto.mDspForm.mWCSetting.mMeasureSection     = mMeasureSection;
+        pdSetting.mDspForm.mWCSetting.mAutoSetting        = mAutoSetting;
+        pdSetting.mDspForm.mWCSetting.mFilterCoefficient  = mFilterCoefficient;
+        pdSetting.mDspForm.mWCSetting.mMeasureCueSign     = mMeasureCueSign;
+        pdSetting.mDspForm.mWCSetting.mMeasureSection     = mMeasureSection;
 
-        int ret = pProductSP->editPD(dto);
+        int ret = pProductSP->editPD(pdSetting);
 
+        setIsEditAutoSetting(false);
         setIsEditFilterCoefficient(false);
         setIsEditMeasureCueSign(false);
         setIsEditMeasureSection(false);
+
+        devSetting.mDspForm.mWCSetting.mGraphPointCnt = mGraphPointCnt;
+
+        pLSettingSP->setDevSetting(devSetting);
+
+        setIsEditGraphPointCnt(false);
+
+        mXTimeInterval = 100 / mGraphPointCnt;
 
         return ret;
     }
@@ -260,6 +291,7 @@ public slots:
     Q_INVOKABLE void onCommandCancel()
     {
         loadPDSetting();
+        loadDevSetting();
 
         if(mXTimeInterval != 0)
         {
@@ -268,11 +300,20 @@ public slots:
         }
     }
 
+    Q_INVOKABLE void onCommandSetGraphPointCnt(int cnt)
+    {
+        setGraphPointCnt(cnt);
+    }
+
+    Q_INVOKABLE void onCommandSetAutoSetting(quint16 value)
+    {
+        setAutoSetting(value);
+    }
+
     Q_INVOKABLE void onCommandSetFilterCoefficient(quint16 value)
     {
         setFilterCoefficient(value);
     }
-
 
     Q_INVOKABLE void onCommandSetMeasureCueSignLineIdx(int value)
     {
@@ -335,11 +376,12 @@ public slots:
 
         for(int i = 0; i < pGData->mPointCnt; i ++)
         {
-            if(mTotalRuntimePointCnt == mRunTimeRawGraphPoints.size())
+            while(mRunTimeRawGraphPoints.size()+ 1 > mTotalRuntimePointCnt)
             {
                 mRunTimeRawGraphPoints.removeAt(0);
                 mRunTimeGraphPoints.removeAt(0);
             }
+
             mRunTimeRawGraphPoints.append(pGData->mPoints[i].mRawValue);
             mRunTimeGraphPoints.append(pGData->mPoints[i].mFilterValue);
 
@@ -387,7 +429,7 @@ public :
         quint32 maxRange = (pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight * 1.2);
 
         loadPDSetting();
-
+        loadDevSetting();
 
         if(getMaxRange() == 100000000)
         {
@@ -443,13 +485,24 @@ public :
 
     void loadPDSetting()
     {
+        setAutoSetting      (pProductSP->mCurrPD.mDspForm.mWCSetting.mAutoSetting);
         setFilterCoefficient(pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient);
         setMeasureCueSign   (pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign);
         setMeasureSection   (pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection);
 
+        setIsEditAutoSetting(false);
         setIsEditFilterCoefficient(false);
         setIsEditMeasureCueSign(false);
         setIsEditMeasureSection(false);
+    }
+
+    void loadDevSetting()
+    {
+        setGraphPointCnt(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mGraphPointCnt);
+
+        setIsEditGraphPointCnt(false);
+
+        mXTimeInterval = 100 / mGraphPointCnt;
     }
 
 private:

@@ -2,6 +2,7 @@
 #define MAINSCENEMODEL_H
 
 #include <QObject>
+#include <QtMath>
 #include "source/service/def/datetimeform.h"
 #include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
@@ -27,6 +28,7 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    isMDMortorAlarm    READ getIsMDMortorAlarm     NOTIFY signalEventChangedIsMDMortorAlarm   )
     Q_PROPERTY(bool    isMDRJMortorAlarm  READ getIsMDRJMortorAlarm   NOTIFY signalEventChangedIsMDRJMortorAlarm )
     Q_PROPERTY(QString clock              READ getClock               NOTIFY signalEventChangedClock             )
+    Q_PROPERTY(int     weightFixedN       READ getWeightFixedN        NOTIFY signalEventChangedWeightFixedN      )
 
 public:
     quint64 mDspSeq            = 0;
@@ -50,6 +52,7 @@ public:
     bool    mIsMDRJMortorAlarm = false;
     QString mClock             = "";
     QString mPassword          = "";
+    int     mWeightFixedN      = 1;
 
     bool     getSWPowerOff       (){ return mSWPowerOff       ;}
     bool     getIsWCEnable       (){ return mIsWCEnable       ;}
@@ -69,6 +72,7 @@ public:
     bool     getIsMDMortorAlarm  (){ return mIsMDMortorAlarm  ;}
     bool     getIsMDRJMortorAlarm(){ return mIsMDRJMortorAlarm;}
     QString  getClock            (){ return mClock            ;}
+    int      getWeightFixedN     (){ return mWeightFixedN     ;}
 
     void     setSWPowerOff       (bool    value){ if(value == mSWPowerOff       )return; mSWPowerOff        = value; emit signalEventChangedSWPowerOff       (value);}
     void     setIsWCEnable       (bool    value){ if(value == mIsWCEnable       )return; mIsWCEnable        = value; emit signalEventChangedIsWCEnable       (value);}
@@ -88,7 +92,7 @@ public:
     void     setIsMDMortorAlarm  (bool    value){ if(value == mIsMDMortorAlarm  )return; mIsMDMortorAlarm   = value; emit signalEventChangedIsMDMortorAlarm  (value);}
     void     setIsMDRJMortorAlarm(bool    value){ if(value == mIsMDRJMortorAlarm)return; mIsMDRJMortorAlarm = value; emit signalEventChangedIsMDRJMortorAlarm(value);}
     void     setClock            (QString value){ if(value == getClock  ()      )return; mClock             = value; emit signalEventChangedClock            (value);}
-
+    void     setWeightFixedN     (int     value){ if(value == mWeightFixedN     )return; mWeightFixedN      = value; emit signalEventChangedWeightFixedN     (value);}
 signals:
     void signalEventChangedSWPowerOff       (bool    value);
     void signalEventChangedIsWCEnable       (bool    value);
@@ -108,6 +112,7 @@ signals:
     void signalEventChangedIsMDMortorAlarm  (bool    value);
     void signalEventChangedIsMDRJMortorAlarm(bool    value);
     void signalEventChangedClock            (QString value);
+    void signalEventChangedWeightFixedN     (int     value);
 
 public slots:
     Q_INVOKABLE bool onCommandComparePwd(QString value)
@@ -217,7 +222,7 @@ public slots:
 
         DevSettingDto dto;
         dto = pLSettingSP->mDevSetting;
-        dto.mDspForm.mWCSetting.mRefVoltage = value;
+        dto.mDspForm.mWCSetting.mRefVoltage = (qint16)value;
 
         qDebug() << "[debug]onChangedRefVoltage : setDevSetting";
         pLSettingSP->setDevSetting(dto);
@@ -226,6 +231,19 @@ public slots:
     void onChangedDevSetting(DevSettingDto dto)
     {
         setIsWCEnable(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+
+        if(dto.mDspForm.mWCSetting.mScaler%10 != 0)
+        {
+            setWeightFixedN(3);
+        }
+        else if(dto.mDspForm.mWCSetting.mScaler%100 != 0)
+        {
+            setWeightFixedN(2);
+        }
+        else
+        {
+            setWeightFixedN(1);
+        }
     }
     void onChangedHMISetting(HMISettingDto dto)
     {

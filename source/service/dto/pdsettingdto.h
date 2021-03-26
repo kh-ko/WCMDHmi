@@ -68,10 +68,12 @@ public:
         mDspForm.mWCSetting.mFilterCoefficient       = pDefaultSP->PD_DEFAULT_SETTING_FILTER_COEFFICIENT;
         mDspForm.mWCSetting.mMeasureCueSign          = pDefaultSP->PD_DEFAULT_SETTING_MEASURE_CUE_SIGN  ;
         mDspForm.mWCSetting.mMeasureSection          = pDefaultSP->PD_DEFAULT_SETTING_MEASURE_SECTION   ;
+        mDspForm.mWCSetting.mAutoSetting             = pDefaultSP->PD_SETTING_WC_AUTO_SETTING           ;
         mDspForm.mMDSetting.mSenstivity              = pDefaultSP->PD_SETTING_MD_SENSTIVITY             ;
         mDspForm.mMDSetting.mNGMotion                = pDefaultSP->PD_SETTING_MD_NGMOTION               ;
         mDspForm.mMDSetting.mNGLamp                  = pDefaultSP->PD_SETTING_MD_NG_LAMP                ;
         mDspForm.mMDSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_MD_NG_BUZZER              ;
+
     }
 
     bool setValue(QString value, QString divider)
@@ -118,6 +120,7 @@ public:
             else if(key == "FilterCoefficient"    ){ findFieldCnt++; mDspForm.mWCSetting.mFilterCoefficient       = value.toUInt()     ;}
             else if(key == "MeasureCueSign"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureCueSign          = value.toUInt()     ;}
             else if(key == "MeasureSection"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureSection          = value.toUInt()     ;}
+            else if(key == "AutoSetting"          ){ findFieldCnt++; mDspForm.mWCSetting.mAutoSetting             = value.toUInt()     ;}
         }
 
         return findFieldCnt == 0 ? false : true;
@@ -147,7 +150,8 @@ public:
                        "MDNGBuzzer:%51%52"
                        "FilterCoefficient:%53%54"
                        "MeasureCueSign:%55%56"
-                       "MeasureSection:%57"   )
+                       "MeasureSection:%57%58"
+                       "AutoSetting:%59")
                 .arg(mSeq                                        ).arg(divider)
                 .arg(mDspForm.mCommSetting.mProductNum           ).arg(divider)
                 .arg(mName                                       ).arg(divider)
@@ -176,7 +180,8 @@ public:
                 .arg(mDspForm.mMDSetting.mNGBuzzer               ).arg(divider)
                 .arg(mDspForm.mWCSetting.mFilterCoefficient      ).arg(divider)
                 .arg(mDspForm.mWCSetting.mMeasureCueSign         ).arg(divider)
-                .arg(mDspForm.mWCSetting.mMeasureSection         );
+                .arg(mDspForm.mWCSetting.mMeasureSection         ).arg(divider)
+                .arg(mDspForm.mWCSetting.mAutoSetting            );
     }
 };
 

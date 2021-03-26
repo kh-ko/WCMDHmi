@@ -46,7 +46,7 @@ Item {
         visible: control.visibleNet
         color: eventType == EnumDef.ET_WEIGHT_OVER ? "#F59A23" : "#D9001B"
 
-        text : (control.value / 1000).toLocaleString(ViewManager.locale, 'f', 1)
+        text : (control.value / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN)
     }
 
     Text {

@@ -87,8 +87,8 @@ Item {
             anchors.topMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 30
-            text: panel.currWeight == 0 ? "0.0" :
-                  isDevMode && value > 0 ? "+"+value.toLocaleString(ViewManager.locale, 'f', 1) : value.toLocaleString(ViewManager.locale, 'f', 1)
+            text: panel.currWeight == 0 ? panel.currWeight.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) :
+                  isDevMode && value > 0 ? "+"+value.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) : value.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN)
             font.letterSpacing: 0
             color: currEventType === EnumDef.ET_WEIGHT_OVER ? "#F59A23":
                    currEventType === EnumDef.ET_WEIGHT_UNDER ? "#D9001B" : "#FFFFFF"

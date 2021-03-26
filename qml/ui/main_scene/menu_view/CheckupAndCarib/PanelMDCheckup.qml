@@ -11,6 +11,9 @@ import PanelMDCheckupModel 1.0
 
 UiPanel {
     id: uiPanel
+
+    property var isWCEnable : true
+
     width : 1519
     height: 997
 
@@ -641,6 +644,8 @@ UiPanel {
         width: 200
 
         textValue: qsTr("Close")
+
+        visible: panel.isWCEnable
 
         onSignalEventClicked: {
             uiPanel.signalEventCloseClicked()

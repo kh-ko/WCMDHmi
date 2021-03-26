@@ -60,6 +60,7 @@ public:
     quint16                           PD_SETTING_WC_NG_BUZZER            = 1;
     quint32                           PD_SETTING_DYNAMIC_FAC             = 10000000;
     quint16                           PD_SETTING_ENABLE_ETC_ERR          = 1;
+    quint16                           PD_SETTING_WC_AUTO_SETTING         = 1;
     quint16                           PD_SETTING_MD_SENSTIVITY           = 9999;
     EnumDef::eNGMotion                PD_SETTING_MD_NGMOTION             = EnumDef::NG_MOTION_SORTER_02;
     quint16                           PD_SETTING_MD_NG_LAMP              = 1;
@@ -110,6 +111,7 @@ public:
     quint32                           DEV_SETTING_STATIC_STANDARD_WEIGHT = 10000                                 ;
     quint32                           DEV_SETTING_DYNAMIC_BASE_WEIGHT    = 10000                                 ;
     qint16                            DEV_SETTING_REF_VOLTAGE            = 4465                                  ;
+    quint16                           DEV_SETTING_WC_GRAPH_POINT_CNT     = 10                                    ;
     EnumDef::eSensorMode              DEV_SETTING_DETECT_MODE            = EnumDef::SENS_MODE_INDEPENDENT        ;
     quint32                           DEV_SETTING_DETECT_DETECT_TIME     = 500                                   ;
     quint32                           DEV_SETTING_RUN_DETECT_TIME        = 1000                                  ;
@@ -177,6 +179,7 @@ public:
             else if(key == "PD_SETTING_WC_NG_BUZZER"            ){ PD_SETTING_WC_NG_BUZZER            = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_DYNAMIC_FAC"             ){ PD_SETTING_DYNAMIC_FAC             = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_ENABLE_ETC_ERR"          ){ PD_SETTING_ENABLE_ETC_ERR          = value.toUInt()                                   ;}
+            else if(key == "PD_SETTING_WC_AUTO_SETTING"         ){ PD_SETTING_WC_AUTO_SETTING         = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_MD_SENSTIVITY"           ){ PD_SETTING_MD_SENSTIVITY           = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_MD_NGMOTION"             ){ PD_SETTING_MD_NGMOTION             = (EnumDef::eNGMotion)value.toUInt()               ;}
             else if(key == "PD_SETTING_MD_NG_LAMP"              ){ PD_SETTING_MD_NG_LAMP              = value.toUInt()                                   ;}
@@ -227,6 +230,7 @@ public:
             else if(key == "DEV_SETTING_STATIC_STANDARD_WEIGHT" ){ DEV_SETTING_STATIC_STANDARD_WEIGHT = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_DYNAMIC_BASE_WEIGHT"    ){ DEV_SETTING_DYNAMIC_BASE_WEIGHT    = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_REF_VOLTAGE"            ){ DEV_SETTING_REF_VOLTAGE            = value.toInt()                                    ;}
+            else if(key == "DEV_SETTING_WC_GRAPH_POINT_CNT"     ){ DEV_SETTING_WC_GRAPH_POINT_CNT     = value.toInt()                                    ;}
             else if(key == "DEV_SETTING_DETECT_MODE"            ){ DEV_SETTING_DETECT_MODE            = (EnumDef::eSensorMode)value.toUInt()             ;}
             else if(key == "DEV_SETTING_DETECT_DETECT_TIME"     ){ DEV_SETTING_DETECT_DETECT_TIME     = value.toUInt()                                   ;}
             else if(key == "DEV_SETTING_RUN_DETECT_TIME"        ){ DEV_SETTING_RUN_DETECT_TIME        = value.toUInt()                                   ;}

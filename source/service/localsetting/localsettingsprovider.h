@@ -75,6 +75,7 @@ private:
     const QString mDevWCSettingStaticStandardWeightKey      = "dspsetting/StaticStandardWeight"   ;
     const QString mDevWCSettingDynamicBaseWeightKey         = "dspsetting/DynamicBaseWeight"      ;
     const QString mDevWCSettingRefVoltageKey                = "dspsetting/RefVoltage"             ;
+    const QString mDevWCSettingGraphPointCntKey             = "dspsetting/GraphPointCnt"          ;
 
     const QString mDevMDSettingModeKey                      = "dspsetting/Mode"                   ;
     const QString mDevMDSettingDetectDetectTimeKey          = "dspsetting/DetectDetectTime"       ;
@@ -362,6 +363,7 @@ private:
         mDevSetting.mDspForm.mWCSetting.mStaticStandardWeight      = mpSetting->value(mDevWCSettingStaticStandardWeightKey     , pDefaultSP->DEV_SETTING_STATIC_STANDARD_WEIGHT                     ).toInt()   ;
         mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight         = mpSetting->value(mDevWCSettingDynamicBaseWeightKey        , pDefaultSP->DEV_SETTING_DYNAMIC_BASE_WEIGHT                        ).toInt()   ;
         mDevSetting.mDspForm.mWCSetting.mRefVoltage                = mpSetting->value(mDevWCSettingRefVoltageKey               , pDefaultSP->DEV_SETTING_REF_VOLTAGE                                ).toInt()   ;
+        mDevSetting.mDspForm.mWCSetting.mGraphPointCnt             = mpSetting->value(mDevWCSettingGraphPointCntKey            , pDefaultSP->DEV_SETTING_WC_GRAPH_POINT_CNT                         ).toInt()   ;
 
         mDevSetting.mDspForm.mMDSetting.mDetectMode                = mpSetting->value(mDevMDSettingModeKey                     , pDefaultSP->DEV_SETTING_DETECT_MODE                                ).toInt()   ;
         mDevSetting.mDspForm.mMDSetting.mDetectDetectTime          = mpSetting->value(mDevMDSettingDetectDetectTimeKey         , pDefaultSP->DEV_SETTING_DETECT_DETECT_TIME                         ).toInt()   ;
@@ -477,6 +479,7 @@ private:
 
     void internalSetDevSetting(DevSettingDto dto)
     {
+        qDebug() << "[info]internalSetDevSetting : staticFactor" << dto.mDspForm.mWCSetting.mStaticFactor;
         mDevSetting = dto;
 
         mpSetting->setValue(mDevCommSettingBuzzerTimeKey             , dto.mDspForm.mCommSetting.mBuzzerTime             );
@@ -507,6 +510,7 @@ private:
         mpSetting->setValue(mDevWCSettingStaticStandardWeightKey     , dto.mDspForm.mWCSetting.mStaticStandardWeight     );
         mpSetting->setValue(mDevWCSettingDynamicBaseWeightKey        , dto.mDspForm.mWCSetting.mDynamicBaseWeight        );
         mpSetting->setValue(mDevWCSettingRefVoltageKey               , dto.mDspForm.mWCSetting.mRefVoltage               );
+        mpSetting->setValue(mDevWCSettingGraphPointCntKey            , dto.mDspForm.mWCSetting.mGraphPointCnt            );
 
         mpSetting->setValue(mDevMDSettingModeKey                     , dto.mDspForm.mMDSetting.mDetectMode               );
         mpSetting->setValue(mDevMDSettingDetectDetectTimeKey         , dto.mDspForm.mMDSetting.mDetectDetectTime         );

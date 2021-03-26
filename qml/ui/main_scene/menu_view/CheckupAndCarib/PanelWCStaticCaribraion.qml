@@ -152,8 +152,8 @@ UiPanel {
                     font.family: FontManager.nanumGothicName
                     elide: Text.ElideRight
 
-                    color : "#FFFFFF"
-                    text: qsTr("Calibration is complete.")
+                    color : caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_COMPLETED_ERR ? "#D9001B" : "FFFFFF"
+                    text: caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_COMPLETED_ERR ? qsTr("Incorrect calibration. Please recalibrate.") : qsTr("Calibration is complete.")
                 }
             }
         }

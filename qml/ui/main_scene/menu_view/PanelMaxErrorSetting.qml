@@ -114,7 +114,7 @@ UiPanel
     Text {
         id: textAvg
         color: "#ffffff"
-        text: (panel.averageError/1000).toLocaleString(ViewManager.locale, 'f', 1)
+        text: (panel.averageError/1000).toLocaleString(ViewManager.locale, 'f', 3)
         anchors.verticalCenter: labelTextAvg.verticalCenter
         anchors.left: labelTextAvg.right
         horizontalAlignment: Text.AlignRight
@@ -136,7 +136,7 @@ UiPanel
     Text {
         id: textMax
         color: "#ffffff"
-        text:  (panel.max/1000).toLocaleString(ViewManager.locale, 'f', 1)
+        text:  (panel.max/1000).toLocaleString(ViewManager.locale, 'f', 3)
         anchors.verticalCenter: labelTextMax.verticalCenter
         anchors.left: labelTextMax.right
         horizontalAlignment: Text.AlignRight
@@ -158,7 +158,7 @@ UiPanel
     Text {
         id: textMin
         color: "#ffffff"
-        text: (panel.min/1000).toLocaleString(ViewManager.locale, 'f', 1)
+        text: (panel.min/1000).toLocaleString(ViewManager.locale, 'f', 3)
         anchors.verticalCenter: labelTextMin.verticalCenter
         anchors.left: labelTextMin.right
         horizontalAlignment: Text.AlignRight
@@ -234,7 +234,7 @@ UiPanel
                 anchors.verticalCenter: parent.verticalCenter
 
                 horizontalAlignment : Text.AlignRight
-                textValue: (weight/1000).toLocaleString(ViewManager.locale, 'f', 1)
+                textValue: (weight/1000).toLocaleString(ViewManager.locale, 'f', 3)
             }
 
             UiLabelContent{
@@ -246,7 +246,7 @@ UiPanel
                 anchors.verticalCenter: parent.verticalCenter
 
                 horizontalAlignment : Text.AlignRight
-                textValue: ((weight - settingModel.mAverage)/1000).toLocaleString(ViewManager.locale, 'f', 1)
+                textValue: ((weight - settingModel.mAverage)/1000).toLocaleString(ViewManager.locale, 'f', 3)
             }
 
             UiButton{

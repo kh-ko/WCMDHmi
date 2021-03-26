@@ -36,6 +36,7 @@ class LoggingDataModel : public QObject
     Q_PROPERTY(int     setIdx         READ getSelIdx                                      NOTIFY signalEventChangedSelIdx)
 
 public:
+    int            mWeightFixedN = 1;
     QThread       *mpLoaderThread = nullptr;
     FileReaderEx  *mpFileLoader   = nullptr;
 
@@ -183,7 +184,7 @@ public slots:
         if(EventDto::isWCEvent(eventType))
         {
             QString fmt("%1%2");
-            return fmt.arg(QString::number((float)mListItem[listIdx].mValue / 1000.0, 'f', 1)).arg(" g");
+            return fmt.arg(QString::number((float)mListItem[listIdx].mValue / 1000.0, 'f', mWeightFixedN)).arg(" g");
         }
         else if(EventDto::isMetalCheckup(eventType))
         {
@@ -274,6 +275,19 @@ public:
         setStartYear(date.year());
         setStartMonth(date.month());
         setStartDay(date.day());
+
+        if(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler%10 != 0)
+        {
+            mWeightFixedN = 3;
+        }
+        else if(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mScaler%100 != 0)
+        {
+            mWeightFixedN = 2;
+        }
+        else
+        {
+            mWeightFixedN = 1;
+        }
 
         //onCommandSearch();
     }

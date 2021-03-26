@@ -88,7 +88,7 @@ UiPanel
         PanelMDCheckup
         {
             anchors.fill: parent
-
+            isWCEnable : panel.isWCEnable
             onSignalEventCloseClicked: {
                 viewContainer.clear()
             }

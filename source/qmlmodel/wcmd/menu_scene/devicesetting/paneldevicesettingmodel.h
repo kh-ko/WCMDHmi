@@ -630,6 +630,8 @@ public slots:
         dto.mDspForm.mMDSetting.mSensorCnt              = mSensorCnt;
 
 
+        qDebug() << "[info][PanelDeviceSettingModel][onCommandSave] : staticFactor" << dto.mDspForm.mWCSetting.mStaticFactor;
+
         pLSettingSP->setDevSetting(dto);
         pLSettingSP->setLanuguage((EnumDef::eLang)mLanguage);
 

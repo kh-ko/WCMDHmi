@@ -111,11 +111,12 @@ public:
   };
 
   enum StaticCaribStep{
-      STATIC_CARIB_STEP_INIT             = 0,
-      STATIC_CARIB_STEP_STD_WEIGHT_CHECK = 1,
-      STATIC_CARIB_STEP_CARIB_READY      = 2,
-      STATIC_CARIB_STEP_CARIB_ING        = 3,
-      STATIC_CARIB_STEP_CARIB_COMPLETED  = 4
+      STATIC_CARIB_STEP_INIT                = 0,
+      STATIC_CARIB_STEP_STD_WEIGHT_CHECK    = 1,
+      STATIC_CARIB_STEP_CARIB_READY         = 2,
+      STATIC_CARIB_STEP_CARIB_ING           = 3,
+      STATIC_CARIB_STEP_CARIB_COMPLETED     = 4,
+      STATIC_CARIB_STEP_CARIB_COMPLETED_ERR = 5
   };
 
   enum SearchFilter{

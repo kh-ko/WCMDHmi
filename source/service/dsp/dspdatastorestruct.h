@@ -47,6 +47,7 @@ struct StDspDevWCSetting{
     unsigned int   mStaticStandardWeight   ;
     unsigned int   mDynamicBaseWeight      ;
              short mRefVoltage             ; // [add]
+    unsigned short mGraphPointCnt          ;
 };
 
 struct StDspDevMDSetting{
@@ -97,6 +98,7 @@ struct StDspPDWCSetting{
     unsigned short mFilterCoefficient      ;
     unsigned int   mMeasureCueSign         ;
     unsigned int   mMeasureSection         ;
+    unsigned short mAutoSetting            ;
 };
 
 struct StDspPDMDSetting{

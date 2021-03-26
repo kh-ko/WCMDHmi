@@ -93,7 +93,7 @@ Item {
             anchors.verticalCenter: eventIcon.verticalCenter
 
             horizontalAlignment : Text.AlignRight
-            textValue : (panel.errorType === EnumDef.ET_WEIGHT_UNDER || panel.errorType === EnumDef.ET_WEIGHT_OVER)? viewMode === EnumDef.WC_VIEWMODE_DELTA && value > 0 ? "+" + value.toLocaleString(ViewManager.locale, 'f', 1) + " g": value.toLocaleString(ViewManager.locale, 'f', 1) + " g":
+            textValue : (panel.errorType === EnumDef.ET_WEIGHT_UNDER || panel.errorType === EnumDef.ET_WEIGHT_OVER)? viewMode === EnumDef.WC_VIEWMODE_DELTA && value > 0 ? "+" + value.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g": value.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g":
                         panel.errorType === EnumDef.ET_METAL_DETECT  ? qsTr("Metal detect") :
                         panel.errorType === EnumDef.ET_WEIGHT_ETCERROR || panel.errorType === EnumDef.ET_WEIGHT_ETC_METAL_ERROR? qsTr("Etc error") : ""
         }
