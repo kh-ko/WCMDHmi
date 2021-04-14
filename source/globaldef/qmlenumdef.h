@@ -27,6 +27,7 @@ public:
       STRING_MODE = 3,
       IP_MODE = 4,
       S_INT_MODE = 5,
+      S_FLOAT_MODE = 6
   };
 
   enum LoggingDataMenu{

@@ -13,6 +13,7 @@ class PanelProductSettingModel : public QObject
     Q_OBJECT
     Q_PROPERTY(int      order                   READ getOrder                 NOTIFY signalEventChangedOrder             )
     Q_PROPERTY(bool     isEnableWC              READ getIsEnableWC            NOTIFY signalEventChangedIsEnableWC        )
+    Q_PROPERTY(bool     isEnableMD              READ getIsEnableMD            NOTIFY signalEventChangedIsEnableMD        )
     Q_PROPERTY(int      productCount            READ getProductCount          NOTIFY signalEventChangedProductCount      )
     Q_PROPERTY(quint64  lookProductSeq          READ getLookProductSeq        NOTIFY signalEventChangedLookProductSeq    )
     Q_PROPERTY(quint64  selectedProductSeq      READ getSelectedProductSeq    NOTIFY signalEventChangedSelectedProductSeq)
@@ -24,21 +25,25 @@ public:
     quint64 mLookProductSeq;
     quint64 mSelectedProductSeq;
     bool    mIsEnableWC;
+    bool    mIsEnableMD;
 
     int     getOrder             (){return pLSettingSP->mPDSortMode  ;}
     bool    getIsEnableWC        (){return mIsEnableWC               ;}
+    bool    getIsEnableMD        (){return mIsEnableMD               ;}
     int     getProductCount      (){return mListProductSetting.size();}
     quint64 getLookProductSeq    (){return mLookProductSeq           ;}
     quint64 getSelectedProductSeq(){return mSelectedProductSeq       ;}
 
     void setOrder             (int     value){ pLSettingSP->setGUIPDSortMode((EnumDef::ePDSortMode)value);          emit signalEventChangedOrder             (value); }
     void setIsEnableWC        (bool    value){ if(value == mIsEnableWC        )return; mIsEnableWC         = value; emit signalEventChangedIsEnableWC        (value); }
+    void setIsEnableMD        (bool    value){ if(value == mIsEnableMD        )return; mIsEnableMD         = value; emit signalEventChangedIsEnableMD        (value); }
     void setLookProductSeq    (quint64 value){ if(value == mLookProductSeq    )return; mLookProductSeq     = value; emit signalEventChangedLookProductSeq    (value); }
     void setSelectedProductSeq(quint64 value){ if(value == mSelectedProductSeq)return; mSelectedProductSeq = value; emit signalEventChangedSelectedProductSeq(value); }
 
 signals:
     void signalEventChangedOrder             (int     value);
     void signalEventChangedIsEnableWC        (bool    value);
+    void signalEventChangedIsEnableMD        (bool    value);
     void signalEventChangedProductCount      (int     value);
     void signalEventChangedLookProductSeq    (quint64 value);
     void signalEventChangedSelectedProductSeq(quint64 value);
@@ -159,7 +164,11 @@ public slots:
 
 public slots:
     void onChangedCurrPDSetting(PDSettingDto dto){ setSelectedProductSeq(dto.mSeq);}
-    void onChangedDevSetting(DevSettingDto dto){setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);}
+    void onChangedDevSetting(DevSettingDto dto)
+    {
+        setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+        setIsEnableMD(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_WC);
+    }
 
 public:
     void loadProductList(int order)

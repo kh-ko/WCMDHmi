@@ -37,7 +37,7 @@ Item {
 
         onSignalEventNotifyMDDetect:
         {
-            if(model.isEnableWC)
+            if(model.isEnableWC && model.isEnableMD)
                 notifyMDDetect.show()
         }
     }
@@ -115,6 +115,7 @@ Item {
         property MainViewModel  mainViewModel
         id: panelMetalDetector
         width: 245
+        visible: model.isEnableMD
         anchors.top: panelProductName.bottom
         anchors.topMargin: 10
         anchors.bottom: parent.bottom
@@ -146,8 +147,8 @@ Item {
         anchors.topMargin: 10
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-        anchors.left: panelMetalDetector.right
-        anchors.leftMargin: 10
+        anchors.left: model.isEnableMD ? panelMetalDetector.right : parent.left
+        anchors.leftMargin: model.isEnableMD ? 10 : 0
     }
 
 

@@ -10,9 +10,10 @@ import LoggingDataModel 1.0
 
 UiPanel {
     property var  isWCEnable
+    property var  isMDEnable
     property bool isViewMode : false
     property bool isAdmin : false
-    property var  selectDevice : ViewManager.mainScene.selDevLoggingMenu
+    property var  selectDevice : isWCEnable === true && isMDEnable === false ? QmlEnumDef.DEVICE_WEIGHT_CHECKER : ViewManager.mainScene.selDevLoggingMenu
     id : panel
 
     width : 1518
@@ -50,7 +51,7 @@ UiPanel {
         bgColor: panel.bgColor
         selIdx: panel.selectDevice
         listModel: comboSelDevOption
-        visible: panel.isWCEnable
+        visible: panel.isWCEnable && panel.isMDEnable
 
         ListModel {
             id : comboSelDevOption

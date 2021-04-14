@@ -179,5 +179,6 @@
         <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc.png</file>
         <file>ui/main_scene/main_view/img_wcstatus/image-zeroproc-sel.png</file>
         <file>ui/main_scene/img/weight_setting/tare.png</file>
+        <file>ui/main_scene/PopupZeroProc.qml</file>
     </qresource>
 </RCC>

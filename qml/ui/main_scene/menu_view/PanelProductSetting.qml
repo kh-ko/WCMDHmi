@@ -212,6 +212,7 @@ UiPanel {
 
         isAdmin: panel.isAdmin
         isEnableWC: productSettingModel.isEnableWC
+        isEnableMD: productSettingModel.isEnableMD
         isViewMode : panel.isViewMode
         itemModel : productSettingModel.onCommandGetEditViewItemModel()
 

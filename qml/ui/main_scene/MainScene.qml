@@ -55,7 +55,7 @@ Item {
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "selMenu" : QmlEnumDef.MENU_LOGGING_DATA, "isLoggingVew" : true})
+        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "isMDEnable" : model.isMDEnable, "selMenu" : QmlEnumDef.MENU_LOGGING_DATA, "isLoggingVew" : true})
     }
 
     function moveMenuView(selMenu, isSuper)
@@ -65,7 +65,7 @@ Item {
 
         currView = "menuView";
         viewContainer.clear();
-        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "selMenu" : selMenu, "isSuper" : isSuper})
+        viewContainer.push(menuView, {"isWCEnable" : model.isWCEnable, "isMDEnable" : model.isMDEnable, "selMenu" : selMenu, "isSuper" : isSuper})
     }
 
     function moveMainView()
@@ -127,6 +127,17 @@ Item {
         onSignalEventChangedWeightFixedN :
         {
             ViewManager.weightFixedN = model.weightFixedN;
+        }
+
+        onSignalEventChangedIsWait: {
+            if(isWait)
+            {
+                popupZeroProc.open()
+            }
+            else
+            {
+                popupZeroProc.close()
+            }
         }
     }
 
@@ -317,6 +328,11 @@ Item {
     {
         id : popupConfirm
         anchors.fill: parent
+    }
+
+    PopupZeroProc
+    {
+        id : popupZeroProc
     }
 
     PanelDebugging{

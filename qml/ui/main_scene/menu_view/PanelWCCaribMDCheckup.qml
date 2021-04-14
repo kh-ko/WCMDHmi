@@ -13,6 +13,7 @@ import QmlEnumDef 1.0
 UiPanel
 {
     property var isWCEnable : true
+    property var isMDEnable : true
 
     id : panel
 
@@ -69,6 +70,8 @@ UiPanel
 
             type : QmlEnumDef.BUTTON_TYPE_METAL
             textValue: qsTr("Metal detector checkup")
+
+            visible: isMDEnable
 
             onSignalEventClicked: {
                 viewContainer.clear()

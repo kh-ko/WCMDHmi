@@ -12,8 +12,10 @@ class MainSceneModel : public QObject
     Q_OBJECT
     Q_PROPERTY(bool    swPowerOff         READ getSWPowerOff          NOTIFY signalEventChangedSWPowerOff        )
     Q_PROPERTY(bool    isWCEnable         READ getIsWCEnable          NOTIFY signalEventChangedIsWCEnable        )
+    Q_PROPERTY(bool    isMDEnable         READ getIsMDEnable          NOTIFY signalEventChangedIsMDEnable        )
     Q_PROPERTY(QString company            READ getCompany             NOTIFY signalEventChangedCompany           )
     Q_PROPERTY(QString tel                READ getTel                 NOTIFY signalEventChangedTel               )
+    Q_PROPERTY(bool    isWait             READ getIsWait              NOTIFY signalEventChangedIsWait            )
     Q_PROPERTY(bool    isZeroProc         READ getIsZeroProc          NOTIFY signalEventChangedIsZeroProc        )
     Q_PROPERTY(bool    isRun              READ getIsRun               NOTIFY signalEventChangedIsRun             )
     Q_PROPERTY(bool    isComm             READ getIsComm              NOTIFY signalEventChangedIsComm            )
@@ -35,8 +37,10 @@ public:
 
     bool    mSWPowerOff        = false;
     bool    mIsWCEnable        = true;
+    bool    mIsMDEnable        = true;
     QString mCompany           = "";
     QString mTel               = "";
+    bool    mIsWait            = false;
     bool    mIsZeroProc        = false;
     bool    mIsRun             = false;
     bool    mIsComm            = false;
@@ -56,8 +60,10 @@ public:
 
     bool     getSWPowerOff       (){ return mSWPowerOff       ;}
     bool     getIsWCEnable       (){ return mIsWCEnable       ;}
+    bool     getIsMDEnable       (){ return mIsMDEnable       ;}
     QString  getCompany          (){ return mCompany          ;}
     QString  getTel              (){ return mTel              ;}
+    bool     getIsWait           (){ return mIsWait           ;}
     bool     getIsZeroProc       (){ return mIsZeroProc       ;}
     bool     getIsRun            (){ return mIsRun            ;}
     bool     getIsComm           (){ return mIsComm           ;}
@@ -76,7 +82,9 @@ public:
 
     void     setSWPowerOff       (bool    value){ if(value == mSWPowerOff       )return; mSWPowerOff        = value; emit signalEventChangedSWPowerOff       (value);}
     void     setIsWCEnable       (bool    value){ if(value == mIsWCEnable       )return; mIsWCEnable        = value; emit signalEventChangedIsWCEnable       (value);}
+    void     setIsMDEnable       (bool    value){ if(value == mIsMDEnable       )return; mIsMDEnable        = value; emit signalEventChangedIsMDEnable       (value);}
     void     setCompany          (QString value){ if(value == getCompany()      )return; mCompany           = value; emit signalEventChangedCompany          (value);}
+    void     setIsWait           (bool    value){ if(value == getIsWait()       )return; mIsWait            = value; emit signalEventChangedIsWait           (value);}
     void     setIsZeroProc       (bool    value){ if(value == mIsZeroProc       )return; mIsZeroProc        = value; emit signalEventChangedIsZeroProc       (value);}
     void     setTel              (QString value){ if(value == getTel    ()      )return; mTel               = value; emit signalEventChangedTel              (value);}
     void     setIsRun            (bool    value){ if(value == getIsRun  ()      )return; mIsRun             = value; emit signalEventChangedIsRun            (value);}
@@ -96,8 +104,10 @@ public:
 signals:
     void signalEventChangedSWPowerOff       (bool    value);
     void signalEventChangedIsWCEnable       (bool    value);
+    void signalEventChangedIsMDEnable       (bool    value);
     void signalEventChangedCompany          (QString value);
     void signalEventChangedTel              (QString value);
+    void signalEventChangedIsWait           (bool    value);
     void signalEventChangedIsZeroProc       (bool    value);
     void signalEventChangedIsRun            (bool    value);
     void signalEventChangedIsComm           (bool    value);
@@ -204,7 +214,16 @@ public slots:
         setIsMDMortorAlarm  ( dto.getIsMDMortorAlarm  ());
         setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm());
 
-        setIsZeroProc   ( dto.mWCStatus.mZeroProc == 1                                         );
+        if(mIsAlarm)
+        {
+          //  qDebug() << "[debug]Alarm" <<dto.getAlarm();
+          //  qDebug() << "[debug]mIsDevSettingAlarm" <<pDsp->mIsDevSettingAlarm;
+          //  qDebug() << "[debug]mIsPDSettingAlarm" <<pDsp->mIsPDSettingAlarm;
+        }
+
+        setIsZeroProc       ( dto.mWCStatus.mZeroProc == 1);
+        setIsWait           ( dto.mWCStatus.mWait == 1    );
+
     }
 
     void onChangedDspIsConnect(quint64 dspSeq, bool value)
@@ -231,6 +250,7 @@ public slots:
     void onChangedDevSetting(DevSettingDto dto)
     {
         setIsWCEnable(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+        setIsMDEnable(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_WC);
 
         if(dto.mDspForm.mWCSetting.mScaler%10 != 0)
         {

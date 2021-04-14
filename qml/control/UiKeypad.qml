@@ -53,7 +53,7 @@ Item {
             virtualTextField.echoMode = TextInput.Normal
             virtualTextField.validator = ipExpValidator
         }
-        if(control.vinputText.textInputType === QmlEnumDef.S_INT_MODE)
+        if(control.vinputText.textInputType === QmlEnumDef.S_INT_MODE || control.vinputText.textInputType === QmlEnumDef.S_FLOAT_MODE)
         {
             virtualTextField.maximumLength = 32767
             virtualTextField.inputMethodHints = Qt.ImhFormattedNumbersOnly
@@ -143,7 +143,7 @@ Item {
 
         Keys.onReleased: {
 
-            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.IP_MODE || control.vinputText.textInputType === QmlEnumDef.S_INT_MODE))
+            if(virtualTextField.text.length > 0 && (control.vinputText.textInputType === QmlEnumDef.INT_MODE || control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.IP_MODE || control.vinputText.textInputType === QmlEnumDef.S_INT_MODE || control.vinputText.textInputType === QmlEnumDef.S_FLOAT_MODE))
             {
 
                 virtualTextField.text = virtualTextField.text.trim()
@@ -160,36 +160,39 @@ Item {
                             virtualTextField.text = intValue
                     }
                 }
-                else if(control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE)
+                else if(control.vinputText.textInputType === QmlEnumDef.FLOAT_MODE || control.vinputText.textInputType === QmlEnumDef.S_FLOAT_MODE)
                 {
-                    var dotIdx = virtualTextField.text.indexOf(".")
-
-                    if(dotIdx === - 1)
+                    if(virtualTextField.text != "-")
                     {
-                        var numberValue01 = parseInt(virtualTextField.text.replace(/,/g,""))
-                        virtualTextField.text = numberValue01.toLocaleString(ViewManager.locale, 'f', 0)
-                    }
-                    else
-                    {
-                        var preValue
-                        var postValue
-                        var valueArray = virtualTextField.text.split(".");
+                        var dotIdx = virtualTextField.text.indexOf(".")
 
-                        if(dotIdx === 0)
+                        if(dotIdx === - 1)
                         {
-                            preValue = "0.";
+                            var numberValue01 = parseInt(virtualTextField.text.replace(/,/g,""))
+                            virtualTextField.text = numberValue01.toLocaleString(ViewManager.locale, 'f', 0)
                         }
                         else
                         {
-                            preValue = valueArray[0].toLocaleString(ViewManager.locale, 'f', 0) + ".";
-                        }
+                            var preValue
+                            var postValue
+                            var valueArray = virtualTextField.text.split(".");
 
-                        if(valueArray.length > 1)
-                        {
-                            postValue = valueArray[1].trim().substr(0, control.vinputText.fixedN)
-                        }
+                            if(dotIdx === 0)
+                            {
+                                preValue = "0.";
+                            }
+                            else
+                            {
+                                preValue = valueArray[0].toLocaleString(ViewManager.locale, 'f', 0) + ".";
+                            }
 
-                        virtualTextField.text = preValue + postValue;
+                            if(valueArray.length > 1)
+                            {
+                                postValue = valueArray[1].trim().substr(0, control.vinputText.fixedN)
+                            }
+
+                            virtualTextField.text = preValue + postValue;
+                        }
                     }
                 }
             }

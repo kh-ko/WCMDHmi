@@ -13,7 +13,8 @@ UiPanel
 {
 
     property var isWCEnable
-    property var selDev : ViewManager.mainScene.selDevGraphMenu
+    property var isMDEnable
+    property var selDev : isWCEnable === true && isMDEnable === false ? QmlEnumDef.DEVICE_WEIGHT_CHECKER : ViewManager.mainScene.selDevGraphMenu
     id : panel
 
     width : 1519
@@ -36,7 +37,7 @@ UiPanel
         anchors.leftMargin: 20
         width : 300
 
-        visible: panel.isWCEnable
+        visible: panel.isWCEnable && isMDEnable
         bgColor: panel.bgColor
         selIdx: selDev
 

@@ -20,9 +20,9 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint32 speedConverter                    READ getSpeedConverter                NOTIFY  signalEventChangedSpeedConverter            )
     Q_PROPERTY(quint16 motorDirection                    READ getMotorDirection                NOTIFY  signalEventChangedMotorDirection            )
     Q_PROPERTY(quint16 motorType                         READ getMotorType                     NOTIFY  signalEventChangedMotorType                 )
-    Q_PROPERTY(quint16 motorMDRatio                      READ getMotorMDRatio                  NOTIFY  signalEventChangedMotorMDRatio              )
-    Q_PROPERTY(quint16 motorWCRatio                      READ getMotorWCRatio                  NOTIFY  signalEventChangedMotorWCRatio              )
-    Q_PROPERTY(quint16 motorRJRatio                      READ getMotorRJRatio                  NOTIFY  signalEventChangedMotorRJRatio              )
+    Q_PROPERTY(qint16  motorMDRatio                      READ getMotorMDRatio                  NOTIFY  signalEventChangedMotorMDRatio              )
+    Q_PROPERTY(qint16  motorWCRatio                      READ getMotorWCRatio                  NOTIFY  signalEventChangedMotorWCRatio              )
+    Q_PROPERTY(qint16  motorRJRatio                      READ getMotorRJRatio                  NOTIFY  signalEventChangedMotorRJRatio              )
     Q_PROPERTY(quint32 mSorter01RunTimeRatio             READ getSorter01RunTimeRatio          NOTIFY  signalEventChangedSorter01RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter01OpenTime                 READ getSorter01OpenTime              NOTIFY  signalEventChangedSorter01OpenTime          )
     Q_PROPERTY(quint32 mSorter02RunTimeRatio             READ getSorter02RunTimeRatio          NOTIFY  signalEventChangedSorter02RunTimeRatio      )
@@ -55,6 +55,7 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(quint16 simpleSens04                      READ getSimpleSens04                  NOTIFY  signalEventChangedSimpleSens04              )
     Q_PROPERTY(quint16 simpleSens05                      READ getSimpleSens05                  NOTIFY  signalEventChangedSimpleSens05              )
     Q_PROPERTY(bool    isEnableWC                        READ getIsEnableWC                    NOTIFY  signalEventChangedIsEnableWC                )
+    Q_PROPERTY(bool    isEnableMD                        READ getIsEnableMD                    NOTIFY  signalEventChangedIsEnableMD                )
 
     Q_PROPERTY(bool    isEditLanguage                    READ getIsEditLanguage                        NOTIFY  signalEventChangedIsEditLanguage                   )
     Q_PROPERTY(bool    isEditPassword                    READ getIsEditPassword                        NOTIFY  signalEventChangedIsEditPassword                   )
@@ -114,9 +115,9 @@ public:
     quint32  mSpeedConverter                ;
     quint16  mMotorDirection                ;
     quint16  mMotorType                     ;
-    quint16  mMotorMDRatio                  ;
-    quint16  mMotorWCRatio                  ;
-    quint16  mMotorRJRatio                  ;
+    qint16   mMotorMDRatio                  ;
+    qint16   mMotorWCRatio                  ;
+    qint16   mMotorRJRatio                  ;
     quint32  mSorter01RunTimeRatio          ;
     quint32  mSorter01OpenTime              ;
     quint32  mSorter02RunTimeRatio          ;
@@ -149,6 +150,7 @@ public:
     quint16  mSimpleSens04                  ;
     quint16  mSimpleSens05                  ;
     bool     mIsEnableWC                    ;
+    bool     mIsEnableMD                    ;
 
     bool     mIsEditLanguage                ;
     bool     mIsEditPassword                ;
@@ -207,9 +209,9 @@ public:
     quint32  getSpeedConverter               (){ return mSpeedConverter                ;}
     quint16  getMotorDirection               (){ return mMotorDirection                ;}
     quint16  getMotorType                    (){ return mMotorType                     ;}
-    quint16  getMotorMDRatio                 (){ return mMotorMDRatio                  ;}
-    quint16  getMotorWCRatio                 (){ return mMotorWCRatio                  ;}
-    quint16  getMotorRJRatio                 (){ return mMotorRJRatio                  ;}
+    qint16   getMotorMDRatio                 (){ return mMotorMDRatio                  ;}
+    qint16   getMotorWCRatio                 (){ return mMotorWCRatio                  ;}
+    qint16   getMotorRJRatio                 (){ return mMotorRJRatio                  ;}
     quint32  getSorter01RunTimeRatio         (){ return mSorter01RunTimeRatio          ;}
     quint32  getSorter01OpenTime             (){ return mSorter01OpenTime              ;}
     quint32  getSorter02RunTimeRatio         (){ return mSorter02RunTimeRatio          ;}
@@ -242,6 +244,7 @@ public:
     quint16  getSimpleSens04                 (){ return mSimpleSens04                  ;}
     quint16  getSimpleSens05                 (){ return mSimpleSens05                  ;}
     bool     getIsEnableWC                   (){ return mIsEnableWC                    ;}
+    bool     getIsEnableMD                   (){ return mIsEnableMD                    ;}
 
     bool     getIsEditLanguage               (){ return mIsEditLanguage                ;}
     bool     getIsEditPassword               (){ return mIsEditPassword                ;}
@@ -300,9 +303,9 @@ public:
     void setSpeedConverter               (quint32  value){ if(value == mSpeedConverter            ) return; mSpeedConverter             = value; setIsEditSpeedConverter         (true);  emit signalEventChangedSpeedConverter            (value);}
     void setMotorDirection               (quint16  value){ if(value == mMotorDirection            ) return; mMotorDirection             = value; setIsEditMotorDirection         (true);  emit signalEventChangedMotorDirection            (value);}
     void setMotorType                    (quint16  value){ if(value == mMotorType                 ) return; mMotorType                  = value; setIsEditMotorType              (true);  emit signalEventChangedMotorType                 (value);}
-    void setMotorMDRatio                 (quint16  value){ if(value == mMotorMDRatio              ) return; mMotorMDRatio               = value; setIsEditMotorMDRatio           (true);  emit signalEventChangedMotorMDRatio              (value);}
-    void setMotorWCRatio                 (quint16  value){ if(value == mMotorWCRatio              ) return; mMotorWCRatio               = value; setIsEditMotorWCRatio           (true);  emit signalEventChangedMotorWCRatio              (value);}
-    void setMotorRJRatio                 (quint16  value){ if(value == mMotorRJRatio              ) return; mMotorRJRatio               = value; setIsEditMotorRJRatio           (true);  emit signalEventChangedMotorRJRatio              (value);}
+    void setMotorMDRatio                 (qint16   value){ if(value == mMotorMDRatio              ) return; mMotorMDRatio               = value; setIsEditMotorMDRatio           (true);  emit signalEventChangedMotorMDRatio              (value);}
+    void setMotorWCRatio                 (qint16   value){ if(value == mMotorWCRatio              ) return; mMotorWCRatio               = value; setIsEditMotorWCRatio           (true);  emit signalEventChangedMotorWCRatio              (value);}
+    void setMotorRJRatio                 (qint16   value){ if(value == mMotorRJRatio              ) return; mMotorRJRatio               = value; setIsEditMotorRJRatio           (true);  emit signalEventChangedMotorRJRatio              (value);}
     void setSorter01RunTimeRatio         (quint32  value){ if(value == mSorter01RunTimeRatio      ) return; mSorter01RunTimeRatio       = value; setIsEditSorter01RunTimeRatio   (true);  emit signalEventChangedSorter01RunTimeRatio      (value);}
     void setSorter01OpenTime             (quint32  value){ if(value == mSorter01OpenTime          ) return; mSorter01OpenTime           = value; setIsEditSorter01OpenTime       (true);  emit signalEventChangedSorter01OpenTime          (value);}
     void setSorter02RunTimeRatio         (quint32  value){ if(value == mSorter02RunTimeRatio      ) return; mSorter02RunTimeRatio       = value; setIsEditSorter02RunTimeRatio   (true);  emit signalEventChangedSorter02RunTimeRatio      (value);}
@@ -335,6 +338,7 @@ public:
     void setSimpleSens04                 (quint16  value){ if(value == mSimpleSens04              ) return; mSimpleSens04               = value; setIsEditSimpleSens04           (true);  emit signalEventChangedSimpleSens04              (value);}
     void setSimpleSens05                 (quint16  value){ if(value == mSimpleSens05              ) return; mSimpleSens05               = value; setIsEditSimpleSens05           (true);  emit signalEventChangedSimpleSens05              (value);}
     void setIsEnableWC                   (bool     value){ if(value == mIsEnableWC                ) return; mIsEnableWC                 = value; emit signalEventChangedIsEnableWC(value);}
+    void setIsEnableMD                   (bool     value){ if(value == mIsEnableMD                ) return; mIsEnableMD                 = value; emit signalEventChangedIsEnableMD(value);}
 
     void setIsEditLanguage               (bool     value){ if(value == mIsEditLanguage            ) return; mIsEditLanguage             = value; emit signalEventChangedIsEditLanguage            (value);}
     void setIsEditPassword               (bool     value){ if(value == mIsEditPassword            ) return; mIsEditPassword             = value; emit signalEventChangedIsEditPassword            (value);}
@@ -495,9 +499,9 @@ signals:
     void signalEventChangedSpeedConverter               (quint32  value);
     void signalEventChangedMotorDirection               (quint16  value);
     void signalEventChangedMotorType                    (quint16  value);
-    void signalEventChangedMotorMDRatio                 (quint16  value);
-    void signalEventChangedMotorWCRatio                 (quint16  value);
-    void signalEventChangedMotorRJRatio                 (quint16  value);
+    void signalEventChangedMotorMDRatio                 (qint16   value);
+    void signalEventChangedMotorWCRatio                 (qint16   value);
+    void signalEventChangedMotorRJRatio                 (qint16   value);
     void signalEventChangedSorter01RunTimeRatio         (quint32  value);
     void signalEventChangedSorter01OpenTime             (quint32  value);
     void signalEventChangedSorter02RunTimeRatio         (quint32  value);
@@ -530,6 +534,7 @@ signals:
     void signalEventChangedSimpleSens04                 (quint16  value);
     void signalEventChangedSimpleSens05                 (quint16  value);
     void signalEventChangedIsEnableWC                   (bool     value);
+    void signalEventChangedIsEnableMD                   (bool     value);
 
     void signalEventChangedIsEditLanguage               (bool     value);
     void signalEventChangedIsEditPassword               (bool     value);
@@ -668,9 +673,9 @@ public slots:
     Q_INVOKABLE void onCommandSetSpeedConverter               (quint32  value){setSpeedConverter               (value);}
     Q_INVOKABLE void onCommandSetMotorDirection               (quint16  value){setMotorDirection               (value);}
     Q_INVOKABLE void onCommandSetMotorType                    (quint16  value){setMotorType                    (value);}
-    Q_INVOKABLE void onCommandSetMotorMDRatio                 (quint16  value){setMotorMDRatio                 (value);}
-    Q_INVOKABLE void onCommandSetMotorWCRatio                 (quint16  value){setMotorWCRatio                 (value);}
-    Q_INVOKABLE void onCommandSetMotorRJRatio                 (quint16  value){setMotorRJRatio                 (value);}
+    Q_INVOKABLE void onCommandSetMotorMDRatio                 (qint16   value){setMotorMDRatio                 (value);}
+    Q_INVOKABLE void onCommandSetMotorWCRatio                 (qint16   value){setMotorWCRatio                 (value);}
+    Q_INVOKABLE void onCommandSetMotorRJRatio                 (qint16   value){setMotorRJRatio                 (value);}
     Q_INVOKABLE void onCommandSetSorter01RunTimeRatio         (quint32  value){setSorter01RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter01OpenTime             (quint32  value){setSorter01OpenTime             (value);}
     Q_INVOKABLE void onCommandSetSorter02RunTimeRatio         (quint32  value){setSorter02RunTimeRatio         (value);}
@@ -706,6 +711,7 @@ public slots:
     void onChangedDevSetting(DevSettingDto dto)
     {
         setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
+        setIsEnableMD(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_WC);
     }
 };
 

@@ -72,6 +72,7 @@ HEADERS += \
     source/service/dsp/dspdatastore.h \
     source/service/dsp/dspdatastorestruct.h \
     source/service/dsp/dspmaster.h \
+    source/service/dsp/dspsearch.h \
     source/service/dsp/dspsendqueue.h \
     source/service/dsp/dspsendqueueitem.h \
     source/service/dsp/dspsprovider.h \

@@ -11,6 +11,7 @@ Item {
     property bool isLoggingVew : false
     property bool isSuper    : true
     property bool isWCEnable : true
+    property bool isMDEnable : true
     property int  selDevice  : QmlEnumDef.DEVICE_WEIGHT_CHECKER
     property int  selMenu    : QmlEnumDef.MENU_PRODUCT_SETTING
 
@@ -34,7 +35,7 @@ Item {
                 viewContainer.push(panelProductSetting, {"isViewMode" : element.isProductVew, "isAdmin" : element.isSuper})
                 break;
             case QmlEnumDef.MENU_LOGGING_DATA   :
-                viewContainer.push(panelLoggingData, {"isViewMode" : element.isLoggingVew, "isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable})
+                viewContainer.push(panelLoggingData, {"isViewMode" : element.isLoggingVew, "isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
                 break;
             case QmlEnumDef.MENU_DEVICE_SETTING :
                 viewContainer.push(panelDeviceSetting,{"isAdmin":element.isSuper})
@@ -43,7 +44,7 @@ Item {
                 viewContainer.push(panelInformation, {"isAdmin":element.isSuper})
                 break;
             case QmlEnumDef.MENU_GRAPH          :
-                 viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable})
+                 viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
                 break;
             case QmlEnumDef.MENU_ETC_SETTING    :
                 //viewContainer.push(panelEtcSetting)
@@ -115,7 +116,7 @@ Item {
                     selMenu = QmlEnumDef.MENU_LOGGING_DATA
 
                     viewContainer.clear()
-                    viewContainer.push(panelLoggingData,{"isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable})
+                    viewContainer.push(panelLoggingData,{"isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
                 }
             }
 
@@ -136,7 +137,7 @@ Item {
                     selMenu = QmlEnumDef.MENU_CHECK_UP
 
                     viewContainer.clear()
-                    viewContainer.push(panelWCCaribMDCheckUp, {"isWCEnable" : element.isWCEnable})
+                    viewContainer.push(panelWCCaribMDCheckUp, {"isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
 
                 }
             }
@@ -206,7 +207,7 @@ Item {
 
                     viewContainer.clear()
 
-                    viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable})
+                    viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable,  "isMDEnable" : element.isMDEnable})
                 }
             }
 

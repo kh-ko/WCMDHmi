@@ -11,6 +11,7 @@ Item {
         return inputText;
     }
 
+    property var    isSignedInput : false
     property var    reservedValue : ""
     property alias  isHighlight  : inputText.isHighlight
     property alias  bgColor      : inputText.bgColor
@@ -58,7 +59,7 @@ Item {
         anchors.rightMargin : 0
 
         textHAlign      : Text.AlignRight
-        textInputType   : QmlEnumDef.FLOAT_MODE
+        textInputType   : control.isSignedInput ? QmlEnumDef.S_FLOAT_MODE : QmlEnumDef.FLOAT_MODE
 
         reservedValue   : control.reservedValue
         fixedN          : control.fixedN

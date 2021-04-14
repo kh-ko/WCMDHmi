@@ -437,6 +437,7 @@ UiPanel {
             visible: panel.isAdmin
             isHighlight: settingModel.isEditMotorMDRatio
             fixedN: 2
+            isSignedInput : true
             bgColor: panel.bgColor
 
             realValue: settingModel.motorMDRatio / 100
@@ -457,6 +458,7 @@ UiPanel {
             visible: panel.isAdmin
             isHighlight: settingModel.isEditMotorWCRatio
             fixedN: 2
+            isSignedInput : true
             bgColor: panel.bgColor
 
             realValue: settingModel.motorWCRatio / 100
@@ -477,6 +479,7 @@ UiPanel {
             visible: panel.isAdmin
             isHighlight: settingModel.isEditMotorRJRatio
             fixedN: 2
+            isSignedInput : true
             bgColor: panel.bgColor
 
             realValue: settingModel.motorRJRatio / 100
@@ -1146,7 +1149,7 @@ UiPanel {
         anchors.top: btnApply.bottom
         anchors.topMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         textValue: qsTr("Metal detecotor")
     }
 
@@ -1160,7 +1163,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         textValue: qsTr("· Sensor mode")
     }
 
@@ -1175,7 +1178,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditMode
         bgColor: panel.bgColor
         selIdx: settingModel.mode
@@ -1237,7 +1240,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditDetectDetectTime
         bgColor: panel.bgColor
         labelText : qsTr("· Detect-Detect time")
@@ -1261,7 +1264,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditRunDetectTime
         bgColor: panel.bgColor
         labelText : qsTr("· Run-Detect time")
@@ -1285,7 +1288,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSignalDelayTime
         bgColor: panel.bgColor
         labelText : qsTr("· Signal delay time")
@@ -1310,7 +1313,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         textValue: qsTr("· Photo mode")
 
         UiRadioBtn{
@@ -1365,7 +1368,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSensorCnt
         bgColor: panel.bgColor
         labelText : qsTr("· Sensor count")
@@ -1389,7 +1392,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSimpleSens01
         bgColor: panel.bgColor
         labelText : qsTr("· Metal Senstivity 01")
@@ -1413,7 +1416,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSimpleSens02
         bgColor: panel.bgColor
         labelText : qsTr("· Metal Senstivity 02")
@@ -1437,7 +1440,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSimpleSens03
         bgColor: panel.bgColor
         labelText : qsTr("· Metal Senstivity 03")
@@ -1461,7 +1464,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSimpleSens04
         bgColor: panel.bgColor
         labelText : qsTr("· Metal Senstivity 04")
@@ -1485,7 +1488,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: panel.isAdmin
+        visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditSimpleSens05
         bgColor: panel.bgColor
         labelText : qsTr("· Metal Senstivity 05")

@@ -35,9 +35,9 @@ class PanelWCGraphModel : public QObject
 
     Q_PROPERTY(quint16  graphPointCnt           READ      getGraphPointCnt               NOTIFY      signalEventChangedGraphPointCnt          )
     Q_PROPERTY(quint16  autoSetting             READ      getAutoSetting                 NOTIFY      signalEventChangedAutoSetting            )
-    Q_PROPERTY(quint16  filterCoefficient       READ      getFilterCoefficient           NOTIFY      signalEventChangedFilterCoefficient      )
-    Q_PROPERTY(quint32  measureCueSign          READ      getMeasureCueSign              NOTIFY      signalEventChangedMeasureCueSign         )
-    Q_PROPERTY(quint32  measureSection          READ      getMeasureSection              NOTIFY      signalEventChangedMeasureSection         )
+    Q_PROPERTY(qint16   filterCoefficient       READ      getFilterCoefficient           NOTIFY      signalEventChangedFilterCoefficient      )
+    Q_PROPERTY(qint32   measureCueSign          READ      getMeasureCueSign              NOTIFY      signalEventChangedMeasureCueSign         )
+    Q_PROPERTY(qint32   measureSection          READ      getMeasureSection              NOTIFY      signalEventChangedMeasureSection         )
     Q_PROPERTY(bool     isEditGraphPointCnt     READ      getIsEditGraphPointCnt         NOTIFY      signalEventChangedIsEditGraphPointCnt    )
     Q_PROPERTY(quint16  isEditAutoSetting       READ      getIsEditAutoSetting           NOTIFY      signalEventChangedIsEditAutoSetting      )
     Q_PROPERTY(bool     isEditFilterCoefficient READ      getIsEditFilterCoefficient     NOTIFY      signalEventChangedIsEditFilterCoefficient)
@@ -362,6 +362,23 @@ public slots:
         setCurrPDCntPerMin(dto.mWCStatus.mCurrPDCntPerMin);
         setPDCntPerMin    (dto.mWCStatus.mPDCntPerMin    );
         setAdcValue       (dto.mWCStatus.mADC            );
+
+        if(pProductSP->mCurrPD.mDspForm.mWCSetting.mAutoSetting)
+        {
+            if(   dto.mWCStatus.mFilterCoefficient != pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient
+               || dto.mWCStatus.mMeasureCueSign    != pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign
+               || dto.mWCStatus.mMeasureSection    != pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection   )
+            {
+                PDSettingDto pdSetting =  pProductSP->mCurrPD;
+                pdSetting.mDspForm.mWCSetting.mFilterCoefficient = dto.mWCStatus.mFilterCoefficient;
+                pdSetting.mDspForm.mWCSetting.mMeasureCueSign    = dto.mWCStatus.mMeasureCueSign   ;
+                pdSetting.mDspForm.mWCSetting.mMeasureSection    = dto.mWCStatus.mMeasureSection   ;
+
+                pProductSP->editPD(pdSetting);
+
+                loadPDSetting();
+            }
+        }
     }
 
     void onAddedWCG(quint64 dspSeq, DspWCGDto dto)

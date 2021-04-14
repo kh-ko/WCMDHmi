@@ -11,6 +11,7 @@ UiPanel {
     property ProductSettingItemModel itemModel : null
     property bool isViewMode : false
     property bool isEnableWC : true
+    property bool isEnableMD : true
     property bool isAdmin    : false
     signal signalEventAddCliecked();
     signal signalEventCancleCliecked();
@@ -841,7 +842,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
 
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
 
         textValue: qsTr("Metal detector")
     }
@@ -857,7 +858,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
 
         bgColor : panel.bgColor
         labelText : qsTr("· Senstivity")
@@ -887,7 +888,7 @@ UiPanel {
         anchors.leftMargin: 20
 
         isDisable : panel.isViewMode
-        visible: itemModel.seq !== 0 || itemModel.isNew
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
 
         isUpMode: true
         bgColor : panel.bgColor
@@ -942,7 +943,7 @@ UiPanel {
 
         textMargin : 10
         isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew)
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
         isHighlight: itemModel.isEditMDNGLamp
         isSelect: itemModel.mdNGLamp === 1 ? true : false
 
@@ -965,7 +966,7 @@ UiPanel {
 
         textMargin : 10
         isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew)
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
         isHighlight: itemModel.isEditMDNGBuzzer
         isSelect: itemModel.mdNGBuzzer === 1 ? true : false
 

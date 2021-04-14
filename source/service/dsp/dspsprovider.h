@@ -13,6 +13,7 @@
 #include "source/service/timer/timersprovider.h"
 #include "source/service/localsetting/localsettingsprovider.h"
 #include "source/service/productsetting/productsprovider.h"
+#include "source/service/dsp/dspsearch.h"
 #include "source/service/util/sproviderconnectutil.h"
 
 #define pDspSP DspSProvider::getInstance()
@@ -63,6 +64,7 @@ public :
         ENABLE_SLOT_LSETTING_CHANGED_DEV_SETTING;
         ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
 
+        connect(&mDspSearcher, SIGNAL(signalEventFoundDsp(QString)), this, SLOT(onFoundDsp(QString)));
         qDebug() << "[DspSProvider::started]";
 
         emit signalEventStarted();
@@ -74,6 +76,11 @@ public :
 
         deLoadDspMaster();
         emit signalEventStopped();
+    }
+
+    void searchDsp()
+    {
+        mDspSearcher.search();
     }
 
     void factoryReset()
@@ -142,6 +149,7 @@ signals:
     void signalEventAddedWeightCheckerGraph         (quint64 deviceSeq, DspWCGDto        dto);
     void signalEventAddedMetalDetectorGraph         (quint64 deviceSeq, DspMDGDto        dto);
 
+    void signalEventFoundDsp                        (QString ip);
 public slots:
     void onChangedDevSetting(DevSettingDto dto)
     {
@@ -212,6 +220,8 @@ public slots:
     void onDspAddedEvent           (quint64 dspSeq, DspEventDto      dto){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventAddedEvent                 (dspSeq,   dto);}
     void onDspChangedRefVoltage    (quint64 dspSeq, qint32         value){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)); emit signalEventChangedRefVoltage          (dspSeq, value);}
 
+    void onFoundDsp                (QString ip){ emit signalEventFoundDsp(ip);}
+
 public :
     QList<DspMaster *> mDspList;
 
@@ -219,6 +229,7 @@ private :
     quint64 mLastSeq = 0;
     bool    mIsRunning = false;
     bool    mFRIng = false;
+    DspSearch mDspSearcher;
 
     void loadDspMaster(DspDevSettingDto devSetting, DspPDSettingDto pdSetting)
     {
