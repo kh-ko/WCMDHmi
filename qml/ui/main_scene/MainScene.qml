@@ -130,13 +130,17 @@ Item {
         }
 
         onSignalEventChangedIsWait: {
-            if(isWait)
+
+            if(model.isWCEnable)
             {
-                popupZeroProc.open()
-            }
-            else
-            {
-                popupZeroProc.close()
+                if(isWait)
+                {
+                    popupZeroProc.open()
+                }
+                else
+                {
+                    popupZeroProc.close()
+                }
             }
         }
     }

@@ -35,7 +35,11 @@ public :
 
         connect(mpSock, SIGNAL(readyRead()), this, SLOT(onRecevie()));
 
-        mpSock->writeDatagram(dummy.mPacket.createSendBuffer(), QHostAddress::Broadcast, 10020);
+        QByteArray dummyBuff = dummy.mPacket.createSendBuffer();
+
+        qDebug() << "[debug] search dummy packet = " << dummyBuff.toHex();
+
+        mpSock->writeDatagram(dummyBuff, QHostAddress::Broadcast, 10020);
     }
 
     void stopSearch()
@@ -79,6 +83,7 @@ private slots:
 
         rcvBuffer.resize(mpSock->pendingDatagramSize());
         mpSock->readDatagram(rcvBuffer.data(), rcvBuffer.size(), &sender, &senderPort);
+
 
         qDebug() << "[DspSearch::onRecevie]found ip =" << sender.toString();
 

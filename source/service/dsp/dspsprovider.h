@@ -47,6 +47,8 @@ public :
     {
         qDebug() << "[DspSProvider::start]";
 
+        //searchDsp();
+
         loadDspMaster(devSetting, pdSetting);
 
         if(mDspList.size() < 1)
