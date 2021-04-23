@@ -16,6 +16,7 @@
 #define ENABLE_SLOT_DSP_CHANGED_REF_VLOTAGE       connect(DspSProvider::getInstance(), SIGNAL(signalEventChangedRefVoltage(quint64, qint32)                   ), this, SLOT(onChangedRefVoltage(quint64, qint32)                ))
 #define ENABLE_SLOT_DSP_ADDED_WCG                 connect(DspSProvider::getInstance(), SIGNAL(signalEventAddedWeightCheckerGraph(quint64, DspWCGDto)          ), this, SLOT(onAddedWCG(quint64, DspWCGDto)                      ))
 #define ENABLE_SLOT_DSP_ADDED_MDG                 connect(DspSProvider::getInstance(), SIGNAL(signalEventAddedMetalDetectorGraph(quint64, DspMDGDto)          ), this, SLOT(onAddedMDG(quint64, DspMDGDto)                      ))
+#define ENABLE_SLOT_DSP_FOUND_DSP                 connect(DspSProvider::getInstance(), SIGNAL(signalEventFoundDsp(QString)                                    ), this, SLOT(onFoundDsp(QString)                                 ))
 
 #define ENABLE_SLOT_LSETTING_START                  connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventStarted()                             ), this, SLOT(onStartedLocalSettingSProvider()        ))
 #define ENABLE_SLOT_LSETTING_STOP                   connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventStopped()                             ), this, SLOT(onStoppedLocalSettingSProvider()        ))

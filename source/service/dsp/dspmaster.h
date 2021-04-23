@@ -214,6 +214,30 @@ public :
 
         sendReadAll();
     }
+
+    void sendNetSetting(DspNetSettingDto netSetting)
+    {
+        DspSendQueueItem * pItem = new (DspSendQueueItem);
+
+        pItem->mPacket.setFuncCode(DSP_FUNCCODE_MULTIBLOCK_WRITE);
+        pItem->mPacket.addWriteBlock(DSP_GROUP_ID_DEV_COMMSETTING, sizeof(StDspDevCommSetting)/2, sizeof(StDspDevNetSetting)/2, (char *)&netSetting.mSetting, false);
+
+        //qDebug() << "[debug]" << pItem->mPacket.createSendBuffer().toHex();
+
+        if(mSendQueue.push(pItem))
+        {
+            sendPacketInQueue();
+        }
+        else
+        {
+            delete pItem;
+        }
+
+        mIp = QString("%1.%2.%3.%4").arg(netSetting.mSetting.mIp01).arg(netSetting.mSetting.mIp02).arg(netSetting.mSetting.mIp03).arg(netSetting.mSetting.mIp04);
+        //mPort = netSetting.mSetting.mPort;
+        //mHostAddr.setAddress(mIp);
+    }
+
     void sendDevSetting(DspDevSettingDto devSetting)
     {
         DspSendQueueItem * pItem = new (DspSendQueueItem);

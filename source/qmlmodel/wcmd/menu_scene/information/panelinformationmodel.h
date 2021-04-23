@@ -17,6 +17,7 @@ class PanelInformationModel : public QObject
     Q_PROPERTY(QString dspVersion                   READ getDspVersion                  NOTIFY  signalEventChangedDspVersion           )
     Q_PROPERTY(QString hmiVersion                   READ getHmiVersion                  NOTIFY  signalEventChangedHmiVersion           )
     Q_PROPERTY(QString power                        READ getPower                       NOTIFY  signalEventChangedPower                )
+    Q_PROPERTY(QString ip                           READ getIp                          NOTIFY  signalEventChangedIp                   )
     Q_PROPERTY(QString homepage                     READ getHomepage                    NOTIFY  signalEventChangedHomepage             )
     Q_PROPERTY(int     maxWeight                    READ getMaxWeight                   NOTIFY  signalEventChangedMaxWeight            )
     Q_PROPERTY(quint16 sensorLength                 READ getSensorLength                NOTIFY  signalEventChangedSensorLength         )
@@ -30,6 +31,7 @@ class PanelInformationModel : public QObject
 
     Q_PROPERTY(bool    isEditDeviceNumber           READ getIsEditDeviceNumber          NOTIFY  signalEventChangedIsEditDeviceNumber            )
     Q_PROPERTY(bool    isEditPower                  READ getIsEditPower                 NOTIFY  signalEventChangedIsEditPower                   )
+    Q_PROPERTY(bool    isEditIp                     READ getIsEditIp                    NOTIFY  signalEventChangedIsEditIp                      )
     Q_PROPERTY(bool    isEditHomepage               READ getIsEditHomepage              NOTIFY  signalEventChangedIsEditHomepage                )
     Q_PROPERTY(bool    isEditMaxWeight              READ getIsEditMaxWeight             NOTIFY  signalEventChangedIsEditMaxWeight               )
     Q_PROPERTY(bool    isEditSensorLength           READ getIsEditSensorLength          NOTIFY  signalEventChangedIsEditSensorLength            )
@@ -51,6 +53,7 @@ public:
     QString mDspVersion                ;
     QString mHmiVersion                ;
     QString mPower                     ;
+    QString mIp                        ="";
     QString mHomepage                  ;
     int     mMaxWeight                 ;
     quint16 mSensorLength              ;
@@ -64,6 +67,7 @@ public:
 
     bool    mIsEditDeviceNumber        ;
     bool    mIsEditPower               ;
+    bool    mIsEditIp                  ;
     bool    mIsEditHomepage            ;
     bool    mIsEditMaxWeight           ;
     bool    mIsEditSensorLength        ;
@@ -83,6 +87,7 @@ public:
     QString getDspVersion                (){ return mDspVersion                ;}
     QString getHmiVersion                (){ return mHmiVersion                ;}
     QString getPower                     (){ return mPower                     ;}
+    QString getIp                        (){ return mIp                        ;}
     QString getHomepage                  (){ return mHomepage                  ;}
     int     getMaxWeight                 (){ return mMaxWeight                 ;}
     quint16 getSensorLength              (){ return mSensorLength              ;}
@@ -96,6 +101,7 @@ public:
 
     bool    getIsEditDeviceNumber        (){ return mIsEditDeviceNumber        ;}
     bool    getIsEditPower               (){ return mIsEditPower               ;}
+    bool    getIsEditIp                  (){ return mIsEditIp                  ;}
     bool    getIsEditHomepage            (){ return mIsEditHomepage            ;}
     bool    getIsEditMaxWeight           (){ return mIsEditMaxWeight           ;}
     bool    getIsEditSensorLength        (){ return mIsEditSensorLength        ;}
@@ -115,6 +121,7 @@ public:
     void    setDspVersion                (QString  value){ if(value == mDspVersion                ) return; mDspVersion                 = value; emit signalEventChangedDspVersion                (value);}
     void    setHmiVersion                (QString  value){ if(value == mHmiVersion                ) return; mHmiVersion                 = value; emit signalEventChangedHmiVersion                (value);}
     void    setPower                     (QString  value){ if(value == mPower                     ) return; mPower                      = value; setIsEditPower               (true);             emit signalEventChangedPower                     (value);}
+    void    setIp                        (QString  value){ if(value == mIp                        ) return; mIp                         = value; setIsEditIp                  (true);             emit signalEventChangedIp                        (value);}
     void    setHomepage                  (QString  value){ if(value == mHomepage                  ) return; mHomepage                   = value; setIsEditHomepage            (true);             emit signalEventChangedHomepage                  (value);}
     void    setMaxWeight                 (int      value){ if(value == mMaxWeight                 ) return; mMaxWeight                  = value; setIsEditMaxWeight           (true);             emit signalEventChangedMaxWeight                 (value);}
     void    setSensorLength              (quint16  value){ if(value == mSensorLength              ) return; mSensorLength               = value; setIsEditSensorLength        (true);             emit signalEventChangedSensorLength              (value);}
@@ -128,6 +135,7 @@ public:
 
     void    setIsEditDeviceNumber        (bool     value){ if(value == mIsEditDeviceNumber        ) return; mIsEditDeviceNumber         = value; emit signalEventChangedIsEditDeviceNumber        (value);}
     void    setIsEditPower               (bool     value){ if(value == mIsEditPower               ) return; mIsEditPower                = value; emit signalEventChangedIsEditPower               (value);}
+    void    setIsEditIp                  (bool     value){ if(value == mIsEditIp                  ) return; mIsEditIp                   = value; emit signalEventChangedIsEditIp                  (value);}
     void    setIsEditHomepage            (bool     value){ if(value == mIsEditHomepage            ) return; mIsEditHomepage             = value; emit signalEventChangedIsEditHomepage            (value);}
     void    setIsEditMaxWeight           (bool     value){ if(value == mIsEditMaxWeight           ) return; mIsEditMaxWeight            = value; emit signalEventChangedIsEditMaxWeight           (value);}
     void    setIsEditSensorLength        (bool     value){ if(value == mIsEditSensorLength        ) return; mIsEditSensorLength         = value; emit signalEventChangedIsEditSensorLength        (value);}
@@ -159,6 +167,7 @@ public:
             quint16 maintenanceV = info.mInfo.mMaintenanceVersion  ;
 
             setDspVersion(QString("%1.%2.%3").arg(majorV).arg(minorV).arg(maintenanceV));
+            setIp(pDsp->mIp);
         }
 
         setCompany                   (pLSettingSP->mInformation.mCompany                                     );
@@ -178,6 +187,7 @@ public:
         setDistToSorter03            (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter03         );
         setDistToSorter04            (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter04         );
         setIsEditPower               (false);
+        setIsEditIp                  (false);
         setIsEditHomepage            (false);
         setIsEditDeviceNumber        (false);
         setIsEditMaxWeight           (false);
@@ -200,6 +210,7 @@ signals:
     void signalEventChangedDspVersion                (QString  value);
     void signalEventChangedHmiVersion                (QString  value);
     void signalEventChangedPower                     (QString  value);
+    void signalEventChangedIp                        (QString  value);
     void signalEventChangedHomepage                  (QString  value);
     void signalEventChangedMaxWeight                 (int      value);
     void signalEventChangedSensorLength              (quint16  value);
@@ -213,6 +224,7 @@ signals:
 
     void signalEventChangedIsEditDeviceNumber        (bool     value);
     void signalEventChangedIsEditPower               (bool     value);
+    void signalEventChangedIsEditIp                  (bool     value);
     void signalEventChangedIsEditHomepage            (bool     value);
     void signalEventChangedIsEditMaxWeight           (bool     value);
     void signalEventChangedIsEditSensorLength        (bool     value);
@@ -252,6 +264,43 @@ public slots:
         info.mMaxWeight     = mMaxWeight;
         pLSettingSP->setInformation(info);
 
+        QStringList ipPortList = mIp.split("::");
+        DspNetSettingDto netSetting;
+
+        netSetting.mSetting.mIp01 = 0;
+        netSetting.mSetting.mIp02 = 0;
+        netSetting.mSetting.mIp03 = 0;
+        netSetting.mSetting.mIp04 = 0;
+        netSetting.mSetting.mPort = pDefaultSP->DSP_CONNINFO_PORT;
+
+        if(ipPortList.size() > 0)
+        {
+            QStringList ipList = ipPortList[0].split(".");
+            if(ipList.size() > 0)
+            {
+                netSetting.mSetting.mIp01 = ipList[0].toUShort();
+            }
+            if(ipList.size() > 1)
+            {
+                netSetting.mSetting.mIp02 = ipList[1].toUShort();
+            }
+            if(ipList.size() > 2)
+            {
+                netSetting.mSetting.mIp03 = ipList[2].toUShort();
+            }
+            if(ipList.size() > 3)
+            {
+                netSetting.mSetting.mIp04 = ipList[3].toUShort();
+            }
+        }
+
+        if(ipPortList.size() > 1)
+        {
+            netSetting.mSetting.mPort = ipPortList[1].toUShort();
+        }
+
+        pDspSP->sendNetSetting(mDspSeq, netSetting);
+
         reset();
 
         emit signalResultSaveInformation(0);
@@ -266,6 +315,7 @@ public slots:
     Q_INVOKABLE void onCommandSetDspVersion                (QString  value){setDspVersion           (value);}
     Q_INVOKABLE void onCommandSetHmiVersion                (QString  value){setHmiVersion           (value);}
     Q_INVOKABLE void onCommandSetPower                     (QString  value){setPower                (value);}
+    Q_INVOKABLE void onCommandSetIp                        (QString  value){setIp                   (value);}
     Q_INVOKABLE void onCommandSetHomepage                  (QString  value){setHomepage             (value);}
     Q_INVOKABLE void onCommandSetMaxWeight                 (int      value){setMaxWeight            (value);}
     Q_INVOKABLE void onCommandSetSensorLength              (quint16  value){setSensorLength         (value);}

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import ViewManager 1.0
 import FontManager 1.0
 import "."
+import "./Infomation"
 import "../../../control"
 import QtQuick.Layouts 1.3
 import QmlEnumDef 1.0
@@ -256,6 +257,43 @@ UiPanel {
 
         onSignalChangeValue: {
             informationModel.onCommandSetMaxWeight(value)
+        }
+    }
+
+    UiInputString {
+        id: inputIP
+        height: 60
+
+        anchors.top: inputMax.bottom
+        anchors.topMargin: 20
+        anchors.leftMargin: 20
+        anchors.left: parent.left
+        anchors.right: searchDsp.left
+        anchors.rightMargin: 10
+
+        inputWidth: 300
+        labelText: qsTr("· DSP IP")
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditIp
+        textValue: informationModel.ip
+
+        onSignalChangeText: {
+            informationModel.onCommandSetIp(value)
+        }
+    }
+
+    UiButton{
+        id : searchDsp
+        height: 60; width: 120
+        anchors.verticalCenter: inputIP.verticalCenter; anchors.right: divider.left; anchors.rightMargin: 20
+
+        visible: uiPanel.isAdmin
+        textValue: qsTr("Search")
+
+        onSignalEventClicked: {
+            var dlg = searchDspDlg.createObject(uiPanel)
+            dlg.open();
         }
     }
 
@@ -539,6 +577,7 @@ UiPanel {
         anchors.rightMargin: 20
 
         visible: informationModel.isEditPower                     ||
+                 informationModel.isEditIp                        ||
                  informationModel.isEditHomepage                  ||
                  informationModel.isEditMaxWeight                 ||
                  informationModel.isEditDistBtwPhotoToSensor      ||
@@ -578,6 +617,16 @@ UiPanel {
         onSignalEventClicked:
         {
             informationModel.onCommandCancle()
+        }
+    }
+
+    Component{
+        id : searchDspDlg
+
+         SearchDspDlg{
+             onSignalEventSelectIp: {
+                informationModel.onCommandSetIp(ip)
+             }
         }
     }
 }

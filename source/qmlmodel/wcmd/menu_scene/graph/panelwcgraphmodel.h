@@ -531,7 +531,7 @@ private:
         closeFile();
 
         mpFileWriter = new FileWriterEx(this);
-        mpFileWriter->open(FileDef::WC_GRAPH_DIR(), FileDef::WC_GRAPH_FILENAME(), FileWriterEx::FILE_OPEN_NEWWRITE);
+        mpFileWriter->open(FileDef::WC_GRAPH_DIR(), QString("%1.txt").arg(QDateTime::currentDateTime().toString(DATE_TIME_FILE_NAME_FMT))/*FileDef::WC_GRAPH_FILENAME()*/, FileWriterEx::FILE_OPEN_NEWWRITE);
     }
 
     void closeFile()

@@ -14,6 +14,14 @@ struct StDspCommand{
     unsigned int   mDeviceID           ;
 };
 
+struct StDspDevNetSetting{
+    unsigned short mIp01                   ;
+    unsigned short mIp02                   ;
+    unsigned short mIp03                   ;
+    unsigned short mIp04                   ;
+    unsigned short mPort                   ;
+};
+
 struct StDspDevCommSetting{
     unsigned int   mLampTime               ;
     unsigned int   mBuzzerTime             ;

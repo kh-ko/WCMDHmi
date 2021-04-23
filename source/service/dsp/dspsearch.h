@@ -31,7 +31,7 @@ public :
         stopSearch();
 
         mpSock = new QUdpSocket(this);
-        mpSock->bind(45454, QUdpSocket::ShareAddress);
+        mpSock->bind(62454, QUdpSocket::ShareAddress);
 
         connect(mpSock, SIGNAL(readyRead()), this, SLOT(onRecevie()));
 
@@ -84,10 +84,18 @@ private slots:
         rcvBuffer.resize(mpSock->pendingDatagramSize());
         mpSock->readDatagram(rcvBuffer.data(), rcvBuffer.size(), &sender, &senderPort);
 
+        QString fullIP = sender.toString();
+
+        int splitIdx = fullIP.lastIndexOf(":");
 
         qDebug() << "[DspSearch::onRecevie]found ip =" << sender.toString();
 
-        emit signalEventFoundDsp(ip);
+        if(splitIdx > -1 && splitIdx < fullIP.size() - 1)
+        {
+            QString foundIp = sender.toString().mid(splitIdx + 1);
+
+            emit signalEventFoundDsp(foundIp);
+        }
     }
 
 private:

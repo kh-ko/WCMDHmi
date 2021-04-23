@@ -28,18 +28,37 @@ Popup {
     }
 
     contentItem: Item{
-        BusyIndicator{
-            id : busyIndi
-            height: 50; width: 50
-            anchors.verticalCenter: parent.verticalCenter; anchors.left:parent.left; anchors.leftMargin: 20;
+        Item{
+            anchors.top: parent.top; anchors.topMargin: 20; anchors.bottom: confirmBtn.top; anchors.bottomMargin: 20; anchors.left: parent.left; anchors.leftMargin: 20; anchors.right: parent.right; anchors.rightMargin: 20
+
+            BusyIndicator{
+                id : busyIndi
+                height: 50; width: 50
+                anchors.verticalCenter: parent.verticalCenter; anchors.left:parent.left; anchors.leftMargin: 0;
+            }
+
+            UiLabelContent{
+                id: textContent
+                height: 100
+                anchors.verticalCenter: parent.verticalCenter; anchors.left:busyIndi.right; anchors.leftMargin: 30; anchors.right: parent.right; anchors.rightMargin: 0
+
+                textValue: qsTr("Zero adjustment is in progress.<br> Leave the weighing section empty.")
+            }
         }
 
-        UiLabelContent{
-            id: textContent
-            height: 100
-            anchors.verticalCenter: parent.verticalCenter; anchors.left:busyIndi.right; anchors.leftMargin: 30; anchors.right: parent.right; anchors.rightMargin: 30
+        UiButton{
+            id :confirmBtn
+            height: 80
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
 
-            textValue: qsTr("Zero adjustment is in progress.<br> Leave the weighing section empty.")
+            textValue: qsTr("Confirm")
+
+            onSignalEventClicked: {
+                dialog.close()
+            }
         }
     }
 }

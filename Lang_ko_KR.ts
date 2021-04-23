@@ -120,14 +120,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="257"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="308"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="261"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="312"/>
         <source>Please enter your password.</source>
         <translation>비밀번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="277"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="322"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="281"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="326"/>
         <source>Please check password</source>
         <oldsource>Invaild password</oldsource>
         <translation>비밀번호가 잘못되었습니다</translation>
@@ -1137,82 +1137,92 @@
         <translation type="obsolete">저장완료</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="24"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="25"/>
         <source>Your settings have been saved.</source>
         <translation>설정이 저장되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="35"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="36"/>
         <source>· Manufactured by</source>
         <translation>· 제조사</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="57"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="58"/>
         <source>· Model</source>
         <translation>· 모델</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="77"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="78"/>
         <source>· Device number</source>
         <translation>· 장비 번호</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="94"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="95"/>
         <source>· Serial number</source>
         <translation>· 시리얼 번호</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="133"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="134"/>
         <source>· DSP version</source>
         <translation>· DSP 버젼</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="151"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="152"/>
         <source>· HMI version</source>
         <translation>· HMI 버젼</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="169"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="170"/>
         <source>· Power</source>
         <translation>· 전력</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="190"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="191"/>
         <source>· Homepage</source>
         <translation>· 홈페이지</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="251"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="252"/>
         <source>· Max weight</source>
         <translation>· 최대중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="376"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="275"/>
+        <source>· DSP IP</source>
+        <translation>· DSP IP</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="292"/>
+        <source>Search</source>
+        <translation>검색</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="414"/>
         <source>④ Sensor length</source>
         <translation>④ 계량부 길이</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="396"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="434"/>
         <source>⑤ Distance to Sorter</source>
         <translation>⑤ 선별기까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="493"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="531"/>
         <source>Ref Vol&lt;br&gt;Reset</source>
         <translation>참조전압&lt;br&gt;리셋</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="509"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="547"/>
         <source>HMI out</source>
         <translation>나가기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="525"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="563"/>
         <source>Factory&lt;br&gt;reset</source>
         <translation>공장&lt;br&gt;초기화</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="526"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="564"/>
         <source>Do you want factory reset ?</source>
         <translation>공장초기화를 진행하시겠습니까?</translation>
     </message>
@@ -1225,12 +1235,12 @@
         <translation type="vanished">④ 리젝터까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="289"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="327"/>
         <source>① Distance to weight checker</source>
         <translation>① 중량선별기까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="315"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="353"/>
         <source>② Distance between Photo to sensor</source>
         <translation>② 포토와 센서간 거리</translation>
     </message>
@@ -1243,7 +1253,7 @@
         <translation type="obsolete">· 리젝터까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="351"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="389"/>
         <source>③ Distance between sensor</source>
         <translation>③ 금속검출 센서간 거리</translation>
     </message>
@@ -1252,12 +1262,12 @@
         <translation type="obsolete">· 포토와 센서간 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="556"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="595"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="576"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="615"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
@@ -2641,9 +2651,14 @@
 <context>
     <name>PopupZeroProc</name>
     <message>
-        <location filename="qml/ui/main_scene/PopupZeroProc.qml" line="42"/>
+        <location filename="qml/ui/main_scene/PopupZeroProc.qml" line="45"/>
         <source>Zero adjustment is in progress.&lt;br&gt; Leave the weighing section empty.</source>
-        <translation type="unfinished">영점조정 중입니다.&lt;br&gt; 계량부를 비워주세요.</translation>
+        <translation>영점조정 중입니다.&lt;br&gt; 계량부를 비워주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PopupZeroProc.qml" line="57"/>
+        <source>Confirm</source>
+        <translation>확인</translation>
     </message>
 </context>
 <context>
@@ -2858,6 +2873,14 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1061"/>
         <source>Do you want to remove this product?</source>
         <translation>제품설정정보를 삭제하시겠습니까?</translation>
+    </message>
+</context>
+<context>
+    <name>SearchDspDlg</name>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/SearchDspDlg.qml" line="31"/>
+        <source>Close</source>
+        <translation>닫기</translation>
     </message>
 </context>
 <context>

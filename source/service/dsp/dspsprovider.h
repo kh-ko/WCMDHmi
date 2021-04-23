@@ -47,7 +47,7 @@ public :
     {
         qDebug() << "[DspSProvider::start]";
 
-        //searchDsp();
+        searchDsp();
 
         loadDspMaster(devSetting, pdSetting);
 
@@ -125,6 +125,18 @@ public :
     void sendResetGCntCmd      (quint64 dspSeq, quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendResetGCnt      (value);}
     void sendDevSetting        (quint64 dspSeq, DspDevSettingDto value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendDevSetting     (value);}
     void sendPDSetting         (quint64 dspSeq, DspPDSettingDto  value ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) DspMaster * master = findDspMaster(dspSeq); CHECK_PTR_RETURN(master) master->sendPDSetting      (value);}
+    void sendNetSetting        (quint64 dspSeq, DspNetSettingDto value)
+    {
+        DspConnInfoDto connInfo;
+        DspMaster * master = findDspMaster(dspSeq);
+        CHECK_PTR_RETURN(master);
+
+        connInfo.mDspSeq = dspSeq;
+        connInfo.mIp = QString("%1.%2.%3.%4").arg(value.mSetting.mIp01).arg(value.mSetting.mIp02).arg(value.mSetting.mIp03).arg(value.mSetting.mIp04);
+        connInfo.mPort = value.mSetting.mPort;
+        writeFileDspConnInfo(connInfo);
+        master->sendNetSetting(value);
+    }
 
     void sendAllZeroCmd           (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendZero           (1    );}}
     void sendAllWCCaribCmd        (quint16 value          ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendWCCarib        (value);}}

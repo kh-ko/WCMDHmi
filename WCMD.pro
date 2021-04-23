@@ -1,4 +1,4 @@
-QT += quick widgets charts virtualkeyboard sql serialbus
+QT += quick widgets charts virtualkeyboard sql serialbus serialport
 
 CONFIG += c++11
 
@@ -60,6 +60,7 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/graph/panelmdgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.h \
+    source/qmlmodel/wcmd/menu_scene/information/searchdspdlgmodel.h \
     source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.h \
     source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.h \
@@ -84,6 +85,7 @@ HEADERS += \
     source/service/dto/dspeventdto.h \
     source/service/dto/dspinfodto.h \
     source/service/dto/dspmdgdto.h \
+    source/service/dto/dspnetsettingdto.h \
     source/service/dto/dsppdsettingdto.h \
     source/service/dto/dspstatusdto.h \
     source/service/dto/dspwcgdto.h \
@@ -110,6 +112,7 @@ HEADERS += \
     source/service/remoteconsole/dto/enum/remoteenumdef.h \
     source/service/remoteconsole/dto/modbusdatastore.h \
     source/service/remoteconsole/monitoringservice.h \
+    source/service/remoteconsole/rtumodbusslave.h \
     source/service/remoteconsole/syncclient.h \
     source/service/remoteconsole/syncserverservice.h \
     source/service/remoteconsole/tcpmodbusslave.h \

@@ -126,7 +126,7 @@ public:
         pPacket->mMBAP.mLength = newLen;
     }
 
-    void addWriteBlock(unsigned short groupId, unsigned short startAddr, unsigned short wordLen, char * dataPtr)
+    void addWriteBlock(unsigned short groupId, unsigned short startAddr, unsigned short wordLen, char * dataPtr, bool useStartAddrOffset = true)
     {
         unsigned short newLen = 0;
         StDspBlock newBlock;
@@ -137,7 +137,11 @@ public:
         mBlkDataOffsetList.append(mBlkData.size());
 
         mBlkHeader.append((char *)&newBlock, sizeof(StDspBlock));
-        mBlkData.append(dataPtr + (startAddr * 2), wordLen * 2);
+        if(useStartAddrOffset)
+            mBlkData.append(dataPtr + (startAddr * 2), wordLen * 2);
+        else
+            mBlkData.append(dataPtr, wordLen * 2);
+
         newLen = mHeader.size() + mBlkHeader.size() + mBlkData.size() + - sizeof(StMBAPHeader);
 
         StDspPacket * pPacket = (StDspPacket *)mHeader.constData();
