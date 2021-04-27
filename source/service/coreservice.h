@@ -18,6 +18,7 @@
 #include "source/service/remoteconsole/monitoringservice.h"
 #include "source/service/remoteconsole/syncserverservice.h"
 #include "source/service/remoteconsole/tcpmodbusslave.h"
+#include "source/service/remoteconsole/rtumodbusslave.h"
 
 #define pCoreService CoreService::getInstance()
 
@@ -54,6 +55,7 @@ public:
         pSyncgSvr->stop();
         pMonitoringSvr->stop();
         pTcpModbusSlave->stop();
+        pRtuModbusSlave->stop();
 
         pDspSP->stop();
         pWorkSP->stop();
@@ -84,6 +86,7 @@ public slots:
         pSyncgSvr->start();
         pMonitoringSvr->start();
         pTcpModbusSlave->start();
+        pRtuModbusSlave->start();
 
         emit signalEventStarted();
     }

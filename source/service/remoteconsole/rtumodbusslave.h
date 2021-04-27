@@ -130,13 +130,10 @@ private:
 
         mpServer->setMap(reg);
 
-        QUrl url = QUrl::fromUserInput(QString("localhost:%1").arg(PORT));
 
+        qDebug() << "[debug] rtu modbus start";
 
-        qDebug() << "[debug] modbus port = " << url.port();
-        qDebug() << "[debug] modbus addr = " << url.host();
-
-        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, "/dev/serial1");
+        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, "/dev/ttyAMA1");
         mpServer->setConnectionParameter(QModbusDevice::SerialParityParameter  , QSerialPort::NoParity);
         mpServer->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
         mpServer->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);

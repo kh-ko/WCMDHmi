@@ -338,7 +338,7 @@ public :
 
         if(now.toMSecsSinceEpoch() - lastMSec > 200)
         {
-            qDebug() << "[DspMaster::onTimeTick]delayed msec : " << (now.toMSecsSinceEpoch() - lastMSec);
+           // qDebug() << "[DspMaster::onTimeTick]delayed msec : " << (now.toMSecsSinceEpoch() - lastMSec);
         }
 
         lastMSec = now.toMSecsSinceEpoch();
@@ -464,7 +464,6 @@ private:
 
     void connectDsp()
     {
-
         qDebug() << "[DspMaster::connectDsp]";
 
         mSendQueue.clear();
@@ -484,6 +483,7 @@ private:
 
         sendTotalSetting();
         sendReadAll();
+
     }
 
     void disconnectDsp()
