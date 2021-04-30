@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QSerialPort>
 #include <QDateTime>
 
 
@@ -142,6 +143,12 @@ public:
 
     quint32                           ETC_SETTING_MAX_ERROR              = 100                                   ;
 
+    QString                           RTU_MODBUS_PORT                    = "/dev/ttyAMA0"                        ;
+    QSerialPort::Parity               RTU_MODBUS_PARITY                  = QSerialPort::NoParity                 ;
+    QSerialPort::BaudRate             RTU_MODBUS_BAUDRATE                = QSerialPort::Baud57600                ;
+    QSerialPort::DataBits             RTU_MODBUS_DATABITS                = QSerialPort::Data8                    ;
+    QSerialPort::StopBits             RTU_MODBUS_STOPBITS                = QSerialPort::OneStop                  ;
+
 public:
     void start()
     {
@@ -257,6 +264,11 @@ public:
             else if(key == "PD_DEFAULT_SETTING_MEASURE_CUE_SIGN  "){ PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = value.toUInt()                              ;}
             else if(key == "PD_DEFAULT_SETTING_MEASURE_SECTION   "){ PD_DEFAULT_SETTING_MEASURE_SECTION    = value.toUInt()                              ;}
             else if(key == "ETC_SETTING_MAX_ERROR"              ){ ETC_SETTING_MAX_ERROR              = value.toUInt()                                   ;}
+            else if(key == "RTU_MODBUS_PORT"                    ){ RTU_MODBUS_PORT                    = value                                            ;}
+            else if(key == "RTU_MODBUS_PARITY"                  ){ RTU_MODBUS_PARITY                  = (QSerialPort::Parity  )value.toInt()             ;}
+            else if(key == "RTU_MODBUS_BAUDRATE"                ){ RTU_MODBUS_BAUDRATE                = (QSerialPort::BaudRate)value.toInt()             ;}
+            else if(key == "RTU_MODBUS_DATABITS"                ){ RTU_MODBUS_DATABITS                = (QSerialPort::DataBits)value.toInt()             ;}
+            else if(key == "RTU_MODBUS_STOPBITS"                ){ RTU_MODBUS_STOPBITS                = (QSerialPort::StopBits)value.toInt()             ;}
         }
 
         emit signalEventStarted();

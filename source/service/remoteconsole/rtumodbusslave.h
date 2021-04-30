@@ -130,14 +130,13 @@ private:
 
         mpServer->setMap(reg);
 
-
         qDebug() << "[debug] rtu modbus start";
 
-        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, "/dev/ttyAMA0");
-        mpServer->setConnectionParameter(QModbusDevice::SerialParityParameter  , QSerialPort::NoParity);
-        mpServer->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
-        mpServer->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
-        mpServer->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
+        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, pDefaultSP->RTU_MODBUS_PORT);
+        mpServer->setConnectionParameter(QModbusDevice::SerialParityParameter  , pDefaultSP->RTU_MODBUS_PARITY);
+        mpServer->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, pDefaultSP->RTU_MODBUS_BAUDRATE);
+        mpServer->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, pDefaultSP->RTU_MODBUS_DATABITS);
+        mpServer->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, pDefaultSP->RTU_MODBUS_STOPBITS);
         mpServer->setServerAddress(1);
 
         connect(mpServer, SIGNAL(stateChanged(QModbusDevice::State)) , this, SLOT(onStateChanged(QModbusDevice::State)));
