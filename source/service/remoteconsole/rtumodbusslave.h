@@ -133,7 +133,7 @@ private:
 
         qDebug() << "[debug] rtu modbus start";
 
-        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, "/dev/ttyAMA1");
+        mpServer->setConnectionParameter(QModbusDevice::SerialPortNameParameter, "/dev/ttyAMA0");
         mpServer->setConnectionParameter(QModbusDevice::SerialParityParameter  , QSerialPort::NoParity);
         mpServer->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
         mpServer->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);

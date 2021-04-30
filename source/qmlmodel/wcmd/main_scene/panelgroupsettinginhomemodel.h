@@ -24,9 +24,24 @@ public:
 signals:
     void signalEventChangedGroupCount       (quint32 value);
     void signalEventChangedIsEditGroupCount (bool    value);
-    void signalEventResultSaveGroupSetting  (int     value);
+    void signalEventResultSaveGroupSetting  (int     error);
 
 public slots:
+    Q_INVOKABLE bool onCommandComparePwd(QString value)
+    {
+        if(pLSettingSP->mSecuritySetting.mPwd == value)
+            return true;
+
+        return false;
+    }
+    Q_INVOKABLE bool onCommandCompareAdminPwd(QString value)
+    {
+        if(pLSettingSP->mSecuritySetting.mAdminPwd == value)
+            return true;
+
+        return false;
+    }
+
     Q_INVOKABLE void onCommandSetGroupCount     (quint32 value)
     {
         setGroupCount(value);

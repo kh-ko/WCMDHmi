@@ -83,7 +83,8 @@ Item {
         console.debug("showMDSetting")
         scene.toSettingMenuName = "Metal"
         inputPassword.textValue = ""
-        ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        //ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        popupProductSettingInHome.showMDSetting()
     }
 
     function showWCSetting()
@@ -98,7 +99,8 @@ Item {
     {
         scene.toSettingMenuName = "Group"
         inputPassword.textValue = ""
-        ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        //ViewManager.keypad.showKeypad(inputPassword.getVInputText())
+        popupGroupSettingInHome.show()
     }
 
 

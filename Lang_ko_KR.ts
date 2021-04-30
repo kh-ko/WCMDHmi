@@ -120,14 +120,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="261"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="312"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="263"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="314"/>
         <source>Please enter your password.</source>
         <translation>비밀번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="281"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="326"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="283"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="328"/>
         <source>Please check password</source>
         <oldsource>Invaild password</oldsource>
         <translation>비밀번호가 잘못되었습니다</translation>
@@ -1242,7 +1242,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="353"/>
         <source>② Distance between Photo to sensor</source>
-        <translation>② 포토와 센서간 거리</translation>
+        <translation>② 포토와 마지막 센서간 거리</translation>
     </message>
     <message>
         <source>① Sensor length</source>
@@ -1673,9 +1673,19 @@
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PanelMDSettingInHome.qml" line="846"/>
+        <location filename="qml/ui/main_scene/PanelMDSettingInHome.qml" line="848"/>
         <source>Close</source>
         <translation>닫기</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelMDSettingInHome.qml" line="867"/>
+        <source>Please enter your password.</source>
+        <translation>비밀번호를 입력해 주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PanelMDSettingInHome.qml" line="876"/>
+        <source>Please check password</source>
+        <translation>비밀번호가 잘못되었습니다</translation>
     </message>
 </context>
 <context>
@@ -2567,14 +2577,24 @@
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="102"/>
+        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="104"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="125"/>
+        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="127"/>
         <source>· Target count</source>
         <translation>목표개수</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="146"/>
+        <source>Please enter your password.</source>
+        <translation>비밀번호를 입력해 주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="155"/>
+        <source>Please check password</source>
+        <translation>비밀번호가 잘못되었습니다</translation>
     </message>
 </context>
 <context>

@@ -836,7 +836,9 @@ Rectangle {
             visible: model.isEditSenstivity
 
             onSignalEventClicked: {
-                model.onCommandApply()
+                //model.onCommandApply()
+                inputPassword.textValue = ""
+                ViewManager.keypad.showKeypad(inputPassword.getVInputText())
             }
         }
 
@@ -853,6 +855,25 @@ Rectangle {
 
             onSignalEventClicked: {
                 panel.signalEventClose()
+            }
+        }
+    }
+
+    UiInputPassword{
+        id : inputPassword
+        width: 0
+        height: 0
+        textValue: ""
+        labelText : qsTr("Please enter your password.")
+
+        onSignalChangeText: {
+            if(model.onCommandCompareAdminPwd(value) || model.onCommandComparePwd(value))
+            {
+                model.onCommandApply()
+            }
+            else
+            {
+                ViewManager.toast.show(qsTr("Please check password"));
             }
         }
     }
