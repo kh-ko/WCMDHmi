@@ -324,7 +324,7 @@ UiPanel {
         id : inputDistWeightChecker
         width: 800
         height: 60
-        labelText: qsTr("① Distance to weight checker")
+        labelText: qsTr("① Metal detection part length")
         anchors.topMargin: 20
         anchors.top: imageDevice.bottom
         anchors.leftMargin: 40

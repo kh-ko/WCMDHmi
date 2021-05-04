@@ -2,6 +2,7 @@
 #define PRODUCTSETTINGITEMMODEL_H
 
 #include <QObject>
+#include <QtMath>
 #include "source/service/coreservice.h"
 
 class ProductSettingItemModel : public QObject
@@ -38,6 +39,7 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(quint16              filterCoefficient          READ getFilterCoefficient           NOTIFY signalEventChangedFilterCoefficient        )
     Q_PROPERTY(quint32              measureCueSign             READ getMeasureCueSign              NOTIFY signalEventChangedMeasureCueSign           )
     Q_PROPERTY(quint32              measureSection             READ getMeasureSection              NOTIFY signalEventChangedMeasureSection           )
+    Q_PROPERTY(qint32               maxSpeed                   READ getMaxSpeed                    NOTIFY signalEventChangedMaxSpeed                 )
 
     Q_PROPERTY(bool                 isEditNo                   READ getIsEditNo                    NOTIFY signalEventChangedIsEditNo                 )
     Q_PROPERTY(bool                 isEditName                 READ getIsEditName                  NOTIFY signalEventChangedIsEditName               )
@@ -132,6 +134,28 @@ public:
     quint16 getMDNGMotion              (){return mModel.mDspForm.mMDSetting.mNGMotion               ;}
     quint16 getMDNGLamp                (){return mModel.mDspForm.mMDSetting.mNGLamp                 ;}
     quint16 getMDNGBuzzer              (){return mModel.mDspForm.mMDSetting.mNGBuzzer               ;}
+    int     getMaxSpeed                ()
+    {
+        double tOpen = pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime;
+        double lR    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker + pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
+        double lWR   = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
+        double lW    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength;
+        double lS    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor;
+        double wS    = 50/2;
+        double lP    = getLength();
+
+        if(tOpen == 0)
+            return -1;
+
+        if(pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU)
+        {
+            return qCeil(((lWR - lW ) / tOpen ) *60);
+        }
+        else
+        {
+            return qCeil(((lR - lS - wS - lP ) / tOpen ) *60);
+        }
+    }
 
     bool    getIsEditNo                (){return mIsEditNo                 ;}
     bool    getIsEditName              (){return mIsEditName               ;}
@@ -166,7 +190,7 @@ public:
     void setSeq                     (quint64 value){ if(value == mModel.mSeq                                        ) return; mModel.mSeq                                         = value; emit signalEventChangedSeq                      (value);}
     void setNo                      (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mProductNum           ) return; mModel.mDspForm.mCommSetting.mProductNum            = value;  setIsEditNo                (true); emit signalEventChangedNo                       (value);}
     void setName                    (QString value){ if(value == mModel.mName                                       ) return; mModel.mName                                        = value;  setIsEditName              (true); emit signalEventChangedName                     (value);}
-    void setLength                  (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mLength               ) return; mModel.mDspForm.mCommSetting.mLength                = value;  setIsEditLength            (true); emit signalEventChangedLength                   (value);}
+    void setLength                  (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mLength               ) return; mModel.mDspForm.mCommSetting.mLength                = value;  setIsEditLength            (true); emit signalEventChangedLength                   (value); emit signalEventChangedMaxSpeed(getMaxSpeed());}
     void setSpeed                   (quint16 value){ if(value == mModel.mDspForm.mCommSetting.mSpeed                ) return; mModel.mDspForm.mCommSetting.mSpeed                 = value;  setIsEditSpeed             (true); emit signalEventChangedSpeed                    (value);}
     void setMotorAcceleration       (quint32 value){ if(value == mModel.mDspForm.mCommSetting.mMotorAccelerationTime) return; mModel.mDspForm.mCommSetting.mMotorAccelerationTime = value;  setIsEditMotorAcceleration (true); emit signalEventChangedMotorAcceleration        (value);}
     void setMotorDeceleration       (quint32 value){ if(value == mModel.mDspForm.mCommSetting.mMotorDecelerationTime) return; mModel.mDspForm.mCommSetting.mMotorDecelerationTime = value;  setIsEditMotorDeceleration (true); emit signalEventChangedMotorDeceleration        (value);}
@@ -258,6 +282,7 @@ signals:
     void signalEventChangedMDNGMotion               (quint16 value);
     void signalEventChangedMDNGLamp                 (quint16 value);
     void signalEventChangedMDNGBuzzer               (quint16 value);
+    void signalEventChangedMaxSpeed                 (int     value);
 
     void signalEventChangedIsEditNo                 (bool    value);
     void signalEventChangedIsEditName               (bool    value);

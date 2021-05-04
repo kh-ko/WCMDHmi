@@ -197,6 +197,21 @@ Rectangle {
             anchors.left: mdMotorAlarmValue.right; anchors.leftMargin: 40
         }
 
+        Text
+        {
+            id : mdSpeedAlarm
+            height: 60
+            color: mainSceneModel.isMDSpeedAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("MD speed setting alarm")
+            font.family: FontManager.nanumGothicName
+            font.pixelSize: 25
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
+            anchors.verticalCenter: mdRJMotorAlarmValue.verticalCenter
+            anchors.left: mdRJMotorAlarmValue.right; anchors.leftMargin: 40
+        }
+
 
         UiLabelTitle {
             width: 200

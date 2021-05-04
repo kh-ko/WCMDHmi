@@ -29,6 +29,7 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    isMDPhotoAlarm     READ getIsMDPhotoAlarm      NOTIFY signalEventChangedIsMDPhotoAlarm    )
     Q_PROPERTY(bool    isMDMortorAlarm    READ getIsMDMortorAlarm     NOTIFY signalEventChangedIsMDMortorAlarm   )
     Q_PROPERTY(bool    isMDRJMortorAlarm  READ getIsMDRJMortorAlarm   NOTIFY signalEventChangedIsMDRJMortorAlarm )
+    Q_PROPERTY(bool    isMDSpeedAlarm     READ getIsMDSpeedAlarm      NOTIFY signalEventChangedIsMDSpeedAlarm    )
     Q_PROPERTY(QString clock              READ getClock               NOTIFY signalEventChangedClock             )
     Q_PROPERTY(int     weightFixedN       READ getWeightFixedN        NOTIFY signalEventChangedWeightFixedN      )
 
@@ -54,6 +55,8 @@ public:
     bool    mIsMDPhotoAlarm    = false;
     bool    mIsMDMortorAlarm   = false;
     bool    mIsMDRJMortorAlarm = false;
+    bool    mIsMDSpeedAlarm    = false;
+
     QString mClock             = "";
     QString mPassword          = "";
     int     mWeightFixedN      = 1;
@@ -67,7 +70,7 @@ public:
     bool     getIsZeroProc       (){ return mIsZeroProc       ;}
     bool     getIsRun            (){ return mIsRun            ;}
     bool     getIsComm           (){ return mIsComm           ;}
-    bool     getIsAlarm          (){ return mIsAlarm          ;}
+    bool     getIsAlarm          (){ return (mIsAlarm || mIsMDSpeedAlarm);}
     bool     getIsWCSensorAlarm  (){ return mIsWCSensorAlarm  ;}
     bool     getIsWCPhotoAlarm   (){ return mIsWCPhotoAlarm   ;}
     bool     getIsWCMortorAlarm  (){ return mIsWCMortorAlarm  ;}
@@ -77,6 +80,7 @@ public:
     bool     getIsMDPhotoAlarm   (){ return mIsMDPhotoAlarm   ;}
     bool     getIsMDMortorAlarm  (){ return mIsMDMortorAlarm  ;}
     bool     getIsMDRJMortorAlarm(){ return mIsMDRJMortorAlarm;}
+    bool     getIsMDSpeedAlarm   (){ return mIsMDSpeedAlarm   ;}
     QString  getClock            (){ return mClock            ;}
     int      getWeightFixedN     (){ return mWeightFixedN     ;}
 
@@ -89,7 +93,7 @@ public:
     void     setTel              (QString value){ if(value == getTel    ()      )return; mTel               = value; emit signalEventChangedTel              (value);}
     void     setIsRun            (bool    value){ if(value == getIsRun  ()      )return; mIsRun             = value; emit signalEventChangedIsRun            (value);}
     void     setIsComm           (bool    value){ if(value == getIsComm ()      )return; mIsComm            = value; emit signalEventChangedIsComm           (value);}
-    void     setIsAlarm          (bool    value){ if(value == getIsAlarm()      )return; mIsAlarm           = value; emit signalEventChangedIsAlarm          (value);}
+    void     setIsAlarm          (bool    value){ if(value == mIsAlarm          )return; mIsAlarm           = value; emit signalEventChangedIsAlarm          (getIsAlarm());}
     void     setIsWCSensorAlarm  (bool    value){ if(value == mIsWCSensorAlarm  )return; mIsWCSensorAlarm   = value; emit signalEventChangedIsWCSensorAlarm  (value);}
     void     setIsWCPhotoAlarm   (bool    value){ if(value == mIsWCPhotoAlarm   )return; mIsWCPhotoAlarm    = value; emit signalEventChangedIsWCPhotoAlarm   (value);}
     void     setIsWCMortorAlarm  (bool    value){ if(value == mIsWCMortorAlarm  )return; mIsWCMortorAlarm   = value; emit signalEventChangedIsWCMortorAlarm  (value);}
@@ -99,6 +103,7 @@ public:
     void     setIsMDPhotoAlarm   (bool    value){ if(value == mIsMDPhotoAlarm   )return; mIsMDPhotoAlarm    = value; emit signalEventChangedIsMDPhotoAlarm   (value);}
     void     setIsMDMortorAlarm  (bool    value){ if(value == mIsMDMortorAlarm  )return; mIsMDMortorAlarm   = value; emit signalEventChangedIsMDMortorAlarm  (value);}
     void     setIsMDRJMortorAlarm(bool    value){ if(value == mIsMDRJMortorAlarm)return; mIsMDRJMortorAlarm = value; emit signalEventChangedIsMDRJMortorAlarm(value);}
+    void     setIsMDSpeedAlarm   (bool    value){ if(value == mIsMDSpeedAlarm   )return; mIsMDSpeedAlarm    = value; emit signalEventChangedIsMDSpeedAlarm   (value);}
     void     setClock            (QString value){ if(value == getClock  ()      )return; mClock             = value; emit signalEventChangedClock            (value);}
     void     setWeightFixedN     (int     value){ if(value == mWeightFixedN     )return; mWeightFixedN      = value; emit signalEventChangedWeightFixedN     (value);}
 signals:
@@ -121,6 +126,7 @@ signals:
     void signalEventChangedIsMDPhotoAlarm   (bool    value);
     void signalEventChangedIsMDMortorAlarm  (bool    value);
     void signalEventChangedIsMDRJMortorAlarm(bool    value);
+    void signalEventChangedIsMDSpeedAlarm   (bool    value);
     void signalEventChangedClock            (QString value);
     void signalEventChangedWeightFixedN     (int     value);
 
@@ -203,7 +209,7 @@ public slots:
 
         setIsRun            ( dto.mCommStatus.mRun != EnumDef::RUN_MODE_STOP                   );
 
-        setIsAlarm          ( dto.getAlarm() || pDsp->mIsDevSettingAlarm || pDsp->mIsPDSettingAlarm);
+        setIsAlarm          ( dto.getAlarm() || pDsp->mIsDevSettingAlarm || pDsp->mIsPDSettingAlarm || mIsMDSpeedAlarm);
         setIsWCSensorAlarm  ( dto.getIsWCSensorAlarm  ());
         setIsWCPhotoAlarm   ( dto.getIsWCPhotoAlarm   ());
         setIsWCMortorAlarm  ( dto.getIsWCMortorAlarm  ());
@@ -213,13 +219,6 @@ public slots:
         setIsMDPhotoAlarm   ( dto.getIsMDPhotoAlarm   ());
         setIsMDMortorAlarm  ( dto.getIsMDMortorAlarm  ());
         setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm());
-
-        if(mIsAlarm)
-        {
-          //  qDebug() << "[debug]Alarm" <<dto.getAlarm();
-          //  qDebug() << "[debug]mIsDevSettingAlarm" <<pDsp->mIsDevSettingAlarm;
-          //  qDebug() << "[debug]mIsPDSettingAlarm" <<pDsp->mIsPDSettingAlarm;
-        }
 
         setIsZeroProc       ( dto.mWCStatus.mZeroProc == 1);
         setIsWait           ( dto.mWCStatus.mWait == 1    );
@@ -252,6 +251,9 @@ public slots:
         setIsWCEnable(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
         setIsMDEnable(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_WC);
 
+        setIsMDSpeedAlarm(isSpeedAlarm());
+        emit signalEventChangedIsAlarm(getIsAlarm());
+
         if(dto.mDspForm.mWCSetting.mScaler%10 != 0)
         {
             setWeightFixedN(3);
@@ -270,6 +272,12 @@ public slots:
         setSWPowerOff(dto.mSWPowerOff);
     }
 
+    void onChangedCurrPDSetting(PDSettingDto dto)
+    {
+        setIsMDSpeedAlarm(isSpeedAlarm());
+        emit signalEventChangedIsAlarm(getIsAlarm());
+    }
+
 //  internal layer ===================================================================================
 public:
     explicit MainSceneModel(QObject *parent = nullptr): QObject(parent)
@@ -282,6 +290,9 @@ public:
 
         ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTING;
         onChangedHMISetting(pLSettingSP->mHMISetting);
+
+        ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
+        onChangedCurrPDSetting(pProductSP->mCurrPD);
 
         ENABLE_SLOT_TIMER_TICK;
 
@@ -298,6 +309,38 @@ public:
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
         onChangedDspStatus(mDspSeq, pDsp->mRcvDataStore.getStatusDto());
         onChangedDspIsConnect(mDspSeq, pDsp->mIsConnect);
+    }
+
+private:
+    int isSpeedAlarm()
+    {
+        int maxSpeed = 100;
+        double tOpen = pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime;
+        double lR    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker + pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
+        double lWR   = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
+        double lW    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength;
+        double lS    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor;
+        double wS    = 50/2;
+        double lP    = pProductSP->mCurrPD.mDspForm.mCommSetting.mLength;
+
+        if(tOpen == 0)
+        {
+            return false;
+        }
+
+        if(getIsWCEnable())
+        {
+            maxSpeed = qCeil(((lWR - lW ) / tOpen ) *60);
+        }
+        else
+        {
+            maxSpeed = qCeil(((lR - lS - wS - lP ) / tOpen ) *60);
+        }
+
+        if(pProductSP->mCurrPD.mDspForm.mCommSetting.mSpeed > maxSpeed)
+            return true;
+
+        return false;
     }
 };
 

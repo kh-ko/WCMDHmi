@@ -5,6 +5,7 @@ import "."
 import "../../../../control"
 import QtQuick.Layouts 1.3
 import QmlEnumDef 1.0
+import FontManager 1.0
 import ProductSettingItemModel 1.0
 
 UiPanel {
@@ -143,6 +144,18 @@ UiPanel {
         onSignalChangeValue: {
             itemModel.onCommandSetSpeed(value)
         }
+    }
+
+    Text{
+        id:textMaxSpeed
+
+        anchors.top: inputSpeed.bottom; anchors.topMargin: 7; anchors.right: inputSpeed.right
+        font.pixelSize: 20; font.family: FontManager.nanumGothicName
+
+        color : itemModel.maxSpeed < itemModel.speed ? "#D9001B" : "#ACACAC"
+        text: qsTr("Max speed : ") + itemModel.maxSpeed + " m/min"
+
+        visible: itemModel.maxSpeed !== -1
     }
 
     UiLabelSystem{
