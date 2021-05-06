@@ -141,7 +141,7 @@ public:
         double lWR   = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
         double lW    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength;
         double lS    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor;
-        double wS    = 50/2;
+        double wS    = 50;
         double lP    = getLength();
 
         if(tOpen == 0)
@@ -149,11 +149,11 @@ public:
 
         if(pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU)
         {
-            return qCeil(((lWR - lW ) / tOpen ) *60);
+            return qFloor(((lWR - lW ) / tOpen ) *60);
         }
         else
         {
-            return qCeil(((lR - lS - wS - lP ) / tOpen ) *60);
+            return qFloor(((lR - lS - wS - lP ) / tOpen ) *60);
         }
     }
 

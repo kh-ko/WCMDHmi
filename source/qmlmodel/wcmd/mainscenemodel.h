@@ -320,7 +320,7 @@ private:
         double lWR   = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01;
         double lW    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength;
         double lS    = pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistancePhotoToSensor;
-        double wS    = 50/2;
+        double wS    = 50;
         double lP    = pProductSP->mCurrPD.mDspForm.mCommSetting.mLength;
 
         if(tOpen == 0)
@@ -330,11 +330,11 @@ private:
 
         if(getIsWCEnable())
         {
-            maxSpeed = qCeil(((lWR - lW ) / tOpen ) *60);
+            maxSpeed = qFloor(((lWR - lW ) / tOpen ) *60);
         }
         else
         {
-            maxSpeed = qCeil(((lR - lS - wS - lP ) / tOpen ) *60);
+            maxSpeed = qFloor(((lR - lS - wS - lP ) / tOpen ) *60);
         }
 
         if(pProductSP->mCurrPD.mDspForm.mCommSetting.mSpeed > maxSpeed)
