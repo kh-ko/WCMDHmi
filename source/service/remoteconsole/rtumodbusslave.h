@@ -74,6 +74,9 @@ public slots:
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_LNG_QTY_ADDR_L), quint16(LOW_WORD(stats.mWCUCnt)));
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_LNG_QTY_ADDR_H), quint16(HIGH_WORD(stats.mWCUCnt)));
 
+        mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_ETCNG_QTY_ADDR_L), quint16(LOW_WORD(stats.mWCEtcCnt)));
+        mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_ETCNG_QTY_ADDR_H), quint16(HIGH_WORD(stats.mWCEtcCnt)));
+
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_MD_OK_QTY_ADDR_L), quint16(LOW_WORD(stats.mMDPassCnt)));
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_MD_OK_QTY_ADDR_H), quint16(HIGH_WORD(stats.mMDPassCnt)));
 

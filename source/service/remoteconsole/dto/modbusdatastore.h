@@ -15,6 +15,7 @@ struct ModbusWCDataStore{
     quint32 mOverCnt    ;
     quint32 mUnderCnt   ;
     quint16 mAlarm      ; // sensor alarm = 1, photo alarm = 2, motor alarm = 4
+    quint32 mEtcCnt     ;
 };
 
 struct ModbusMDDataStore{
@@ -27,21 +28,23 @@ struct ModbusMDDataStore{
 };
 #pragma pack(pop)
 
-#define RMODBUS_WC_RUN_ADDR       ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mRunState   ))))/2
-#define RMODBUS_WC_NUM_ADDR       ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mPDNum      ))))/2
-#define RMODBUS_WC_OK_REF_ADDR_L  ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mNorWeight  ))))/2
-#define RMODBUS_WC_OK_REF_ADDR_H  ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mNorWeight  )))+2)/2
-#define RMODBUS_WC_HNG_REF_ADDR_L ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverWeight ))))/2
-#define RMODBUS_WC_HNG_REF_ADDR_H ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverWeight )))+2)/2
-#define RMODBUS_WC_LNG_REF_ADDR_L ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderWeight))))/2
-#define RMODBUS_WC_LNG_REF_ADDR_H ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderWeight)))+2)/2
-#define RMODBUS_WC_OK_QTY_ADDR_L  ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mTradeCnt   ))))/2
-#define RMODBUS_WC_OK_QTY_ADDR_H  ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mTradeCnt   )))+2)/2
-#define RMODBUS_WC_HNG_QTY_ADDR_L ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverCnt    ))))/2
-#define RMODBUS_WC_HNG_QTY_ADDR_H ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverCnt    )))+2)/2
-#define RMODBUS_WC_LNG_QTY_ADDR_L ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderCnt   ))))/2
-#define RMODBUS_WC_LNG_QTY_ADDR_H ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderCnt   )))+2)/2
-#define RMODBUS_WC_ALARM_ADDR     ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mAlarm      ))))/2
+#define RMODBUS_WC_RUN_ADDR         ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mRunState   ))))/2
+#define RMODBUS_WC_NUM_ADDR         ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mPDNum      ))))/2
+#define RMODBUS_WC_OK_REF_ADDR_L    ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mNorWeight  ))))/2
+#define RMODBUS_WC_OK_REF_ADDR_H    ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mNorWeight  )))+2)/2
+#define RMODBUS_WC_HNG_REF_ADDR_L   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverWeight ))))/2
+#define RMODBUS_WC_HNG_REF_ADDR_H   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverWeight )))+2)/2
+#define RMODBUS_WC_LNG_REF_ADDR_L   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderWeight))))/2
+#define RMODBUS_WC_LNG_REF_ADDR_H   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderWeight)))+2)/2
+#define RMODBUS_WC_OK_QTY_ADDR_L    ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mTradeCnt   ))))/2
+#define RMODBUS_WC_OK_QTY_ADDR_H    ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mTradeCnt   )))+2)/2
+#define RMODBUS_WC_HNG_QTY_ADDR_L   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverCnt    ))))/2
+#define RMODBUS_WC_HNG_QTY_ADDR_H   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mOverCnt    )))+2)/2
+#define RMODBUS_WC_LNG_QTY_ADDR_L   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderCnt   ))))/2
+#define RMODBUS_WC_LNG_QTY_ADDR_H   ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mUnderCnt   )))+2)/2
+#define RMODBUS_WC_ALARM_ADDR       ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mAlarm      ))))/2
+#define RMODBUS_WC_ETCNG_QTY_ADDR_L ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mEtcCnt     ))))/2
+#define RMODBUS_WC_ETCNG_QTY_ADDR_H ((quint64)((char *)(&(((ModbusWCDataStore *)(8192))->mEtcCnt     )))+2)/2
 
 #define RMODBUS_MD_RUN_ADDR       ((quint64)((char *)(&(((ModbusMDDataStore *)(8704))->mRunState  ))))/2
 #define RMODBUS_MD_NUM_ADDR       ((quint64)((char *)(&(((ModbusMDDataStore *)(8704))->mPDNum     ))))/2

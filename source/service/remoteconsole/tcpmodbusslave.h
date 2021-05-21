@@ -72,6 +72,9 @@ public slots:
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_LNG_QTY_ADDR_L), quint16(LOW_WORD(stats.mWCUCnt)));
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_LNG_QTY_ADDR_H), quint16(HIGH_WORD(stats.mWCUCnt)));
 
+        mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_ETCNG_QTY_ADDR_L), quint16(LOW_WORD(stats.mWCEtcCnt)));
+        mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_WC_ETCNG_QTY_ADDR_H), quint16(HIGH_WORD(stats.mWCEtcCnt)));
+
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_MD_OK_QTY_ADDR_L), quint16(LOW_WORD(stats.mMDPassCnt)));
         mpServer->setData(QModbusDataUnit::InputRegisters, quint16(RMODBUS_MD_OK_QTY_ADDR_H), quint16(HIGH_WORD(stats.mMDPassCnt)));
 
@@ -115,6 +118,7 @@ public slots:
     }
 private:
     QModbusTcpServer  * mpServer = nullptr;
+    QModbusDataUnitMap * mpRegMap = nullptr;
     qint16              PORT     = 10502;  // 502 번을 redirect로 10502번으로 연결하였음
 
     void open()
@@ -123,10 +127,12 @@ private:
 
         mpServer = new QModbusTcpServer(this);
 
-        QModbusDataUnitMap reg;
-        reg.insert(QModbusDataUnit::InputRegisters,   { QModbusDataUnit::InputRegisters, 4096, 270});
+        mpRegMap = new QModbusDataUnitMap;
 
-        mpServer->setMap(reg);
+        //QModbusDataUnitMap reg;
+        mpRegMap->insert(QModbusDataUnit::InputRegisters,   { QModbusDataUnit::InputRegisters, 4096, 270});
+
+        mpServer->setMap(*mpRegMap);
 
         QUrl url = QUrl::fromUserInput(QString("localhost:%1").arg(PORT));
 
