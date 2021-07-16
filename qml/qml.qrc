@@ -181,5 +181,6 @@
         <file>ui/main_scene/img/weight_setting/tare.png</file>
         <file>ui/main_scene/PopupZeroProc.qml</file>
         <file>ui/main_scene/menu_view/Infomation/SearchDspDlg.qml</file>
+        <file>ui/main_scene/menu_view/Infomation/image_device/device_wc_only.png</file>
     </qresource>
 </RCC>

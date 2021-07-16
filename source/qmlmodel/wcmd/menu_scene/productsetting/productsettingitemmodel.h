@@ -27,7 +27,9 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(quint32              overWarningWeight          READ getOverWarningWeight           NOTIFY signalEventChangedOverWarningWeight        )
     Q_PROPERTY(quint32              overWeight                 READ getOverWeight                  NOTIFY signalEventChangedOverWeight               )
     Q_PROPERTY(quint32              tareWeight                 READ getTareWeight                  NOTIFY signalEventChangedTareWeight               )
-    Q_PROPERTY(quint16              wcNGMotion                 READ getWCNGMotion                  NOTIFY signalEventChangedWCNGMotion               )
+    Q_PROPERTY(quint16              wcOverMotion               READ getWCOverMotion                NOTIFY signalEventChangedWCOverMotion             )
+    Q_PROPERTY(quint16              wcUnderMotion              READ getWCUnderMotion               NOTIFY signalEventChangedWCUnderMotion            )
+    Q_PROPERTY(quint16              wcEtcMotion                READ getWCEtcMotion                 NOTIFY signalEventChangedWCEtcMotion              )
     Q_PROPERTY(quint16              wcNGLamp                   READ getWCNGLamp                    NOTIFY signalEventChangedWCNGLamp                 )
     Q_PROPERTY(quint16              wcNGBuzzer                 READ getWCNGBuzzer                  NOTIFY signalEventChangedWCNGBuzzer               )
     Q_PROPERTY(quint16              wcEnableEtcError           READ getWCEnableEtcError            NOTIFY signalEventChangedWCEnableEtcError         )
@@ -57,7 +59,9 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(bool                 isEditOverWarningWeight    READ getIsEditOverWarningWeight     NOTIFY signalEventChangedIsEditOverWarningWeight  )
     Q_PROPERTY(bool                 isEditOverWeight           READ getIsEditOverWeight            NOTIFY signalEventChangedIsEditOverWeight         )
     Q_PROPERTY(bool                 isEditTareWeight           READ getIsEditTareWeight            NOTIFY signalEventChangedIsEditTareWeight         )
-    Q_PROPERTY(bool                 isEditWCNGMotion           READ getIsEditWCNGMotion            NOTIFY signalEventChangedIsEditWCNGMotion         )
+    Q_PROPERTY(bool                 isEditWCOverMotion         READ getIsEditWCOverMotion          NOTIFY signalEventChangedIsEditWCOverMotion       )
+    Q_PROPERTY(bool                 isEditWCUnderMotion        READ getIsEditWCUnderMotion         NOTIFY signalEventChangedIsEditWCUnderMotion      )
+    Q_PROPERTY(bool                 isEditWCEtcMotion          READ getIsEditWCEtcMotion           NOTIFY signalEventChangedIsEditWCEtcMotion        )
     Q_PROPERTY(bool                 isEditWCNGLamp             READ getIsEditWCNGLamp              NOTIFY signalEventChangedIsEditWCNGLamp           )
     Q_PROPERTY(bool                 isEditWCNGBuzzer           READ getIsEditWCNGBuzzer            NOTIFY signalEventChangedIsEditWCNGBuzzer         )
     Q_PROPERTY(bool                 isEditWCEnableEtcError     READ getIsEditWCEnableEtcError      NOTIFY signalEventChangedIsEditWCEnableEtcError   )
@@ -91,7 +95,9 @@ public:
     bool         mIsEditOverWarningWeight  ;
     bool         mIsEditOverWeight         ;
     bool         mIsEditTareWeight         ;
-    bool         mIsEditWCNGMotion         ;
+    bool         mIsEditWCOverMotion       ;
+    bool         mIsEditWCUnderMotion      ;
+    bool         mIsEditWCEtcMotion        ;
     bool         mIsEditWCNGLamp           ;
     bool         mIsEditWCNGBuzzer         ;
     bool         mIsEditWCEnableEtcError   ;
@@ -122,7 +128,9 @@ public:
     quint32 getOverWarningWeight       (){return mModel.mDspForm.mWCSetting.mOverWarningWeight      ;}
     quint32 getOverWeight              (){return mModel.mDspForm.mWCSetting.mOverWeight             ;}
     quint32 getTareWeight              (){return mModel.mDspForm.mWCSetting.mTareWeight             ;}
-    quint16 getWCNGMotion              (){return mModel.mDspForm.mWCSetting.mNGMotion               ;}
+    quint16 getWCOverMotion            (){return mModel.mDspForm.mWCSetting.mOverMotion             ;}
+    quint16 getWCUnderMotion           (){return mModel.mDspForm.mWCSetting.mUnderMotion            ;}
+    quint16 getWCEtcMotion             (){return mModel.mDspForm.mWCSetting.mEtcMotion              ;}
     quint16 getWCNGLamp                (){return mModel.mDspForm.mWCSetting.mNGLamp                 ;}
     quint16 getWCNGBuzzer              (){return mModel.mDspForm.mWCSetting.mNGBuzzer               ;}
     quint16 getWCEnableEtcError        (){return mModel.mDspForm.mWCSetting.mEnableEtcError         ;}
@@ -173,7 +181,9 @@ public:
     bool    getIsEditOverWarningWeight (){return mIsEditOverWarningWeight  ;}
     bool    getIsEditOverWeight        (){return mIsEditOverWeight         ;}
     bool    getIsEditTareWeight        (){return mIsEditTareWeight         ;}
-    bool    getIsEditWCNGMotion        (){return mIsEditWCNGMotion         ;}
+    bool    getIsEditWCOverMotion      (){return mIsEditWCOverMotion       ;}
+    bool    getIsEditWCUnderMotion     (){return mIsEditWCUnderMotion      ;}
+    bool    getIsEditWCEtcMotion       (){return mIsEditWCEtcMotion        ;}
     bool    getIsEditWCNGLamp          (){return mIsEditWCNGLamp           ;}
     bool    getIsEditWCNGBuzzer        (){return mIsEditWCNGBuzzer         ;}
     bool    getIsEditWCEnableEtcError  (){return mIsEditWCEnableEtcError   ;}
@@ -204,7 +214,9 @@ public:
     void setOverWarningWeight       (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mOverWarningWeight      ) return; mModel.mDspForm.mWCSetting.mOverWarningWeight       = value;  setIsEditOverWarningWeight (true); emit signalEventChangedOverWarningWeight        (value);}
     void setOverWeight              (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mOverWeight             ) return; mModel.mDspForm.mWCSetting.mOverWeight              = value;  setIsEditOverWeight        (true); emit signalEventChangedOverWeight               (value);}
     void setTareWeight              (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mTareWeight             ) return; mModel.mDspForm.mWCSetting.mTareWeight              = value;  setIsEditTareWeight        (true); emit signalEventChangedTareWeight               (value);}
-    void setWCNGMotion              (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mNGMotion               ) return; mModel.mDspForm.mWCSetting.mNGMotion                = value;  setIsEditWCNGMotion        (true); emit signalEventChangedWCNGMotion               (value);}
+    void setWCOverMotion            (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mOverMotion             ) return; mModel.mDspForm.mWCSetting.mOverMotion              = value;  setIsEditWCOverMotion      (true); emit signalEventChangedWCOverMotion             (value);}
+    void setWCUnderMotion           (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mUnderMotion            ) return; mModel.mDspForm.mWCSetting.mUnderMotion             = value;  setIsEditWCUnderMotion     (true); emit signalEventChangedWCUnderMotion            (value);}
+    void setWCEtcMotion             (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mEtcMotion              ) return; mModel.mDspForm.mWCSetting.mEtcMotion               = value;  setIsEditWCEtcMotion       (true); emit signalEventChangedWCEtcMotion              (value);}
     void setWCNGLamp                (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mNGLamp                 ) return; mModel.mDspForm.mWCSetting.mNGLamp                  = value;  setIsEditWCNGLamp          (true); emit signalEventChangedWCNGLamp                 (value);}
     void setWCNGBuzzer              (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mNGBuzzer               ) return; mModel.mDspForm.mWCSetting.mNGBuzzer                = value;  setIsEditWCNGBuzzer        (true); emit signalEventChangedWCNGBuzzer               (value);}
     void setWCEnableEtcError        (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mEnableEtcError         ) return; mModel.mDspForm.mWCSetting.mEnableEtcError          = value;  setIsEditWCEnableEtcError  (true); emit signalEventChangedWCEnableEtcError         (value);}
@@ -234,7 +246,9 @@ public:
     void setIsEditOverWarningWeight (bool    value){ if(value == mIsEditOverWarningWeight  ) return; mIsEditOverWarningWeight  = value; emit signalEventChangedIsEditOverWarningWeight  (value);}
     void setIsEditOverWeight        (bool    value){ if(value == mIsEditOverWeight         ) return; mIsEditOverWeight         = value; emit signalEventChangedIsEditOverWeight         (value);}
     void setIsEditTareWeight        (bool    value){ if(value == mIsEditTareWeight         ) return; mIsEditTareWeight         = value; emit signalEventChangedIsEditTareWeight         (value);}
-    void setIsEditWCNGMotion        (bool    value){ if(value == mIsEditWCNGMotion         ) return; mIsEditWCNGMotion         = value; emit signalEventChangedIsEditWCNGMotion         (value);}
+    void setIsEditWCOverMotion      (bool    value){ if(value == mIsEditWCOverMotion       ) return; mIsEditWCOverMotion       = value; emit signalEventChangedIsEditWCOverMotion       (value);}
+    void setIsEditWCUnderMotion     (bool    value){ if(value == mIsEditWCUnderMotion      ) return; mIsEditWCUnderMotion      = value; emit signalEventChangedIsEditWCUnderMotion      (value);}
+    void setIsEditWCEtcMotion       (bool    value){ if(value == mIsEditWCEtcMotion        ) return; mIsEditWCEtcMotion        = value; emit signalEventChangedIsEditWCEtcMotion        (value);}
     void setIsEditWCNGLamp          (bool    value){ if(value == mIsEditWCNGLamp           ) return; mIsEditWCNGLamp           = value; emit signalEventChangedIsEditWCNGLamp           (value);}
     void setIsEditWCNGBuzzer        (bool    value){ if(value == mIsEditWCNGBuzzer         ) return; mIsEditWCNGBuzzer         = value; emit signalEventChangedIsEditWCNGBuzzer         (value);}
     void setIsEditWCEnableEtcError  (bool    value){ if(value == mIsEditWCEnableEtcError   ) return; mIsEditWCEnableEtcError   = value; emit signalEventChangedIsEditWCEnableEtcError   (value);}
@@ -270,7 +284,9 @@ signals:
     void signalEventChangedOverWarningWeight        (quint32 value);
     void signalEventChangedOverWeight               (quint32 value);
     void signalEventChangedTareWeight               (quint32 value);
-    void signalEventChangedWCNGMotion               (quint16 value);
+    void signalEventChangedWCOverMotion             (quint16 value);
+    void signalEventChangedWCUnderMotion            (quint16 value);
+    void signalEventChangedWCEtcMotion              (quint16 value);
     void signalEventChangedWCNGLamp                 (quint16 value);
     void signalEventChangedWCNGBuzzer               (quint16 value);
     void signalEventChangedWCEnableEtcError         (quint16 value);
@@ -300,7 +316,9 @@ signals:
     void signalEventChangedIsEditOverWarningWeight  (bool    value);
     void signalEventChangedIsEditOverWeight         (bool    value);
     void signalEventChangedIsEditTareWeight         (bool    value);
-    void signalEventChangedIsEditWCNGMotion         (bool    value);
+    void signalEventChangedIsEditWCOverMotion       (bool    value);
+    void signalEventChangedIsEditWCUnderMotion      (bool    value);
+    void signalEventChangedIsEditWCEtcMotion        (bool    value);
     void signalEventChangedIsEditWCNGLamp           (bool    value);
     void signalEventChangedIsEditWCNGBuzzer         (bool    value);
     void signalEventChangedIsEditWCEnableEtcError   (bool    value);
@@ -331,7 +349,9 @@ public slots:
     Q_INVOKABLE void onCommandSetOverWarningWeight       (quint32 value){ setOverWarningWeight (value);}
     Q_INVOKABLE void onCommandSetOverWeight              (quint32 value){ setOverWeight        (value); setOverWarningWeight (value);}
     Q_INVOKABLE void onCommandSetTareWeight              (quint32 value){ setTareWeight        (value);}
-    Q_INVOKABLE void onCommandSetWCNGMotion              (quint16 value){ setWCNGMotion        (value);}
+    Q_INVOKABLE void onCommandSetWCOverMotion            (quint16 value){ setWCOverMotion      (value);}
+    Q_INVOKABLE void onCommandSetWCUnderMotion           (quint16 value){ setWCUnderMotion     (value);}
+    Q_INVOKABLE void onCommandSetWCEtcMotion             (quint16 value){ setWCEtcMotion       (value);}
     Q_INVOKABLE void onCommandSetWCNGLamp                (quint16 value){ setWCNGLamp          (value);}
     Q_INVOKABLE void onCommandSetWCNGBuzzer              (quint16 value){ setWCNGBuzzer        (value);}
     Q_INVOKABLE void onCommandSetWCEnableEtcError        (bool    value){ setWCEnableEtcError  (value == true ? 1 : 0);}
@@ -373,7 +393,9 @@ public:
             setOverWarningWeight       (0 );
             setOverWeight              (0 );
             setTareWeight              (0 );
-            setWCNGMotion              (0 );
+            setWCUnderMotion           (0 );
+            setWCOverMotion            (0 );
+            setWCEtcMotion             (0 );
             setWCNGLamp                (0 );
             setWCNGBuzzer              (0 );
             setWCEnableEtcError        (1 );
@@ -405,7 +427,9 @@ public:
             setOverWarningWeight (pPDSetting->mDspForm.mWCSetting.mOverWarningWeight      );
             setOverWeight        (pPDSetting->mDspForm.mWCSetting.mOverWeight             );
             setTareWeight        (pPDSetting->mDspForm.mWCSetting.mTareWeight             );
-            setWCNGMotion        (pPDSetting->mDspForm.mWCSetting.mNGMotion               );
+            setWCOverMotion      (pPDSetting->mDspForm.mWCSetting.mOverMotion             );
+            setWCUnderMotion     (pPDSetting->mDspForm.mWCSetting.mUnderMotion            );
+            setWCEtcMotion       (pPDSetting->mDspForm.mWCSetting.mEtcMotion              );
             setWCNGLamp          (pPDSetting->mDspForm.mWCSetting.mNGLamp                 );
             setWCNGBuzzer        (pPDSetting->mDspForm.mWCSetting.mNGBuzzer               );
             setWCEnableEtcError  (pPDSetting->mDspForm.mWCSetting.mEnableEtcError         );
@@ -436,7 +460,9 @@ public:
         setIsEditOverWarningWeight (false);
         setIsEditOverWeight        (false);
         setIsEditTareWeight        (false);
-        setIsEditWCNGMotion        (false);
+        setIsEditWCOverMotion      (false);
+        setIsEditWCUnderMotion     (false);
+        setIsEditWCEtcMotion       (false);
         setIsEditWCNGLamp          (false);
         setIsEditWCNGBuzzer        (false);
         setIsEditWCEnableEtcError  (false);
@@ -469,7 +495,9 @@ public:
         setOverWarningWeight (newProduct.mDspForm.mWCSetting.mOverWarningWeight      );
         setOverWeight        (newProduct.mDspForm.mWCSetting.mOverWeight             );
         setTareWeight        (newProduct.mDspForm.mWCSetting.mTareWeight             );
-        setWCNGMotion        (newProduct.mDspForm.mWCSetting.mNGMotion               );
+        setWCOverMotion      (newProduct.mDspForm.mWCSetting.mOverMotion             );
+        setWCUnderMotion     (newProduct.mDspForm.mWCSetting.mUnderMotion            );
+        setWCEtcMotion       (newProduct.mDspForm.mWCSetting.mEtcMotion              );
         setWCNGLamp          (newProduct.mDspForm.mWCSetting.mNGLamp                 );
         setWCNGBuzzer        (newProduct.mDspForm.mWCSetting.mNGBuzzer               );
         setWCEnableEtcError  (newProduct.mDspForm.mWCSetting.mEnableEtcError         );
@@ -499,7 +527,9 @@ public:
         setIsEditOverWarningWeight (true);
         setIsEditOverWeight        (true);
         setIsEditTareWeight        (true);
-        setIsEditWCNGMotion        (true);
+        setIsEditWCOverMotion      (true);
+        setIsEditWCUnderMotion     (true);
+        setIsEditWCEtcMotion       (true);
         setIsEditWCNGLamp          (true);
         setIsEditWCNGBuzzer        (true);
         setIsEditWCEnableEtcError  (true);

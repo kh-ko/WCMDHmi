@@ -709,8 +709,8 @@ Rectangle {
         Text {
             width: 473
             height: 40
-            color: debuggingModel.mDiffWCNGMotion ? "#FF0000" :"#acacac"
-            text: qsTr("Weight NG motion : ") + (debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_NON ? "None" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_STOP ? "Stop" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_01 ? "Sorter 01" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_02 ? "Sorter 02" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_03 ? "Sorter 03" : debuggingModel.mWCNGMotion === EnumDef.NG_MOTION_SORTER_04 ? "Sorter 04" : "Unknow")
+            color: debuggingModel.mDiffWCUnderMotion ? "#FF0000" :"#acacac"
+            text: qsTr("Weight NG motion : ") + (debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_NON ? "None" : debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_STOP ? "Stop" : debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_SORTER_01 ? "Sorter 01" : debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_SORTER_02 ? "Sorter 02" : debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_SORTER_03 ? "Sorter 03" : debuggingModel.mWCUnderMotion === EnumDef.NG_MOTION_SORTER_04 ? "Sorter 04" : "Unknow")
             font.family: FontManager.nanumGothicName
             anchors.top: parent.top
             anchors.left: parent.left

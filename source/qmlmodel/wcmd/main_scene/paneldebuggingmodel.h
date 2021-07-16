@@ -22,7 +22,9 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint32 mOverWarningWeight           READ getOverWarningWeight                  NOTIFY signalEventChangedOverWarningWeight                 );
     Q_PROPERTY(quint32 mOverWeight                  READ getOverWeight                         NOTIFY signalEventChangedOverWeight                        );
     Q_PROPERTY(quint32 mTareWeight                  READ getTareWeight                         NOTIFY signalEventChangedTareWeight                        );
-    Q_PROPERTY(quint16 mWCNGMotion                  READ getWCNGMotion                         NOTIFY signalEventChangedWCNGMotion                        );
+    Q_PROPERTY(quint16 mWCOverMotion                READ getWCOverMotion                       NOTIFY signalEventChangedWCOverMotion                      );
+    Q_PROPERTY(quint16 mWCUnderMotion               READ getWCUnderMotion                      NOTIFY signalEventChangedWCUnderMotion                     );
+    Q_PROPERTY(quint16 mWCEtcMotion                 READ getWCEtcMotion                        NOTIFY signalEventChangedWCEtcMotion                       );
     Q_PROPERTY(quint16 mWCEnableEtcError            READ getWCEnableEtcError                   NOTIFY signalEventChangedWCEnableEtcError                  );
     Q_PROPERTY(quint32 mDynamicFactor               READ getDynamicFactor                      NOTIFY signalEventChangedDynamicFactor                     );
     Q_PROPERTY(quint16 mMDSenstivity                READ getMDSenstivity                       NOTIFY signalEventChangedMDSenstivity                      );
@@ -92,7 +94,9 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffOverWarningWeight       READ getDiffOverWarningWeight              NOTIFY signalEventChangedDiffOverWarningWeight             );
     Q_PROPERTY(bool    mDiffOverWeight              READ getDiffOverWeight                     NOTIFY signalEventChangedDiffOverWeight                    );
     Q_PROPERTY(bool    mDiffTareWeight              READ getDiffTareWeight                     NOTIFY signalEventChangedDiffTareWeight                    );
-    Q_PROPERTY(bool    mDiffWCNGMotion              READ getDiffWCNGMotion                     NOTIFY signalEventChangedDiffWCNGMotion                    );
+    Q_PROPERTY(bool    mDiffWCOverMotion            READ getDiffWCOverMotion                   NOTIFY signalEventChangedDiffWCOverMotion                  );
+    Q_PROPERTY(bool    mDiffWCUnderMotion           READ getDiffWCUnderMotion                  NOTIFY signalEventChangedDiffWCUnderMotion                 );
+    Q_PROPERTY(bool    mDiffWCEtcMotion             READ getDiffWCEtcMotion                    NOTIFY signalEventChangedDiffWCEtcMotion                   );
     Q_PROPERTY(bool    mDiffWCEnableEtcError        READ getDiffWCEnableEtcError               NOTIFY signalEventChangedDiffWCEnableEtcError              );
     Q_PROPERTY(bool    mDiffDynamicFactor           READ getDiffDynamicFactor                  NOTIFY signalEventChangedDiffDynamicFactor                 );
     Q_PROPERTY(bool    mDiffMDSenstivity            READ getDiffMDSenstivity                   NOTIFY signalEventChangedDiffMDSenstivity                  );
@@ -165,7 +169,9 @@ public:
     quint32 mOverWarningWeight          ;
     quint32 mOverWeight                 ;
     quint32 mTareWeight                 ;
-    quint16 mWCNGMotion                 ;
+    quint16 mWCOverMotion               ;
+    quint16 mWCUnderMotion              ;
+    quint16 mWCEtcMotion                ;
     quint16 mWCEnableEtcError           ;
     quint16 mAutoSetting                ;
     quint16 mFilterCoefficient          ;
@@ -236,7 +242,9 @@ public:
     bool    mDiffOverWarningWeight      ;
     bool    mDiffOverWeight             ;
     bool    mDiffTareWeight             ;
-    bool    mDiffWCNGMotion             ;
+    bool    mDiffWCOverMotion           ;
+    bool    mDiffWCUnderMotion          ;
+    bool    mDiffWCEtcMotion            ;
     bool    mDiffWCEnableEtcError       ;
     bool    mDiffMDSenstivity           ;
     bool    mDiffMDNGMotion             ;
@@ -307,7 +315,9 @@ public:
     quint32 getOverWarningWeight          (){ return mOverWarningWeight          ;}
     quint32 getOverWeight                 (){ return mOverWeight                 ;}
     quint32 getTareWeight                 (){ return mTareWeight                 ;}
-    quint16 getWCNGMotion                 (){ return mWCNGMotion                 ;}
+    quint16 getWCOverMotion               (){ return mWCOverMotion               ;}
+    quint16 getWCUnderMotion              (){ return mWCUnderMotion              ;}
+    quint16 getWCEtcMotion                (){ return mWCEtcMotion                ;}
     quint16 getWCEnableEtcError           (){ return mWCEnableEtcError           ;}
     quint32 getDynamicFactor              (){ return mDynamicFactor              ;}
     quint16 getMDSenstivity               (){ return mMDSenstivity               ;}
@@ -377,7 +387,9 @@ public:
     bool    getDiffOverWarningWeight      (){ return mDiffOverWarningWeight      ;}
     bool    getDiffOverWeight             (){ return mDiffOverWeight             ;}
     bool    getDiffTareWeight             (){ return mDiffTareWeight             ;}
-    bool    getDiffWCNGMotion             (){ return mDiffWCNGMotion             ;}
+    bool    getDiffWCOverMotion           (){ return mDiffWCOverMotion           ;}
+    bool    getDiffWCUnderMotion          (){ return mDiffWCUnderMotion          ;}
+    bool    getDiffWCEtcMotion            (){ return mDiffWCEtcMotion            ;}
     bool    getDiffWCEnableEtcError       (){ return mDiffWCEnableEtcError       ;}
     bool    getDiffDynamicFactor          (){ return mDiffDynamicFactor          ;}
     bool    getDiffMDSenstivity           (){ return mDiffMDSenstivity           ;}
@@ -448,7 +460,9 @@ public:
     void setOverWarningWeight          (quint32  value){ if( value == mOverWarningWeight          ) return; mOverWarningWeight          = value; emit signalEventChangedOverWarningWeight                 (value);}
     void setOverWeight                 (quint32  value){ if( value == mOverWeight                 ) return; mOverWeight                 = value; emit signalEventChangedOverWeight                        (value);}
     void setTareWeight                 (quint32  value){ if( value == mTareWeight                 ) return; mTareWeight                 = value; emit signalEventChangedTareWeight                        (value);}
-    void setWCNGMotion                 (quint16  value){ if( value == mWCNGMotion                 ) return; mWCNGMotion                 = value; emit signalEventChangedWCNGMotion                        (value);}
+    void setWCOverMotion               (quint16  value){ if( value == mWCOverMotion               ) return; mWCOverMotion               = value; emit signalEventChangedWCOverMotion                      (value);}
+    void setWCUnderMotion              (quint16  value){ if( value == mWCUnderMotion              ) return; mWCUnderMotion              = value; emit signalEventChangedWCUnderMotion                     (value);}
+    void setWCEtcMotion                (quint16  value){ if( value == mWCEtcMotion                ) return; mWCEtcMotion                = value; emit signalEventChangedWCEtcMotion                       (value);}
     void setWCEnableEtcError           (quint16  value){ if( value == mWCEnableEtcError           ) return; mWCEnableEtcError           = value; emit signalEventChangedWCEnableEtcError                  (value);}
     void setDynamicFactor              (quint32  value){ if( value == mDynamicFactor              ) return; mDynamicFactor              = value; emit signalEventChangedDynamicFactor                     (value);}
     void setMDSenstivity               (quint16  value){ if( value == mMDSenstivity               ) return; mMDSenstivity               = value; emit signalEventChangedMDSenstivity                      (value);}
@@ -518,7 +532,9 @@ public:
     void setDiffOverWarningWeight      (bool     value){ if( value == mDiffOverWarningWeight      ) return; mDiffOverWarningWeight      = value; emit signalEventChangedDiffOverWarningWeight             (value);}
     void setDiffOverWeight             (bool     value){ if( value == mDiffOverWeight             ) return; mDiffOverWeight             = value; emit signalEventChangedDiffOverWeight                    (value);}
     void setDiffTareWeight             (bool     value){ if( value == mDiffTareWeight             ) return; mDiffTareWeight             = value; emit signalEventChangedDiffTareWeight                    (value);}
-    void setDiffWCNGMotion             (bool     value){ if( value == mDiffWCNGMotion             ) return; mDiffWCNGMotion             = value; emit signalEventChangedDiffWCNGMotion                    (value);}
+    void setDiffWCOverMotion           (bool     value){ if( value == mDiffWCOverMotion           ) return; mDiffWCOverMotion           = value; emit signalEventChangedDiffWCOverMotion                  (value);}
+    void setDiffWCUnderMotion          (bool     value){ if( value == mDiffWCUnderMotion          ) return; mDiffWCUnderMotion          = value; emit signalEventChangedDiffWCUnderMotion                 (value);}
+    void setDiffWCEtcMotion            (bool     value){ if( value == mDiffWCEtcMotion            ) return; mDiffWCEtcMotion            = value; emit signalEventChangedDiffWCEtcMotion                   (value);}
     void setDiffWCEnableEtcError       (bool     value){ if( value == mDiffWCEnableEtcError       ) return; mDiffWCEnableEtcError       = value; emit signalEventChangedDiffWCEnableEtcError              (value);}
     void setDiffDynamicFactor          (bool     value){ if( value == mDiffDynamicFactor          ) return; mDiffDynamicFactor          = value; emit signalEventChangedDiffDynamicFactor                 (value);}
     void setDiffMDSenstivity           (bool     value){ if( value == mDiffMDSenstivity           ) return; mDiffMDSenstivity           = value; emit signalEventChangedDiffMDSenstivity                  (value);}
@@ -590,7 +606,9 @@ signals:
     void signalEventChangedOverWarningWeight                 (quint32  value);
     void signalEventChangedOverWeight                        (quint32  value);
     void signalEventChangedTareWeight                        (quint32  value);
-    void signalEventChangedWCNGMotion                        (quint16  value);
+    void signalEventChangedWCOverMotion                      (quint16  value);
+    void signalEventChangedWCUnderMotion                     (quint16  value);
+    void signalEventChangedWCEtcMotion                       (quint16  value);
     void signalEventChangedWCEnableEtcError                  (quint16  value);
     void signalEventChangedDynamicFactor                     (quint32  value);
     void signalEventChangedMDSenstivity                      (quint16  value);
@@ -661,7 +679,9 @@ signals:
     void signalEventChangedDiffOverWarningWeight             (bool     value);
     void signalEventChangedDiffOverWeight                    (bool     value);
     void signalEventChangedDiffTareWeight                    (bool     value);
-    void signalEventChangedDiffWCNGMotion                    (bool     value);
+    void signalEventChangedDiffWCOverMotion                  (bool     value);
+    void signalEventChangedDiffWCUnderMotion                 (bool     value);
+    void signalEventChangedDiffWCEtcMotion                   (bool     value);
     void signalEventChangedDiffWCEnableEtcError              (bool     value);
     void signalEventChangedDiffDynamicFactor                 (bool     value);
     void signalEventChangedDiffMDSenstivity                  (bool     value);
@@ -738,7 +758,9 @@ public slots:
         setOverWarningWeight          (remote.mWCSetting.mOverWarningWeight      ); setDiffOverWarningWeight      (remote.mWCSetting.mOverWarningWeight       != pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight      );
         setOverWeight                 (remote.mWCSetting.mOverWeight             ); setDiffOverWeight             (remote.mWCSetting.mOverWeight              != pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight             );
         setTareWeight                 (remote.mWCSetting.mTareWeight             ); setDiffTareWeight             (remote.mWCSetting.mTareWeight              != pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight             );
-        setWCNGMotion                 (remote.mWCSetting.mNGMotion               ); setDiffWCNGMotion             (remote.mWCSetting.mNGMotion                != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               );
+        setWCOverMotion               (remote.mWCSetting.mOverMotion             ); setDiffWCOverMotion           (remote.mWCSetting.mOverMotion              != pProductSP->mCurrPD.mDspForm.mWCSetting.mOverMotion             );
+        setWCUnderMotion              (remote.mWCSetting.mUnderMotion            ); setDiffWCUnderMotion          (remote.mWCSetting.mUnderMotion             != pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderMotion            );
+        setWCEtcMotion                (remote.mWCSetting.mEtcMotion              ); setDiffWCEtcMotion            (remote.mWCSetting.mEtcMotion               != pProductSP->mCurrPD.mDspForm.mWCSetting.mEtcMotion              );
         setWCEnableEtcError           (remote.mWCSetting.mEnableEtcError         ); setDiffWCEnableEtcError       (remote.mWCSetting.mEnableEtcError          != pProductSP->mCurrPD.mDspForm.mWCSetting.mEnableEtcError         );
         setDynamicFactor              (remote.mWCSetting.mDynamicFactor          ); setDiffDynamicFactor          (remote.mWCSetting.mDynamicFactor           != pProductSP->mCurrPD.mDspForm.mWCSetting.mDynamicFactor          );
         setWCNGLamp                   (remote.mWCSetting.mNGLamp                 ); setDiffWCNGLamp               (remote.mWCSetting.mNGLamp                  != pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 );
@@ -766,7 +788,9 @@ public slots:
         qDebug() <<"Remote mWCSetting.mOverWarningWeight        = " << remote.mWCSetting.mOverWarningWeight       <<"Local mWCSetting.mOverWarningWeight       = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight      ;
         qDebug() <<"Remote mWCSetting.mOverWeight               = " << remote.mWCSetting.mOverWeight              <<"Local mWCSetting.mOverWeight              = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight             ;
         qDebug() <<"Remote mWCSetting.mTareWeight               = " << remote.mWCSetting.mTareWeight              <<"Local mWCSetting.mTareWeight              = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight             ;
-        qDebug() <<"Remote mWCSetting.mNGMotion                 = " << remote.mWCSetting.mNGMotion                <<"Local mWCSetting.mNGMotion                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGMotion               ;
+        qDebug() <<"Remote mWCSetting.mOverMotion               = " << remote.mWCSetting.mOverMotion              <<"Local mWCSetting.mOverMotion              = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mOverMotion             ;
+        qDebug() <<"Remote mWCSetting.mUnderMotion              = " << remote.mWCSetting.mUnderMotion             <<"Local mWCSetting.mUnderMotion             = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mUnderMotion            ;
+        qDebug() <<"Remote mWCSetting.mEtcMotion                = " << remote.mWCSetting.mEtcMotion               <<"Local mWCSetting.mEtcMotion               = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mEtcMotion              ;
         qDebug() <<"Remote.mWCSetting.mNGLamp                   = " << remote.mWCSetting.mNGLamp                  <<"Local mWCSetting.mNGLamp                  = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 ;
         qDebug() <<"Remote.mWCSetting.mNGBuzzer                 = " << remote.mWCSetting.mNGBuzzer                <<"Local mWCSetting.mNGBuzzer                = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               ;
         qDebug() <<"Remote.mWCSetting.mAutoSetting              = " << remote.mWCSetting.mAutoSetting             <<"Local mWCSetting.mAutoSetting             = " << pProductSP->mCurrPD.mDspForm.mWCSetting.mAutoSetting            ;

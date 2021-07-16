@@ -19,7 +19,7 @@ class PanelWCSettingInHomeModel : public QObject
     Q_PROPERTY(bool     isEditNormalWeight READ getIsEditNormalWeight     NOTIFY signalEventChangedIsEditNormalWeight)
     Q_PROPERTY(bool     isEditOverWeight   READ getIsEditOverWeight       NOTIFY signalEventChangedIsEditOverWeight  )
     Q_PROPERTY(bool     isEditUnderGap     READ getIsEditUnderGap         NOTIFY signalEventChangedIsEditUnderGap    )
-    Q_PROPERTY(bool     mOverGap           READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
+    Q_PROPERTY(bool     isEditOverGap      READ getIsEditOverGap          NOTIFY signalEventChangedIsEditOverGap     )
 
 public:
     quint64  mDspSeq      ;

@@ -60,7 +60,9 @@ public:
         mDspForm.mWCSetting.mUnderWeight             = pDefaultSP->PD_SETTING_UNDER_WEIGHT              ;
         mDspForm.mWCSetting.mOverWeight              = pDefaultSP->PD_SETTING_OVER_WEIGHT               ;
         mDspForm.mWCSetting.mTareWeight              = pDefaultSP->PD_SETTING_TARE_WEIGHT               ;
-        mDspForm.mWCSetting.mNGMotion                = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
+        mDspForm.mWCSetting.mOverMotion              = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
+        mDspForm.mWCSetting.mUnderMotion             = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
+        mDspForm.mWCSetting.mEtcMotion               = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
         mDspForm.mWCSetting.mNGLamp                  = pDefaultSP->PD_SETTING_WC_NG_LAMP                ;
         mDspForm.mWCSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_WC_NG_BUZZER              ;
         mDspForm.mWCSetting.mDynamicFactor           = pDefaultSP->PD_SETTING_DYNAMIC_FAC               ;
@@ -108,7 +110,9 @@ public:
             else if(key == "OverWarningWeight"    ){ findFieldCnt++; mDspForm.mWCSetting.mOverWarningWeight       = value.toUInt()     ;}
             else if(key == "OverWeight"           ){ findFieldCnt++; mDspForm.mWCSetting.mOverWeight              = value.toUInt()     ;}
             else if(key == "TareWeight"           ){ findFieldCnt++; mDspForm.mWCSetting.mTareWeight              = value.toUInt()     ;}
-            else if(key == "WCNGMotion"           ){ findFieldCnt++; mDspForm.mWCSetting.mNGMotion                = value.toUInt()     ;}
+            else if(key == "WCOverMotion"         ){ findFieldCnt++; mDspForm.mWCSetting.mOverMotion              = value.toUInt()     ;}
+            else if(key == "WCUnderMotion"        ){ findFieldCnt++; mDspForm.mWCSetting.mUnderMotion             = value.toUInt()     ;}
+            else if(key == "WCEtcMotion"          ){ findFieldCnt++; mDspForm.mWCSetting.mEtcMotion               = value.toUInt()     ;}
             else if(key == "WCEnableEtcError"     ){ findFieldCnt++; mDspForm.mWCSetting.mEnableEtcError          = value.toUInt()     ;}
             else if(key == "DynamicFactor"        ){ findFieldCnt++; mDspForm.mWCSetting.mDynamicFactor           = value.toUInt()     ;}
             else if(key == "WCNGLamp"             ){ findFieldCnt++; mDspForm.mWCSetting.mNGLamp                  = value.toUInt()     ;}
@@ -139,19 +143,21 @@ public:
                        "OverWarningWeight:%29%30"
                        "OverWeight:%31%32"
                        "TareWeight:%33%34"
-                       "WCNGMotion:%35%36"
-                       "WCNGLamp:%37%38"
-                       "WCNGBuzzer:%39%40"
-                       "WCEnableEtcError:%41%42"
-                       "DynamicFactor:%43%44"
-                       "MDSenstivity:%45%46"
-                       "MDNGMotion:%47%48"
-                       "MDNGLamp:%49%50"
-                       "MDNGBuzzer:%51%52"
-                       "FilterCoefficient:%53%54"
-                       "MeasureCueSign:%55%56"
-                       "MeasureSection:%57%58"
-                       "AutoSetting:%59")
+                       "WCOverMotion:%35%36"
+                       "WCUnderMotion:%37%38"
+                       "WCEtcMotion:%39%40"
+                       "WCNGLamp:%41%42"
+                       "WCNGBuzzer:%43%44"
+                       "WCEnableEtcError:%45%46"
+                       "DynamicFactor:%47%48"
+                       "MDSenstivity:%49%50"
+                       "MDNGMotion:%51%52"
+                       "MDNGLamp:%53%54"
+                       "MDNGBuzzer:%55%56"
+                       "FilterCoefficient:%57%58"
+                       "MeasureCueSign:%59%60"
+                       "MeasureSection:%61%62"
+                       "AutoSetting:%63")
                 .arg(mSeq                                        ).arg(divider)
                 .arg(mDspForm.mCommSetting.mProductNum           ).arg(divider)
                 .arg(mName                                       ).arg(divider)
@@ -169,7 +175,9 @@ public:
                 .arg(mDspForm.mWCSetting.mOverWarningWeight      ).arg(divider)
                 .arg(mDspForm.mWCSetting.mOverWeight             ).arg(divider)
                 .arg(mDspForm.mWCSetting.mTareWeight             ).arg(divider)
-                .arg(mDspForm.mWCSetting.mNGMotion               ).arg(divider)
+                .arg(mDspForm.mWCSetting.mOverMotion             ).arg(divider)
+                .arg(mDspForm.mWCSetting.mUnderMotion            ).arg(divider)
+                .arg(mDspForm.mWCSetting.mEtcMotion              ).arg(divider)
                 .arg(mDspForm.mWCSetting.mNGLamp                 ).arg(divider)
                 .arg(mDspForm.mWCSetting.mNGBuzzer               ).arg(divider)
                 .arg(mDspForm.mWCSetting.mEnableEtcError         ).arg(divider)

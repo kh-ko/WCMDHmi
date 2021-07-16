@@ -98,7 +98,7 @@ struct StDspPDWCSetting{
     unsigned int   mUnderWeight            ;
     unsigned int   mOverWeight             ;
     unsigned int   mTareWeight             ;
-    unsigned short mNGMotion               ;
+    unsigned short mDummy                  ;
     unsigned int   mDynamicFactor          ;
     unsigned short mEnableEtcError         ;
     unsigned short mNGLamp                 ;
@@ -107,6 +107,9 @@ struct StDspPDWCSetting{
     unsigned int   mMeasureCueSign         ;
     unsigned int   mMeasureSection         ;
     unsigned short mAutoSetting            ;
+    unsigned short mUnderMotion            ;
+    unsigned short mOverMotion             ;
+    unsigned short mEtcMotion              ;
 };
 
 struct StDspPDMDSetting{

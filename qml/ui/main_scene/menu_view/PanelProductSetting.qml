@@ -122,7 +122,7 @@ UiPanel {
 
     ListView {
         id: productList
-        width: 493
+        width: 453
         anchors.left: parent.left
         anchors.leftMargin: 20
         anchors.bottom: btnAddProduct.top
@@ -147,7 +147,7 @@ UiPanel {
                     productSettingModel.onCommandSetLookProduct(productSeq)
                 }
             }
-
+/*
             UiRadioBtn
             {
                 width: 40
@@ -164,12 +164,13 @@ UiPanel {
                     productSettingModel.onCommandSetLookProduct(productSeq)
                 }
             }
+            */
 
             UiLabelContent{
-                width: 400
+                width: 360
                 height: parent.height
                 anchors.left: parent.left
-                anchors.leftMargin: 80
+                anchors.leftMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
 
                 textValue: ("000" + productNo).slice(-3) + "  " + productName
@@ -247,6 +248,6 @@ UiPanel {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:8;anchors_width:430}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:8}
 }
 ##^##*/

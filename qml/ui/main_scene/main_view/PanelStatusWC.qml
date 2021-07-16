@@ -6,6 +6,7 @@ import ViewManager 1.0
 
 Item {
     property bool isEnableWC   : true
+    property bool isEnableMD   : true
     property bool isDetail     : false
     property int  mdNGCnt      : 999999
     property int  wcNGCnt      : 999999
@@ -84,6 +85,8 @@ Item {
             anchors.leftMargin: panel.isEnableWC === false ? 100 :20
 
             textValue: qsTr("Metal NG")
+
+            visible: panel.isEnableMD
         }
 
         UiLabelContent{
@@ -96,6 +99,8 @@ Item {
 
             horizontalAlignment : Text.AlignRight
             textValue : panel.mdNGCnt.toLocaleString(ViewManager.locale, 'f', 0) + " pcs"
+
+            visible: panel.isEnableMD
         }
 
         UiLabelSystem{

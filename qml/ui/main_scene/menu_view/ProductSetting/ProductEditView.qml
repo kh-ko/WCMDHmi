@@ -31,7 +31,7 @@ UiPanel {
         anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.top: parent.top
-        anchors.topMargin: 80
+        anchors.topMargin: 60
         anchors.left: parent.left
         anchors.leftMargin: 20
 
@@ -304,7 +304,7 @@ UiPanel {
         anchors.topMargin: 40
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left; anchors.leftMargin: 620
 
         visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
     }
@@ -612,9 +612,9 @@ UiPanel {
         }
     }*/
 
-    UiComboBox{
-        id: comboWCNGMotion
-        height: 60
+    Item{
+        id : inputWCDetectMode
+        height: 150
         anchors.right: divider.left
         anchors.rightMargin: 20
         anchors.left: parent.left
@@ -622,97 +622,240 @@ UiPanel {
         anchors.top: panel.isAdmin === true ? inputDyniamicFactor.bottom : inputTare.bottom
         anchors.topMargin: 10
 
-        isDisable : panel.isViewMode
         visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
 
-        isUpMode: true
-        bgColor : panel.bgColor
-        labelText : qsTr("· NG motion")
-        comboWidth: width - 220
+        UiLabelSystem{
+            height: 60; width: parent.width - 220
+            anchors.top: parent.top; anchors.left: parent.left
 
-        listModel :comboWCNGMotionOption
-        selIdx: itemModel.wcNGMotion
-        isHighlight: itemModel.isEditWCNGMotion
-        z : 3
+            textValue: qsTr("· NG motion")
+        }
 
-        ListModel{
-            id : comboWCNGMotionOption
+        UiRadioBtn{
+            id: checkWCNGLampOn
+            height: 60; width : 128; anchors.right: checkWCNGBuzzerOn.left; anchors.rightMargin: 20; anchors.verticalCenter: checkWCNGBuzzerOn.verticalCenter
 
-            ListElement {
-                itemText : qsTr("None")
-                itemIdx : 0
-            }
-            ListElement {
-                itemText : qsTr("Stop")
-                itemIdx : 1
-            }
-            ListElement {
-                itemText : qsTr("Sorter 01")
-                itemIdx : 2
-            }
-            ListElement {
-                itemText : qsTr("Sorter 02")
-                itemIdx : 3
-            }
-            ListElement {
-                itemText : qsTr("Sorter 03")
-                itemIdx : 4
-            }
-            ListElement {
-                itemText : qsTr("Sorter 04")
-                itemIdx : 5
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditWCNGLamp
+            isSelect: itemModel.wcNGLamp === 1 ? true : false
+
+            textMargin : 10
+            textValue : qsTr("Lamp")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetWCNGLamp(itemModel.wcNGLamp === 0 ? 1 : 0);
             }
         }
 
-        onSignalEventChangedSel: {
-            itemModel.onCommandSetWCNGMotion(itemIdx)
+        UiRadioBtn{
+            id: checkWCNGBuzzerOn
+            height: 60; width : 153; anchors.top: parent.top; anchors.right: parent.right
+
+            isDisable : panel.isViewMode
+            visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
+            isHighlight: itemModel.isEditWCNGBuzzer
+            isSelect: itemModel.wcNGBuzzer === 1 ? true : false
+
+            textMargin : 10
+            textValue : qsTr("Buzzer")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetWCNGBuzzer(itemModel.wcNGBuzzer === 0 ? 1 : 0);
+            }
+        }
+
+        RowLayout{
+            height: 60; width: parent.width
+            anchors.bottom: parent.bottom
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                Text{
+                    width: parent.width
+                    anchors.bottom: comboWCOverMotion.top; anchors.bottomMargin: 5
+                    font.pixelSize: 20; font.family: FontManager.nanumGothicName
+
+                    color : "#ACACAC"; text: qsTr("- Over")
+                }
+                UiComboBox{
+                    id: comboWCOverMotion
+                    width: parent.width
+                    anchors.bottom: parent.bottom
+
+                    isDisable : panel.isViewMode
+                    bgColor : panel.bgColor
+                    isUpMode: true
+                    z : 3
+
+                    labelText : qsTr("· NG motion")
+
+                    listModel :comboWCOverMotionOption
+                    selIdx: itemModel.wcOverMotion
+                    isHighlight: itemModel.isEditWCOverMotion
+
+                    ListModel{
+                        id : comboWCOverMotionOption
+
+                        ListElement {
+                            itemText : qsTr("None")
+                            itemIdx : 0
+                        }
+                        ListElement {
+                            itemText : qsTr("Stop")
+                            itemIdx : 1
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 01")
+                            itemIdx : 2
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 02")
+                            itemIdx : 3
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 03")
+                            itemIdx : 4
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 04")
+                            itemIdx : 5
+                        }
+                    }
+
+                    onSignalEventChangedSel: {
+                        itemModel.onCommandSetWCOverMotion(itemIdx)
+                    }
+
+                }
+            }
+
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                Text{
+                    width: parent.width
+                    anchors.bottom: comboWCUnderMotion.top; anchors.bottomMargin: 5
+                    font.pixelSize: 20; font.family: FontManager.nanumGothicName
+
+                    color : "#ACACAC"; text: qsTr("- Under")
+                }
+                UiComboBox{
+                    id: comboWCUnderMotion
+                    width: parent.width;
+                    anchors.bottom: parent.bottom
+
+                    isDisable : panel.isViewMode
+                    bgColor : panel.bgColor
+                    isUpMode: true
+                    z : 3
+
+                    labelText : qsTr("· NG motion")
+
+                    listModel :comboWCUnderMotionOption
+                    selIdx: itemModel.wcUnderMotion
+                    isHighlight: itemModel.isEditWCUnderMotion
+
+                    ListModel{
+                        id : comboWCUnderMotionOption
+
+                        ListElement {
+                            itemText : qsTr("None")
+                            itemIdx : 0
+                        }
+                        ListElement {
+                            itemText : qsTr("Stop")
+                            itemIdx : 1
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 01")
+                            itemIdx : 2
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 02")
+                            itemIdx : 3
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 03")
+                            itemIdx : 4
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 04")
+                            itemIdx : 5
+                        }
+                    }
+
+                    onSignalEventChangedSel: {
+                        itemModel.onCommandSetWCUnderMotion(itemIdx)
+                    }
+
+                }
+            }
+
+            Item{
+                Layout.preferredHeight: 1; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                Text{
+                    width: parent.width
+                    anchors.bottom: comboWCEtcMotion.top; anchors.bottomMargin: 5
+                    font.pixelSize: 20; font.family: FontManager.nanumGothicName
+
+                    color : "#ACACAC"; text: qsTr("- Etc")
+                }
+
+                UiComboBox{
+                    id: comboWCEtcMotion
+                    width: parent.width
+                    anchors.bottom: parent.bottom
+
+                    isDisable : panel.isViewMode
+                    bgColor : panel.bgColor
+                    isUpMode: true
+                    z : 3
+
+                    labelText : qsTr("· NG motion")
+
+                    listModel :comboWCEtcMotionOption
+                    selIdx: itemModel.wcEtcMotion
+                    isHighlight: itemModel.isEditWCEtcMotion
+
+                    ListModel{
+                        id : comboWCEtcMotionOption
+
+                        ListElement {
+                            itemText : qsTr("None")
+                            itemIdx : 0
+                        }
+                        ListElement {
+                            itemText : qsTr("Stop")
+                            itemIdx : 1
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 01")
+                            itemIdx : 2
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 02")
+                            itemIdx : 3
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 03")
+                            itemIdx : 4
+                        }
+                        ListElement {
+                            itemText : qsTr("Sorter 04")
+                            itemIdx : 5
+                        }
+                    }
+
+                    onSignalEventChangedSel: {
+                        itemModel.onCommandSetWCEtcMotion(itemIdx)
+                    }
+                }
+            }
         }
     }
 
-    UiRadioBtn{
-        id: checkWCNGLampOn
-        height: 60
-        width : 128
-        anchors.right: checkWCNGBuzzerOn.left
-        anchors.rightMargin: 20
-        anchors.verticalCenter: checkWCNGBuzzerOn.verticalCenter
 
-        textMargin : 10
-        isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
-        isHighlight: itemModel.isEditWCNGLamp
-        isSelect: itemModel.wcNGLamp === 1 ? true : false
-
-        textValue : qsTr("Lamp")
-
-        onSignalEventClicked:
-        {
-            itemModel.onCommandSetWCNGLamp(itemModel.wcNGLamp === 0 ? 1 : 0);
-        }
-    }
-
-    UiRadioBtn{
-        id: checkWCNGBuzzerOn
-        height: 60
-        width : 153
-        anchors.top: comboWCNGMotion.bottom
-        anchors.topMargin: 10
-        anchors.right: divider.left
-        anchors.rightMargin: 10
-
-        isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC
-        isHighlight: itemModel.isEditWCNGBuzzer
-        isSelect: itemModel.wcNGBuzzer === 1 ? true : false
-
-        textMargin : 10
-        textValue : qsTr("Buzzer")
-
-        onSignalEventClicked:
-        {
-            itemModel.onCommandSetWCNGBuzzer(itemModel.wcNGBuzzer === 0 ? 1 : 0);
-        }
-    }
 
     /*
     UiLabelSystem{
@@ -802,7 +945,7 @@ UiPanel {
         visible: (itemModel.seq !== 0 || itemModel.isNew) && panel.isAdmin === true
 
         labelText : qsTr("· Motor acc")
-        inputWidth: width - 220
+        inputWidth: width - 180
         bgColor   : panel.bgColor
         postfix   : "s"
         min: 0
@@ -831,7 +974,7 @@ UiPanel {
         visible: (itemModel.seq !== 0 || itemModel.isNew) && panel.isAdmin === true
 
         labelText : qsTr("· Motor dec")
-        inputWidth: width - 220
+        inputWidth: width - 180
         bgColor   : panel.bgColor
         postfix   : "s"
         min: 0
@@ -875,7 +1018,7 @@ UiPanel {
 
         bgColor : panel.bgColor
         labelText : qsTr("· Senstivity")
-        inputWidth : width - 220
+        inputWidth : width - 180
         postfix: ""
 
         min: 1
@@ -892,9 +1035,8 @@ UiPanel {
     UiComboBox{
         id : comboMDNGMotion
         height: 60
-        anchors.verticalCenter: isEnableWC ? comboWCNGMotion.verticalCenter : undefined //inputSenstivity.verticalCenter
-        anchors.top: isEnableWC ? undefined : inputSenstivity.bottom
-        anchors.topMargin: isEnableWC ? undefined : 10
+        anchors.top: isEnableWC ? inputWCDetectMode.top : inputSenstivity.bottom
+        anchors.topMargin: isEnableWC ? 0 : 10
         anchors.right: isEnableWC? parent.right : divider.left
         anchors.rightMargin: 20
         anchors.left: isEnableWC ? divider.right : parent.left
@@ -906,7 +1048,7 @@ UiPanel {
         isUpMode: true
         bgColor : panel.bgColor
         labelText : qsTr("· NG motion")
-        comboWidth: width - 220
+        comboWidth: width - 180
 
         listModel :comboMDNGMotionOption
         selIdx: itemModel.mdNGMotion
@@ -994,7 +1136,7 @@ UiPanel {
     UiButtonAni{
         id : btnApply
         width : 164
-        height : 80
+        height : 60
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.right: btnCancle.left
@@ -1014,7 +1156,9 @@ UiPanel {
                  itemModel.isEditOverWarningWeight  ||
                  itemModel.isEditOverWeight         ||
                  itemModel.isEditTareWeight         ||
-                 itemModel.isEditWCNGMotion         ||
+                 itemModel.isEditWCOverMotion       ||
+                 itemModel.isEditWCUnderMotion      ||
+                 itemModel.isEditWCEtcMotion        ||
                  itemModel.isEditWCEnableEtcError   ||
                  itemModel.isEditDynamicFactor      ||
                  itemModel.isEditMDSenstivity       ||
@@ -1042,7 +1186,7 @@ UiPanel {
     UiButton{
         id : btnCancle
         width : 164
-        height : 80
+        height : 60
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.right: parent.right
@@ -1061,7 +1205,7 @@ UiPanel {
     UiButtonConfirm {
         id : btnRemove
         width : 164
-        height: 80
+        height: 60
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.right: parent.right

@@ -86,7 +86,7 @@ Item {
         anchors.left: bg.left
         anchors.leftMargin: 20
         anchors.right: btnExtend.left
-        anchors.rightMargin: 20
+        anchors.rightMargin: 0
 
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment : Text.AlignLeft

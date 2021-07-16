@@ -11,7 +11,8 @@ import PanelInformationModel 1.0
 
 UiPanel {
     property bool isAdmin : false
-    property bool isEnableWC : true
+    property bool isWCEnable : true
+    property bool isMDEnable : true
     id: uiPanel
 
     width : 1518
@@ -311,7 +312,7 @@ UiPanel {
         id : imageDevice
         height: 439
         fillMode: Image.PreserveAspectFit
-        source: "Infomation/image_device/device.png"
+        source:  uiPanel.isMDEnable === false ? "Infomation/image_device/device_wc_only.png" : "Infomation/image_device/device.png"
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.right: parent.right
@@ -337,6 +338,7 @@ UiPanel {
         postfix: "mm"
         inputWidth: 170
         bgColor: uiPanel.bgColor
+        visible: uiPanel.isMDEnable
 
         numberValue: informationModel.distToWC
 
@@ -344,6 +346,8 @@ UiPanel {
         {
             informationModel.onCommandSetDistToWC(value)
         }
+
+
     }
 
     UiInputNumber{
@@ -363,6 +367,7 @@ UiPanel {
         bgColor: uiPanel.bgColor
         postfix: "mm"
         inputWidth: 170
+        visible: uiPanel.isMDEnable
 
         numberValue: informationModel.distBtwPhotoToSensor
 
@@ -389,6 +394,7 @@ UiPanel {
         labelText : qsTr("③ Distance between sensor")
         postfix: "mm"
         inputWidth: 170
+        visible: uiPanel.isMDEnable
 
         numberValue: informationModel.distBtwSensor
 
@@ -401,8 +407,8 @@ UiPanel {
         id : inputSensorLength
         width: 800
         height: 60
-        anchors.topMargin: 10
-        anchors.top: inputDistBtwSensor.bottom
+        anchors.topMargin: uiPanel.isMDEnable ? 10 : 20
+        anchors.top: uiPanel.isMDEnable ? inputDistBtwSensor.bottom : imageDevice.bottom
         anchors.leftMargin: 40
         anchors.left: divider.right
         anchors.right: parent.right
@@ -411,7 +417,7 @@ UiPanel {
         isDisable: !uiPanel.isAdmin
         isHighlight: informationModel.isEditSensorLength
         bgColor: uiPanel.bgColor
-        labelText : qsTr("④ Sensor length")
+        labelText : uiPanel.isMDEnable ? qsTr("④ Sensor length") : qsTr("① Sensor length")
         postfix: "mm"
         inputWidth: 170
 
@@ -431,7 +437,7 @@ UiPanel {
         anchors.left: divider.right
         anchors.leftMargin: 40
 
-        textValue: qsTr("⑤ Distance to Sorter")
+        textValue: uiPanel.isMDEnable ? qsTr("⑤ Distance to Sorter") : qsTr("② Distance to Sorter")
     }
 
     UiInputNumber{
@@ -527,7 +533,7 @@ UiPanel {
         anchors.right: btnHMIOut.left
         anchors.rightMargin: 20
 
-        visible: uiPanel.isAdmin && informationModel.isEnableWC
+        visible: uiPanel.isAdmin && informationModel.isWCEnable
         textValue: qsTr("Ref Vol<br>Reset")
 
         onSignalEventClicked: {

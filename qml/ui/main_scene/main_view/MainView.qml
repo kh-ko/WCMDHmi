@@ -73,6 +73,7 @@ Item {
         tradeCnt     : model.wcTradeCnt
         tradeWeight  : model.wcTradeTotalWeight
         isEnableWC   : model.isEnableWC
+        isEnableMD   : model.isEnableMD
 
         onSignalEventClicked :
         {

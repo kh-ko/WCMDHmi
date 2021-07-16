@@ -41,7 +41,7 @@ Item {
                 viewContainer.push(panelDeviceSetting,{"isAdmin":element.isSuper})
                 break;
             case QmlEnumDef.MENU_INFORMATION    :
-                viewContainer.push(panelInformation, {"isAdmin":element.isSuper})
+                viewContainer.push(panelInformation, {"isAdmin":element.isSuper, "isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
                 break;
             case QmlEnumDef.MENU_GRAPH          :
                  viewContainer.push(panelGraph, {"isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
@@ -248,8 +248,9 @@ Item {
 
                     selMenu = QmlEnumDef.MENU_INFORMATION
 
+                    console.debug("isWCEnable" + element.isWCEnable + ",isMDEnable" + element.isMDEnable)
                     viewContainer.clear()
-                    viewContainer.push(panelInformation,{"isAdmin" : element.isSuper})
+                    viewContainer.push(panelInformation,{"isAdmin" : element.isSuper, "isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
                 }
             }
         }
