@@ -58,12 +58,16 @@ private:
     const QString mDevCommSettingMotorRJRatioKey            = "dspsetting/MotorRJRatio"           ;
     const QString mDevCommSettingSorter01RunTimeRatioKey    = "dspsetting/Sorter01RunTimeRatio"   ;
     const QString mDevCommSettingSorter01OpenTimeKey        = "dspsetting/Sorter01OpenTime"       ;
+    const QString mDevCommSettingSorter01VRRatioKey         = "dspsetting/Sorter01VRRatio"        ;
     const QString mDevCommSettingSorter02RunTimeRatioKey    = "dspsetting/Sorter02RunTimeRatio"   ;
     const QString mDevCommSettingSorter02OpenTimeKey        = "dspsetting/Sorter02OpenTime"       ;
+    const QString mDevCommSettingSorter02VRRatioKey         = "dspsetting/Sorter02VRRatio"        ;
     const QString mDevCommSettingSorter03RunTimeRatioKey    = "dspsetting/Sorter03RunTimeRatio"   ;
     const QString mDevCommSettingSorter03OpenTimeKey        = "dspsetting/Sorter03OpenTime"       ;
+    const QString mDevCommSettingSorter03VRRatioKey         = "dspsetting/Sorter03VRRatio"        ;
     const QString mDevCommSettingSorter04RunTimeRatioKey    = "dspsetting/Sorter04RunTimeRatio"   ;
     const QString mDevCommSettingSorter04OpenTimeKey        = "dspsetting/Sorter04OpenTime"       ;
+    const QString mDevCommSettingSorter04VRRatioKey         = "dspsetting/Sorter04VRRatio"        ;
 
     const QString mDevWCSettingDisplayStabilityKey          = "dspsetting/DisplayStability"       ;
     const QString mDevWCSettingMeasureCueSignKey            = "dspsetting/MeasureCueSign"         ;
@@ -346,12 +350,16 @@ private:
         mDevSetting.mDspForm.mCommSetting.mMotorRJRatio            = mpSetting->value(mDevCommSettingMotorRJRatioKey           , pDefaultSP->DEV_SETTING_MOTOR_RJ_RATIO                             ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio    = mpSetting->value(mDevCommSettingSorter01RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_01_RUNTIME_RATIO                    ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime        = mpSetting->value(mDevCommSettingSorter01OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_01_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter01VRRatio         = mpSetting->value(mDevCommSettingSorter01VRRatioKey        , pDefaultSP->DEV_SETTING_SORTER_01_VRRATIO                          ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio    = mpSetting->value(mDevCommSettingSorter02RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_02_RUNTIME_RATIO                    ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime        = mpSetting->value(mDevCommSettingSorter02OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_02_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter02VRRatio         = mpSetting->value(mDevCommSettingSorter02VRRatioKey        , pDefaultSP->DEV_SETTING_SORTER_02_VRRATIO                          ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio    = mpSetting->value(mDevCommSettingSorter03RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_03_RUNTIME_RATIO                    ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime        = mpSetting->value(mDevCommSettingSorter03OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_03_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter03VRRatio         = mpSetting->value(mDevCommSettingSorter03VRRatioKey        , pDefaultSP->DEV_SETTING_SORTER_03_VRRATIO                          ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio    = mpSetting->value(mDevCommSettingSorter04RunTimeRatioKey   , pDefaultSP->DEV_SETTING_SORTER_04_RUNTIME_RATIO                    ).toInt()   ;
         mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime        = mpSetting->value(mDevCommSettingSorter04OpenTimeKey       , pDefaultSP->DEV_SETTING_SORTER_04_OPENTIME                         ).toInt()   ;
+        mDevSetting.mDspForm.mCommSetting.mSorter04VRRatio         = mpSetting->value(mDevCommSettingSorter04VRRatioKey        , pDefaultSP->DEV_SETTING_SORTER_04_VRRATIO                          ).toInt()   ;
 
         mDevSetting.mDspForm.mWCSetting.mDisplayStability          = mpSetting->value(mDevWCSettingDisplayStabilityKey         , pDefaultSP->DEV_SETTING_DP_STABILITY                               ).toInt()   ;
         mDevSetting.mDspForm.mWCSetting.mMeasureCueSign            = mpSetting->value(mDevWCSettingMeasureCueSignKey           , pDefaultSP->DEV_SETTING_MEASURE_CUE_SIGN                           ).toInt()   ;
@@ -493,12 +501,16 @@ private:
         mpSetting->setValue(mDevCommSettingMotorRJRatioKey           , dto.mDspForm.mCommSetting.mMotorRJRatio           );
         mpSetting->setValue(mDevCommSettingSorter01RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter01RunTimeRatio   );
         mpSetting->setValue(mDevCommSettingSorter01OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter01OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter01VRRatioKey        , dto.mDspForm.mCommSetting.mSorter01VRRatio        );
         mpSetting->setValue(mDevCommSettingSorter02RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter02RunTimeRatio   );
         mpSetting->setValue(mDevCommSettingSorter02OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter02OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter02VRRatioKey        , dto.mDspForm.mCommSetting.mSorter02VRRatio        );
         mpSetting->setValue(mDevCommSettingSorter03RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter03RunTimeRatio   );
         mpSetting->setValue(mDevCommSettingSorter03OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter03OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter03VRRatioKey        , dto.mDspForm.mCommSetting.mSorter03VRRatio        );
         mpSetting->setValue(mDevCommSettingSorter04RunTimeRatioKey   , dto.mDspForm.mCommSetting.mSorter04RunTimeRatio   );
         mpSetting->setValue(mDevCommSettingSorter04OpenTimeKey       , dto.mDspForm.mCommSetting.mSorter04OpenTime       );
+        mpSetting->setValue(mDevCommSettingSorter04VRRatioKey        , dto.mDspForm.mCommSetting.mSorter04VRRatio        );
 
         mpSetting->setValue(mDevWCSettingDisplayStabilityKey         , dto.mDspForm.mWCSetting.mDisplayStability         );
         mpSetting->setValue(mDevWCSettingMeasureCueSignKey           , dto.mDspForm.mWCSetting.mMeasureCueSign           );

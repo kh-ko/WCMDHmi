@@ -552,23 +552,37 @@ UiPanel {
     }
 */
 
+    UiLabelContent{
+        id: labelSorterTitle
+        height: 60
+        anchors.topMargin: -10
+        anchors.top: btnApply.bottom
+        anchors.left: dividerGeneralWeightChecker.right
+        anchors.right: dividerWCMD.left
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+
+        visible: panel.isAdmin
+        textValue: qsTr("· Sorter(run ratio : open time : Vib numbers)")
+    }
+
     UiLabelSystem{
         id : labelSorter01
         height: 60
-        width : 92
-        anchors.topMargin: -10
-        anchors.top: btnApply.bottom
+        width : 35
+        anchors.topMargin: 20
+        anchors.top: labelSorterTitle.bottom
         anchors.left: dividerGeneralWeightChecker.right
         anchors.leftMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· St. 01")
+        textValue: qsTr("· 1")
     }
 
     UiInputFloat{
         id : inputSorter01RunTimeRatio
         height: 60
-        width : 170
+        width : 140
 
         anchors.leftMargin: 10
         anchors.left: labelSorter01.right
@@ -589,7 +603,7 @@ UiPanel {
     UiInputNumber{
         id : inputSorter01OpenTime
         height: 60
-        width : 172
+        width : 160
         anchors.leftMargin: 15
         anchors.left: inputSorter01RunTimeRatio.right
         anchors.verticalCenter: inputSorter01RunTimeRatio.verticalCenter
@@ -606,23 +620,43 @@ UiPanel {
         }
     }
 
+    UiInputNumber{
+        id : inputSorter01VRRatio
+        height: 60
+        width : 140
+        anchors.leftMargin: 15
+        anchors.left: inputSorter01OpenTime.right
+        anchors.verticalCenter: inputSorter01RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter01VRRatio
+        bgColor: panel.bgColor
+        postfix: ""
+
+        numberValue: settingModel.mSorter01VRRatio
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter01VRRatio(value)
+        }
+    }
+
     UiLabelSystem{
         id : labelSorter02
         height: 60
-        width : 92
+        width : 35
         anchors.topMargin: 10
         anchors.top: labelSorter01.bottom
         anchors.left: dividerGeneralWeightChecker.right
         anchors.leftMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· St. 02")
+        textValue: qsTr("· 2")
     }
 
     UiInputFloat{
         id : inputSorter02RunTimeRatio
         height: 60
-        width : 170
+        width : 140
 
         anchors.leftMargin: 10
         anchors.left: labelSorter02.right
@@ -643,7 +677,7 @@ UiPanel {
     UiInputNumber{
         id : inputSorter02OpenTime
         height: 60
-        width : 172
+        width : 160
         anchors.leftMargin: 15
         anchors.left: inputSorter02RunTimeRatio.right
         anchors.verticalCenter: inputSorter02RunTimeRatio.verticalCenter
@@ -659,23 +693,44 @@ UiPanel {
             settingModel.onCommandSetSorter02OpenTime(value)
         }
     }
+
+    UiInputNumber{
+        id : inputSorter02VRRatio
+        height: 60
+        width : 140
+        anchors.leftMargin: 15
+        anchors.left: inputSorter02OpenTime.right
+        anchors.verticalCenter: inputSorter02RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter02VRRatio
+        bgColor: panel.bgColor
+        postfix: ""
+
+        numberValue: settingModel.mSorter02VRRatio
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter02VRRatio(value)
+        }
+    }
+
     UiLabelSystem{
         id : labelSorter03
         height: 60
-        width : 92
+        width : 35
         anchors.topMargin: 10
         anchors.top: labelSorter02.bottom
         anchors.left: dividerGeneralWeightChecker.right
         anchors.leftMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· St. 03")
+        textValue: qsTr("· 3")
     }
 
     UiInputFloat{
         id : inputSorter03RunTimeRatio
         height: 60
-        width : 170
+        width : 140
 
         anchors.leftMargin: 10
         anchors.left: labelSorter03.right
@@ -696,7 +751,7 @@ UiPanel {
     UiInputNumber{
         id : inputSorter03OpenTime
         height: 60
-        width : 172
+        width : 160
         anchors.leftMargin: 15
         anchors.left: inputSorter03RunTimeRatio.right
         anchors.verticalCenter: inputSorter03RunTimeRatio.verticalCenter
@@ -712,23 +767,44 @@ UiPanel {
             settingModel.onCommandSetSorter03OpenTime(value)
         }
     }
+
+    UiInputNumber{
+        id : inputSorter03VRRatio
+        height: 60
+        width : 140
+        anchors.leftMargin: 15
+        anchors.left: inputSorter03OpenTime.right
+        anchors.verticalCenter: inputSorter03RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter03VRRatio
+        bgColor: panel.bgColor
+        postfix: ""
+
+        numberValue: settingModel.mSorter03VRRatio
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter03VRRatio(value)
+        }
+    }
+
     UiLabelSystem{
         id : labelSorter04
         height: 60
-        width : 92
+        width : 35
         anchors.topMargin: 10
         anchors.top: labelSorter03.bottom
         anchors.left: dividerGeneralWeightChecker.right
         anchors.leftMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· St. 04")
+        textValue: qsTr("· 4")
     }
 
     UiInputFloat{
         id : inputSorter04RunTimeRatio
         height: 60
-        width : 170
+        width : 140
 
         anchors.leftMargin: 10
         anchors.left: labelSorter04.right
@@ -749,7 +825,7 @@ UiPanel {
     UiInputNumber{
         id : inputSorter04OpenTime
         height: 60
-        width : 172
+        width : 160
         anchors.leftMargin: 15
         anchors.left: inputSorter04RunTimeRatio.right
         anchors.verticalCenter: inputSorter04RunTimeRatio.verticalCenter
@@ -763,6 +839,26 @@ UiPanel {
 
         onSignalChangeValue: {
             settingModel.onCommandSetSorter04OpenTime(value)
+        }
+    }
+
+    UiInputNumber{
+        id : inputSorter04VRRatio
+        height: 60
+        width : 140
+        anchors.leftMargin: 15
+        anchors.left: inputSorter04OpenTime.right
+        anchors.verticalCenter: inputSorter04RunTimeRatio.verticalCenter
+
+        visible: panel.isAdmin
+        isHighlight: settingModel.isEditSorter04VRRatio
+        bgColor: panel.bgColor
+        postfix: ""
+
+        numberValue: settingModel.mSorter04VRRatio
+
+        onSignalChangeValue: {
+            settingModel.onCommandSetSorter04VRRatio(value)
         }
     }
 
@@ -1131,7 +1227,7 @@ UiPanel {
     UiDivider
     {
         id : dividerWCMD
-        x : parent.width * 0.66
+        x : parent.width * 0.69
         width: 2
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
@@ -1650,7 +1746,11 @@ UiPanel {
                  settingModel.isEditSimpleSens05        ||
                  settingModel.isEditFilterCoefficient   ||
                  settingModel.isEditMeasureCueSign      ||
-                 settingModel.isEditMeasureSection
+                 settingModel.isEditMeasureSection      ||
+                 settingModel.isEditSorter01VRRatio     ||
+                 settingModel.isEditSorter02VRRatio     ||
+                 settingModel.isEditSorter03VRRatio     ||
+                 settingModel.isEditSorter04VRRatio
 
         type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")

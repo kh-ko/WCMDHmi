@@ -47,12 +47,16 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(quint16 mMotorRJRatio                READ getMotorRJRatio                       NOTIFY signalEventChangedMotorRJRatio                      );
     Q_PROPERTY(quint32 mSorter01RunTimeRatio        READ getSorter01RunTimeRatio               NOTIFY signalEventChangedSorter01RunTimeRatio              );
     Q_PROPERTY(quint32 mSorter01OpenTime            READ getSorter01OpenTime                   NOTIFY signalEventChangedSorter01OpenTime                  );
+    Q_PROPERTY(quint16 mSorter01VRRatio             READ getSorter01VRRatio                    NOTIFY signalEventChangedSorter01VRRatio                   );
     Q_PROPERTY(quint32 mSorter02RunTimeRatio        READ getSorter02RunTimeRatio               NOTIFY signalEventChangedSorter02RunTimeRatio              );
     Q_PROPERTY(quint32 mSorter02OpenTime            READ getSorter02OpenTime                   NOTIFY signalEventChangedSorter02OpenTime                  );
+    Q_PROPERTY(quint16 mSorter02VRRatio             READ getSorter02VRRatio                    NOTIFY signalEventChangedSorter02VRRatio                   );
     Q_PROPERTY(quint32 mSorter03RunTimeRatio        READ getSorter03RunTimeRatio               NOTIFY signalEventChangedSorter03RunTimeRatio              );
     Q_PROPERTY(quint32 mSorter03OpenTime            READ getSorter03OpenTime                   NOTIFY signalEventChangedSorter03OpenTime                  );
+    Q_PROPERTY(quint16 mSorter03VRRatio             READ getSorter03VRRatio                    NOTIFY signalEventChangedSorter03VRRatio                   );
     Q_PROPERTY(quint32 mSorter04RunTimeRatio        READ getSorter04RunTimeRatio               NOTIFY signalEventChangedSorter04RunTimeRatio              );
     Q_PROPERTY(quint32 mSorter04OpenTime            READ getSorter04OpenTime                   NOTIFY signalEventChangedSorter04OpenTime                  );
+    Q_PROPERTY(quint16 mSorter04VRRatio             READ getSorter04VRRatio                    NOTIFY signalEventChangedSorter04VRRatio                   );
     Q_PROPERTY(quint16 mDistToSorter01              READ getDistToSorter01                     NOTIFY signalEventChangedDistToSorter01                    );
     Q_PROPERTY(quint16 mDistToSorter02              READ getDistToSorter02                     NOTIFY signalEventChangedDistToSorter02                    );
     Q_PROPERTY(quint16 mDistToSorter03              READ getDistToSorter03                     NOTIFY signalEventChangedDistToSorter03                    );
@@ -124,12 +128,16 @@ class PanelDebuggingModel : public QObject
     Q_PROPERTY(bool    mDiffDistToSorter04          READ getDiffDistToSorter04                 NOTIFY signalEventChangedDiffDistToSorter04                );
     Q_PROPERTY(bool    mDiffSorter01RunTimeRatio    READ getDiffSorter01RunTimeRatio           NOTIFY signalEventChangedDiffSorter01RunTimeRatio          );
     Q_PROPERTY(bool    mDiffSorter01OpenTime        READ getDiffSorter01OpenTime               NOTIFY signalEventChangedDiffSorter01OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter01VRRatio         READ getDiffSorter01VRRatio                NOTIFY signalEventChangedDiffSorter01VRRatio               );
     Q_PROPERTY(bool    mDiffSorter02RunTimeRatio    READ getDiffSorter02RunTimeRatio           NOTIFY signalEventChangedDiffSorter02RunTimeRatio          );
     Q_PROPERTY(bool    mDiffSorter02OpenTime        READ getDiffSorter02OpenTime               NOTIFY signalEventChangedDiffSorter02OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter02VRRatio         READ getDiffSorter02VRRatio                NOTIFY signalEventChangedDiffSorter02VRRatio               );
     Q_PROPERTY(bool    mDiffSorter03RunTimeRatio    READ getDiffSorter03RunTimeRatio           NOTIFY signalEventChangedDiffSorter03RunTimeRatio          );
     Q_PROPERTY(bool    mDiffSorter03OpenTime        READ getDiffSorter03OpenTime               NOTIFY signalEventChangedDiffSorter03OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter03VRRatio         READ getDiffSorter03VRRatio                NOTIFY signalEventChangedDiffSorter03VRRatio               );
     Q_PROPERTY(bool    mDiffSorter04RunTimeRatio    READ getDiffSorter04RunTimeRatio           NOTIFY signalEventChangedDiffSorter04RunTimeRatio          );
     Q_PROPERTY(bool    mDiffSorter04OpenTime        READ getDiffSorter04OpenTime               NOTIFY signalEventChangedDiffSorter04OpenTime              );
+    Q_PROPERTY(bool    mDiffSorter04VRRatio         READ getDiffSorter04VRRatio                NOTIFY signalEventChangedDiffSorter04VRRatio               );
     Q_PROPERTY(bool    mDiffMDPhotoIsOn             READ getDiffMDPhotoIsOn                    NOTIFY signalEventChangedDiffMDPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffWCPhotoIsOn             READ getDiffWCPhotoIsOn                    NOTIFY signalEventChangedDiffWCPhotoIsOn                   );
     Q_PROPERTY(bool    mDiffSensorLength            READ getDiffSensorLength                   NOTIFY signalEventChangedDiffSensorLength                  );
@@ -195,12 +203,16 @@ public:
     quint16 mMotorRJRatio               ;
     quint32 mSorter01RunTimeRatio       ;
     quint32 mSorter01OpenTime           ;
+    quint16 mSorter01VRRatio            ;
     quint32 mSorter02RunTimeRatio       ;
     quint32 mSorter02OpenTime           ;
+    quint16 mSorter02VRRatio            ;
     quint32 mSorter03RunTimeRatio       ;
     quint32 mSorter03OpenTime           ;
+    quint16 mSorter03VRRatio            ;
     quint32 mSorter04RunTimeRatio       ;
     quint32 mSorter04OpenTime           ;
+    quint16 mSorter04VRRatio            ;
     quint16 mDistToSorter01             ;
     quint16 mDistToSorter02             ;
     quint16 mDistToSorter03             ;
@@ -267,12 +279,16 @@ public:
     bool    mDiffMotorRJRatio           ;
     bool    mDiffSorter01RunTimeRatio   ;
     bool    mDiffSorter01OpenTime       ;
+    bool    mDiffSorter01VRRatio        ;
     bool    mDiffSorter02RunTimeRatio   ;
     bool    mDiffSorter02OpenTime       ;
+    bool    mDiffSorter02VRRatio        ;
     bool    mDiffSorter03RunTimeRatio   ;
     bool    mDiffSorter03OpenTime       ;
+    bool    mDiffSorter03VRRatio        ;
     bool    mDiffSorter04RunTimeRatio   ;
     bool    mDiffSorter04OpenTime       ;
+    bool    mDiffSorter04VRRatio        ;
     bool    mDiffDistToSorter01         ;
     bool    mDiffDistToSorter02         ;
     bool    mDiffDistToSorter03         ;
@@ -341,12 +357,16 @@ public:
     quint16 getMotorRJRatio               (){ return mMotorRJRatio               ;}
     quint32 getSorter01RunTimeRatio       (){ return mSorter01RunTimeRatio       ;}
     quint32 getSorter01OpenTime           (){ return mSorter01OpenTime           ;}
+    quint16 getSorter01VRRatio            (){ return mSorter01VRRatio            ;}
     quint32 getSorter02RunTimeRatio       (){ return mSorter02RunTimeRatio       ;}
     quint32 getSorter02OpenTime           (){ return mSorter02OpenTime           ;}
+    quint16 getSorter02VRRatio            (){ return mSorter02VRRatio            ;}
     quint32 getSorter03RunTimeRatio       (){ return mSorter03RunTimeRatio       ;}
     quint32 getSorter03OpenTime           (){ return mSorter03OpenTime           ;}
+    quint16 getSorter03VRRatio            (){ return mSorter03VRRatio            ;}
     quint32 getSorter04RunTimeRatio       (){ return mSorter04RunTimeRatio       ;}
     quint32 getSorter04OpenTime           (){ return mSorter04OpenTime           ;}
+    quint16 getSorter04VRRatio            (){ return mSorter04VRRatio            ;}
     quint16 getDistToSorter01             (){ return mDistToSorter01             ;}
     quint16 getDistToSorter02             (){ return mDistToSorter02             ;}
     quint16 getDistToSorter03             (){ return mDistToSorter03             ;}
@@ -413,12 +433,16 @@ public:
     bool    getDiffMotorRJRatio           (){ return mDiffMotorRJRatio           ;}
     bool    getDiffSorter01RunTimeRatio   (){ return mDiffSorter01RunTimeRatio   ;}
     bool    getDiffSorter01OpenTime       (){ return mDiffSorter01OpenTime       ;}
+    bool    getDiffSorter01VRRatio        (){ return mDiffSorter01VRRatio        ;}
     bool    getDiffSorter02RunTimeRatio   (){ return mDiffSorter02RunTimeRatio   ;}
     bool    getDiffSorter02OpenTime       (){ return mDiffSorter02OpenTime       ;}
+    bool    getDiffSorter02VRRatio        (){ return mDiffSorter02VRRatio        ;}
     bool    getDiffSorter03RunTimeRatio   (){ return mDiffSorter03RunTimeRatio   ;}
     bool    getDiffSorter03OpenTime       (){ return mDiffSorter03OpenTime       ;}
+    bool    getDiffSorter03VRRatio        (){ return mDiffSorter03VRRatio        ;}
     bool    getDiffSorter04RunTimeRatio   (){ return mDiffSorter04RunTimeRatio   ;}
     bool    getDiffSorter04OpenTime       (){ return mDiffSorter04OpenTime       ;}
+    bool    getDiffSorter04VRRatio        (){ return mDiffSorter04VRRatio        ;}
     bool    getDiffDistToSorter01         (){ return mDiffDistToSorter01         ;}
     bool    getDiffDistToSorter02         (){ return mDiffDistToSorter02         ;}
     bool    getDiffDistToSorter03         (){ return mDiffDistToSorter03         ;}
@@ -486,12 +510,16 @@ public:
     void setMotorRJRatio               (quint16  value){ if( value == mMotorRJRatio               ) return; mMotorRJRatio               = value; emit signalEventChangedMotorRJRatio                      (value);}
     void setSorter01RunTimeRatio       (quint32  value){ if( value == mSorter01RunTimeRatio       ) return; mSorter01RunTimeRatio       = value; emit signalEventChangedSorter01RunTimeRatio              (value);}
     void setSorter01OpenTime           (quint32  value){ if( value == mSorter01OpenTime           ) return; mSorter01OpenTime           = value; emit signalEventChangedSorter01OpenTime                  (value);}
+    void setSorter01VRRatio            (quint16  value){ if( value == mSorter01VRRatio            ) return; mSorter01VRRatio            = value; emit signalEventChangedSorter01VRRatio                   (value);}
     void setSorter02RunTimeRatio       (quint32  value){ if( value == mSorter02RunTimeRatio       ) return; mSorter02RunTimeRatio       = value; emit signalEventChangedSorter02RunTimeRatio              (value);}
     void setSorter02OpenTime           (quint32  value){ if( value == mSorter02OpenTime           ) return; mSorter02OpenTime           = value; emit signalEventChangedSorter02OpenTime                  (value);}
+    void setSorter02VRRatio            (quint16  value){ if( value == mSorter02VRRatio            ) return; mSorter02VRRatio            = value; emit signalEventChangedSorter02VRRatio                   (value);}
     void setSorter03RunTimeRatio       (quint32  value){ if( value == mSorter03RunTimeRatio       ) return; mSorter03RunTimeRatio       = value; emit signalEventChangedSorter03RunTimeRatio              (value);}
     void setSorter03OpenTime           (quint32  value){ if( value == mSorter03OpenTime           ) return; mSorter03OpenTime           = value; emit signalEventChangedSorter03OpenTime                  (value);}
+    void setSorter03VRRatio            (quint16  value){ if( value == mSorter03VRRatio            ) return; mSorter03VRRatio            = value; emit signalEventChangedSorter03VRRatio                   (value);}
     void setSorter04RunTimeRatio       (quint32  value){ if( value == mSorter04RunTimeRatio       ) return; mSorter04RunTimeRatio       = value; emit signalEventChangedSorter04RunTimeRatio              (value);}
     void setSorter04OpenTime           (quint32  value){ if( value == mSorter04OpenTime           ) return; mSorter04OpenTime           = value; emit signalEventChangedSorter04OpenTime                  (value);}
+    void setSorter04VRRatio            (quint16  value){ if( value == mSorter04VRRatio            ) return; mSorter04VRRatio            = value; emit signalEventChangedSorter04VRRatio                   (value);}
     void setDistToSorter01             (quint16  value){ if( value == mDistToSorter01             ) return; mDistToSorter01             = value; emit signalEventChangedDistToSorter01                    (value);}
     void setDistToSorter02             (quint16  value){ if( value == mDistToSorter02             ) return; mDistToSorter02             = value; emit signalEventChangedDistToSorter02                    (value);}
     void setDistToSorter03             (quint16  value){ if( value == mDistToSorter03             ) return; mDistToSorter03             = value; emit signalEventChangedDistToSorter03                    (value);}
@@ -558,12 +586,16 @@ public:
     void setDiffMotorRJRatio           (bool     value){ if( value == mDiffMotorRJRatio           ) return; mDiffMotorRJRatio           = value; emit signalEventChangedDiffMotorRJRatio                  (value);}
     void setDiffSorter01RunTimeRatio   (bool     value){ if( value == mDiffSorter01RunTimeRatio   ) return; mDiffSorter01RunTimeRatio   = value; emit signalEventChangedDiffSorter01RunTimeRatio          (value);}
     void setDiffSorter01OpenTime       (bool     value){ if( value == mDiffSorter01OpenTime       ) return; mDiffSorter01OpenTime       = value; emit signalEventChangedDiffSorter01OpenTime              (value);}
+    void setDiffSorter01VRRatio        (bool     value){ if( value == mDiffSorter01VRRatio        ) return; mDiffSorter01VRRatio        = value; emit signalEventChangedDiffSorter01VRRatio               (value);}
     void setDiffSorter02RunTimeRatio   (bool     value){ if( value == mDiffSorter02RunTimeRatio   ) return; mDiffSorter02RunTimeRatio   = value; emit signalEventChangedDiffSorter02RunTimeRatio          (value);}
     void setDiffSorter02OpenTime       (bool     value){ if( value == mDiffSorter02OpenTime       ) return; mDiffSorter02OpenTime       = value; emit signalEventChangedDiffSorter02OpenTime              (value);}
+    void setDiffSorter02VRRatio        (bool     value){ if( value == mDiffSorter02VRRatio        ) return; mDiffSorter02VRRatio        = value; emit signalEventChangedDiffSorter02VRRatio               (value);}
     void setDiffSorter03RunTimeRatio   (bool     value){ if( value == mDiffSorter03RunTimeRatio   ) return; mDiffSorter03RunTimeRatio   = value; emit signalEventChangedDiffSorter03RunTimeRatio          (value);}
     void setDiffSorter03OpenTime       (bool     value){ if( value == mDiffSorter03OpenTime       ) return; mDiffSorter03OpenTime       = value; emit signalEventChangedDiffSorter03OpenTime              (value);}
+    void setDiffSorter03VRRatio        (bool     value){ if( value == mDiffSorter03VRRatio        ) return; mDiffSorter03VRRatio        = value; emit signalEventChangedDiffSorter03VRRatio               (value);}
     void setDiffSorter04RunTimeRatio   (bool     value){ if( value == mDiffSorter04RunTimeRatio   ) return; mDiffSorter04RunTimeRatio   = value; emit signalEventChangedDiffSorter04RunTimeRatio          (value);}
     void setDiffSorter04OpenTime       (bool     value){ if( value == mDiffSorter04OpenTime       ) return; mDiffSorter04OpenTime       = value; emit signalEventChangedDiffSorter04OpenTime              (value);}
+    void setDiffSorter04VRRatio        (bool     value){ if( value == mDiffSorter04VRRatio        ) return; mDiffSorter04VRRatio        = value; emit signalEventChangedDiffSorter04VRRatio               (value);}
     void setDiffDistToSorter01         (bool     value){ if( value == mDiffDistToSorter01         ) return; mDiffDistToSorter01         = value; emit signalEventChangedDiffDistToSorter01                (value);}
     void setDiffDistToSorter02         (bool     value){ if( value == mDiffDistToSorter02         ) return; mDiffDistToSorter02         = value; emit signalEventChangedDiffDistToSorter02                (value);}
     void setDiffDistToSorter03         (bool     value){ if( value == mDiffDistToSorter03         ) return; mDiffDistToSorter03         = value; emit signalEventChangedDiffDistToSorter03                (value);}
@@ -632,12 +664,16 @@ signals:
     void signalEventChangedMotorRJRatio                      (quint16  value);
     void signalEventChangedSorter01RunTimeRatio              (quint32  value);
     void signalEventChangedSorter01OpenTime                  (quint32  value);
+    void signalEventChangedSorter01VRRatio                   (quint16  value);
     void signalEventChangedSorter02RunTimeRatio              (quint32  value);
     void signalEventChangedSorter02OpenTime                  (quint32  value);
+    void signalEventChangedSorter02VRRatio                   (quint16  value);
     void signalEventChangedSorter03RunTimeRatio              (quint32  value);
     void signalEventChangedSorter03OpenTime                  (quint32  value);
+    void signalEventChangedSorter03VRRatio                   (quint16  value);
     void signalEventChangedSorter04RunTimeRatio              (quint32  value);
     void signalEventChangedSorter04OpenTime                  (quint32  value);
+    void signalEventChangedSorter04VRRatio                   (quint16  value);
     void signalEventChangedDistToSorter01                    (quint16  value);
     void signalEventChangedDistToSorter02                    (quint16  value);
     void signalEventChangedDistToSorter03                    (quint16  value);
@@ -705,12 +741,16 @@ signals:
     void signalEventChangedDiffMotorRJRatio                  (bool     value);
     void signalEventChangedDiffSorter01RunTimeRatio          (bool     value);
     void signalEventChangedDiffSorter01OpenTime              (bool     value);
+    void signalEventChangedDiffSorter01VRRatio               (bool     value);
     void signalEventChangedDiffSorter02RunTimeRatio          (bool     value);
     void signalEventChangedDiffSorter02OpenTime              (bool     value);
+    void signalEventChangedDiffSorter02VRRatio               (bool     value);
     void signalEventChangedDiffSorter03RunTimeRatio          (bool     value);
     void signalEventChangedDiffSorter03OpenTime              (bool     value);
+    void signalEventChangedDiffSorter03VRRatio               (bool     value);
     void signalEventChangedDiffSorter04RunTimeRatio          (bool     value);
     void signalEventChangedDiffSorter04OpenTime              (bool     value);
+    void signalEventChangedDiffSorter04VRRatio               (bool     value);
     void signalEventChangedDiffDistToSorter01                (bool     value);
     void signalEventChangedDiffDistToSorter02                (bool     value);
     void signalEventChangedDiffDistToSorter03                (bool     value);
@@ -820,12 +860,16 @@ public slots:
         setMotorRJRatio               (remote.mCommSetting.mMotorRJRatio           ); setDiffMotorRJRatio           (remote.mCommSetting.mMotorRJRatio            != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           );
         setSorter01RunTimeRatio       (remote.mCommSetting.mSorter01RunTimeRatio   ); setDiffSorter01RunTimeRatio   (remote.mCommSetting.mSorter01RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio   );
         setSorter01OpenTime           (remote.mCommSetting.mSorter01OpenTime       ); setDiffSorter01OpenTime       (remote.mCommSetting.mSorter01OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime       );
+        setSorter01VRRatio            (remote.mCommSetting.mSorter01VRRatio        ); setDiffSorter01VRRatio        (remote.mCommSetting.mSorter01VRRatio         != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01VRRatio        );
         setSorter02RunTimeRatio       (remote.mCommSetting.mSorter02RunTimeRatio   ); setDiffSorter02RunTimeRatio   (remote.mCommSetting.mSorter02RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio   );
         setSorter02OpenTime           (remote.mCommSetting.mSorter02OpenTime       ); setDiffSorter02OpenTime       (remote.mCommSetting.mSorter02OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime       );
+        setSorter02VRRatio            (remote.mCommSetting.mSorter02VRRatio        ); setDiffSorter02VRRatio        (remote.mCommSetting.mSorter02VRRatio         != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02VRRatio        );
         setSorter03RunTimeRatio       (remote.mCommSetting.mSorter03RunTimeRatio   ); setDiffSorter03RunTimeRatio   (remote.mCommSetting.mSorter03RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio   );
         setSorter03OpenTime           (remote.mCommSetting.mSorter03OpenTime       ); setDiffSorter03OpenTime       (remote.mCommSetting.mSorter03OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime       );
+        setSorter03VRRatio            (remote.mCommSetting.mSorter03VRRatio        ); setDiffSorter03VRRatio        (remote.mCommSetting.mSorter03VRRatio         != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03VRRatio        );
         setSorter04RunTimeRatio       (remote.mCommSetting.mSorter04RunTimeRatio   ); setDiffSorter04RunTimeRatio   (remote.mCommSetting.mSorter04RunTimeRatio    != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio   );
         setSorter04OpenTime           (remote.mCommSetting.mSorter04OpenTime       ); setDiffSorter04OpenTime       (remote.mCommSetting.mSorter04OpenTime        != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime       );
+        setSorter04VRRatio            (remote.mCommSetting.mSorter04VRRatio        ); setDiffSorter04VRRatio        (remote.mCommSetting.mSorter04VRRatio         != pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04VRRatio        );
         setDistToSorter01             (remote.mSizeSetting.mDistToSorter01         ); setDiffDistToSorter01         (remote.mSizeSetting.mDistToSorter01          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01         );
         setDistToSorter02             (remote.mSizeSetting.mDistToSorter02         ); setDiffDistToSorter02         (remote.mSizeSetting.mDistToSorter02          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter02         );
         setDistToSorter03             (remote.mSizeSetting.mDistToSorter03         ); setDiffDistToSorter03         (remote.mSizeSetting.mDistToSorter03          != pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter03         );
@@ -863,12 +907,16 @@ public slots:
         qDebug() <<"Remote mCommSetting.mMotorRJRatio             = " << remote.mCommSetting.mMotorRJRatio            <<"Local mCommSetting.mMotorRJRatio             = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio           ;
         qDebug() <<"Remote mCommSetting.mSorter01RunTimeRatio     = " << remote.mCommSetting.mSorter01RunTimeRatio    <<"Local mCommSetting.mSorter01RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio   ;
         qDebug() <<"Remote mCommSetting.mSorter01OpenTime         = " << remote.mCommSetting.mSorter01OpenTime        <<"Local mCommSetting.mSorter01OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter01VRRatio          = " << remote.mCommSetting.mSorter01VRRatio         <<"Local mCommSetting.mSorter01VRRatio          = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01VRRatio        ;
         qDebug() <<"Remote mCommSetting.mSorter02RunTimeRatio     = " << remote.mCommSetting.mSorter02RunTimeRatio    <<"Local mCommSetting.mSorter02RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio   ;
         qDebug() <<"Remote mCommSetting.mSorter02OpenTime         = " << remote.mCommSetting.mSorter02OpenTime        <<"Local mCommSetting.mSorter02OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter02VRRatio          = " << remote.mCommSetting.mSorter02VRRatio         <<"Local mCommSetting.mSorter02VRRatio          = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02VRRatio        ;
         qDebug() <<"Remote mCommSetting.mSorter03RunTimeRatio     = " << remote.mCommSetting.mSorter03RunTimeRatio    <<"Local mCommSetting.mSorter03RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio   ;
         qDebug() <<"Remote mCommSetting.mSorter03OpenTime         = " << remote.mCommSetting.mSorter03OpenTime        <<"Local mCommSetting.mSorter03OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter03VRRatio          = " << remote.mCommSetting.mSorter03VRRatio         <<"Local mCommSetting.mSorter03VRRatio          = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03VRRatio        ;
         qDebug() <<"Remote mCommSetting.mSorter04RunTimeRatio     = " << remote.mCommSetting.mSorter04RunTimeRatio    <<"Local mCommSetting.mSorter04RunTimeRatio     = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio   ;
         qDebug() <<"Remote mCommSetting.mSorter04OpenTime         = " << remote.mCommSetting.mSorter04OpenTime        <<"Local mCommSetting.mSorter04OpenTime         = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime       ;
+        qDebug() <<"Remote mCommSetting.mSorter04VRRatio          = " << remote.mCommSetting.mSorter04VRRatio         <<"Local mCommSetting.mSorter04VRRatio          = " << pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04VRRatio        ;
         qDebug() <<"Remote mSizeSetting.mDistToSorter01           = " << remote.mSizeSetting.mDistToSorter01          <<"Local mSizeSetting.mDistToSorter01           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter01         ;
         qDebug() <<"Remote mSizeSetting.mDistToSorter02           = " << remote.mSizeSetting.mDistToSorter02          <<"Local mSizeSetting.mDistToSorter02           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter02         ;
         qDebug() <<"Remote mSizeSetting.mDistToSorter03           = " << remote.mSizeSetting.mDistToSorter03          <<"Local mSizeSetting.mDistToSorter03           = " << pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistToSorter03         ;

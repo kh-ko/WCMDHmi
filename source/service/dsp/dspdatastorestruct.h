@@ -42,6 +42,10 @@ struct StDspDevCommSetting{
     unsigned int   mSorter03OpenTime       ;
     unsigned int   mSorter04RunTimeRatio   ;
     unsigned int   mSorter04OpenTime       ;
+    unsigned short mSorter01VRRatio        ;
+    unsigned short mSorter02VRRatio        ;
+    unsigned short mSorter03VRRatio        ;
+    unsigned short mSorter04VRRatio        ;
 };
 
 struct StDspDevWCSetting{

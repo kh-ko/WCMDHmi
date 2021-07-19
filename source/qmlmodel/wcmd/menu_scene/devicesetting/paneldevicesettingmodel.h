@@ -25,12 +25,16 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(qint16  motorRJRatio                      READ getMotorRJRatio                  NOTIFY  signalEventChangedMotorRJRatio              )
     Q_PROPERTY(quint32 mSorter01RunTimeRatio             READ getSorter01RunTimeRatio          NOTIFY  signalEventChangedSorter01RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter01OpenTime                 READ getSorter01OpenTime              NOTIFY  signalEventChangedSorter01OpenTime          )
+    Q_PROPERTY(quint16 mSorter01VRRatio                  READ getSorter01VRRatio               NOTIFY  signalEventChangedSorter01VRRatio           )
     Q_PROPERTY(quint32 mSorter02RunTimeRatio             READ getSorter02RunTimeRatio          NOTIFY  signalEventChangedSorter02RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter02OpenTime                 READ getSorter02OpenTime              NOTIFY  signalEventChangedSorter02OpenTime          )
+    Q_PROPERTY(quint16 mSorter02VRRatio                  READ getSorter02VRRatio               NOTIFY  signalEventChangedSorter02VRRatio           )
     Q_PROPERTY(quint32 mSorter03RunTimeRatio             READ getSorter03RunTimeRatio          NOTIFY  signalEventChangedSorter03RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter03OpenTime                 READ getSorter03OpenTime              NOTIFY  signalEventChangedSorter03OpenTime          )
+    Q_PROPERTY(quint16 mSorter03VRRatio                  READ getSorter03VRRatio               NOTIFY  signalEventChangedSorter03VRRatio           )
     Q_PROPERTY(quint32 mSorter04RunTimeRatio             READ getSorter04RunTimeRatio          NOTIFY  signalEventChangedSorter04RunTimeRatio      )
     Q_PROPERTY(quint32 mSorter04OpenTime                 READ getSorter04OpenTime              NOTIFY  signalEventChangedSorter04OpenTime          )
+    Q_PROPERTY(quint16 mSorter04VRRatio                  READ getSorter04VRRatio               NOTIFY  signalEventChangedSorter04VRRatio           )
     Q_PROPERTY(quint32 displayStability                  READ getDisplayStability              NOTIFY  signalEventChangedDisplayStability          )
     Q_PROPERTY(quint16 filterCoefficient                 READ getFilterCoefficient             NOTIFY  signalEventChangedFilterCoefficient         )
     Q_PROPERTY(quint32 measureCueSign                    READ getMeasureCueSign                NOTIFY  signalEventChangedMeasureCueSign            )
@@ -73,12 +77,16 @@ class PanelDeviceSettingModel : public QObject
     Q_PROPERTY(bool    isEditMotorRJRatio                READ getIsEditMotorRJRatio                    NOTIFY  signalEventChangedIsEditMotorRJRatio               )
     Q_PROPERTY(bool    isEditSorter01RunTimeRatio        READ getIsEditSorter01RunTimeRatio            NOTIFY  signalEventChangedIsEditSorter01RunTimeRatio       )
     Q_PROPERTY(bool    isEditSorter01OpenTime            READ getIsEditSorter01OpenTime                NOTIFY  signalEventChangedIsEditSorter01OpenTime           )
+    Q_PROPERTY(bool    isEditSorter01VRRatio             READ getIsEditSorter01VRRatio                 NOTIFY  signalEventChangedIsEditSorter01VRRatio            )
     Q_PROPERTY(bool    isEditSorter02RunTimeRatio        READ getIsEditSorter02RunTimeRatio            NOTIFY  signalEventChangedIsEditSorter02RunTimeRatio       )
     Q_PROPERTY(bool    isEditSorter02OpenTime            READ getIsEditSorter02OpenTime                NOTIFY  signalEventChangedIsEditSorter02OpenTime           )
+    Q_PROPERTY(bool    isEditSorter02VRRatio             READ getIsEditSorter02VRRatio                 NOTIFY  signalEventChangedIsEditSorter02VRRatio            )
     Q_PROPERTY(bool    isEditSorter03RunTimeRatio        READ getIsEditSorter03RunTimeRatio            NOTIFY  signalEventChangedIsEditSorter03RunTimeRatio       )
     Q_PROPERTY(bool    isEditSorter03OpenTime            READ getIsEditSorter03OpenTime                NOTIFY  signalEventChangedIsEditSorter03OpenTime           )
+    Q_PROPERTY(bool    isEditSorter03VRRatio             READ getIsEditSorter03VRRatio                 NOTIFY  signalEventChangedIsEditSorter03VRRatio            )
     Q_PROPERTY(bool    isEditSorter04RunTimeRatio        READ getIsEditSorter04RunTimeRatio            NOTIFY  signalEventChangedIsEditSorter04RunTimeRatio       )
     Q_PROPERTY(bool    isEditSorter04OpenTime            READ getIsEditSorter04OpenTime                NOTIFY  signalEventChangedIsEditSorter04OpenTime           )
+    Q_PROPERTY(bool    isEditSorter04VRRatio             READ getIsEditSorter04VRRatio                 NOTIFY  signalEventChangedIsEditSorter04VRRatio            )
     Q_PROPERTY(bool    isEditDisplayStability            READ getIsEditDisplayStability                NOTIFY  signalEventChangedIsEditDisplayStability           )
     Q_PROPERTY(bool    isEditFilterCoefficient           READ getIsEditFilterCoefficient               NOTIFY  signalEventChangedIsEditFilterCoefficient          )
     Q_PROPERTY(bool    isEditMeasureCueSign              READ getIsEditMeasureCueSign                  NOTIFY  signalEventChangedIsEditMeasureCueSign             )
@@ -120,12 +128,16 @@ public:
     qint16   mMotorRJRatio                  ;
     quint32  mSorter01RunTimeRatio          ;
     quint32  mSorter01OpenTime              ;
+    quint16  mSorter01VRRatio               ;
     quint32  mSorter02RunTimeRatio          ;
     quint32  mSorter02OpenTime              ;
+    quint16  mSorter02VRRatio               ;
     quint32  mSorter03RunTimeRatio          ;
     quint32  mSorter03OpenTime              ;
+    quint16  mSorter03VRRatio               ;
     quint32  mSorter04RunTimeRatio          ;
     quint32  mSorter04OpenTime              ;
+    quint16  mSorter04VRRatio               ;
     quint32  mDisplayStability              ;
     quint16  mFilterCoefficient             ;
     quint32  mMeasureCueSign                ;
@@ -168,12 +180,16 @@ public:
     bool     mIsEditMotorRJRatio            ;
     bool     mIsEditSorter01RunTimeRatio    ;
     bool     mIsEditSorter01OpenTime        ;
+    bool     mIsEditSorter01VRRatio         ;
     bool     mIsEditSorter02RunTimeRatio    ;
     bool     mIsEditSorter02OpenTime        ;
+    bool     mIsEditSorter02VRRatio         ;
     bool     mIsEditSorter03RunTimeRatio    ;
     bool     mIsEditSorter03OpenTime        ;
+    bool     mIsEditSorter03VRRatio         ;
     bool     mIsEditSorter04RunTimeRatio    ;
     bool     mIsEditSorter04OpenTime        ;
+    bool     mIsEditSorter04VRRatio         ;
     bool     mIsEditDisplayStability        ;
     bool     mIsEditFilterCoefficient       ;
     bool     mIsEditMeasureCueSign          ;
@@ -214,12 +230,16 @@ public:
     qint16   getMotorRJRatio                 (){ return mMotorRJRatio                  ;}
     quint32  getSorter01RunTimeRatio         (){ return mSorter01RunTimeRatio          ;}
     quint32  getSorter01OpenTime             (){ return mSorter01OpenTime              ;}
+    quint16  getSorter01VRRatio              (){ return mSorter01VRRatio               ;}
     quint32  getSorter02RunTimeRatio         (){ return mSorter02RunTimeRatio          ;}
     quint32  getSorter02OpenTime             (){ return mSorter02OpenTime              ;}
+    quint16  getSorter02VRRatio              (){ return mSorter02VRRatio               ;}
     quint32  getSorter03RunTimeRatio         (){ return mSorter03RunTimeRatio          ;}
     quint32  getSorter03OpenTime             (){ return mSorter03OpenTime              ;}
+    quint16  getSorter03VRRatio              (){ return mSorter03VRRatio               ;}
     quint32  getSorter04RunTimeRatio         (){ return mSorter04RunTimeRatio          ;}
     quint32  getSorter04OpenTime             (){ return mSorter04OpenTime              ;}
+    quint16  getSorter04VRRatio              (){ return mSorter04VRRatio               ;}
     quint32  getDisplayStability             (){ return mDisplayStability              ;}
     quint16  getFilterCoefficient            (){ return mFilterCoefficient             ;}
     quint32  getMeasureCueSign               (){ return mMeasureCueSign                ;}
@@ -262,12 +282,16 @@ public:
     bool     getIsEditMotorRJRatio           (){ return mIsEditMotorRJRatio            ;}
     bool     getIsEditSorter01RunTimeRatio   (){ return mIsEditSorter01RunTimeRatio    ;}
     bool     getIsEditSorter01OpenTime       (){ return mIsEditSorter01OpenTime        ;}
+    bool     getIsEditSorter01VRRatio        (){ return mIsEditSorter01VRRatio        ;}
     bool     getIsEditSorter02RunTimeRatio   (){ return mIsEditSorter02RunTimeRatio    ;}
     bool     getIsEditSorter02OpenTime       (){ return mIsEditSorter02OpenTime        ;}
+    bool     getIsEditSorter02VRRatio        (){ return mIsEditSorter02VRRatio        ;}
     bool     getIsEditSorter03RunTimeRatio   (){ return mIsEditSorter03RunTimeRatio    ;}
     bool     getIsEditSorter03OpenTime       (){ return mIsEditSorter03OpenTime        ;}
+    bool     getIsEditSorter03VRRatio        (){ return mIsEditSorter03VRRatio        ;}
     bool     getIsEditSorter04RunTimeRatio   (){ return mIsEditSorter04RunTimeRatio    ;}
     bool     getIsEditSorter04OpenTime       (){ return mIsEditSorter04OpenTime        ;}
+    bool     getIsEditSorter04VRRatio        (){ return mIsEditSorter04VRRatio        ;}
     bool     getIsEditDisplayStability       (){ return mIsEditDisplayStability        ;}
     bool     getIsEditFilterCoefficient      (){ return mIsEditFilterCoefficient       ;}
     bool     getIsEditMeasureCueSign         (){ return mIsEditMeasureCueSign          ;}
@@ -308,12 +332,16 @@ public:
     void setMotorRJRatio                 (qint16   value){ if(value == mMotorRJRatio              ) return; mMotorRJRatio               = value; setIsEditMotorRJRatio           (true);  emit signalEventChangedMotorRJRatio              (value);}
     void setSorter01RunTimeRatio         (quint32  value){ if(value == mSorter01RunTimeRatio      ) return; mSorter01RunTimeRatio       = value; setIsEditSorter01RunTimeRatio   (true);  emit signalEventChangedSorter01RunTimeRatio      (value);}
     void setSorter01OpenTime             (quint32  value){ if(value == mSorter01OpenTime          ) return; mSorter01OpenTime           = value; setIsEditSorter01OpenTime       (true);  emit signalEventChangedSorter01OpenTime          (value);}
+    void setSorter01VRRatio              (quint16  value){ if(value == mSorter01VRRatio           ) return; mSorter01VRRatio            = value; setIsEditSorter01VRRatio        (true);  emit signalEventChangedSorter01VRRatio           (value);}
     void setSorter02RunTimeRatio         (quint32  value){ if(value == mSorter02RunTimeRatio      ) return; mSorter02RunTimeRatio       = value; setIsEditSorter02RunTimeRatio   (true);  emit signalEventChangedSorter02RunTimeRatio      (value);}
     void setSorter02OpenTime             (quint32  value){ if(value == mSorter02OpenTime          ) return; mSorter02OpenTime           = value; setIsEditSorter02OpenTime       (true);  emit signalEventChangedSorter02OpenTime          (value);}
+    void setSorter02VRRatio              (quint16  value){ if(value == mSorter02VRRatio           ) return; mSorter02VRRatio            = value; setIsEditSorter02VRRatio        (true);  emit signalEventChangedSorter02VRRatio           (value);}
     void setSorter03RunTimeRatio         (quint32  value){ if(value == mSorter03RunTimeRatio      ) return; mSorter03RunTimeRatio       = value; setIsEditSorter03RunTimeRatio   (true);  emit signalEventChangedSorter03RunTimeRatio      (value);}
     void setSorter03OpenTime             (quint32  value){ if(value == mSorter03OpenTime          ) return; mSorter03OpenTime           = value; setIsEditSorter03OpenTime       (true);  emit signalEventChangedSorter03OpenTime          (value);}
+    void setSorter03VRRatio              (quint16  value){ if(value == mSorter03VRRatio           ) return; mSorter03VRRatio            = value; setIsEditSorter03VRRatio        (true);  emit signalEventChangedSorter03VRRatio           (value);}
     void setSorter04RunTimeRatio         (quint32  value){ if(value == mSorter04RunTimeRatio      ) return; mSorter04RunTimeRatio       = value; setIsEditSorter04RunTimeRatio   (true);  emit signalEventChangedSorter04RunTimeRatio      (value);}
     void setSorter04OpenTime             (quint32  value){ if(value == mSorter04OpenTime          ) return; mSorter04OpenTime           = value; setIsEditSorter04OpenTime       (true);  emit signalEventChangedSorter04OpenTime          (value);}
+    void setSorter04VRRatio              (quint16  value){ if(value == mSorter04VRRatio           ) return; mSorter04VRRatio            = value; setIsEditSorter04VRRatio        (true);  emit signalEventChangedSorter04VRRatio           (value);}
     void setDisplayStability             (quint32  value){ if(value == mDisplayStability          ) return; mDisplayStability           = value; setIsEditDisplayStability       (true);  emit signalEventChangedDisplayStability          (value);}
     void setFilterCoefficient            (quint16  value){ if(value == mFilterCoefficient         ) return; mFilterCoefficient          = value; setIsEditFilterCoefficient      (true);  emit signalEventChangedFilterCoefficient         (value);}
     void setMeasureCueSign               (quint32  value){ if(value == mMeasureCueSign            ) return; mMeasureCueSign             = value; setIsEditMeasureCueSign         (true);  emit signalEventChangedMeasureCueSign            (value);}
@@ -356,12 +384,16 @@ public:
     void setIsEditMotorRJRatio           (bool     value){ if(value == mIsEditMotorRJRatio        ) return; mIsEditMotorRJRatio         = value; emit signalEventChangedIsEditMotorRJRatio        (value);}
     void setIsEditSorter01RunTimeRatio   (bool     value){ if(value == mIsEditSorter01RunTimeRatio) return; mIsEditSorter01RunTimeRatio = value; emit signalEventChangedIsEditSorter01RunTimeRatio(value);}
     void setIsEditSorter01OpenTime       (bool     value){ if(value == mIsEditSorter01OpenTime    ) return; mIsEditSorter01OpenTime     = value; emit signalEventChangedIsEditSorter01OpenTime    (value);}
+    void setIsEditSorter01VRRatio        (bool     value){ if(value == mIsEditSorter01VRRatio     ) return; mIsEditSorter01VRRatio      = value; emit signalEventChangedIsEditSorter01VRRatio     (value);}
     void setIsEditSorter02RunTimeRatio   (bool     value){ if(value == mIsEditSorter02RunTimeRatio) return; mIsEditSorter02RunTimeRatio = value; emit signalEventChangedIsEditSorter02RunTimeRatio(value);}
     void setIsEditSorter02OpenTime       (bool     value){ if(value == mIsEditSorter02OpenTime    ) return; mIsEditSorter02OpenTime     = value; emit signalEventChangedIsEditSorter02OpenTime    (value);}
+    void setIsEditSorter02VRRatio        (bool     value){ if(value == mIsEditSorter02VRRatio     ) return; mIsEditSorter02VRRatio      = value; emit signalEventChangedIsEditSorter02VRRatio     (value);}
     void setIsEditSorter03RunTimeRatio   (bool     value){ if(value == mIsEditSorter03RunTimeRatio) return; mIsEditSorter03RunTimeRatio = value; emit signalEventChangedIsEditSorter03RunTimeRatio(value);}
     void setIsEditSorter03OpenTime       (bool     value){ if(value == mIsEditSorter03OpenTime    ) return; mIsEditSorter03OpenTime     = value; emit signalEventChangedIsEditSorter03OpenTime    (value);}
+    void setIsEditSorter03VRRatio        (bool     value){ if(value == mIsEditSorter03VRRatio     ) return; mIsEditSorter03VRRatio      = value; emit signalEventChangedIsEditSorter03VRRatio     (value);}
     void setIsEditSorter04RunTimeRatio   (bool     value){ if(value == mIsEditSorter04RunTimeRatio) return; mIsEditSorter04RunTimeRatio = value; emit signalEventChangedIsEditSorter04RunTimeRatio(value);}
     void setIsEditSorter04OpenTime       (bool     value){ if(value == mIsEditSorter04OpenTime    ) return; mIsEditSorter04OpenTime     = value; emit signalEventChangedIsEditSorter04OpenTime    (value);}
+    void setIsEditSorter04VRRatio        (bool     value){ if(value == mIsEditSorter04VRRatio     ) return; mIsEditSorter04VRRatio      = value; emit signalEventChangedIsEditSorter04VRRatio     (value);}
     void setIsEditDisplayStability       (bool     value){ if(value == mIsEditDisplayStability    ) return; mIsEditDisplayStability     = value; emit signalEventChangedIsEditDisplayStability    (value);}
     void setIsEditFilterCoefficient      (bool     value){ if(value == mIsEditFilterCoefficient   ) return; mIsEditFilterCoefficient    = value; emit signalEventChangedIsEditFilterCoefficient   (value);}
     void setIsEditMeasureCueSign         (bool     value){ if(value == mIsEditMeasureCueSign      ) return; mIsEditMeasureCueSign       = value; emit signalEventChangedIsEditMeasureCueSign      (value);}
@@ -407,12 +439,16 @@ public:
         setMotorRJRatio                 (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMotorRJRatio         );
         setSorter01RunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01RunTimeRatio );
         setSorter01OpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01OpenTime     );
+        setSorter01VRRatio              (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter01VRRatio      );
         setSorter02RunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02RunTimeRatio );
         setSorter02OpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02OpenTime     );
+        setSorter02VRRatio              (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter02VRRatio      );
         setSorter03RunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03RunTimeRatio );
         setSorter03OpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03OpenTime     );
+        setSorter03VRRatio              (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter03VRRatio      );
         setSorter04RunTimeRatio         (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04RunTimeRatio );
         setSorter04OpenTime             (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04OpenTime     );
+        setSorter04VRRatio              (pLSettingSP->mDevSetting.mDspForm.mCommSetting.mSorter04VRRatio      );
         setDisplayStability             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDisplayStability       );
         setMinStaticWeight              (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinStaticWeight        );
         setMinDynamicWeight             (pLSettingSP->mDevSetting.mDspForm.mWCSetting.mMinDynamicWeight       );
@@ -450,12 +486,16 @@ public:
         setIsEditMotorRJRatio                 ( false );
         setIsEditSorter01RunTimeRatio         ( false );
         setIsEditSorter01OpenTime             ( false );
+        setIsEditSorter01VRRatio              ( false );
         setIsEditSorter02RunTimeRatio         ( false );
         setIsEditSorter02OpenTime             ( false );
+        setIsEditSorter02VRRatio              ( false );
         setIsEditSorter03RunTimeRatio         ( false );
         setIsEditSorter03OpenTime             ( false );
+        setIsEditSorter03VRRatio              ( false );
         setIsEditSorter04RunTimeRatio         ( false );
         setIsEditSorter04OpenTime             ( false );
+        setIsEditSorter04VRRatio              ( false );
         setIsEditDisplayStability             ( false );
         setIsEditFilterCoefficient            ( false );
         setIsEditMeasureCueSign               ( false );
@@ -504,12 +544,16 @@ signals:
     void signalEventChangedMotorRJRatio                 (qint16   value);
     void signalEventChangedSorter01RunTimeRatio         (quint32  value);
     void signalEventChangedSorter01OpenTime             (quint32  value);
+    void signalEventChangedSorter01VRRatio              (quint16  value);
     void signalEventChangedSorter02RunTimeRatio         (quint32  value);
     void signalEventChangedSorter02OpenTime             (quint32  value);
+    void signalEventChangedSorter02VRRatio              (quint16  value);
     void signalEventChangedSorter03RunTimeRatio         (quint32  value);
     void signalEventChangedSorter03OpenTime             (quint32  value);
+    void signalEventChangedSorter03VRRatio              (quint32  value);
     void signalEventChangedSorter04RunTimeRatio         (quint32  value);
     void signalEventChangedSorter04OpenTime             (quint32  value);
+    void signalEventChangedSorter04VRRatio              (quint16  value);
     void signalEventChangedDisplayStability             (quint32  value);
     void signalEventChangedFilterCoefficient            (quint16  value);
     void signalEventChangedMeasureCueSign               (quint32  value);
@@ -552,12 +596,16 @@ signals:
     void signalEventChangedIsEditMotorRJRatio           (bool     value);
     void signalEventChangedIsEditSorter01RunTimeRatio   (bool     value);
     void signalEventChangedIsEditSorter01OpenTime       (bool     value);
+    void signalEventChangedIsEditSorter01VRRatio        (bool     value);
     void signalEventChangedIsEditSorter02RunTimeRatio   (bool     value);
     void signalEventChangedIsEditSorter02OpenTime       (bool     value);
+    void signalEventChangedIsEditSorter02VRRatio        (bool     value);
     void signalEventChangedIsEditSorter03RunTimeRatio   (bool     value);
     void signalEventChangedIsEditSorter03OpenTime       (bool     value);
+    void signalEventChangedIsEditSorter03VRRatio        (bool     value);
     void signalEventChangedIsEditSorter04RunTimeRatio   (bool     value);
     void signalEventChangedIsEditSorter04OpenTime       (bool     value);
+    void signalEventChangedIsEditSorter04VRRatio        (bool     value);
     void signalEventChangedIsEditDisplayStability       (bool     value);
     void signalEventChangedIsEditFilterCoefficient      (bool     value);
     void signalEventChangedIsEditMeasureCueSign         (bool     value);
@@ -612,12 +660,16 @@ public slots:
         dto.mDspForm.mCommSetting.mMotorRJRatio         = mMotorRJRatio;
         dto.mDspForm.mCommSetting.mSorter01RunTimeRatio = mSorter01RunTimeRatio;
         dto.mDspForm.mCommSetting.mSorter01OpenTime     = mSorter01OpenTime    ;
+        dto.mDspForm.mCommSetting.mSorter01VRRatio      = mSorter01VRRatio     ;
         dto.mDspForm.mCommSetting.mSorter02RunTimeRatio = mSorter02RunTimeRatio;
         dto.mDspForm.mCommSetting.mSorter02OpenTime     = mSorter02OpenTime    ;
+        dto.mDspForm.mCommSetting.mSorter02VRRatio      = mSorter02VRRatio     ;
         dto.mDspForm.mCommSetting.mSorter03RunTimeRatio = mSorter03RunTimeRatio;
         dto.mDspForm.mCommSetting.mSorter03OpenTime     = mSorter03OpenTime    ;
+        dto.mDspForm.mCommSetting.mSorter03VRRatio      = mSorter03VRRatio     ;
         dto.mDspForm.mCommSetting.mSorter04RunTimeRatio = mSorter04RunTimeRatio;
         dto.mDspForm.mCommSetting.mSorter04OpenTime     = mSorter04OpenTime    ;
+        dto.mDspForm.mCommSetting.mSorter04VRRatio      = mSorter04VRRatio     ;
         dto.mDspForm.mWCSetting.mDisplayStability       = mDisplayStability;
         dto.mDspForm.mWCSetting.mMinStaticWeight        = mMinStaticWeight;
         dto.mDspForm.mWCSetting.mMinDynamicWeight       = mMinDynamicWeight;
@@ -678,12 +730,16 @@ public slots:
     Q_INVOKABLE void onCommandSetMotorRJRatio                 (qint16   value){setMotorRJRatio                 (value);}
     Q_INVOKABLE void onCommandSetSorter01RunTimeRatio         (quint32  value){setSorter01RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter01OpenTime             (quint32  value){setSorter01OpenTime             (value);}
+    Q_INVOKABLE void onCommandSetSorter01VRRatio              (quint16  value){setSorter01VRRatio              (value);}
     Q_INVOKABLE void onCommandSetSorter02RunTimeRatio         (quint32  value){setSorter02RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter02OpenTime             (quint32  value){setSorter02OpenTime             (value);}
+    Q_INVOKABLE void onCommandSetSorter02VRRatio              (quint16  value){setSorter02VRRatio              (value);}
     Q_INVOKABLE void onCommandSetSorter03RunTimeRatio         (quint32  value){setSorter03RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter03OpenTime             (quint32  value){setSorter03OpenTime             (value);}
+    Q_INVOKABLE void onCommandSetSorter03VRRatio              (quint16  value){setSorter03VRRatio              (value);}
     Q_INVOKABLE void onCommandSetSorter04RunTimeRatio         (quint32  value){setSorter04RunTimeRatio         (value);}
     Q_INVOKABLE void onCommandSetSorter04OpenTime             (quint32  value){setSorter04OpenTime             (value);}
+    Q_INVOKABLE void onCommandSetSorter04VRRatio              (quint16  value){setSorter04VRRatio              (value);}
     Q_INVOKABLE void onCommandSetDisplayStability             (quint32  value){setDisplayStability             (value);}
     Q_INVOKABLE void onCommandSetFilterCoefficient            (quint16  value){setFilterCoefficient            (value);}
     Q_INVOKABLE void onCommandSetMeasureCueSign               (quint32  value){setMeasureCueSign               (value);}
