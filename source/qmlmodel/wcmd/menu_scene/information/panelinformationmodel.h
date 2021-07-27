@@ -2,6 +2,7 @@
 #define PANELINFORMATIONMODEL_H
 
 #include <QObject>
+#include <QProcess>
 
 #include "source/globaldef/qmlenumdef.h"
 #include "source/service/coreservice.h"
@@ -9,6 +10,7 @@
 class PanelInformationModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool    isRunVnc                     READ getIsRunVnc                    NOTIFY  signalEventChangedIsRunVnc             )
     Q_PROPERTY(bool    isEnableWC                   READ getIsEnableWC                  NOTIFY  signalEventChangedIsEnableWC           )
     Q_PROPERTY(QString company                      READ getCompany                     NOTIFY  signalEventChangedCompany              )
     Q_PROPERTY(QString model                        READ getModel                       NOTIFY  signalEventChangedModel                )
@@ -45,6 +47,7 @@ class PanelInformationModel : public QObject
 
 public:
     quint64 mDspSeq                    = 0;
+    bool    mIsRunVnc                  = false;
     bool    mIsEnableWC                = true;
     QString mCompany                   ;
     QString mModel                     ;
@@ -79,6 +82,7 @@ public:
     bool    mIsEditDistToSorter03      ;
     bool    mIsEditDistToSorter04      ;
 
+    bool    getIsRunVnc                  (){ return mIsRunVnc                  ;}
     bool    getIsEnableWC                (){ return mIsEnableWC                ;}
     QString getCompany                   (){ return mCompany                   ;}
     QString getModel                     (){ return mModel                     ;}
@@ -113,6 +117,7 @@ public:
     bool    getIsEditDistToSorter03      (){ return mIsEditDistToSorter03      ;}
     bool    getIsEditDistToSorter04      (){ return mIsEditDistToSorter04      ;}
 
+    void    setIsRunVnc                  (bool     value){ if(value == mIsRunVnc                  ) return; mIsRunVnc                   = value; emit signalEventChangedIsRunVnc                  (value);}
     void    setIsEnableWC                (bool     value){ if(value == mIsEnableWC                ) return; mIsEnableWC                 = value; emit signalEventChangedIsEnableWC                (value);}
     void    setCompany                   (QString  value){ if(value == mCompany                   ) return; mCompany                    = value; emit signalEventChangedCompany                   (value);}
     void    setModel                     (QString  value){ if(value == mModel                     ) return; mModel                      = value; emit signalEventChangedModel                     (value);}
@@ -154,6 +159,10 @@ public:
             mDspSeq = pDspSP->mDspList[0]->mSeq;
         }
         reset();
+
+        ENABLE_SLOT_VNC_CHANGED_STATUS;
+
+        onVncChangedStatus(pVncSP->isRun());
     }
     void reset()
     {
@@ -202,6 +211,7 @@ public:
     }
 
 signals:
+    void signalEventChangedIsRunVnc                  (bool     value);
     void signalEventChangedIsEnableWC                (bool     value);
     void signalEventChangedCompany                   (QString  value);
     void signalEventChangedModel                     (QString  value);
@@ -242,6 +252,17 @@ signals:
 
 
 public slots:
+    Q_INVOKABLE void onCommandRemoteCtrl()
+    {
+        if(pVncSP->isRun())
+        {
+            pVncSP->stopCmd();
+        }
+        else
+        {
+            pVncSP->runCmd(QString("vncserver-x11 -iconnect %1").arg(pDefaultSP->VNC_VIEW_IP));
+        }
+    }
 
     Q_INVOKABLE void onCommandSave()
     {
@@ -327,6 +348,11 @@ public slots:
     Q_INVOKABLE void onCommandSetDistToSorter03            (quint16  value){setDistToSorter03       (value);}
     Q_INVOKABLE void onCommandSetDistToSorter04            (quint16  value){setDistToSorter04       (value);}
     Q_INVOKABLE void onCommandRefVoltageReset              (              ){pDspSP->sendAllRefVoltageResetCmd();}
+
+    void onVncChangedStatus(bool isRun)
+    {
+        setIsRunVnc(isRun);
+    }
 
 };
 

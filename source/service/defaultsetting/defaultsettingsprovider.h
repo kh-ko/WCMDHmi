@@ -153,6 +153,8 @@ public:
     QSerialPort::DataBits             RTU_MODBUS_DATABITS                = QSerialPort::Data8                    ;
     QSerialPort::StopBits             RTU_MODBUS_STOPBITS                = QSerialPort::OneStop                  ;
 
+    QString                           VNC_VIEW_IP                        = "121.175.173.236"                     ;
+
 public:
     void start()
     {
@@ -277,6 +279,7 @@ public:
             else if(key == "RTU_MODBUS_BAUDRATE"                ){ RTU_MODBUS_BAUDRATE                = (QSerialPort::BaudRate)value.toInt()             ;}
             else if(key == "RTU_MODBUS_DATABITS"                ){ RTU_MODBUS_DATABITS                = (QSerialPort::DataBits)value.toInt()             ;}
             else if(key == "RTU_MODBUS_STOPBITS"                ){ RTU_MODBUS_STOPBITS                = (QSerialPort::StopBits)value.toInt()             ;}
+            else if(key == "VNC_VIEW_IP"                        ){ VNC_VIEW_IP                        = value                                            ;}
         }
 
         emit signalEventStarted();

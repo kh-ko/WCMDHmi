@@ -1012,12 +1012,12 @@
         <translation>· 신호지연시간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1752"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1756"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1772"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1776"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
@@ -1263,6 +1263,20 @@
         <translation>공장초기화를 진행하시겠습니까?</translation>
     </message>
     <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="585"/>
+        <source>Remote Ctrl&lt;br&gt;disconnect</source>
+        <translation>원격제어 끊기</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="585"/>
+        <source>Remote Ctrl&lt;br&gt;connect</source>
+        <translation>원격제어 연결</translation>
+    </message>
+    <message>
+        <source>Remote Ctrl</source>
+        <translation type="vanished">원격제어</translation>
+    </message>
+    <message>
         <source>⑤ Sensor length</source>
         <translation type="vanished">⑤ 계량부 길이</translation>
     </message>
@@ -1298,12 +1312,12 @@
         <translation type="obsolete">· 포토와 센서간 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="601"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="619"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="621"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="639"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>

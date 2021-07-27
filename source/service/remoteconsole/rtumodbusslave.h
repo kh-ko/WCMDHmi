@@ -120,7 +120,7 @@ public slots:
     }
 private:
     QModbusRtuSerialSlave * mpServer = nullptr;
-    qint16                  PORT     = 10502;  // 502 번을 redirect로 10502번으로 연결하였음
+    qint16                  PORT     = 10502;
 
     void open()
     {

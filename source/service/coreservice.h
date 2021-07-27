@@ -19,6 +19,8 @@
 #include "source/service/remoteconsole/syncserverservice.h"
 #include "source/service/remoteconsole/tcpmodbusslave.h"
 #include "source/service/remoteconsole/rtumodbusslave.h"
+#include "source/service/remoteconsole/httpclientservice.h"
+#include "source/service/vnc/vncsprovider.h"
 
 #define pCoreService CoreService::getInstance()
 
@@ -51,6 +53,8 @@ public:
     }
     void stop()
     {
+        //pHttpClientSvc->stop();
+        pVncSP->stop();
         pDevInfoBC->stop();
         pSyncgSvr->stop();
         pMonitoringSvr->stop();
@@ -87,6 +91,8 @@ public slots:
         pMonitoringSvr->start();
         pTcpModbusSlave->start();
         pRtuModbusSlave->start();
+        pVncSP->start();
+        //pHttpClientSvc->start();
 
         emit signalEventStarted();
     }

@@ -1,4 +1,4 @@
-QT += quick widgets charts virtualkeyboard sql serialbus serialport
+QT += quick widgets charts virtualkeyboard sql serialbus serialport network
 
 CONFIG += c++11
 
@@ -111,6 +111,7 @@ HEADERS += \
     source/service/remoteconsole/dto/devicesocketdto.h \
     source/service/remoteconsole/dto/enum/remoteenumdef.h \
     source/service/remoteconsole/dto/modbusdatastore.h \
+    source/service/remoteconsole/httpclientservice.h \
     source/service/remoteconsole/monitoringservice.h \
     source/service/remoteconsole/rtumodbusslave.h \
     source/service/remoteconsole/syncclient.h \
@@ -124,6 +125,7 @@ HEADERS += \
     source/service/util/filereaderex.h \
     source/service/util/filewriterex.h \
     source/service/util/sproviderconnectutil.h \
+    source/service/vnc/vncsprovider.h \
     source/service/work/TrendsManager.h \
     source/service/work/worksprovider.h \
     source/thread/historybackupthread.h \

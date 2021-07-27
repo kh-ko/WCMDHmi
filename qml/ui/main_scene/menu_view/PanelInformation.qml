@@ -533,7 +533,7 @@ UiPanel {
         anchors.right: btnHMIOut.left
         anchors.rightMargin: 20
 
-        visible: uiPanel.isAdmin && informationModel.isWCEnable
+        visible: uiPanel.isAdmin && informationModel.isEnableWC
         textValue: qsTr("Ref Vol<br>Reset")
 
         onSignalEventClicked: {
@@ -571,6 +571,24 @@ UiPanel {
         onSignalEventClicked: {
             ViewManager.mainScene.factoryReset(false);
         }
+    }
+
+    UiButton{
+        id : btnRemoteCtrl
+        width : 200
+        height : 80
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.left: divider.right
+        anchors.leftMargin: 20
+
+        textValue: informationModel.isRunVnc ? qsTr("Remote Ctrl<br>disconnect") : qsTr("Remote Ctrl<br>connect")
+
+        onSignalEventClicked:
+        {
+           informationModel.onCommandRemoteCtrl()
+        }
+
     }
 
     UiButton{
