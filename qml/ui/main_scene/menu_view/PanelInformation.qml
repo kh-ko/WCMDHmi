@@ -312,7 +312,7 @@ UiPanel {
         id : imageDevice
         height: 439
         fillMode: Image.PreserveAspectFit
-        source:  uiPanel.isMDEnable === false ? "Infomation/image_device/device_wc_only.png" : "Infomation/image_device/device.png"
+        source:  uiPanel.isMDEnable === false ? "Infomation/image_device/device_wc_only.png" : (uiPanel.isWCEnable == false ? "Infomation/image_device/device_md_only.png": "Infomation/image_device/device.png")
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.right: parent.right
@@ -420,6 +420,7 @@ UiPanel {
         labelText : uiPanel.isMDEnable ? qsTr("④ Sensor length") : qsTr("① Sensor length")
         postfix: "mm"
         inputWidth: 170
+        visible : uiPanel.isWCEnable
 
         numberValue: informationModel.sensorLength
 
@@ -433,11 +434,11 @@ UiPanel {
         height: 60
         width: 700
         anchors.topMargin: 10
-        anchors.top: inputSensorLength.bottom
+        anchors.top: uiPanel.isMDEnable && uiPanel.isWCEnable === false ?  inputDistBtwSensor.bottom : inputSensorLength.bottom
         anchors.left: divider.right
         anchors.leftMargin: 40
 
-        textValue: uiPanel.isMDEnable ? qsTr("⑤ Distance to Sorter") : qsTr("② Distance to Sorter")
+        textValue: uiPanel.isMDEnable ? ( uiPanel.isWCEnable ? qsTr("⑤ Distance to Sorter") : qsTr("④ Distance to Sorter")) : qsTr("② Distance to Sorter")
     }
 
     UiInputNumber{
@@ -533,7 +534,7 @@ UiPanel {
         anchors.right: btnHMIOut.left
         anchors.rightMargin: 20
 
-        visible: uiPanel.isAdmin && informationModel.isEnableWC
+        visible: uiPanel.isAdmin && uiPanel.isWCEnable
         textValue: qsTr("Ref Vol<br>Reset")
 
         onSignalEventClicked: {

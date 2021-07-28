@@ -55,7 +55,7 @@ public slots:
 
     void onTimeTick()
     {
-        QUrl url = QUrl("http://192.168.0.133/DevDataCollect/WriteRealTimeData");
+        QUrl url = QUrl(pDefaultSP->CCP_SERVER_URL);//"http://121.175.173.236:17071/DevDataCollect/WriteRealTimeData");
         QString devType = "combi";
         QString devStats = "{}";
 
@@ -70,6 +70,11 @@ public slots:
 
         case 2:
             devType = "Weight Checker";
+            devStats = QString("{\"totalCnt\":%1, \"wcOverNGCnt\":%2, \"wcUnderNGCnt\":%3, \"wcEtcNGCnt\":%4}")
+                                .arg(pWorkSP->mCurrPD.mWCTotalCnt)
+                                .arg(pWorkSP->mCurrPD.mWCOCnt)
+                                .arg(pWorkSP->mCurrPD.mWCUCnt)
+                                .arg(pWorkSP->mCurrPD.mWCEtcCnt);
             break;
 
         default:

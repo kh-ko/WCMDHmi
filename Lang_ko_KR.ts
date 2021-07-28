@@ -1233,42 +1233,47 @@
         <translation>④ 계량부 길이</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="440"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="441"/>
         <source>⑤ Distance to Sorter</source>
         <translation>⑤ 선별기까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="440"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="441"/>
         <source>② Distance to Sorter</source>
         <translation>② 선별기까지 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="537"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="441"/>
+        <source>④ Distance to Sorter</source>
+        <translation type="unfinished">④ 선별기까지 거리</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="538"/>
         <source>Ref Vol&lt;br&gt;Reset</source>
         <translation>참조전압&lt;br&gt;리셋</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="553"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="554"/>
         <source>HMI out</source>
         <translation>나가기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="569"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="570"/>
         <source>Factory&lt;br&gt;reset</source>
         <translation>공장&lt;br&gt;초기화</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="570"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="571"/>
         <source>Do you want factory reset ?</source>
         <translation>공장초기화를 진행하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="585"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="586"/>
         <source>Remote Ctrl&lt;br&gt;disconnect</source>
         <translation>원격제어 끊기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="585"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="586"/>
         <source>Remote Ctrl&lt;br&gt;connect</source>
         <translation>원격제어 연결</translation>
     </message>
@@ -1312,12 +1317,12 @@
         <translation type="obsolete">· 포토와 센서간 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="619"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="620"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="639"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="640"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>

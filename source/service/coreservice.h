@@ -53,7 +53,7 @@ public:
     }
     void stop()
     {
-        //pHttpClientSvc->stop();
+        pHttpClientSvc->stop();
         pVncSP->stop();
         pDevInfoBC->stop();
         pSyncgSvr->stop();
@@ -92,7 +92,9 @@ public slots:
         pTcpModbusSlave->start();
         pRtuModbusSlave->start();
         pVncSP->start();
-        //pHttpClientSvc->start();
+
+        if(pDefaultSP->CCP_SERVER_IS_USE)
+            pHttpClientSvc->start();
 
         emit signalEventStarted();
     }
