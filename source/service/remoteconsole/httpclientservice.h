@@ -56,7 +56,7 @@ public slots:
     void onTimeTick()
     {
         QUrl url = QUrl(pDefaultSP->CCP_SERVER_URL);//"http://121.175.173.236:17071/DevDataCollect/WriteRealTimeData");
-        QString devType = "combi";
+        QString devType = "Combi";
         QString devStats = "{}";
 
         qDebug() << "[HttpClientWorker]";
@@ -87,14 +87,21 @@ public slots:
             break;
         }
 
-        QJsonObject param;
-        param.insert("DevNum", QJsonValue::fromVariant(pLSettingSP->mInformation.mDeviceNumber));
-        param.insert("DevType", QJsonValue::fromVariant(devType));
-        param.insert("Stats", QJsonValue::fromVariant(devStats));
+        QVariantMap feed;
+        feed.insert("DevNum",pLSettingSP->mInformation.mDeviceNumber);
+        feed.insert("DevType",devType);
+        feed.insert("Stats",devStats);
+        QByteArray payload=QJsonDocument::fromVariant(feed).toJson();
 
+        /*
+        QJsonObject param;
+        param.insert("DevNum", pLSettingSP->mInformation.mDeviceNumber);
+        param.insert("DevType", devType);
+        param.insert("Stats", devStats);
+        */
         QNetworkRequest request(url);
 
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");//"application/x-www-form-urlencoded");
 
         if(mReply != nullptr)
         {
@@ -121,7 +128,7 @@ public slots:
             }
         }
 
-        mReply = mNetManager->post(request, QJsonDocument(param).toJson(QJsonDocument::Compact));
+        mReply = mNetManager->post(request, payload/*QJsonDocument(param).toJson(QJsonDocument::Compact)*/);
 
         //if(reply->error() == QNetworkReply::NoError)
         //reply->abort();

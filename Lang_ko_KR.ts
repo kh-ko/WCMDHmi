@@ -1245,7 +1245,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="441"/>
         <source>④ Distance to Sorter</source>
-        <translation type="unfinished">④ 선별기까지 거리</translation>
+        <translation>④ 선별기까지 거리</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="538"/>
@@ -1486,113 +1486,129 @@
 <context>
     <name>PanelMDCheckup</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="116"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="148"/>
         <source>After pressing the start button, follow the prompts to perform the check.</source>
         <translation>시작버튼을 선택후 화면에 표시되는 안내를 따라주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="117"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="149"/>
         <source>Put the Fe specimen on the middle.</source>
         <translation>가운데 Fe시편을 놓아주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="118"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="121"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="150"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="153"/>
         <source>Put the Fe specimen on the left.</source>
         <translation>왼편에 Fe시편을 놓아주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="119"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="122"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="151"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="154"/>
         <source>Put the Fe specimen on the right.</source>
         <translation>오른편에 Fe시편을 놓아주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="120"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="152"/>
         <source>Put the Sus specimen on the middle.</source>
         <translation>가운데 Sus 시편을 놓아주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="122"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="154"/>
         <source>Check is complete.</source>
         <translation>점검이 완료되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="169"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="201"/>
         <source>Start</source>
         <translation>시작</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="169"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="201"/>
         <source>Retry</source>
         <translation>재시작</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="181"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="213"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="217"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="249"/>
         <source>· Metal detector check datetime : </source>
         <translation>· 금속검출기 점검 일시 : </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="230"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="262"/>
         <source>· Result</source>
         <translation>· 결과</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="260"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="387"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="434"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="480"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="538"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="582"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="627"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="292"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="449"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="496"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="542"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="600"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="644"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="689"/>
         <source>PASS</source>
         <translation>정상</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="260"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="388"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="435"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="481"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="539"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="583"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="628"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="292"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="450"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="497"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="543"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="601"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="645"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="690"/>
         <source>FAIL</source>
         <translation>실패</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="296"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="328"/>
         <source>· Timer</source>
         <translation>· 타이머</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="347"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="371"/>
+        <source>· Wait time</source>
+        <oldsource>Wait time</oldsource>
+        <translation type="unfinished">· 대기시간</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="378"/>
+        <source>Apply</source>
+        <translation>적용</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="409"/>
         <source>Fe</source>
         <translation>Fe</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="386"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="433"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="479"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="537"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="581"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="626"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="448"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="495"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="541"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="599"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="643"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="688"/>
         <source>CHECKING</source>
         <translation>점검중</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="499"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="561"/>
         <source>Sus</source>
         <translation>Sus</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="646"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="708"/>
         <source>Close</source>
         <translation>닫기</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="737"/>
+        <source>Wait until the next step is ready. </source>
+        <translation>다음 단계가 준비될때 까지 기다리세요.</translation>
     </message>
 </context>
 <context>

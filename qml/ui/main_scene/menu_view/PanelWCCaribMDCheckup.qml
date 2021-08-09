@@ -12,6 +12,7 @@ import QmlEnumDef 1.0
 
 UiPanel
 {
+    property var isAdmin    : true
     property var isWCEnable : true
     property var isMDEnable : true
 
@@ -92,6 +93,7 @@ UiPanel
         {
             anchors.fill: parent
             isWCEnable : panel.isWCEnable
+            isAdmin: panel.isAdmin
             onSignalEventCloseClicked: {
                 viewContainer.clear()
             }

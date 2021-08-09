@@ -145,7 +145,8 @@ public:
     quint32                           PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = 200                                ;
     quint32                           PD_DEFAULT_SETTING_MEASURE_SECTION    = 100                                ;
 
-    quint32                           ETC_SETTING_MAX_ERROR              = 100                                   ;
+    quint32                           ETC_SETTING_MAX_ERROR                     = 100                            ;
+    qint32                            ETC_SETTING_MDCHECKUP_NEXT_STEP_WAIT_MSEC = 5000                           ;
 
     QString                           RTU_MODBUS_PORT                    = "/dev/ttyAMA0"                        ;
     QSerialPort::Parity               RTU_MODBUS_PARITY                  = QSerialPort::NoParity                 ;
@@ -276,6 +277,7 @@ public:
             else if(key == "PD_DEFAULT_SETTING_MEASURE_CUE_SIGN  "){ PD_DEFAULT_SETTING_MEASURE_CUE_SIGN   = value.toUInt()                              ;}
             else if(key == "PD_DEFAULT_SETTING_MEASURE_SECTION   "){ PD_DEFAULT_SETTING_MEASURE_SECTION    = value.toUInt()                              ;}
             else if(key == "ETC_SETTING_MAX_ERROR"              ){ ETC_SETTING_MAX_ERROR              = value.toUInt()                                   ;}
+            else if(key == "ETC_SETTING_MDCHECKUP_NEXT_STEP_WAIT_MSEC"){ ETC_SETTING_MDCHECKUP_NEXT_STEP_WAIT_MSEC = value.toInt()                       ;}
             else if(key == "RTU_MODBUS_PORT"                    ){ RTU_MODBUS_PORT                    = value                                            ;}
             else if(key == "RTU_MODBUS_PARITY"                  ){ RTU_MODBUS_PARITY                  = (QSerialPort::Parity  )value.toInt()             ;}
             else if(key == "RTU_MODBUS_BAUDRATE"                ){ RTU_MODBUS_BAUDRATE                = (QSerialPort::BaudRate)value.toInt()             ;}

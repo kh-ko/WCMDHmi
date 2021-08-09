@@ -13,11 +13,18 @@ UiPanel {
     id: uiPanel
 
     property var isWCEnable : true
+    property var isAdmin    : true
 
     width : 1519
     height: 997
 
     signal signalEventCloseClicked()
+
+    function startWaitNextStep()
+    {
+        aniCount.stop();
+        aniWaitCount.restart();
+    }
 
     function startNextStep()
     {
@@ -46,6 +53,10 @@ UiPanel {
     PanelMDCheckupModel{
         id : mdCheckupModel
 
+        Component.onCompleted:{
+            inputWaitNextStepMSec.numberValue = mdCheckupModel.waitNextStepMSec
+        }
+
         onSignalEventChangedStep: {
             aniMessage.stop();
             aniMessage.restart();
@@ -53,7 +64,8 @@ UiPanel {
 
         onSignalEventStepComplete:
         {
-            uiPanel.startNextStep();
+            //uiPanel.startNextStep();
+            uiPanel.startWaitNextStep();
         }
     }
 
@@ -76,6 +88,27 @@ UiPanel {
 
         }
     }
+
+    NumberAnimation {
+        id : aniWaitCount
+        target: textWaitNextStep
+        properties: "value"
+        duration: mdCheckupModel.waitNextStepMSec
+        from : (mdCheckupModel.waitNextStepMSec / 1000)
+        to: 0
+        running: false
+        easing.type: Easing.Linear
+
+        onFinished:
+        {
+            if(mdCheckupModel.step == QmlEnumDef.CHECKUP_INIT || mdCheckupModel.step == QmlEnumDef.CHECKUP_RESULT_STEP)
+                return;
+
+            uiPanel.startNextStep();
+
+        }
+    }
+
 
     NumberAnimation {
         id : aniMessage
@@ -111,7 +144,6 @@ UiPanel {
             anchors.rightMargin: 100
             anchors.left: parent.left
             anchors.leftMargin: 100
-
 
             textValue: mdCheckupModel.step === 0 ? qsTr("After pressing the start button, follow the prompts to perform the check.") :
                        mdCheckupModel.step === 1 ? qsTr("Put the Fe specimen on the middle.") :
@@ -323,6 +355,41 @@ UiPanel {
                 anchors.rightMargin: 0
 
             }
+        }
+    }
+
+    UiInputNumber{
+        id : inputWaitNextStepMSec
+        width: 300
+        anchors.left: parent.left; anchors.leftMargin: 100; anchors.bottom: parent.bottom; anchors.bottomMargin: 40
+        min : 0
+        max : 999999
+
+        visible: uiPanel.isAdmin
+
+        isHighlight: numberValue !== mdCheckupModel.waitNextStepMSec
+        labelText: qsTr("· Wait time")
+        inputWidth : 170
+
+        onSignalChangeValue:
+        {
+            numberValue = value
+        }
+    }
+
+    UiButton{
+        width: 200
+        height: 80
+        textValue: qsTr("Apply")
+        anchors.left: inputWaitNextStepMSec.right
+        anchors.leftMargin: 20
+        anchors.verticalCenter: inputWaitNextStepMSec.verticalCenter
+
+        visible: uiPanel.isAdmin
+
+        onSignalEventClicked:
+        {
+            mdCheckupModel.onCommandSetWaitNextStepMSec(inputWaitNextStepMSec.numberValue)
         }
     }
 
@@ -645,10 +712,35 @@ UiPanel {
 
         textValue: qsTr("Close")
 
-        visible: panel.isWCEnable
+        visible: uiPanel.isWCEnable
 
         onSignalEventClicked: {
             uiPanel.signalEventCloseClicked()
+        }
+    }
+
+    Rectangle{
+        id : textWaitNextStep
+        property int value: 0
+        anchors.fill: parent
+        color: "#59000000"
+
+        visible: value != 0
+
+        UiPanel{
+            id :panel
+
+            anchors.centerIn: parent
+            width: 700
+            height: 400
+
+            UiLabelContent{
+                id: textContent
+                anchors.centerIn: parent
+                anchors.fill: parent
+                horizontalAlignment : Text.AlignHCenter
+                textValue: qsTr("Wait until the next step is ready. ") + textWaitNextStep.value
+            }
         }
     }
 }

@@ -18,8 +18,11 @@ class PanelMDCheckupModel : public QObject
     Q_PROPERTY(int     susStep01State    READ getSusStep01State   NOTIFY signalEventChangedSusStep01State  )
     Q_PROPERTY(int     susStep02State    READ getSusStep02State   NOTIFY signalEventChangedSusStep02State  )
     Q_PROPERTY(int     susStep03State    READ getSusStep03State   NOTIFY signalEventChangedSusStep03State  )
+    Q_PROPERTY(int     waitNextStepMSec  READ getWaitNextStepMSec NOTIFY signalEventChangedWaitNextStepMSec)
 
 public:
+    bool    mIsWaitNextStep  = false;
+    int     mWaitNextStepMSec= 0;
     quint64 mDspSeq          = 0;
     int     mStep            = 0;
     QString mChekcupDateTime = "";
@@ -31,25 +34,27 @@ public:
     int     mSusStep02State  = QmlEnumDef::CHECKUP_INIT;
     int     mSusStep03State  = QmlEnumDef::CHECKUP_INIT;
 
-    int     getStep           (){ return mStep           ;}
-    QString getChekcupDateTime(){ return mChekcupDateTime;}
-    bool    getIsPass         (){ return mIsPass         ;}
-    int     getFeStep01State  (){ return mFeStep01State  ;}
-    int     getFeStep02State  (){ return mFeStep02State  ;}
-    int     getFeStep03State  (){ return mFeStep03State  ;}
-    int     getSusStep01State (){ return mSusStep01State ;}
-    int     getSusStep02State (){ return mSusStep02State ;}
-    int     getSusStep03State (){ return mSusStep03State ;}
+    int     getWaitNextStepMSec(){return mWaitNextStepMSec;}
+    int     getStep            (){ return mStep           ;}
+    QString getChekcupDateTime (){ return mChekcupDateTime;}
+    bool    getIsPass          (){ return mIsPass         ;}
+    int     getFeStep01State   (){ return mFeStep01State  ;}
+    int     getFeStep02State   (){ return mFeStep02State  ;}
+    int     getFeStep03State   (){ return mFeStep03State  ;}
+    int     getSusStep01State  (){ return mSusStep01State ;}
+    int     getSusStep02State  (){ return mSusStep02State ;}
+    int     getSusStep03State  (){ return mSusStep03State ;}
 
-    void    setStep           (int      value) { if(value == mStep           ) return; mStep            = value; emit signalEventChangedStep           (value);}
-    void    setChekcupDateTime(QString  value) { if(value == mChekcupDateTime) return; mChekcupDateTime = value; emit signalEventChangedChekcupDateTime(value);}
-    void    setIsPass         (bool     value) { if(value == mIsPass         ) return; mIsPass          = value; emit signalEventChangedIsPass         (value);}
-    void    setFeStep01State  (int      value) { if(value == mFeStep01State  ) return; mFeStep01State   = value; emit signalEventChangedFeStep01State  (value);}
-    void    setFeStep02State  (int      value) { if(value == mFeStep02State  ) return; mFeStep02State   = value; emit signalEventChangedFeStep02State  (value);}
-    void    setFeStep03State  (int      value) { if(value == mFeStep03State  ) return; mFeStep03State   = value; emit signalEventChangedFeStep03State  (value);}
-    void    setSusStep01State (int      value) { if(value == mSusStep01State ) return; mSusStep01State  = value; emit signalEventChangedSusStep01State (value);}
-    void    setSusStep02State (int      value) { if(value == mSusStep02State ) return; mSusStep02State  = value; emit signalEventChangedSusStep02State (value);}
-    void    setSusStep03State (int      value) { if(value == mSusStep03State ) return; mSusStep03State  = value; emit signalEventChangedSusStep03State (value);}
+    void    setWaitNextStepMSec(int      value) { if(value == mWaitNextStepMSec) return; mWaitNextStepMSec= value; emit signalEventChangedWaitNextStepMSec(value);}
+    void    setStep            (int      value) { if(value == mStep            ) return; mStep            = value; emit signalEventChangedStep            (value);}
+    void    setChekcupDateTime (QString  value) { if(value == mChekcupDateTime ) return; mChekcupDateTime = value; emit signalEventChangedChekcupDateTime (value);}
+    void    setIsPass          (bool     value) { if(value == mIsPass          ) return; mIsPass          = value; emit signalEventChangedIsPass          (value);}
+    void    setFeStep01State   (int      value) { if(value == mFeStep01State   ) return; mFeStep01State   = value; emit signalEventChangedFeStep01State   (value);}
+    void    setFeStep02State   (int      value) { if(value == mFeStep02State   ) return; mFeStep02State   = value; emit signalEventChangedFeStep02State   (value);}
+    void    setFeStep03State   (int      value) { if(value == mFeStep03State   ) return; mFeStep03State   = value; emit signalEventChangedFeStep03State   (value);}
+    void    setSusStep01State  (int      value) { if(value == mSusStep01State  ) return; mSusStep01State  = value; emit signalEventChangedSusStep01State  (value);}
+    void    setSusStep02State  (int      value) { if(value == mSusStep02State  ) return; mSusStep02State  = value; emit signalEventChangedSusStep02State  (value);}
+    void    setSusStep03State  (int      value) { if(value == mSusStep03State  ) return; mSusStep03State  = value; emit signalEventChangedSusStep03State  (value);}
 
     explicit PanelMDCheckupModel(QObject *parent = nullptr) : QObject(parent)
     {
@@ -58,6 +63,9 @@ public:
         mDspSeq = pDspSP->mDspList[0]->mSeq;
 
         ENABLE_SLOT_DSP_ADDED_EVENT;
+        ENABLE_SLOT_LSETTING_CHANGED_MD_CHKUP_WAIT_MSEC;
+
+        onChangedMDCheckupWaitNextStepMSec(pLSettingSP->mMDCheckupWaitNextStepMSec);
     }
 
     ~PanelMDCheckupModel()
@@ -80,25 +88,32 @@ public:
         setSusStep03State ((int)QmlEnumDef::CHECKUP_INIT);
     }
 signals:
-    void    signalEventChangedStep           (int      value);
-    void    signalEventChangedChekcupDateTime(QString  value);
-    void    signalEventChangedIsPass         (bool     value);
-    void    signalEventChangedFeStep01State  (int      value);
-    void    signalEventChangedFeStep02State  (int      value);
-    void    signalEventChangedFeStep03State  (int      value);
-    void    signalEventChangedSusStep01State (int      value);
-    void    signalEventChangedSusStep02State (int      value);
-    void    signalEventChangedSusStep03State (int      value);
+    void    signalEventChangedWaitNextStepMSec(int      value);
+    void    signalEventChangedStep            (int      value);
+    void    signalEventChangedChekcupDateTime (QString  value);
+    void    signalEventChangedIsPass          (bool     value);
+    void    signalEventChangedFeStep01State   (int      value);
+    void    signalEventChangedFeStep02State   (int      value);
+    void    signalEventChangedFeStep03State   (int      value);
+    void    signalEventChangedSusStep01State  (int      value);
+    void    signalEventChangedSusStep02State  (int      value);
+    void    signalEventChangedSusStep03State  (int      value);
 
     void    signalEventStepComplete();
 
 public slots:
+    Q_INVOKABLE void onCommandSetWaitNextStepMSec(int value)
+    {
+        pLSettingSP->setMDCheckupWaitNextStepMSec(value);
+    }
+
     Q_INVOKABLE void onCommandStart()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
         pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_CHECKUP_RUN);
     }
+
     Q_INVOKABLE void onCommandCancle()
     {
         reset();
@@ -107,6 +122,7 @@ public slots:
 
         pDspSP->sendRunCmd(mDspSeq, EnumDef::RUN_MODE_STOP);
     }
+
     Q_INVOKABLE void onCommandStartNextStep()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
@@ -116,6 +132,8 @@ public slots:
             reset();
             return;
         }
+
+        mIsWaitNextStep = false;
 
         setStep(getStep() + 1);
 
@@ -208,31 +226,37 @@ public slots:
         {
         case QmlEnumDef::CHECKUP_FE_STEP01:
             setFeStep01State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
 
         case QmlEnumDef::CHECKUP_FE_STEP02:
             setFeStep02State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
 
         case QmlEnumDef::CHECKUP_FE_STEP03:
             setFeStep03State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
 
         case QmlEnumDef::CHECKUP_SUS_STEP01:
             setSusStep01State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
 
         case QmlEnumDef::CHECKUP_SUS_STEP02:
             setSusStep02State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
 
         case QmlEnumDef::CHECKUP_SUS_STEP03:
             setSusStep03State((int)QmlEnumDef::CHECKUP_FAIL);
+            mIsWaitNextStep = true;
             emit signalEventStepComplete();
             break;
         }
@@ -241,6 +265,8 @@ public slots:
     void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
     {
         CHECK_FALSE_RETURN((mDspSeq == dspSeq));
+
+        CHECK_FALSE_RETURN((mIsWaitNextStep == false))
 
         QmlEnumDef::MDCheckUpState result;
 
@@ -285,7 +311,14 @@ public slots:
             setSusStep03State(result);
             break;
         }
+
+        mIsWaitNextStep = true;
         emit signalEventStepComplete();
+    }
+
+    void onChangedMDCheckupWaitNextStepMSec(int value)
+    {
+        setWaitNextStepMSec(value);
     }
 
 };

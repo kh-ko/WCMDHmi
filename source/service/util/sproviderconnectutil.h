@@ -30,6 +30,7 @@
 #define ENABLE_SLOT_LSETTING_CHANGED_HMI_SETTING    connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedHMISetting(HMISettingDto)      ), this, SLOT(onChangedHMISetting(HMISettingDto)      ))
 #define ENABLE_SLOT_LSETTING_CHANGED_PDBASE_SETTING connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedPdBaseSetting(PdBaseSettingDto)), this, SLOT(onChangedPdBaseSetting(PdBaseSettingDto)))
 #define ENABLE_SLOT_LSETTING_CHANGED_MAX_ERROR      connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedMaxError(quint32)              ), this, SLOT(onChangedMaxError(quint32)              ))
+#define ENABLE_SLOT_LSETTING_CHANGED_MD_CHKUP_WAIT_MSEC connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedMDCheckupWaitNextStepMSec(int)), this, SLOT(onChangedMDCheckupWaitNextStepMSec(int)))
 
 #define ENABLE_SLOT_PDSETTING_START                connect(ProductSProvider::getInstance(), SIGNAL(signalEventStarted()                         ), this, SLOT(onStartedProductSProvider()         ))
 #define ENABLE_SLOT_PDSETTING_STOP                 connect(ProductSProvider::getInstance(), SIGNAL(signalEventStopped()                         ), this, SLOT(onStoppedProductSProvider()         ))

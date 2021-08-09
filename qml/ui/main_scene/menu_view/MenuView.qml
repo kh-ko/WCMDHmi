@@ -273,7 +273,15 @@ Item {
 
     Component{ id : panelProductSetting;  PanelProductSetting  {anchors.fill: parent}}
     Component{ id : panelLoggingData;     PanelLoggingData     {anchors.fill: parent}}
-    Component{ id : panelWCCaribMDCheckUp;PanelWCCaribMDCheckup{anchors.fill: parent}}
+    Component
+    {
+        id : panelWCCaribMDCheckUp;
+        PanelWCCaribMDCheckup
+        {
+            isAdmin:  element.isSuper
+            anchors.fill: parent
+        }
+    }
     Component{ id : panelDeviceSetting;   PanelDeviceSetting   {anchors.fill: parent}}
     Component{ id : panelInformation;     PanelInformation     {anchors.fill: parent}}
     Component{ id : panelGraph;           PanelGraph           {anchors.fill: parent}}

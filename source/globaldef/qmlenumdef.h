@@ -93,14 +93,14 @@ public:
   };
 
   enum MDCheckUpStep{
-      CHECKUP_STEP_INIT   = 0,
-      CHECKUP_FE_STEP01   = 1,
-      CHECKUP_FE_STEP02   = 2,
-      CHECKUP_FE_STEP03   = 3,
-      CHECKUP_SUS_STEP01  = 4,
-      CHECKUP_SUS_STEP02  = 5,
-      CHECKUP_SUS_STEP03  = 6,
-      CHECKUP_RESULT_STEP = 7,
+      CHECKUP_STEP_INIT       = 0,
+      CHECKUP_FE_STEP01       = 1,
+      CHECKUP_FE_STEP02       = 2,
+      CHECKUP_FE_STEP03       = 3,
+      CHECKUP_SUS_STEP01      = 4,
+      CHECKUP_SUS_STEP02      = 5,
+      CHECKUP_SUS_STEP03      = 6,
+      CHECKUP_RESULT_STEP     = 7,
   };
 
   enum MDCheckUpState{

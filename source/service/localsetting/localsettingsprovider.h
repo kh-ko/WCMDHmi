@@ -111,6 +111,7 @@ private:
     const QString mPdBaseSettingMeasureSectionKey           = "pdbasesetting/MeasureSection"      ;
 
     const QString mEtcSettingMaxErrorKey                    = "etcsetting/MaxError"               ;
+    const QString mEtcSettingMDCheckupWaitNextStepMSecKey   = "etcsetting/MDCheckupWaitNextStepMSec";
 
 public:
     static LocalSettingSProvider * getInstance()
@@ -138,6 +139,7 @@ public:
     HMISettingDto            mHMISetting     ;
     PdBaseSettingDto         mPdBaseSetting  ;
     quint32                  mMaxError       ;
+    qint32                   mMDCheckupWaitNextStepMSec;
 
     explicit LocalSettingSProvider(QObject * parent = nullptr):QObject(parent)
     {
@@ -285,6 +287,15 @@ public:
         emit signalEventChangedMaxError(mMaxError);
     }
 
+    void setMDCheckupWaitNextStepMSec(int value)
+    {
+        CHECK_FALSE_RETURN(mIsRunning)
+
+        internalSetMDCheckupWaitNextStepMSec(value);
+
+        emit signalEventChangedMDCheckupWaitNextStepMSec(value);
+    }
+
 private slots:
     void onStartLanguageLoad()
     {
@@ -404,6 +415,8 @@ private:
 
         mMaxError                                                  = mpSetting->value(mEtcSettingMaxErrorKey                   , pDefaultSP->ETC_SETTING_MAX_ERROR                                  ).toInt()   ;
 
+        mMDCheckupWaitNextStepMSec                                 = mpSetting->value(mEtcSettingMDCheckupWaitNextStepMSecKey  , pDefaultSP->ETC_SETTING_MDCHECKUP_NEXT_STEP_WAIT_MSEC              ).toInt()   ;
+
         internalSetInformation    (mInformation);
         internalSetSecurity       (mSecuritySetting);
         internalSetLanuguage      (mLanguage);
@@ -416,6 +429,7 @@ private:
         internalSetHMISetting     (mHMISetting);
         internalSetPdBaseSetting  (mPdBaseSetting);
         internalSetMaxError       (mMaxError);
+        internalSetMDCheckupWaitNextStepMSec(mMDCheckupWaitNextStepMSec);
     }
 
     void internalSetInformation(InformationDto dto)
@@ -571,6 +585,13 @@ private:
         mpSetting->setValue(mEtcSettingMaxErrorKey, value);
     }
 
+    void internalSetMDCheckupWaitNextStepMSec(int value)
+    {
+        mMDCheckupWaitNextStepMSec = value;
+
+        mpSetting->setValue(mEtcSettingMDCheckupWaitNextStepMSecKey, value);
+    }
+
 signals:
     void signalEventStarted        ();
     void signalEventStopped        ();
@@ -586,5 +607,6 @@ signals:
     void signalEventChangedHMISetting(HMISettingDto dto);
     void signalEventChangedPdBaseSetting(PdBaseSettingDto dto);
     void signalEventChangedMaxError(quint32 value);
+    void signalEventChangedMDCheckupWaitNextStepMSec(int value);
 };
 #endif // LOCALSETTINGSPROVIDER_H
