@@ -1,7 +1,10 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQuick.VirtualKeyboard 2.4
+import QtQuick.VirtualKeyboard.Settings 2.2
 import ViewManager 1.0
 import FontManager 1.0
+import EnumDef 1.0
 import QmlEnumDef 1.0
 import "."
 import "../../control/"
@@ -126,9 +129,18 @@ Item {
     MainSceneModel{
         id : model
 
+        Component.onCompleted: {
+            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_ENG ? "en_GB" : "ko_KR")
+        }
+
         onSignalEventChangedWeightFixedN :
         {
             ViewManager.weightFixedN = model.weightFixedN;
+        }
+
+        onLanguageChanged:
+        {
+            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_ENG ? "en_GB" : "ko_KR")
         }
 
         onSignalEventChangedIsWait: {
@@ -175,6 +187,7 @@ Item {
         isRun: model.isRun
         isComm : model.isComm
         isAlarm : model.isAlarm
+        isInet: model.isInet
         isNeedBackup : paenlBackup.isNeedBackup
         onSignalEventAlarmClicked :{
             panelDebug.visible = true;

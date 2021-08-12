@@ -14,6 +14,7 @@ Item {
     property bool   isComm : true
     property bool   isAlarm : true
     property bool   isNeedBackup : false
+    property bool   isInet : false
 
     signal signalEventAlarmClicked()
 
@@ -77,7 +78,7 @@ Item {
         width: 30
         height: 30
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: indiComm.left
+        anchors.right: indiInet.left
         anchors.rightMargin: 20
 
         glowOnColor: "#590085FF"
@@ -88,9 +89,23 @@ Item {
     }
 
     UiIndicate{
+        id : indiInet
+        width: 35
+        height: 35
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: indiComm.left
+        anchors.rightMargin: 20
+
+        glowOnColor: "#590085FF"
+        onImage: "img/indicator/inet_enable_indi.png"
+        offImage: "img/indicator/inet_disable_indi.png"
+        isOn : panel.isInet
+    }
+
+    UiIndicate{
         id : indiComm
-        width: 30
-        height: 30
+        width: 35
+        height: 35
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: indiAlarm.left
         anchors.rightMargin: 20

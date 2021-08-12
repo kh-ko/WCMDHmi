@@ -11,6 +11,7 @@ class PanelInformationModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool    isRunVnc                     READ getIsRunVnc                    NOTIFY  signalEventChangedIsRunVnc             )
+    Q_PROPERTY(bool    isConnInternet               READ getIsConnInternet              NOTIFY  signalEventChangedIsConnInternet       )
     Q_PROPERTY(bool    isEnableWC                   READ getIsEnableWC                  NOTIFY  signalEventChangedIsEnableWC           )
     Q_PROPERTY(QString company                      READ getCompany                     NOTIFY  signalEventChangedCompany              )
     Q_PROPERTY(QString model                        READ getModel                       NOTIFY  signalEventChangedModel                )
@@ -22,6 +23,8 @@ class PanelInformationModel : public QObject
     Q_PROPERTY(QString ip                           READ getIp                          NOTIFY  signalEventChangedIp                   )
     Q_PROPERTY(QString homepage                     READ getHomepage                    NOTIFY  signalEventChangedHomepage             )
     Q_PROPERTY(int     maxWeight                    READ getMaxWeight                   NOTIFY  signalEventChangedMaxWeight            )
+    Q_PROPERTY(QString vncIp                        READ getVncIp                       NOTIFY  signalEventChangedVncIp                )
+
     Q_PROPERTY(quint16 sensorLength                 READ getSensorLength                NOTIFY  signalEventChangedSensorLength         )
     Q_PROPERTY(quint16 distBtwSensor                READ getDistBtwSensor               NOTIFY  signalEventChangedDistBtwSensor        )
     Q_PROPERTY(quint16 distToWC                     READ getDistToWC                    NOTIFY  signalEventChangedDistToWC             )
@@ -36,6 +39,7 @@ class PanelInformationModel : public QObject
     Q_PROPERTY(bool    isEditIp                     READ getIsEditIp                    NOTIFY  signalEventChangedIsEditIp                      )
     Q_PROPERTY(bool    isEditHomepage               READ getIsEditHomepage              NOTIFY  signalEventChangedIsEditHomepage                )
     Q_PROPERTY(bool    isEditMaxWeight              READ getIsEditMaxWeight             NOTIFY  signalEventChangedIsEditMaxWeight               )
+    Q_PROPERTY(bool    isEditVncIp                  READ getIsEditVncIp                 NOTIFY  signalEventChangedIsEditVncIp                   )
     Q_PROPERTY(bool    isEditSensorLength           READ getIsEditSensorLength          NOTIFY  signalEventChangedIsEditSensorLength            )
     Q_PROPERTY(bool    isEditDistBtwSensor          READ getIsEditDistBtwSensor         NOTIFY  signalEventChangedIsEditDistBtwSensor           )
     Q_PROPERTY(bool    isEditDistToWC               READ getIsEditDistToWC              NOTIFY  signalEventChangedIsEditDistToWC                )
@@ -48,6 +52,7 @@ class PanelInformationModel : public QObject
 public:
     quint64 mDspSeq                    = 0;
     bool    mIsRunVnc                  = false;
+    bool    mIsConnInternet            = false;
     bool    mIsEnableWC                = true;
     QString mCompany                   ;
     QString mModel                     ;
@@ -59,6 +64,7 @@ public:
     QString mIp                        ="";
     QString mHomepage                  ;
     int     mMaxWeight                 ;
+    QString mVncIp                     ="";
     quint16 mSensorLength              ;
     quint16 mDistBtwSensor             ;
     quint16 mDistToWC                  ;
@@ -73,6 +79,7 @@ public:
     bool    mIsEditIp                  ;
     bool    mIsEditHomepage            ;
     bool    mIsEditMaxWeight           ;
+    bool    mIsEditVncIp               ;
     bool    mIsEditSensorLength        ;
     bool    mIsEditDistBtwSensor       ;
     bool    mIsEditDistToWC            ;
@@ -83,6 +90,7 @@ public:
     bool    mIsEditDistToSorter04      ;
 
     bool    getIsRunVnc                  (){ return mIsRunVnc                  ;}
+    bool    getIsConnInternet            (){ return mIsConnInternet            ;}
     bool    getIsEnableWC                (){ return mIsEnableWC                ;}
     QString getCompany                   (){ return mCompany                   ;}
     QString getModel                     (){ return mModel                     ;}
@@ -94,6 +102,7 @@ public:
     QString getIp                        (){ return mIp                        ;}
     QString getHomepage                  (){ return mHomepage                  ;}
     int     getMaxWeight                 (){ return mMaxWeight                 ;}
+    QString getVncIp                     (){ return mVncIp                     ;}
     quint16 getSensorLength              (){ return mSensorLength              ;}
     quint16 getDistBtwSensor             (){ return mDistBtwSensor             ;}
     quint16 getDistToWC                  (){ return mDistToWC                  ;}
@@ -108,6 +117,7 @@ public:
     bool    getIsEditIp                  (){ return mIsEditIp                  ;}
     bool    getIsEditHomepage            (){ return mIsEditHomepage            ;}
     bool    getIsEditMaxWeight           (){ return mIsEditMaxWeight           ;}
+    bool    getIsEditVncIp               (){ return mIsEditVncIp               ;}
     bool    getIsEditSensorLength        (){ return mIsEditSensorLength        ;}
     bool    getIsEditDistBtwSensor       (){ return mIsEditDistBtwSensor       ;}
     bool    getIsEditDistToWC            (){ return mIsEditDistToWC            ;}
@@ -118,6 +128,7 @@ public:
     bool    getIsEditDistToSorter04      (){ return mIsEditDistToSorter04      ;}
 
     void    setIsRunVnc                  (bool     value){ if(value == mIsRunVnc                  ) return; mIsRunVnc                   = value; emit signalEventChangedIsRunVnc                  (value);}
+    void    setIsConnInternet            (bool     value){ if(value == mIsConnInternet            ) return; mIsConnInternet             = value; emit signalEventChangedIsConnInternet            (value);}
     void    setIsEnableWC                (bool     value){ if(value == mIsEnableWC                ) return; mIsEnableWC                 = value; emit signalEventChangedIsEnableWC                (value);}
     void    setCompany                   (QString  value){ if(value == mCompany                   ) return; mCompany                    = value; emit signalEventChangedCompany                   (value);}
     void    setModel                     (QString  value){ if(value == mModel                     ) return; mModel                      = value; emit signalEventChangedModel                     (value);}
@@ -129,6 +140,7 @@ public:
     void    setIp                        (QString  value){ if(value == mIp                        ) return; mIp                         = value; setIsEditIp                  (true);             emit signalEventChangedIp                        (value);}
     void    setHomepage                  (QString  value){ if(value == mHomepage                  ) return; mHomepage                   = value; setIsEditHomepage            (true);             emit signalEventChangedHomepage                  (value);}
     void    setMaxWeight                 (int      value){ if(value == mMaxWeight                 ) return; mMaxWeight                  = value; setIsEditMaxWeight           (true);             emit signalEventChangedMaxWeight                 (value);}
+    void    setVncIp                     (QString  value){ if(value == mVncIp                     ) return; mVncIp                      = value; setIsEditVncIp               (true);             emit signalEventChangedVncIp                     (value);}
     void    setSensorLength              (quint16  value){ if(value == mSensorLength              ) return; mSensorLength               = value; setIsEditSensorLength        (true);             emit signalEventChangedSensorLength              (value);}
     void    setDistBtwSensor             (quint16  value){ if(value == mDistBtwSensor             ) return; mDistBtwSensor              = value; setIsEditDistBtwSensor       (true);             emit signalEventChangedDistBtwSensor             (value);}
     void    setDistToWC                  (quint16  value){ if(value == mDistToWC                  ) return; mDistToWC                   = value; setIsEditDistToWC            (true);             emit signalEventChangedDistToWC                  (value);}
@@ -143,6 +155,7 @@ public:
     void    setIsEditIp                  (bool     value){ if(value == mIsEditIp                  ) return; mIsEditIp                   = value; emit signalEventChangedIsEditIp                  (value);}
     void    setIsEditHomepage            (bool     value){ if(value == mIsEditHomepage            ) return; mIsEditHomepage             = value; emit signalEventChangedIsEditHomepage            (value);}
     void    setIsEditMaxWeight           (bool     value){ if(value == mIsEditMaxWeight           ) return; mIsEditMaxWeight            = value; emit signalEventChangedIsEditMaxWeight           (value);}
+    void    setIsEditVncIp               (bool     value){ if(value == mIsEditVncIp               ) return; mIsEditVncIp                = value; emit signalEventChangedIsEditVncIp               (value);}
     void    setIsEditSensorLength        (bool     value){ if(value == mIsEditSensorLength        ) return; mIsEditSensorLength         = value; emit signalEventChangedIsEditSensorLength        (value);}
     void    setIsEditDistBtwSensor       (bool     value){ if(value == mIsEditDistBtwSensor       ) return; mIsEditDistBtwSensor        = value; emit signalEventChangedIsEditDistBtwSensor       (value);}
     void    setIsEditDistToWC            (bool     value){ if(value == mIsEditDistToWC            ) return; mIsEditDistToWC             = value; emit signalEventChangedIsEditDistToWC            (value);}
@@ -160,9 +173,11 @@ public:
         }
         reset();
 
-        ENABLE_SLOT_VNC_CHANGED_STATUS;
+        ENABLE_SLOT_VNC_CHANGED_IS_CONN_VIEW;
+        ENABLE_SLOT_VNC_CHANGED_IS_CONN_INTERNET;
 
-        onVncChangedStatus(pVncSP->isRun());
+        onVncChangedIsConnInternet(pVncSP->isConnInternet());
+        onVncChangedIsConnView(pVncSP->isRun());
     }
     void reset()
     {
@@ -187,6 +202,7 @@ public:
         setPower                     (pLSettingSP->mInformation.mPower                                       );
         setHomepage                  (pLSettingSP->mInformation.mHomepage                                    );
         setMaxWeight                 (pLSettingSP->mInformation.mMaxWeight                                   );
+        setVncIp                     (pLSettingSP->mVNCViewIP                                                );
         setSensorLength              (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mSensorLength           );
         setDistBtwSensor             (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceBtwSensor      );
         setDistToWC                  (pLSettingSP->mDevSetting.mDspForm.mSizeSetting.mDistanceToWeightChecker);
@@ -200,6 +216,7 @@ public:
         setIsEditHomepage            (false);
         setIsEditDeviceNumber        (false);
         setIsEditMaxWeight           (false);
+        setIsEditVncIp               (false);
         setIsEditSensorLength        (false);
         setIsEditDistBtwSensor       (false);
         setIsEditDistToWC            (false);
@@ -212,6 +229,7 @@ public:
 
 signals:
     void signalEventChangedIsRunVnc                  (bool     value);
+    void signalEventChangedIsConnInternet            (bool     value);
     void signalEventChangedIsEnableWC                (bool     value);
     void signalEventChangedCompany                   (QString  value);
     void signalEventChangedModel                     (QString  value);
@@ -223,6 +241,7 @@ signals:
     void signalEventChangedIp                        (QString  value);
     void signalEventChangedHomepage                  (QString  value);
     void signalEventChangedMaxWeight                 (int      value);
+    void signalEventChangedVncIp                     (QString  value);
     void signalEventChangedSensorLength              (quint16  value);
     void signalEventChangedDistBtwSensor             (quint16  value);
     void signalEventChangedDistToWC                  (quint16  value);
@@ -237,6 +256,7 @@ signals:
     void signalEventChangedIsEditIp                  (bool     value);
     void signalEventChangedIsEditHomepage            (bool     value);
     void signalEventChangedIsEditMaxWeight           (bool     value);
+    void signalEventChangedIsEditVncIp               (bool     value);
     void signalEventChangedIsEditSensorLength        (bool     value);
     void signalEventChangedIsEditDistBtwSensor       (bool     value);
     void signalEventChangedIsEditDistToWC            (bool     value);
@@ -260,7 +280,7 @@ public slots:
         }
         else
         {
-            pVncSP->runCmd(QString("vncserver-x11 -iconnect %1").arg(pDefaultSP->VNC_VIEW_IP));
+            pVncSP->runCmd(QString("vncserver-x11 -iconnect %1").arg(pLSettingSP->mVNCViewIP));
         }
     }
 
@@ -322,6 +342,8 @@ public slots:
 
         pDspSP->sendNetSetting(mDspSeq, netSetting);
 
+        pLSettingSP->setVNCViewIP(mVncIp);
+
         reset();
 
         emit signalResultSaveInformation(0);
@@ -339,6 +361,7 @@ public slots:
     Q_INVOKABLE void onCommandSetIp                        (QString  value){setIp                   (value);}
     Q_INVOKABLE void onCommandSetHomepage                  (QString  value){setHomepage             (value);}
     Q_INVOKABLE void onCommandSetMaxWeight                 (int      value){setMaxWeight            (value);}
+    Q_INVOKABLE void onCommandSetVncIp                     (QString  value){setVncIp                (value);}
     Q_INVOKABLE void onCommandSetSensorLength              (quint16  value){setSensorLength         (value);}
     Q_INVOKABLE void onCommandSetDistBtwSensor             (quint16  value){setDistBtwSensor        (value);}
     Q_INVOKABLE void onCommandSetDistToWC                  (quint16  value){setDistToWC             (value);}
@@ -349,9 +372,15 @@ public slots:
     Q_INVOKABLE void onCommandSetDistToSorter04            (quint16  value){setDistToSorter04       (value);}
     Q_INVOKABLE void onCommandRefVoltageReset              (              ){pDspSP->sendAllRefVoltageResetCmd();}
 
-    void onVncChangedStatus(bool isRun)
+    void onVncChangedIsConnView(bool isRun)
     {
         setIsRunVnc(isRun);
+    }
+
+    void onVncChangedIsConnInternet(bool isConnInternet)
+    {
+        qDebug() << "[PanelInformationModel][onVncChangedIsConnInternet]" << isConnInternet;
+        setIsConnInternet(isConnInternet);
     }
 
 };

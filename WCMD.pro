@@ -61,6 +61,7 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/searchdspdlgmodel.h \
+    source/qmlmodel/wcmd/menu_scene/information/searchssiddlgmodel.h \
     source/qmlmodel/wcmd/menu_scene/loggingdata/loggingdatamodel.h \
     source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/productsetting/panelproductsettingmodel.h \
@@ -79,6 +80,7 @@ HEADERS += \
     source/service/dsp/dspsprovider.h \
     source/service/dsp/packet/dsppacket.h \
     source/service/dsp/packet/dsppacketstruct.h \
+    source/service/dto/appointdto.h \
     source/service/dto/devsettingdto.h \
     source/service/dto/dspconninfodto.h \
     source/service/dto/dspdevsettingdto.h \

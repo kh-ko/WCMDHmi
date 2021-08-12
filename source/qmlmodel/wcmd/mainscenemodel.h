@@ -10,6 +10,7 @@
 class MainSceneModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int     language           READ getLanguage            NOTIFY signalEventChangedLanguage          )
     Q_PROPERTY(bool    swPowerOff         READ getSWPowerOff          NOTIFY signalEventChangedSWPowerOff        )
     Q_PROPERTY(bool    isWCEnable         READ getIsWCEnable          NOTIFY signalEventChangedIsWCEnable        )
     Q_PROPERTY(bool    isMDEnable         READ getIsMDEnable          NOTIFY signalEventChangedIsMDEnable        )
@@ -19,6 +20,7 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    isZeroProc         READ getIsZeroProc          NOTIFY signalEventChangedIsZeroProc        )
     Q_PROPERTY(bool    isRun              READ getIsRun               NOTIFY signalEventChangedIsRun             )
     Q_PROPERTY(bool    isComm             READ getIsComm              NOTIFY signalEventChangedIsComm            )
+    Q_PROPERTY(bool    isInet             READ getIsInet              NOTIFY signalEventChangedIsInet            )
     Q_PROPERTY(bool    isAlarm            READ getIsAlarm             NOTIFY signalEventChangedIsAlarm           )
     Q_PROPERTY(bool    isWCSensorAlarm    READ getIsWCSensorAlarm     NOTIFY signalEventChangedIsWCSensorAlarm   )
     Q_PROPERTY(bool    isWCPhotoAlarm     READ getIsWCPhotoAlarm      NOTIFY signalEventChangedIsWCPhotoAlarm    )
@@ -36,6 +38,7 @@ class MainSceneModel : public QObject
 public:
     quint64 mDspSeq            = 0;
 
+    int     mLanguage          = EnumDef::LANG_KOR;
     bool    mSWPowerOff        = false;
     bool    mIsWCEnable        = true;
     bool    mIsMDEnable        = true;
@@ -45,6 +48,7 @@ public:
     bool    mIsZeroProc        = false;
     bool    mIsRun             = false;
     bool    mIsComm            = false;
+    bool    mIsInet            = false;
     bool    mIsAlarm           = false;
     bool    mIsWCSensorAlarm   = false;
     bool    mIsWCPhotoAlarm    = false;
@@ -61,6 +65,7 @@ public:
     QString mPassword          = "";
     int     mWeightFixedN      = 1;
 
+    int      getLanguage         (){ return mLanguage         ;}
     bool     getSWPowerOff       (){ return mSWPowerOff       ;}
     bool     getIsWCEnable       (){ return mIsWCEnable       ;}
     bool     getIsMDEnable       (){ return mIsMDEnable       ;}
@@ -70,6 +75,7 @@ public:
     bool     getIsZeroProc       (){ return mIsZeroProc       ;}
     bool     getIsRun            (){ return mIsRun            ;}
     bool     getIsComm           (){ return mIsComm           ;}
+    bool     getIsInet           (){ return mIsInet           ;}
     bool     getIsAlarm          (){ return (mIsAlarm || mIsMDSpeedAlarm);}
     bool     getIsWCSensorAlarm  (){ return mIsWCSensorAlarm  ;}
     bool     getIsWCPhotoAlarm   (){ return mIsWCPhotoAlarm   ;}
@@ -84,6 +90,7 @@ public:
     QString  getClock            (){ return mClock            ;}
     int      getWeightFixedN     (){ return mWeightFixedN     ;}
 
+    void     setLanguage         (int     value){ if(value == mLanguage         )return; mLanguage          = value; emit signalEventChangedLanguage         (value);}
     void     setSWPowerOff       (bool    value){ if(value == mSWPowerOff       )return; mSWPowerOff        = value; emit signalEventChangedSWPowerOff       (value);}
     void     setIsWCEnable       (bool    value){ if(value == mIsWCEnable       )return; mIsWCEnable        = value; emit signalEventChangedIsWCEnable       (value);}
     void     setIsMDEnable       (bool    value){ if(value == mIsMDEnable       )return; mIsMDEnable        = value; emit signalEventChangedIsMDEnable       (value);}
@@ -93,6 +100,7 @@ public:
     void     setTel              (QString value){ if(value == getTel    ()      )return; mTel               = value; emit signalEventChangedTel              (value);}
     void     setIsRun            (bool    value){ if(value == getIsRun  ()      )return; mIsRun             = value; emit signalEventChangedIsRun            (value);}
     void     setIsComm           (bool    value){ if(value == getIsComm ()      )return; mIsComm            = value; emit signalEventChangedIsComm           (value);}
+    void     setIsInet           (bool    value){ if(value == getIsInet ()      )return; mIsInet            = value; emit signalEventChangedIsInet           (value);}
     void     setIsAlarm          (bool    value){ if(value == mIsAlarm          )return; mIsAlarm           = value; emit signalEventChangedIsAlarm          (getIsAlarm());}
     void     setIsWCSensorAlarm  (bool    value){ if(value == mIsWCSensorAlarm  )return; mIsWCSensorAlarm   = value; emit signalEventChangedIsWCSensorAlarm  (value);}
     void     setIsWCPhotoAlarm   (bool    value){ if(value == mIsWCPhotoAlarm   )return; mIsWCPhotoAlarm    = value; emit signalEventChangedIsWCPhotoAlarm   (value);}
@@ -107,6 +115,7 @@ public:
     void     setClock            (QString value){ if(value == getClock  ()      )return; mClock             = value; emit signalEventChangedClock            (value);}
     void     setWeightFixedN     (int     value){ if(value == mWeightFixedN     )return; mWeightFixedN      = value; emit signalEventChangedWeightFixedN     (value);}
 signals:
+    void signalEventChangedLanguage         (int     value);
     void signalEventChangedSWPowerOff       (bool    value);
     void signalEventChangedIsWCEnable       (bool    value);
     void signalEventChangedIsMDEnable       (bool    value);
@@ -116,6 +125,7 @@ signals:
     void signalEventChangedIsZeroProc       (bool    value);
     void signalEventChangedIsRun            (bool    value);
     void signalEventChangedIsComm           (bool    value);
+    void signalEventChangedIsInet           (bool    value);
     void signalEventChangedIsAlarm          (bool    value);
     void signalEventChangedIsWCSensorAlarm  (bool    value);
     void signalEventChangedIsWCPhotoAlarm   (bool    value);
@@ -190,6 +200,11 @@ public slots:
 
 //  down layer ===================================================================================
 public slots:
+    void onChangedLang(int lang)
+    {
+        setLanguage(lang);
+    }
+
     void onChangedInformation(InformationDto dto)
     {
         setCompany(dto.mCompany);
@@ -233,6 +248,12 @@ public slots:
 
         setIsComm(pDsp->mIsConnect);
     }
+
+    void onVncChangedIsConnInternet(bool value)
+    {
+        setIsInet(value);
+    }
+
     void onChangedRefVoltage(quint64 dspSeq, qint32 value)
     {
         qDebug() << "[debug]onChangedRefVoltage = " << value;
@@ -282,6 +303,9 @@ public slots:
 public:
     explicit MainSceneModel(QObject *parent = nullptr): QObject(parent)
     {
+        ENABLE_SLOT_LSETTING_CHANGED_LANG;
+        onChangedLang(pLSettingSP->mLanguage);
+
         ENABLE_SLOT_LSETTING_CHANGED_INFO;
         onChangedInformation(pLSettingSP->mInformation);
 
@@ -293,6 +317,9 @@ public:
 
         ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
         onChangedCurrPDSetting(pProductSP->mCurrPD);
+
+        ENABLE_SLOT_VNC_CHANGED_IS_CONN_INTERNET;
+        onVncChangedIsConnInternet(pVncSP->isConnInternet());
 
         ENABLE_SLOT_TIMER_TICK;
 

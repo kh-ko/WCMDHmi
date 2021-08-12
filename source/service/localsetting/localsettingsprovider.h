@@ -112,6 +112,7 @@ private:
 
     const QString mEtcSettingMaxErrorKey                    = "etcsetting/MaxError"               ;
     const QString mEtcSettingMDCheckupWaitNextStepMSecKey   = "etcsetting/MDCheckupWaitNextStepMSec";
+    const QString mEtcSettingVNCViewIPKey                  = "etcsetting/VNCViewIP"             ;
 
 public:
     static LocalSettingSProvider * getInstance()
@@ -140,6 +141,7 @@ public:
     PdBaseSettingDto         mPdBaseSetting  ;
     quint32                  mMaxError       ;
     qint32                   mMDCheckupWaitNextStepMSec;
+    QString                  mVNCViewIP;
 
     explicit LocalSettingSProvider(QObject * parent = nullptr):QObject(parent)
     {
@@ -204,6 +206,8 @@ public:
         CHECK_FALSE_RETURN(mIsRunning)
 
         internalSetLanuguage(lang);
+
+        emit signalEventChangedLang((int)lang);
     }
 
     void setGUIIsDetail(bool value)
@@ -294,6 +298,15 @@ public:
         internalSetMDCheckupWaitNextStepMSec(value);
 
         emit signalEventChangedMDCheckupWaitNextStepMSec(value);
+    }
+
+    void setVNCViewIP(QString value)
+    {
+        CHECK_FALSE_RETURN(mIsRunning)
+
+        internalSetVNCViewIP(value);
+
+        emit signalEventChangedVNCViewIP(value);
     }
 
 private slots:
@@ -417,6 +430,8 @@ private:
 
         mMDCheckupWaitNextStepMSec                                 = mpSetting->value(mEtcSettingMDCheckupWaitNextStepMSecKey  , pDefaultSP->ETC_SETTING_MDCHECKUP_NEXT_STEP_WAIT_MSEC              ).toInt()   ;
 
+        mVNCViewIP                                                 = mpSetting->value(mEtcSettingVNCViewIPKey                  , pDefaultSP->VNC_VIEW_IP                                            ).toString();
+
         internalSetInformation    (mInformation);
         internalSetSecurity       (mSecuritySetting);
         internalSetLanuguage      (mLanguage);
@@ -430,6 +445,7 @@ private:
         internalSetPdBaseSetting  (mPdBaseSetting);
         internalSetMaxError       (mMaxError);
         internalSetMDCheckupWaitNextStepMSec(mMDCheckupWaitNextStepMSec);
+        internalSetVNCViewIP      (mVNCViewIP);
     }
 
     void internalSetInformation(InformationDto dto)
@@ -592,10 +608,18 @@ private:
         mpSetting->setValue(mEtcSettingMDCheckupWaitNextStepMSecKey, value);
     }
 
+    void internalSetVNCViewIP(QString value)
+    {
+        mVNCViewIP = value;
+
+        mpSetting->setValue(mEtcSettingVNCViewIPKey, value);
+    }
+
 signals:
     void signalEventStarted        ();
     void signalEventStopped        ();
 
+    void signalEventChangedLang(int lang);
     void signalEventChangedIsDetail(bool value);
     void signalEventChangedViewMode(int value);
     void signalEventChangedPDSortMode(int value);
@@ -608,5 +632,6 @@ signals:
     void signalEventChangedPdBaseSetting(PdBaseSettingDto dto);
     void signalEventChangedMaxError(quint32 value);
     void signalEventChangedMDCheckupWaitNextStepMSec(int value);
+    void signalEventChangedVNCViewIP(QString value);
 };
 #endif // LOCALSETTINGSPROVIDER_H

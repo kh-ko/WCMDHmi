@@ -20,6 +20,7 @@
 
 #define ENABLE_SLOT_LSETTING_START                  connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventStarted()                             ), this, SLOT(onStartedLocalSettingSProvider()        ))
 #define ENABLE_SLOT_LSETTING_STOP                   connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventStopped()                             ), this, SLOT(onStoppedLocalSettingSProvider()        ))
+#define ENABLE_SLOT_LSETTING_CHANGED_LANG           connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedLang(int)                      ), this, SLOT(onChangedLang(int)                      ))
 #define ENABLE_SLOT_LSETTING_CHANGED_ISDETAIL       connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedIsDetail(bool)                 ), this, SLOT(onChangedGuiIsDetail(bool)              ))
 #define ENABLE_SLOT_LSETTING_CHANGED_VIEWMODE       connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedViewMode(int)                  ), this, SLOT(onChangedViewMode(int)                  ))
 #define ENABLE_SLOT_LSETTING_CHANGED_PDSORTMODE     connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedPDSortMode(int)                ), this, SLOT(onChangedPDSortMode(int)                ))
@@ -31,6 +32,7 @@
 #define ENABLE_SLOT_LSETTING_CHANGED_PDBASE_SETTING connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedPdBaseSetting(PdBaseSettingDto)), this, SLOT(onChangedPdBaseSetting(PdBaseSettingDto)))
 #define ENABLE_SLOT_LSETTING_CHANGED_MAX_ERROR      connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedMaxError(quint32)              ), this, SLOT(onChangedMaxError(quint32)              ))
 #define ENABLE_SLOT_LSETTING_CHANGED_MD_CHKUP_WAIT_MSEC connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedMDCheckupWaitNextStepMSec(int)), this, SLOT(onChangedMDCheckupWaitNextStepMSec(int)))
+#define ENABLE_SLOT_LSETTING_CHANGED_VNC_VIEW_IP    connect(LocalSettingSProvider::getInstance(), SIGNAL(signalEventChangedVNCViewIP(QString)             ), this, SLOT(onChangedVNCViewIP(QString)             ))
 
 #define ENABLE_SLOT_PDSETTING_START                connect(ProductSProvider::getInstance(), SIGNAL(signalEventStarted()                         ), this, SLOT(onStartedProductSProvider()         ))
 #define ENABLE_SLOT_PDSETTING_STOP                 connect(ProductSProvider::getInstance(), SIGNAL(signalEventStopped()                         ), this, SLOT(onStoppedProductSProvider()         ))

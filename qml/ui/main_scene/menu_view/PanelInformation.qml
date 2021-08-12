@@ -298,6 +298,29 @@ UiPanel {
         }
     }
 
+    UiInputString {
+        id: inputVNCView
+        height: 60
+
+        anchors.top: inputIP.bottom
+        anchors.topMargin: 20
+        anchors.leftMargin: 20
+        anchors.left: parent.left
+        anchors.right: divider.left
+        anchors.rightMargin: 20
+
+        inputWidth: 300
+        labelText: qsTr("· VNC SERVER IP")
+
+        isDisable: !uiPanel.isAdmin
+        isHighlight: informationModel.isEditVncIp
+        textValue: informationModel.vncIp
+
+        onSignalChangeText: {
+            informationModel.onCommandSetVncIp(value)
+        }
+    }
+
     UiDivider{
         id : divider
         x: 600
@@ -587,9 +610,25 @@ UiPanel {
 
         onSignalEventClicked:
         {
-           informationModel.onCommandRemoteCtrl()
+            informationModel.onCommandRemoteCtrl()
         }
+    }
 
+    UiButton{
+        id : btnWIFI
+        width : 200
+        height : 80
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.left: btnRemoteCtrl.right
+        anchors.leftMargin: 10
+
+        textValue: qsTr("WIFI Setting")
+
+        onSignalEventClicked:
+        {
+            searchSSIDDlg.show();
+        }
     }
 
     UiButton{
@@ -603,6 +642,7 @@ UiPanel {
 
         visible: informationModel.isEditPower                     ||
                  informationModel.isEditIp                        ||
+                 informationModel.isEditVncIp                     ||
                  informationModel.isEditHomepage                  ||
                  informationModel.isEditMaxWeight                 ||
                  informationModel.isEditDistBtwPhotoToSensor      ||
@@ -645,6 +685,15 @@ UiPanel {
         }
     }
 
+    SearchSSIDDlg
+    {
+        id : searchSSIDDlg
+
+        onSignalEventConnectedAP: {
+         close()
+        }
+    }
+
     Component{
         id : searchDspDlg
 
@@ -654,6 +703,7 @@ UiPanel {
              }
         }
     }
+
 }
 
 /*##^##

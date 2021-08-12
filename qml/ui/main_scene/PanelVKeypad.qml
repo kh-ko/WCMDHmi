@@ -3,6 +3,7 @@ import "../../control/"
 
 Item {
     id : panel
+
     anchors.fill: parent
 
     function showKeypad(value)
