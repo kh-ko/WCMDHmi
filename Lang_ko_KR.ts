@@ -120,14 +120,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="275"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="326"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="276"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="327"/>
         <source>Please enter your password.</source>
         <translation>비밀번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="295"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="340"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="296"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="341"/>
         <source>Please check password</source>
         <oldsource>Invaild password</oldsource>
         <translation>비밀번호가 잘못되었습니다</translation>
@@ -1507,13 +1507,11 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="150"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="153"/>
         <source>Put the Fe specimen on the left.</source>
         <translation>왼편에 Fe시편을 놓아주세요.</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="151"/>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="154"/>
         <source>Put the Fe specimen on the right.</source>
         <translation>오른편에 Fe시편을 놓아주세요.</translation>
     </message>
@@ -1523,9 +1521,19 @@
         <translation>가운데 Sus 시편을 놓아주세요.</translation>
     </message>
     <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="153"/>
+        <source>Put the Sus specimen on the left.</source>
+        <translation>왼편에 Sus시편을 놓아주세요.</translation>
+    </message>
+    <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="154"/>
         <source>Check is complete.</source>
         <translation>점검이 완료되었습니다.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="154"/>
+        <source>Put the Sus specimen on the right.</source>
+        <translation>오른편에 Sus시편을 놓아주세요.</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="201"/>

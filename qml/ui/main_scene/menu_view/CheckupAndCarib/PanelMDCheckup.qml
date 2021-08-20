@@ -150,8 +150,8 @@ UiPanel {
                        mdCheckupModel.step === 2 ? qsTr("Put the Fe specimen on the left.") :
                        mdCheckupModel.step === 3 ? qsTr("Put the Fe specimen on the right.") :
                        mdCheckupModel.step === 4 ? qsTr("Put the Sus specimen on the middle.") :
-                       mdCheckupModel.step === 5 ? qsTr("Put the Fe specimen on the left.") :
-                       mdCheckupModel.step === 6 ? qsTr("Put the Fe specimen on the right.") : qsTr("Check is complete.")
+                       mdCheckupModel.step === 5 ? qsTr("Put the Sus specimen on the left.") :
+                       mdCheckupModel.step === 6 ? qsTr("Put the Sus specimen on the right.") : qsTr("Check is complete.")
         }
 
         Rectangle{
