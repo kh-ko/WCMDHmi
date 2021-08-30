@@ -59,7 +59,7 @@ public slots:
         QString devType = "Combi";
         QString devStats = "{}";
 
-        qDebug() << "[HttpClientWorker]";
+        //qDebug() << "[HttpClientWorker]";
 
         switch(pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode)
         {
@@ -107,7 +107,10 @@ public slots:
         {
             if(mReply->isFinished())
             {
-                qDebug() << "[HttpClientWorker]" << mReply->error();
+                if(mReply->error() != QNetworkReply::NoError)
+                {
+                    qDebug() << "[HttpClientWorker]" << mReply->error();
+                }
                 mReply->deleteLater();
                 mReply = nullptr;
                 mPostTryCnt = 0;

@@ -45,6 +45,10 @@ struct StPacketRStatusRes{
     int      mWCEtcMDErrCnt     ;
 
     quint64  mTradeTotalWeight  ;
+
+
+    int      mMDPassCnt         ;
+    int      mMachineMode       ;
 };
 #pragma pack(pop)
 

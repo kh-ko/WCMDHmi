@@ -61,6 +61,7 @@ void MonitoringServer::onReceive()
     resPacket.mNormalWeight      = pProductSP->mCurrPD.mDspForm.mWCSetting.mNormalWeight;
     resPacket.mOverWaringWeight  = pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWarningWeight;
     resPacket.mOverWeight        = pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight;
+    resPacket.mMDPassCnt         = pWorkSP->mCurrPD.mMDPassCnt;
     resPacket.mMDNgCnt           = pWorkSP->mCurrPD.mMDFailCnt;
     resPacket.mWCUnderCnt        = pWorkSP->mCurrPD.mWCUCnt;
     resPacket.mWCUnderWaringCnt  = pWorkSP->mCurrPD.mWCUWCnt;
@@ -70,6 +71,7 @@ void MonitoringServer::onReceive()
     resPacket.mWCEtcErrCnt       = pWorkSP->mCurrPD.mWCEtcCnt;
     resPacket.mWCEtcMDErrCnt     = pWorkSP->mCurrPD.mWCMDCnt;
     resPacket.mTradeTotalWeight  = pWorkSP->mCurrPD.mWCTradeTotalWeight;
+    resPacket.mMachineMode       = pLSettingSP->mDevSetting.mDspForm.mCommSetting.mMachineMode;
 
     if(mDspSeq != 0)
     {
