@@ -2822,7 +2822,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="710"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="771"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="833"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1069"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1113"/>
         <source>Sorter 01</source>
         <translation>선별기 1</translation>
     </message>
@@ -2831,7 +2831,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="714"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="775"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="837"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1073"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1117"/>
         <source>Sorter 02</source>
         <translation>선별기 2</translation>
     </message>
@@ -2840,7 +2840,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="718"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="779"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="841"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1077"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1121"/>
         <source>Sorter 03</source>
         <translation>선별기 3</translation>
     </message>
@@ -2849,21 +2849,21 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="722"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="783"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="845"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1081"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1125"/>
         <source>Sorter 04</source>
         <translation>선별기 4</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="270"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="644"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1105"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1149"/>
         <source>Lamp</source>
         <translation>램프</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="292"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="662"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1128"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1172"/>
         <source>Buzzer</source>
         <translation>부져</translation>
     </message>
@@ -2914,7 +2914,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="692"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="753"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="815"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1050"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1094"/>
         <source>· NG motion</source>
         <translation>· 검출동작</translation>
     </message>
@@ -2923,7 +2923,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="702"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="763"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="825"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1061"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1105"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
@@ -2932,7 +2932,7 @@
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="706"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="767"/>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="829"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1065"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1109"/>
         <source>Stop</source>
         <translation>벨트정지</translation>
     </message>
@@ -2950,11 +2950,13 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="340"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1019"/>
         <source>ON</source>
         <translation>켜기</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="362"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1041"/>
         <source>OFF</source>
         <translation>끄기</translation>
     </message>
@@ -2994,27 +2996,27 @@
         <translation>금속검출기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1020"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1064"/>
         <source>· Senstivity</source>
         <translation>· 감도</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1177"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1221"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1198"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1242"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1217"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1261"/>
         <source>Remove</source>
         <translation>삭제</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1218"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1262"/>
         <source>Do you want to remove this product?</source>
         <translation>제품설정정보를 삭제하시겠습니까?</translation>
     </message>

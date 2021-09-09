@@ -1001,6 +1001,50 @@ UiPanel {
         visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
 
         textValue: qsTr("Metal detector")
+
+        UiRadioBtn{
+            id: radioMDOn
+            width : 120
+            anchors.right: radioMDOff.left
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            isDisable : panel.isViewMode
+            //isHighlight: itemModel.isEditMDSenstivity && isSelect
+            isSelect: itemModel.mdSenstivity < 20000 ? true : false
+
+            textValue : qsTr("ON")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetMDSenstivity(300);
+            }
+        }
+
+        UiRadioBtn{
+            id: radioMDOff
+            width : 120
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+
+            isDisable : panel.isViewMode
+            isHighlight: itemModel.isEditMDSenstivity && isSelect && !(itemModel.mdSenstivity < 20000)
+            isSelect: !(itemModel.mdSenstivity < 20000) ? true : false
+            textValue : qsTr("OFF")
+
+            onSignalEventClicked:
+            {
+                itemModel.onCommandSetMDSenstivity(20000)
+            }
+        }
     }
 
     UiInputNumber {
@@ -1013,7 +1057,7 @@ UiPanel {
         anchors.top: labelMetalDetector.bottom
         anchors.topMargin: 10
 
-        isDisable : panel.isViewMode
+        isDisable : panel.isViewMode || (itemModel.mdSenstivity >= 20000)
         visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableMD
 
         bgColor : panel.bgColor
@@ -1025,7 +1069,7 @@ UiPanel {
         max: 9999
 
         numberValue: itemModel.mdSenstivity
-        isHighlight: itemModel.isEditMDSenstivity
+        isHighlight: itemModel.isEditMDSenstivity && (itemModel.mdSenstivity < 20000)
 
         onSignalChangeValue: {
             itemModel.onCommandSetMDSenstivity(value)
