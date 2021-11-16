@@ -236,8 +236,27 @@ public slots:
         setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm());
 
         setIsZeroProc       ( dto.mWCStatus.mZeroProc == 1);
-        setIsWait           ( dto.mWCStatus.mWait == 1    );
 
+        if(dto.mWCStatus.mWait == 1)
+            mIsCalibRefVoltage = false;
+
+        if(mIsCalibRefVoltage)
+        {
+            setIsWait(true);
+        }
+        else
+        {
+            setIsWait(dto.mWCStatus.mWait == 1);
+        }
+
+        if((dto.mWCStatus.mADC < -500 || dto.mWCStatus.mADC > 500) && mIsCheckedRefVoltage == false) // khko_add
+        {
+            qDebug() << "[MainSceneModel][onChangedDspStatus]Invalid ADC : " << dto.mWCStatus.mADC;
+            pDspSP->sendAllRefVoltageResetCmd();
+            mIsCalibRefVoltage = true;
+        }
+
+        mIsCheckedRefVoltage = true;
     }
 
     void onChangedDspIsConnect(quint64 dspSeq, bool value)
@@ -259,6 +278,7 @@ public slots:
         qDebug() << "[debug]onChangedRefVoltage = " << value;
         CHECK_FALSE_RETURN((dspSeq != 0));
 
+        mIsCalibRefVoltage = false;
         DevSettingDto dto;
         dto = pLSettingSP->mDevSetting;
         dto.mDspForm.mWCSetting.mRefVoltage = (qint16)value;
@@ -339,6 +359,9 @@ public:
     }
 
 private:
+    bool mIsCheckedRefVoltage = false;
+    bool mIsCalibRefVoltage   = false;
+
     int isSpeedAlarm()
     {
         int maxSpeed = 100;
