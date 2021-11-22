@@ -148,6 +148,19 @@ public :
     void sendAllPDSetting         (DspPDSettingDto value  ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendPDSetting      (value);}}
     void sendAllReadAlwaysData    (                       ){ CHECK_FALSE_RETURN((mIsRunning && mFRIng == false)) foreach(DspMaster * master, mDspList){master->sendReadAlwaysData (     );}}
 
+    void changeNet(quint64 dspSeq, QString ip, quint16 port)
+    {
+        DspConnInfoDto connInfo;
+        connInfo.mDspSeq = dspSeq;
+        connInfo.mIp = ip;
+        connInfo.mPort = port;
+        writeFileDspConnInfo(connInfo);
+
+        DspMaster * master = findDspMaster(dspSeq);
+        CHECK_PTR_RETURN(master);
+
+        master->changeNet(ip, port);
+    }
 signals:
     void signalEventStarted                         ();
     void signalEventStopped                         ();

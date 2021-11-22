@@ -699,7 +699,7 @@ UiPanel {
 
          SearchDspDlg{
              onSignalEventSelectIp: {
-                informationModel.onCommandSetIp(ip)
+                informationModel.onCommandChangeDSP(ip)
              }
         }
     }

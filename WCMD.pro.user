@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.0, 2021-11-16T11:31:53. -->
+<!-- Written by QtCreator 4.12.0, 2021-11-22T14:23:17. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -132,8 +132,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/khko/WinWork/01.COMBI/04.Source/x.output-linux</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/khko/WinWork/01.COMBI/04.Source/x.output-linux</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/khko/WinWork/02.AluScanWeightCheckerIntegratedTouch/04.Source/build-WCMD-raspi4-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/khko/WinWork/02.AluScanWeightCheckerIntegratedTouch/04.Source/build-WCMD-raspi4-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>

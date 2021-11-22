@@ -349,6 +349,12 @@ public slots:
         emit signalResultSaveInformation(0);
         emit signalResultSaveDeviceSetting(0);
     }
+    Q_INVOKABLE void onCommandChangeDSP(QString newDspIp)
+    {
+        setIp(newDspIp);
+        setIsEditIp(false);
+        pDspSP->changeNet(mDspSeq, newDspIp, pDefaultSP->DSP_CONNINFO_PORT);
+    }
     Q_INVOKABLE void onCommandCancle(){reset();}
 
     Q_INVOKABLE void onCommandSetCompany                   (QString  value){setCompany              (value);}

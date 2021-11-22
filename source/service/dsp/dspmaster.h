@@ -329,6 +329,13 @@ public :
             delete pItem;
         }
     }
+    void changeNet(QString ip, quint16 port)
+    {
+        mIp = ip;
+        mPort = port;
+        disconnectDsp();
+        connectDsp();
+    }
 
     void onTimeTick(QDateTime now)
     {

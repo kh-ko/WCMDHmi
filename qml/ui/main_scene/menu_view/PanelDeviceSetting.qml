@@ -388,12 +388,16 @@ UiPanel {
         ListModel {
             id : comboMotorTypeOption
             ListElement {
-                itemText : qsTr("3-phase")
+                itemText : qsTr("Mitsubishi")
                 itemIdx : 0
             }
             ListElement {
                 itemText : qsTr("BLDC")
                 itemIdx : 1
+            }
+            ListElement {
+                itemText : qsTr("Schneider")
+                itemIdx : 2
             }
         }
 
