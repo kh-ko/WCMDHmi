@@ -186,5 +186,6 @@
         <file>ui/main_scene/menu_view/Infomation/SearchSSIDDlg.qml</file>
         <file>ui/main_scene/img/indicator/inet_disable_indi.png</file>
         <file>ui/main_scene/img/indicator/inet_enable_indi.png</file>
+        <file>ui/main_scene/menu_view/CheckupAndCarib/PanelADCAutoCalibSetting.qml</file>
     </qresource>
 </RCC>

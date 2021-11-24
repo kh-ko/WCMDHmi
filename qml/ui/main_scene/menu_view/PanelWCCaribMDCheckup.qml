@@ -25,7 +25,7 @@ UiPanel
     ColumnLayout {
         id: columnLayout
         width: 800
-        height: 340
+        height: 440
         anchors.verticalCenter: parent.verticalCenter
         spacing: 20
         anchors.horizontalCenter: parent.horizontalCenter
@@ -79,6 +79,24 @@ UiPanel
                 viewContainer.push(panelMDCheckup)
             }
         }
+
+        UiButton{
+            id : btnADCAutoCalibSetting
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+            type : QmlEnumDef.BUTTON_TYPE_METAL
+            textValue: qsTr("ADC auto calibration setting")
+
+            visible: isAdmin
+
+            onSignalEventClicked: {
+                viewContainer.clear()
+                viewContainer.push(panelADCAutoCalibSetting)
+            }
+        }
     }
 
     StackView
@@ -122,6 +140,16 @@ UiPanel
         }
     }
 
+    Component{ id : panelADCAutoCalibSetting;
+        PanelADCAutoCalibSetting
+        {
+            anchors.fill: parent
+
+            onSignalEventCloseClicked: {
+                viewContainer.clear()
+            }
+        }
+    }
 }
 
 /*##^##

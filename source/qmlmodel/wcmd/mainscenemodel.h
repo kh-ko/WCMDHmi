@@ -249,13 +249,15 @@ public slots:
             setIsWait(dto.mWCStatus.mWait == 1);
         }
 
-        if((dto.mWCStatus.mADC < -500 || dto.mWCStatus.mADC > 500) && mIsCheckedRefVoltage == false) // khko_add
+        if(pLSettingSP->mADCAutoCalibSetting.mIsUse)
         {
-            qDebug() << "[MainSceneModel][onChangedDspStatus]Invalid ADC : " << dto.mWCStatus.mADC;
-            pDspSP->sendAllRefVoltageResetCmd();
-            mIsCalibRefVoltage = true;
+            if((dto.mWCStatus.mADC < pLSettingSP->mADCAutoCalibSetting.mMinADC || dto.mWCStatus.mADC > pLSettingSP->mADCAutoCalibSetting.mMaxADC) && mIsCheckedRefVoltage == false) // khko_add
+            {
+                qDebug() << "[MainSceneModel][onChangedDspStatus]Invalid ADC : " << dto.mWCStatus.mADC;
+                pDspSP->sendAllRefVoltageResetCmd();
+                mIsCalibRefVoltage = true;
+            }
         }
-
         mIsCheckedRefVoltage = true;
     }
 

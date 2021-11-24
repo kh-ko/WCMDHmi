@@ -20,5 +20,6 @@
 #include "source/service/dto/pdbasesettingdto.h"
 #include "source/service/dto/dspnetsettingdto.h"
 #include "source/service/dto/appointdto.h"
+#include "source/service/dto/adcautocalibsettingdto.h"
 #include "source/service/dto/enum/enumdef.h"
 #endif // INCLUDESVCDTO_H

@@ -51,6 +51,7 @@ HEADERS += \
     source/qmlmodel/wcmd/main_scene/panelwcsettinginhomemodel.h \
     source/qmlmodel/wcmd/mainmodel.h \
     source/qmlmodel/wcmd/mainscenemodel.h \
+    source/qmlmodel/wcmd/menu_scene/checkup/paneladcautocalibsettingmodel.h \
     source/qmlmodel/wcmd/menu_scene/checkup/panelmdcheckupmodel.h \
     source/qmlmodel/wcmd/menu_scene/checkup/panelwcdynamiccalibraionmodel.h \
     source/qmlmodel/wcmd/menu_scene/checkup/panelwcstaticcaribrationmodel.h \
@@ -80,6 +81,7 @@ HEADERS += \
     source/service/dsp/dspsprovider.h \
     source/service/dsp/packet/dsppacket.h \
     source/service/dsp/packet/dsppacketstruct.h \
+    source/service/dto/adcautocalibsettingdto.h \
     source/service/dto/appointdto.h \
     source/service/dto/devsettingdto.h \
     source/service/dto/dspconninfodto.h \

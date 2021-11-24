@@ -30,6 +30,7 @@
 #include "source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/information/searchdspdlgmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/information/searchssiddlgmodel.h"
+#include "source/qmlmodel/wcmd/menu_scene/checkup/paneladcautocalibsettingmodel.h"
 #include "source/service/coreservice.h"
 #include "source/util/mouseeventspy.h"
 
@@ -83,6 +84,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<TrendsItemDto>();
     qRegisterMetaType<DspNetSettingDto>();
     qRegisterMetaType<ApPointDto>();
+    qRegisterMetaType<ADCAutoCalibSettingDto>();
 
     qmlRegisterType<MainModel>("MainModel", 1, 0, "MainModel");
     qmlRegisterType<IntroSceneModel>("IntroSceneModel", 1, 0, "IntroSceneModel");
@@ -110,9 +112,12 @@ int main(int argc, char *argv[])
     qmlRegisterType<PanelMaxErrorSettingModel>("PanelMaxErrorSettingModel", 1, 0, "PanelMaxErrorSettingModel");
     qmlRegisterType<SearchDspDlgModel>("SearchDspDlgModel", 1, 0, "SearchDspDlgModel");
     qmlRegisterType<SearchSSIDDlgModel>("SearchSSIDDlgModel", 1, 0, "SearchSSIDDlgModel");
+    qmlRegisterType<PanelADCAutoCalibSettingModel>("PanelADCAutoCalibSettingModel", 1, 0, "PanelADCAutoCalibSettingModel");
+
     qmlRegisterSingletonType<MouseEventSpy>("MouseEventSpy", 1, 0, "MouseEventSpy", MouseEventSpy::singletonProvider);
     qmlRegisterSingletonType(QUrl("qrc:/uiengine/ViewManager.qml"), "ViewManager", 1, 0, "ViewManager");
     qmlRegisterSingletonType(QUrl("qrc:/uiengine/FontManager.qml"), "FontManager", 1, 0, "FontManager");
+
 
     NSDebug::startService();
 

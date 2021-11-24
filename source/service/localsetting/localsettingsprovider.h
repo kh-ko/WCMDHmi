@@ -112,7 +112,11 @@ private:
 
     const QString mEtcSettingMaxErrorKey                    = "etcsetting/MaxError"               ;
     const QString mEtcSettingMDCheckupWaitNextStepMSecKey   = "etcsetting/MDCheckupWaitNextStepMSec";
-    const QString mEtcSettingVNCViewIPKey                  = "etcsetting/VNCViewIP"             ;
+    const QString mEtcSettingVNCViewIPKey                   = "etcsetting/VNCViewIP"             ;
+
+    const QString mADCCalibSettingIsUseKey                  = "adccalibsetting/IsUse"             ;
+    const QString mADCCalibSettingMinADCKey                 = "adccalibsetting/MinADC"            ;
+    const QString mADCCalibSettingMaxADCKey                 = "adccalibsetting/MaxADC"            ;
 
 public:
     static LocalSettingSProvider * getInstance()
@@ -142,6 +146,7 @@ public:
     quint32                  mMaxError       ;
     qint32                   mMDCheckupWaitNextStepMSec;
     QString                  mVNCViewIP;
+    ADCAutoCalibSettingDto   mADCAutoCalibSetting;
 
     explicit LocalSettingSProvider(QObject * parent = nullptr):QObject(parent)
     {
@@ -309,6 +314,15 @@ public:
         emit signalEventChangedVNCViewIP(value);
     }
 
+    void setADCAutoCalibSetting(ADCAutoCalibSettingDto dto)
+    {
+        CHECK_FALSE_RETURN(mIsRunning);
+
+        internalSetADCAutoCalibSetting(dto);
+
+        emit signalEventChangedADCAutoCalibSetting(dto);
+    }
+
 private slots:
     void onStartLanguageLoad()
     {
@@ -432,20 +446,25 @@ private:
 
         mVNCViewIP                                                 = mpSetting->value(mEtcSettingVNCViewIPKey                  , pDefaultSP->VNC_VIEW_IP                                            ).toString();
 
-        internalSetInformation    (mInformation);
-        internalSetSecurity       (mSecuritySetting);
-        internalSetLanuguage      (mLanguage);
-        internalSetGUIIsDetail    (mIsDetail);
-        internalSetGUIViewMode    (mViewMode);
-        internalSetGUIPDSortMode  (mPDSortMode);
-        internalSetTROption       (mTROption);
-        internalSetBackupLastDate (mBackupLastDate);
-        internalSetDevSetting     (mDevSetting);
-        internalSetHMISetting     (mHMISetting);
-        internalSetPdBaseSetting  (mPdBaseSetting);
-        internalSetMaxError       (mMaxError);
+        mADCAutoCalibSetting.mIsUse                                = mpSetting->value(mADCCalibSettingIsUseKey                 , pDefaultSP->ADC_AUTOCALIB_IS_USE                                   ).toBool()  ;
+        mADCAutoCalibSetting.mMinADC                               = mpSetting->value(mADCCalibSettingMinADCKey                , pDefaultSP->ADC_AUTOCALIB_MIN_ADC                                  ).toInt()   ;
+        mADCAutoCalibSetting.mMaxADC                               = mpSetting->value(mADCCalibSettingMaxADCKey                , pDefaultSP->ADC_AUTOCALIB_MAX_ADC                                  ).toInt()   ;
+
+        internalSetInformation        (mInformation        );
+        internalSetSecurity           (mSecuritySetting    );
+        internalSetLanuguage          (mLanguage           );
+        internalSetGUIIsDetail        (mIsDetail           );
+        internalSetGUIViewMode        (mViewMode           );
+        internalSetGUIPDSortMode      (mPDSortMode         );
+        internalSetTROption           (mTROption           );
+        internalSetBackupLastDate     (mBackupLastDate     );
+        internalSetDevSetting         (mDevSetting         );
+        internalSetHMISetting         (mHMISetting         );
+        internalSetPdBaseSetting      (mPdBaseSetting      );
+        internalSetMaxError           (mMaxError           );
         internalSetMDCheckupWaitNextStepMSec(mMDCheckupWaitNextStepMSec);
-        internalSetVNCViewIP      (mVNCViewIP);
+        internalSetVNCViewIP          (mVNCViewIP          );
+        internalSetADCAutoCalibSetting(mADCAutoCalibSetting);
     }
 
     void internalSetInformation(InformationDto dto)
@@ -615,6 +634,15 @@ private:
         mpSetting->setValue(mEtcSettingVNCViewIPKey, value);
     }
 
+    void internalSetADCAutoCalibSetting(ADCAutoCalibSettingDto dto)
+    {
+        mADCAutoCalibSetting = dto;
+
+        mpSetting->setValue(mADCCalibSettingIsUseKey , dto.mIsUse   );
+        mpSetting->setValue(mADCCalibSettingMinADCKey, dto.mMinADC  );
+        mpSetting->setValue(mADCCalibSettingMaxADCKey, dto.mMaxADC  );
+    }
+
 signals:
     void signalEventStarted        ();
     void signalEventStopped        ();
@@ -633,5 +661,7 @@ signals:
     void signalEventChangedMaxError(quint32 value);
     void signalEventChangedMDCheckupWaitNextStepMSec(int value);
     void signalEventChangedVNCViewIP(QString value);
+    void signalEventChangedADCAutoCalibSetting(ADCAutoCalibSettingDto dto);
+
 };
 #endif // LOCALSETTINGSPROVIDER_H

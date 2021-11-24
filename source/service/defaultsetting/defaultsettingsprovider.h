@@ -158,6 +158,10 @@ public:
     bool                              CCP_SERVER_IS_USE                  = false                                 ;
     QString                           CCP_SERVER_URL                     = "http://121.175.173.236:17071/DevDataCollect/WriteRealTimeData";
 
+    bool                              ADC_AUTOCALIB_IS_USE               = false                                 ;
+    qint32                            ADC_AUTOCALIB_MIN_ADC              = -500                                  ;
+    qint32                            ADC_AUTOCALIB_MAX_ADC              = 500                                   ;
+
 public:
     void start()
     {
@@ -286,6 +290,9 @@ public:
             else if(key == "VNC_VIEW_IP"                        ){ VNC_VIEW_IP                        = value                                            ;}
             else if(key == "CCP_SERVER_IS_USE"                  ){ CCP_SERVER_IS_USE                  = value.toUInt() == 1 ? true : false               ;}
             else if(key == "CCP_SERVER_URL"                     ){ CCP_SERVER_URL                     = value                                            ;}
+            else if(key == "ADC_AUTOCALIB_IS_USE"               ){ ADC_AUTOCALIB_IS_USE               = value.toInt()  == 1 ? true : false               ;}
+            else if(key == "ADC_AUTOCALIB_MIN_ADC"              ){ ADC_AUTOCALIB_MIN_ADC              = value.toInt()                                    ;}
+            else if(key == "ADC_AUTOCALIB_MAX_ADC"              ){ ADC_AUTOCALIB_MAX_ADC              = value.toInt()                                    ;}
         }
 
         emit signalEventStarted();
