@@ -249,6 +249,8 @@ public slots:
             setIsWait(dto.mWCStatus.mWait == 1);
         }
 
+        //qDebug() << "[MainSceneModel][onChangedDspStatus]ADC : " << dto.mWCStatus.mADC;
+
         if(pLSettingSP->mADCAutoCalibSetting.mIsUse)
         {
             if((dto.mWCStatus.mADC < pLSettingSP->mADCAutoCalibSetting.mMinADC || dto.mWCStatus.mADC > pLSettingSP->mADCAutoCalibSetting.mMaxADC) && mIsCheckedRefVoltage == false) // khko_add
@@ -258,7 +260,9 @@ public slots:
                 mIsCalibRefVoltage = true;
             }
         }
-        mIsCheckedRefVoltage = true;
+
+        if(pDsp->mIsConnect)
+            mIsCheckedRefVoltage = true;
     }
 
     void onChangedDspIsConnect(quint64 dspSeq, bool value)
