@@ -125,10 +125,10 @@ Rectangle {
 
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditUnderWeight
-            min : 0.1
-            max : 99999.9
+            min : 0.0
+            max : 99999
             realValue : model.underWeight / 1000
-
+            fixedN: ViewManager.weightFixedN
             onSignalChangeValue: {
                 model.onCommandSetUnderWeight((value * 1000) + 0.5)
             }
@@ -233,9 +233,10 @@ Rectangle {
             reservedValue: model.currWeight !== 0 ? (model.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) : ""
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditNormalWeight
-            min : 0.1
-            max : 99999.9
+            min : 0
+            max : 99999
             realValue : model.normalWeight / 1000
+            fixedN: ViewManager.weightFixedN
 
             onSignalChangeValue: {
                 model.onCommandSetNormalWeight((value * 1000) + 0.5)
@@ -336,9 +337,10 @@ Rectangle {
             anchors.horizontalCenterOffset: -52
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditOverWeight
-            min : 0.1
-            max : 99999.9
+            min : 0
+            max : 99999
             realValue : model.overWeight / 1000
+            fixedN : ViewManager.weightFixedN
 
             onSignalChangeValue: {
                 model.onCommandSetOverWeight((value * 1000) + 0.5)
@@ -438,9 +440,10 @@ Rectangle {
 
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditOverGap
-            min : 0.1
-            max : 99999.9
+            min : 0.0
+            max : 99999
             realValue : model.overGap / 1000
+           fixedN : ViewManager.weightFixedN
 
             onSignalChangeValue: {
                 model.onCommandSetOverGap((value * 1000) + 0.5)
@@ -470,9 +473,10 @@ Rectangle {
 
             bgColor: uiPanel.bgColor
             isHighlight: model.isEditUnderGap
-            min : 0.1
-            max : 99999.9
+            min : 0.0
+            max : 99999
             realValue : model.underGap / 1000
+            fixedN : ViewManager.weightFixedN
 
             onSignalChangeValue: {
                 model.onCommandSetUnderGap((value * 1000) + 0.5)

@@ -385,10 +385,10 @@ UiPanel {
 
         bgColor : panel.bgColor
         postfix : "g"
-        fixedN  : 1
         isLocaleStyle : true
         min : 0
         max : 99999
+        fixedN  : ViewManager.weightFixedN
 
         labelText : qsTr("· Over")
         inputWidth : width - 220
@@ -447,16 +447,17 @@ UiPanel {
 
         bgColor : panel.bgColor
         postfix : "g"
-        fixedN  : 1
         isLocaleStyle : true
         min : 0
         max : 99999
+        fixedN  : ViewManager.weightFixedN
 
         labelText : qsTr("· Normal")
         inputWidth : width - 220
 
         realValue: itemModel.normalWeight / 1000
         isHighlight: itemModel.isEditNormalWeight
+
 
         onSignalChangeValue: {
             itemModel.onCommandSetNormalWeight((value * 1000) + 0.5)
@@ -509,10 +510,10 @@ UiPanel {
 
         bgColor : panel.bgColor
         postfix : "g"
-        fixedN  : 1
         isLocaleStyle : true
         min : 0
         max : 99999
+        fixedN  : ViewManager.weightFixedN
 
         labelText : qsTr("· Under")
         inputWidth : width - 220
@@ -540,7 +541,6 @@ UiPanel {
 
         bgColor : panel.bgColor
         postfix : "g"
-        fixedN  : 1
         isLocaleStyle : true
         min : 0
         max : 99999
@@ -550,6 +550,7 @@ UiPanel {
 
         realValue: itemModel.tareWeight / 1000
         isHighlight: itemModel.isEditTareWeight
+        fixedN  : ViewManager.weightFixedN
 
         onSignalChangeValue: {
             itemModel.onCommandSetTareWeight((value * 1000) + 0.5)

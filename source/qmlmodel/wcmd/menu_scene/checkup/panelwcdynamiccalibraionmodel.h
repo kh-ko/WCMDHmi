@@ -17,6 +17,8 @@ class PanelWCDynamicCalibrationModel : public QObject
     Q_PROPERTY(qint32  currWeight     READ getCurrWeight    NOTIFY signalEventChangedCurrWeight   )
     Q_PROPERTY(quint32 refWeight      READ getRefWeight     NOTIFY signalEventChangedRefWeight    )
     Q_PROPERTY(quint32 movingWeight   READ getMovingWeight  NOTIFY signalEventChangedMovingWeight )
+    Q_PROPERTY(quint32 tryCount       READ getTryCount      NOTIFY signalEventChangedTryCount     )
+    Q_PROPERTY(quint32 tareWeight     READ getTareWeight    NOTIFY signalEventChangedTareWeight   )
 
 public:
     quint64 mDspSeq       = 0;
@@ -27,6 +29,8 @@ public:
     qint32  mCurrWeight   ;
     quint32 mRefWeight    ;
     quint32 mMovingWeight ;
+    quint32 mTryCount     ;
+    quint32 mTareWeight   ;
 
     bool    getIsRemeasure  (){ return mIsRemeasure  ;}
     quint16 getPdNum        (){ return mPdNum        ;}
@@ -35,6 +39,8 @@ public:
     qint32  getCurrWeight   (){ return mCurrWeight   ;}
     quint32 getRefWeight    (){ return mRefWeight    ;}
     quint32 getMovingWeight (){ return mMovingWeight ;}
+    quint32 getTryCount     (){ return mTryCount     ;}
+    quint32 getTareWeight   (){ return mTareWeight   ;}
 
     void    setIsRemeasure  (bool    value){ if(value == mIsRemeasure  ) return; mIsRemeasure   = value; emit signalEventChangedIsRemeasure  (value);}
     void    setPdNum        (quint16 value){ if(value == mPdNum        ) return; mPdNum         = value; emit signalEventChangedPdNum        (value);}
@@ -43,13 +49,16 @@ public:
     void    setCurrWeight   (qint32  value){ if(value == mCurrWeight   ) return; mCurrWeight    = value; emit signalEventChangedCurrWeight   (value);}
     void    setRefWeight    (quint32 value){ if(value == mRefWeight    ) return; mRefWeight     = value; emit signalEventChangedRefWeight    (value);}
     void    setMovingWeight (quint32 value){ if(value == mMovingWeight ) return; mMovingWeight  = value; emit signalEventChangedMovingWeight (value);}
+    void    setTryCount     (quint32 value){ if(value == mTryCount     ) return; mTryCount      = value; emit signalEventChangedTryCount     (value);}
+    void    setTareWeight   (quint32 value){ if(value == mTareWeight   ) return; mTareWeight    = value; emit signalEventChangedTareWeight   (value);}
 
     explicit PanelWCDynamicCalibrationModel(QObject *parent = nullptr) : QObject(parent)
     {
         setCurrWeight(0);
         setRefWeight(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight);
         setMovingWeight(0);
-
+        setTryCount(0);
+        setTareWeight(pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
 
         CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 
@@ -77,6 +86,8 @@ signals:
     void    signalEventChangedRefWeight    (quint32 value);
     void    signalEventChangedMovingWeight (quint32 value);
     void    signalEventChangedCurrWeight   (qint32  value);
+    void    signalEventChangedTryCount     (quint32 value);
+    void    signalEventChangedTareWeight   (quint32 value);
     void    signalEventCompleteCalibration (             );
     void    signalEventInvalidCalibration  (             );
 
@@ -134,7 +145,8 @@ public slots:
             dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETCERROR_CHECK            ||
             dto.mEvent.mEventType == EnumDef::ET_WEIGHT_ETC_METAL_ERROR_CHECK      )
         {
-            return setMovingWeight(dto.mEvent.mEventValue + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
+            return setTryCount(dto.mEvent.mEventValue);
+            //return setMovingWeight(dto.mEvent.mEventValue + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
         }
 
         if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_DYNAMIC_CARI)
@@ -169,7 +181,7 @@ public slots:
         }
         else
         {
-            return setCurrWeight(dto.mWCStatus.mCurrWeight + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
+            return setCurrWeight(dto.mWCStatus.mCurrWeight/* + pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight*/);
         }
     }
 

@@ -19,6 +19,7 @@ class PanelWCGraphModel : public QObject
 
     Q_PROPERTY(qint16   adcValue                READ      getAdcValue                    NOTIFY      signalEventChangedAdcValue               )
     Q_PROPERTY(qint32   eventValue              READ      getEventValue                  NOTIFY      signalEventChangedEventValue             )
+    Q_PROPERTY(qint32   tareWeight              READ      getTareWeight                  NOTIFY      signalEventChangedTareWeight             )
     Q_PROPERTY(qint16   maxPDCntPerMin          READ      getMaxPDCntPerMin              NOTIFY      signalEventChangedMaxPDCntPerMin         )
     Q_PROPERTY(qint16   currPDCntPerMin         READ      getCurrPDCntPerMin             NOTIFY      signalEventChangedCurrPDCntPerMin        )
     Q_PROPERTY(qint16   pdCntPerMin             READ      getPDCntPerMin                 NOTIFY      signalEventChangedPDCntPerMin            )
@@ -47,13 +48,16 @@ class PanelWCGraphModel : public QObject
 public:
     quint64         mDspSeq = 0;
 
-    static int *    ptrMinRang(){ static int minRang = 0; return &minRang;}
-    static int *    ptrMaxRang(){ static int maxRang = 999999; return &maxRang;}
+    static bool *   ptrIsFirst(){ static bool isFirst = true   ; return &isFirst;}
+    static int *    ptrMinRang(){ static int  minRang = 0      ; return &minRang;}
+    static int *    ptrMaxRang(){ static int  maxRang = 1000000; return &maxRang;}
+
     int             mRange                  = 0;
     int             mLineInterval           = 1000;
 
     qint16          mAdcValue               = 0;
     quint32         mEventValue             = 0;
+    quint32         mTareWeight             = 0;
     quint16         mMaxPDCntPerMin         = 0;
     quint16         mCurrPDCntPerMin        = 0;
     quint16         mPDCntPerMin            = 0;
@@ -92,6 +96,7 @@ public:
     QList<int>      mGraphMeasureStartIdxList;
     QList<int>      mGraphMeasurePointCntList;
 
+    bool     getIsFirst                 (){return *ptrIsFirst()             ;}
     int      getMinRange                (){return *ptrMinRang()             ;}
     int      getMaxRange                (){return *ptrMaxRang()             ;}
     int      getRange                   (){return mRange                    ;}
@@ -99,6 +104,7 @@ public:
 
     qint16   getAdcValue                (){return mAdcValue                 ;}
     qint32   getEventValue              (){return mEventValue               ;}
+    qint32   getTareWeight              (){return mTareWeight               ;}
     qint16   getMaxPDCntPerMin          (){return mMaxPDCntPerMin           ;}
     qint16   getCurrPDCntPerMin         (){return mCurrPDCntPerMin          ;}
     qint16   getPDCntPerMin             (){return mPDCntPerMin              ;}
@@ -124,6 +130,11 @@ public:
     bool     getIsEditFilterCoefficient (){return mIsEditFilterCoefficient  ;}
     bool     getIsEditMeasureCueSign    (){return mIsEditMeasureCueSign     ;}
     bool     getIsEditMeasureSection    (){return mIsEditMeasureSection     ;}
+
+    void setIsFirst         (bool value)
+    {
+        (*ptrIsFirst()) = value;
+    }
 
     void setMinRange        (int  value, bool force)
     {
@@ -163,6 +174,7 @@ public:
 
     void setAdcValue               (qint16  value){if(value == mAdcValue               ) return; mAdcValue                = value; emit signalEventChangedAdcValue               (value);}
     void setEventValue             (quint32 value){if(value == mEventValue             ) return; mEventValue              = value; emit signalEventChangedEventValue             (value);}
+    void setTareWeight             (quint32 value){if(value == mTareWeight             ) return; mTareWeight              = value; emit signalEventChangedTareWeight             (value);}
     void setMaxPDCntPerMin         (qint16  value){if(value == mMaxPDCntPerMin         ) return; mMaxPDCntPerMin          = value; emit signalEventChangedMaxPDCntPerMin         (value);}
     void setCurrPDCntPerMin        (qint16  value){if(value == mCurrPDCntPerMin        ) return; mCurrPDCntPerMin         = value; emit signalEventChangedCurrPDCntPerMin        (value);}
     void setPDCntPerMin            (qint16  value){if(value == mPDCntPerMin            ) return; mPDCntPerMin             = value; emit signalEventChangedPDCntPerMin            (value);}
@@ -214,6 +226,7 @@ signals:
     void signalEventChangedLineInterval           (int     value);
     void signalEventChangedAdcValue               (qint16  value);
     void signalEventChangedEventValue             (qint32  value);
+    void signalEventChangedTareWeight             (qint32  value);
     void signalEventChangedMaxPDCntPerMin         (qint16  value);
     void signalEventChangedCurrPDCntPerMin        (qint16  value);
     void signalEventChangedPDCntPerMin            (qint16  value);
@@ -399,8 +412,8 @@ public slots:
                 mRunTimeGraphPoints.removeAt(0);
             }
 
-            mRunTimeRawGraphPoints.append(pGData->mPoints[i].mRawValue);
-            mRunTimeGraphPoints.append(pGData->mPoints[i].mFilterValue);
+            mRunTimeRawGraphPoints.append(pGData->mPoints[i].mRawValue - pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
+            mRunTimeGraphPoints.append(pGData->mPoints[i].mFilterValue - pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
 
             if((mLastPointType == 3 && pGData->mPoints[i].mPointType != 3 && mTempGraphMeasureStartIdxList.size() > 4)
               ||(mLastPointType != 0 && pGData->mPoints[i].mPointType == 0))
@@ -410,7 +423,7 @@ public slots:
 
             if(pGData->mPoints[i].mPointType != 0)
             {
-                mTempTimingGraphPoints.append(pGData->mPoints[i].mFilterValue);
+                mTempTimingGraphPoints.append(pGData->mPoints[i].mFilterValue - pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
             }
 
             if(pGData->mPoints[i].mPointType == 3)
@@ -443,20 +456,26 @@ public slots:
 public :
     explicit PanelWCGraphModel(QObject *parent = nullptr):QObject(parent)
     {
-        quint32 maxRange = (pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight * 1.2);
+        qint32 maxRange = (pProductSP->mCurrPD.mDspForm.mWCSetting.mOverWeight * 1.2);
+        qint32 minRange = (pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight) * -1;
 
         loadPDSetting();
         loadDevSetting();
 
-        if(getMaxRange() == 100000000)
+        setTareWeight(pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
+
+        if(getIsFirst())
         {
             maxRange = ((maxRange + 500) / 1000) * 1000;
             setMaxRange(maxRange, true);
+            setMinRange(minRange, true);
         }
         else
         {
             setMaxRange(getMaxRange(), true);
         }
+
+        setIsFirst(false);
 
         CHECK_FALSE_RETURN((pDspSP->mDspList.size() > 0));
 

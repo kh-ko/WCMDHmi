@@ -237,7 +237,8 @@ Item {
 
             visible: mainViewModel.wcViewMode === EnumDef.WC_VIEWMODE_TRENDS
             color : "#FFFFFF"
-            text: (panel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+            text: (panel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+            fontSizeMode: Text.Fit
             anchors.horizontalCenterOffset: 60
             anchors.bottom: wcView.top
             anchors.bottomMargin: -20
@@ -266,8 +267,9 @@ Item {
 
             bgColor: "#59000000"
             min : 0.0
-            max : 99999.9
+            max : 99999.999
             realValue : panel.tare / 1000
+            fixedN: ViewManager.weightFixedN
 
             onSignalChangeValue: {
                 mainViewModel.onCommandSetTare((value * 1000) + 0.5)
@@ -354,7 +356,7 @@ Item {
                     isDetail      : panel.isDetail
                     imgSrc        : "img_panelevent/wc_down.png"
                     title         : qsTr("Under")
-                    value01       : ""+ (panel.underWeight/1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                    value01       : ""+ ((panel.underWeight/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN+1).slice(0, -1)) + " g"
                     total         : panel.totalCnt
                     value02       : panel.underCnt
                     bgColor       : "#59D9001B"
@@ -376,7 +378,7 @@ Item {
                     isDetail      : panel.isDetail
                     imgSrc        : "img_panelevent/wc_dose.png"
                     title         : qsTr("Normal")
-                    value01       : ""+ (panel.normalWeight/1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                    value01       : ""+ ((panel.normalWeight/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN+1).slice(0,-1)) + " g"
                     total         : panel.totalCnt
                     value02       : panel.normalCnt
                     bgColor       : "#590085FF"
@@ -399,7 +401,7 @@ Item {
                     isDetail      : panel.isDetail
                     imgSrc        : "img_panelevent/wc_up.png"
                     title         : qsTr("Over")
-                    value01       : ""+ (panel.overWeight/1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                    value01       : ""+ ((panel.overWeight/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN+1).slice(0,-1)) + " g"
                     total         : panel.totalCnt
                     value02       : panel.overCnt
                     bgColor       : "#59F59A23"

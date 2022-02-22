@@ -90,10 +90,10 @@ UiPanel {
                 UiInputFloat{
                     height: 80; width: 220
                     anchors.verticalCenter: parent.verticalCenter; anchors.right: standardWeightConfirmBtn.left; anchors.rightMargin: 20
-                    min : 0.1
-                    max : 9999.9
+                    min : 0
+                    max : 9999
                     postfix: "g"
-
+                    fixedN: ViewManager.weightFixedN
                     realValue:  caribratinModel.standardWeight / 1000
                     onSignalChangeValue: {
                         caribratinModel.onCommandSetStandardWeight((value * 1000) + 0.5)
@@ -187,7 +187,7 @@ UiPanel {
             elide: Text.ElideRight
 
             color : "#FFFFFF"
-            text: (caribratinModel.currentWeight/1000).toLocaleString(ViewManager.locale, "f", 1) + " g"
+            text: (caribratinModel.currentWeight/1000).toLocaleString(ViewManager.locale, "f", ViewManager.weightFixedN) + " g"
         }
     }
 

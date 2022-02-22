@@ -4,6 +4,7 @@
 
 class EnumDef: public QObject{
     Q_OBJECT
+    Q_ENUMS(eCompany)
     Q_ENUMS(eDspFRState)
     Q_ENUMS(eLang)
     Q_ENUMS(eViewMode)
@@ -23,6 +24,12 @@ class EnumDef: public QObject{
     Q_ENUMS(ePDSortMode)
 
 public:
+    enum eCompany{
+        COMPANY_NOVASEN = 0,
+        COMPANY_DONGNAM = 1,
+        COMPANY_SOLURAY = 2,
+    };
+
     enum eDspFRState {
         DSP_FR_STATE_NONE  = 0,
         DSP_FR_STATE_FAIL  = 1,

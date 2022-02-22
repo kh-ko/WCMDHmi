@@ -43,9 +43,13 @@ public slots:
 public:
     explicit IntroSceneModel(QObject *parent = nullptr) : QObject(parent)
     {
-        if(pDefaultSP->IS_DONGNAM)
+        if(pDefaultSP->COMPANY == EnumDef::COMPANY_DONGNAM)
         {
             setCompany(QmlEnumDef::COMPANY_DONGNAM);
+        }
+        else if(pDefaultSP->COMPANY == EnumDef::COMPANY_SOLURAY)
+        {
+            setCompany(QmlEnumDef::COMPANY_SOLURAY);
         }
         else
         {

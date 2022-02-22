@@ -87,7 +87,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
-            source: model.company === QmlEnumDef.COMPANY_NOVASEN? "novasen_logo.png": "DONGNAM-LOGO_FIT.jpg"
+            source: model.company === QmlEnumDef.COMPANY_DONGNAM? "DONGNAM-LOGO_FIT.jpg" :
+                    model.company === QmlEnumDef.COMPANY_SOLURAY? "soluray_logo.png" : "novasen_logo.png"
         }
     }
 

@@ -123,7 +123,7 @@ UiPanel {
         Item{
             id: boxProductSetting
             width: 1000
-            height: parent.height/5
+            height: parent.height/6
             anchors.bottom: boxDynamicFactor.top
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
@@ -176,8 +176,8 @@ UiPanel {
         Item{
             id: boxDynamicFactor
             width: 1000
-            height: parent.height/5
-            anchors.bottom: boxCurrWeight.top
+            height: parent.height/6
+            anchors.bottom: boxTareWeight.top
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
 
@@ -226,12 +226,63 @@ UiPanel {
             }
         }
 
+        Item{
+            id: boxTareWeight
+            width: 1000
+            height: parent.height/6
+            anchors.bottom: boxCurrWeight.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 0
+
+            Text{
+                x: 600
+                width : 663
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment : Text.AlignLeft
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+
+                color : "#ACACAC"
+                text: qsTr("· tare weight")
+
+            }
+
+            Text{
+                id : textTareWeight
+                x: 663
+                width : 350
+                anchors.top : parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 280
+
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment : Text.AlignRight
+                font.pixelSize: 40
+                font.family: FontManager.nanumGothicName
+                elide: Text.ElideRight
+
+                color : "#FFFFFF"
+                text: (caribratinModel.tareWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+
+            }
+        }
 
 
         Item{
             id: boxCurrWeight
             width: 1000
-            height: parent.height/5
+            height: parent.height/6
             anchors.bottom: boxRefWeight.top
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
@@ -275,7 +326,7 @@ UiPanel {
                 elide: Text.ElideRight
 
                 color : "#FFFFFF"
-                text: (caribratinModel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                text: (caribratinModel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
 
             }
 
@@ -323,7 +374,7 @@ UiPanel {
         Item{
             id: boxRefWeight
             width: 1000
-            height: parent.height/5
+            height: parent.height/6
             anchors.bottom: boxMovingWeight.top
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
@@ -367,7 +418,7 @@ UiPanel {
                 elide: Text.ElideRight
 
                 color : "#FFFFFF"
-                text: (caribratinModel.refWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                text: (caribratinModel.refWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN + 1).slice(0, -1) + " g"
 
 
             }
@@ -405,7 +456,7 @@ UiPanel {
         Item{
             id: boxMovingWeight
             width: 1000
-            height: parent.height/5
+            height: parent.height/6
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
@@ -427,7 +478,7 @@ UiPanel {
                 elide: Text.ElideRight
 
                 color : "#ACACAC"
-                text: qsTr("· Moving weight")
+                text: qsTr("· Try count")
 
             }
 
@@ -449,7 +500,7 @@ UiPanel {
                 elide: Text.ElideRight
 
                 color : "#FFFFFF"
-                text: (caribratinModel.movingWeight / 1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+                text: (caribratinModel.tryCount) + " / 5"
 
             }
 

@@ -166,7 +166,7 @@ Item {
 
             visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
-            textValue : convertedTradeWeight.toLocaleString(ViewManager.locale, 'f', 1) + tradeWeightPostFix
+            textValue : convertedTradeWeight.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + tradeWeightPostFix
         }
 
         UiLabelSystem{
@@ -191,7 +191,7 @@ Item {
 
             visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
-            textValue : tradeCnt === 0 ? "0.0 g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', 1) + " g"
+            textValue : tradeCnt === 0 ? (0).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
         }
 
     }

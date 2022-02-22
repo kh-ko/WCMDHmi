@@ -993,6 +993,7 @@ UiPanel {
         labelText : qsTr("· Min static weight")
         postfix: "g"
         inputWidth: 170
+        fixedN: ViewManager.weightFixedN
 
         realValue: settingModel.minStaticWeight / 1000.0
 
@@ -1017,6 +1018,7 @@ UiPanel {
         labelText : qsTr("· Min dynamic weight")
         postfix: "g"
         inputWidth: 170
+        fixedN: ViewManager.weightFixedN
 
         realValue: settingModel.minDynamicWeight / 1000.0
 

@@ -65,7 +65,7 @@ Item {
         fixedN          : control.fixedN
         labelText       : control.labelText
         isLocaleStyle   : control.isLocaleStyle
-        textValue       : realValue.toLocaleString(ViewManager.locale, 'f', fixedN)
+        textValue       : (realValue.toLocaleString(ViewManager.locale, 'f', control.fixedN + 1)).slice(0,-1)
 
         onSignalChangeText: {
 

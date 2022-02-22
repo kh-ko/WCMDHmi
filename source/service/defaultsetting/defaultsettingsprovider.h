@@ -38,7 +38,7 @@ public:
     {
     }
 
-    bool                              IS_DONGNAM                         = false;
+    EnumDef::eCompany                 COMPANY                            = EnumDef::eCompany::COMPANY_NOVASEN;
     QString                           DSP_CONNINFO_IP                    = "192.168.0.140";
     quint16                           DSP_CONNINFO_PORT                  = 10020;
     quint16                           PD_SETTING_NUM                     = 1    ;
@@ -176,7 +176,7 @@ public:
             QString key   = line.left(splitIdx);
             QString value = line.mid(splitIdx+1);
 
-            if     (key == "IS_DONGNAM"                         ){ IS_DONGNAM                         = value.toInt() == 1 ? true : false                ;}
+            if     (key == "COMPANY"                            ){ COMPANY                            = (EnumDef::eCompany)value.toUInt()                ;}
             if     (key == "DSP_CONNINFO_IP"                    ){ DSP_CONNINFO_IP                    = value                                            ;}
             else if(key == "DSP_CONNINFO_PORT"                  ){ DSP_CONNINFO_PORT                  = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_NUM"                     ){ PD_SETTING_NUM                     = value.toUInt()                                   ;}

@@ -127,7 +127,8 @@ public:
 
   enum Company{
       COMPANY_NOVASEN = 0,
-      COMPANY_DONGNAM = 1
+      COMPANY_DONGNAM = 1,
+      COMPANY_SOLURAY = 2,
   };
 };
 

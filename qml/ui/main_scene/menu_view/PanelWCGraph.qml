@@ -109,9 +109,10 @@ UiPanel {
                 labelText: qsTr("· Min")
                 postfix: "g"
 
-                min : 0
+                min : -99999
                 max : 99999
 
+                inputType: QmlEnumDef.S_INT_MODE
                 numberValue: model.minRange / 1000
 
                 onSignalChangeValue:
@@ -130,9 +131,10 @@ UiPanel {
                 postfix: "g"
                 labelText: qsTr("· Max")
                 anchors.verticalCenter: parent.verticalCenter
-                min : 0
+                min : -99999
                 max : 99999
 
+                inputType: QmlEnumDef.S_INT_MODE
                 numberValue: model.maxRange / 1000
 
                 onSignalChangeValue:
@@ -292,35 +294,66 @@ PDCntPerMin
         anchors.bottomMargin: 20
 
 
-        UiLabelSystem
-        {
-            id: labelTimingGraph
-            width: 231
+        Item {
+            id: currentWeightBox
             height: 80
             anchors.top: parent.top
-            anchors.topMargin: 0
             anchors.left: parent.left
             anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
 
-            textValue: qsTr("· Timing graph")
-        }
+            UiLabelSystem
+            {
+                id: labelTimingGraph
+                width: 170
+                height: 80
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
 
-        UiLabelContent {
-            id: textCurrentWeight
-            y: 80
-            width: 231
-            height: 80
-            textValue: (model.eventValue / 1000).toLocaleString(ViewManager.locale, 'f', 3) +  "g"
-            anchors.right: graphTiming.right
-            anchors.rightMargin: 10
-            anchors.verticalCenter: labelTimingGraph.verticalCenter
+                textValue: qsTr("· Timing graph")
+            }
+
+            UiLabelContent {
+                id: textCurrentWeight
+                width: 170
+                height: 80
+                textValue: (model.eventValue / 1000).toLocaleString(ViewManager.locale, 'f', 3) +  "g"
+                anchors.left: labelTimingGraph.right
+                anchors.leftMargin: 10
+                anchors.verticalCenter: labelTimingGraph.verticalCenter
+            }
+
+            UiLabelSystem
+            {
+                id: labelTareWeight
+                width: 160
+                height: 80
+                x : 377
+                anchors.top: parent.top
+                anchors.topMargin: 0
+
+                textValue: qsTr("· Tare weight")
+            }
+
+            UiLabelContent {
+                id: textTareWeight
+                width: 190
+                height: 80
+                textValue: (model.tareWeight / 1000).toLocaleString(ViewManager.locale, 'f', 3) +  "g"
+                anchors.left: labelTareWeight.right
+                anchors.leftMargin: 10
+                anchors.verticalCenter: labelTareWeight.verticalCenter
+            }
         }
 
         UiInputNumber {
             id : inputFilterCoefficient
             height: 60; width: 350
 
-            anchors.top: labelTimingGraph.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0;
+            anchors.top: currentWeightBox.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0;
             inputWidth: 130
             //postfix: "g"
             labelText: qsTr("· Filter coefficient")
@@ -340,7 +373,7 @@ PDCntPerMin
         UiRadioBtn{
             id: checkGroupBuzzerOn
             height: 60; width: 322
-            anchors.top: labelTimingGraph.bottom; anchors.topMargin: 10; anchors.right: parent.right; anchors.rightMargin: 0
+            anchors.top: currentWeightBox.bottom; anchors.topMargin: 10; anchors.right: parent.right; anchors.rightMargin: 0
 
             textMargin : 10
             isHighlight: model.isEditAutoSetting
