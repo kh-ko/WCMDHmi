@@ -48,6 +48,7 @@ signals:
     void signalEventChangedLookProductSeq    (quint64 value);
     void signalEventChangedSelectedProductSeq(quint64 value);
     void signalEventResultSaveProductSetting (bool isEmptyNo, bool isInvalidWC, int svcErr);
+    void signalEventAddedProduct             (             );
 
 public slots:
     Q_INVOKABLE void onCommandSetOrder(int order)
@@ -136,13 +137,17 @@ public slots:
 
         if(ret == EnumDef::PDERR_NONE)
         {
+            if(mEditViewItemModel.getIsNew())
+            {
+                emit signalEventAddedProduct();
+            }
             loadProductList(getOrder());
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(newSetting.mSeq);
             onCommandSetSelectProduct(newSetting.mSeq);
         }
 
-        signalEventResultSaveProductSetting(false, false, ret);
+        emit signalEventResultSaveProductSetting(false, false, ret);
     }
     Q_INVOKABLE void onCommandCancleProduct()
     {
@@ -159,7 +164,7 @@ public slots:
             mEditViewItemModel.setSeq(0);
             onCommandSetLookProduct(getLookProductSeq());
         }
-        signalEventResultSaveProductSetting(false, false, ret);
+        emit signalEventResultSaveProductSetting(false, false, ret);
     }
 
 public slots:

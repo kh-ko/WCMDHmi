@@ -20,8 +20,8 @@ UiPanel {
         id:caribratinModel
 
         onSignalEventChangedIsRemeasure: {
-            aniMessage.stop()
-            aniMessage.restart()
+          //  aniMessage.stop()
+          //  aniMessage.restart()
         }
 
         onSignalEventCompleteCalibration: {
@@ -35,6 +35,7 @@ UiPanel {
         }
     }
 
+    /*
     NumberAnimation {
         id : aniMessage
         target: messageCover
@@ -45,480 +46,377 @@ UiPanel {
         running: false
         easing.type: Easing.Linear
     }
+    */
 
     MouseArea{
         anchors.fill: parent
     }
 
+    Item{
+        id : pdInfoBox
+        //width: parent.width;
+        height: /*noticeProductInfo.height + */(productInfoLabel.height * 2) + 40
+        anchors.top: parent.top; anchors.topMargin: 20; anchors.left: parent.left; anchors.leftMargin: 20; anchors.right: parent.right; anchors.rightMargin: 20
+/*
+        Text{
+            id : noticeProductInfo
+            anchors.top: parent.top; anchors.left: parent.left;
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#ACACAC"
+            text: qsTr("1.Please check the product information.")
+        }
+
+        UiButton{
+            height: 80; width: 200
+            anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right;
+
+            textValue: qsTr("Confirm")
+
+            onSignalEventClicked: {
+                caribratinModel.onCommandPDConfirm()
+            }
+        }
+*/
+        Text{
+            id : productInfoLabel
+            width: 250
+            anchors.top: parent.top; anchors.left: parent.left; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#acacac"
+            text: qsTr("· Product")
+        }
+
+        Text{
+            id : productInfo
+            anchors.verticalCenter: productInfoLabel.verticalCenter; anchors.left: productInfoLabel.right; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 30
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#FFFFFF"
+            text: ("000"+caribratinModel.pdNum).slice(-3) + " " + caribratinModel.pdName
+        }
+
+        Text{
+            id : dynamicFactorLabel
+            width: 250
+            anchors.top: productInfo.bottom; anchors.topMargin: 20; anchors.left: parent.left; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#acacac"
+            text: qsTr("· Dynamic factor")
+        }
+
+        Text{
+            id : dynamicFactor
+            anchors.verticalCenter: dynamicFactorLabel.verticalCenter; anchors.left: dynamicFactorLabel.right; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 30
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#FFFFFF"
+            text: (caribratinModel.dynamicFactor / 10000000.0).toLocaleString(ViewManager.locale, 'f', 7)
+        }
+/*
+        Text{
+            id : tareWeightLabel
+            width: 250
+            anchors.top: dynamicFactor.bottom; anchors.topMargin: 20; anchors.left: parent.left; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#acacac"
+            text: qsTr("· Tare weight")
+        }
+
+        Text{
+            id : tareWeight
+            anchors.verticalCenter: tareWeightLabel.verticalCenter; anchors.left: tareWeightLabel.right; anchors.leftMargin: 20
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 30
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            color : "#FFFFFF"
+            text: (caribratinModel.tareWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+        }
+*/
+    }
+
+
     UiPanel{
         id : panelMessageBox
-        height: 260
+        height: 296
         anchors.right: parent.right
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: parent.top
+        anchors.top: pdInfoBox.bottom
         anchors.topMargin: 20
+        anchors.bottom: tryCountBox.top
+        anchors.bottomMargin: 40
 
         clip: true
         type : QmlEnumDef.PANEL_TYPE_DROP
 
-        UiLabelSystem{
-            id : labelMessage
-            height: 100
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 100
-            anchors.left: parent.left
-            anchors.leftMargin: 100
+        ColumnLayout{
+            anchors.fill: parent; anchors.topMargin: 20; anchors.bottomMargin: 20; anchors.leftMargin: 60; anchors.rightMargin: 60
 
-            textValue: qsTr("1. Check the reference weight and press the 'calibration' button.<br>2. If the conveyer run, let the product through.")
-        }
 
-        Rectangle{
-            height: 5
-            color: "#0085ff"
-            radius: 2
-            anchors.right: labelMessage.right
-            anchors.rightMargin: 400
-            anchors.left: labelMessage.left
-            anchors.leftMargin: 0
-            anchors.top: labelMessage.bottom
-            anchors.topMargin: 0
-        }
+            Item{
+                Layout.preferredHeight: 3; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                //visible : caribratinModel.step > QmlEnumDef.DYNAMIC_CARIB_STEP_INIT
+                Text{
+                    id : noticeZERO
+                    height: 80
+                    anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left;
 
-        Rectangle{
-            id: messageCover
-            x :1500
-            height: parent.height - 50
-            width: parent.width
-            anchors.verticalCenter: parent.verticalCenter
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignLeft
+                    font.pixelSize: 25
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
 
-            gradient: Gradient {
-                GradientStop {
-                    position: 0
-                    color: "#00191919"
+                    color : "#ACACAC"
+                    text: qsTr("1. After emptying the product on the scale, press 'ZERO' button.")
                 }
 
-                GradientStop {
-                    position: 0.1
-                    color: "#191919"
+                UiButton{
+                    height: 80; width: 200
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right;
+
+                    textValue: qsTr("ZERO")
+
+                    onSignalEventClicked: {
+                        caribratinModel.onCommandZERO()
+                    }
                 }
-                orientation: Gradient.Horizontal
+            }
+            Item{
+                Layout.preferredHeight: 5; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                visible : caribratinModel.step > QmlEnumDef.DYNAMIC_CARIB_STEP_ZERO
+
+                Item{
+                    width: parent.width;
+                    height: noticeRefWeight.height + 10 + weightInfoBox.height + 10 + referenceWeightBox.height
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Text{
+                        id : noticeRefWeight
+                        anchors.top: parent.top; anchors.left: parent.left;
+
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment : Text.AlignLeft
+                        font.pixelSize: 25
+                        font.family: FontManager.nanumGothicName
+                        elide: Text.ElideRight
+
+                        color : "#ACACAC"
+                        text: qsTr("2. Put the product on the scale and press 'Standard setting' button.")
+                    }
+
+                    UiButton{
+                        id : stdSettingBtn
+                        height: 80; width: 200
+                        anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right;
+
+                        textValue: qsTr("Standard setting")
+
+                        onSignalEventClicked: {
+                            caribratinModel.onCommandSetRefWeight(caribratinModel.currWeight + caribratinModel.tareWeight)
+                        }
+                    }
+
+                    Item {
+                        id: weightInfoBox
+                        height:currentWeightLabel.height
+                        anchors.top: noticeRefWeight.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 40; anchors.right: stdSettingBtn.left; anchors.rightMargin: 20
+
+                        Text{
+                            id : currentWeightLabel
+
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment : Text.AlignLeft
+                            font.pixelSize: 25
+                            font.family: FontManager.nanumGothicName
+                            elide: Text.ElideRight
+
+                            color : "#acacac"
+                            text: qsTr("· Current weight")
+                        }
+
+                        Text{
+                            id : currentWeight
+                            anchors.verticalCenter: currentWeightLabel.verticalCenter; anchors.left: currentWeightLabel.right; anchors.leftMargin: 20; anchors.right: tareWeightLabel.left; anchors.rightMargin: 20
+
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment : Text.AlignLeft
+                            font.pixelSize: 30
+                            font.family: FontManager.nanumGothicName
+                            elide: Text.ElideRight
+
+                            color : "#FFFFFF"
+                            text: (caribratinModel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+                        }
+
+                        Text{
+                            id : tareWeightLabel
+                            anchors.left: parent.left; anchors.leftMargin: parent.width / 2;
+
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment : Text.AlignLeft
+                            font.pixelSize: 25
+                            font.family: FontManager.nanumGothicName
+                            elide: Text.ElideRight
+
+                            color : "#acacac"
+                            text: qsTr("· Tare weight")
+                        }
+
+                        Text{
+                            id : tareWeight
+                            anchors.verticalCenter: tareWeightLabel.verticalCenter; anchors.left: tareWeightLabel.right; anchors.leftMargin: 20; anchors.right: parent.right;
+
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment : Text.AlignLeft
+                            font.pixelSize: 30
+                            font.family: FontManager.nanumGothicName
+                            elide: Text.ElideRight
+
+                            color : "#FFFFFF"
+                            text: (caribratinModel.tareWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+                        }
+                    }
+                    //(tare weight included)
+
+                    Text{
+                        id : referenceWeightLabel
+                        anchors.verticalCenter: referenceWeightBox.verticalCenter; anchors.left: parent.left; anchors.leftMargin: 40
+
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment : Text.AlignLeft
+                        font.pixelSize: 25
+                        font.family: FontManager.nanumGothicName
+                        elide: Text.ElideRight
+
+                        color : "#acacac"
+                        text: qsTr("· Reference weight (tare weight included)")
+                    }
+
+                    Rectangle{
+                        id : referenceWeightBox
+                        height: 80;
+                        anchors.top:weightInfoBox.bottom; anchors.topMargin: 10; anchors.left: referenceWeightLabel.right; anchors.leftMargin: 20; anchors.right: weightInfoBox.right;
+                        color: "#59000000"
+
+                        Text{
+                            id : referenceWeight
+                            //anchors.verticalCenter: referenceWeightLabel.verticalCenter; anchors.left: referenceWeightLabel.right; anchors.leftMargin: 20
+                            anchors.fill: parent; anchors.margins: 20
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment : Text.AlignHCenter
+                            font.pixelSize: 30
+                            font.family: FontManager.nanumGothicName
+                            elide: Text.ElideRight
+
+                            color : "#FFFFFF"
+                            text: ((caribratinModel.refWeight) / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+                        }
+                    }
+                }
+            }
+
+            Item{
+                Layout.preferredHeight: 4; Layout.preferredWidth: 1; Layout.fillHeight: true; Layout.fillWidth: true
+                visible : caribratinModel.step > QmlEnumDef.DYNAMIC_CARIB_STEP_STD_SETTING
+
+                Text{
+                    id : noticeCarib
+                    height: 80
+                    anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left;
+
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment : Text.AlignLeft
+                    font.pixelSize: 25
+                    font.family: FontManager.nanumGothicName
+                    elide: Text.ElideRight
+
+                    color : "#ACACAC"
+                    text: qsTr("3. After emptying the product on the scale, press 'Caribration' button.<br>   If the conveyer run, let the product through.")
+                }
+
+                UiButton{
+                    height: 80; width: 200
+                    anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right;
+
+                    textValue: qsTr("Caribration")
+
+                    onSignalEventClicked: {
+                        caribratinModel.onCommandCaribration()
+                    }
+                }
             }
         }
     }
 
     Item{
-        id: item1
-        anchors.left: parent.left
-        anchors.leftMargin: 20
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        anchors.bottom: btnComplete.top
-        anchors.bottomMargin: 0
-        anchors.top: panelMessageBox.bottom
-        anchors.topMargin: 0
+        id : tryCountBox
+        height: 120; width: 1000
+        anchors.bottom: btnComplete.top; anchors.bottomMargin: 40; anchors.horizontalCenter: parent.horizontalCenter
 
-        Item{
-            id: boxProductSetting
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: boxDynamicFactor.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
+        Text{
+            anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.leftMargin: 40
 
-            Text{
-                id: labelProduct
-                x: 600
-                width : 206
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 50
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
 
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· Product")
-
-            }
-
-            Text{
-                id : textProduct
-                width : 765
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                anchors.leftMargin: 0
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-                anchors.left: labelProduct.right
-
-                color : "#FFFFFF"
-                text: ("000"+caribratinModel.pdNum).slice(-3) + " " + caribratinModel.pdName
-
-            }
-
+            color : "#ACACAC"
+            text: qsTr("Try count")
         }
 
-        Item{
-            id: boxDynamicFactor
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: boxTareWeight.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
+        Text{
+            anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.right: parent.right; anchors.rightMargin: 20
 
-            Text{
-                id: labelDynamicFactorr
-                x: 600
-                width : 370
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignRight
+            font.pixelSize: 100
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
 
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· Dynamic factor")
-
-            }
-
-            Text{
-                id : textDynamicFactor
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                anchors.rightMargin: 280
-                anchors.leftMargin: 0
-                horizontalAlignment : Text.AlignRight
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-                anchors.left: labelDynamicFactorr.right
-                anchors.right: parent.right
-
-                color : "#FFFFFF"
-                text: (caribratinModel.dynamicFactor / 10000000.0).toLocaleString(ViewManager.locale, 'f', 7) //caribratinModel.dynamicFactor
-
-            }
-        }
-
-        Item{
-            id: boxTareWeight
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: boxCurrWeight.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
-
-            Text{
-                x: 600
-                width : 663
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· tare weight")
-
-            }
-
-            Text{
-                id : textTareWeight
-                x: 663
-                width : 350
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 280
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignRight
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#FFFFFF"
-                text: (caribratinModel.tareWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
-
-            }
-        }
-
-
-        Item{
-            id: boxCurrWeight
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: boxRefWeight.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
-
-            Text{
-                x: 600
-                width : 663
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· current weight")
-
-            }
-
-            Text{
-                id : textCurrWeight
-                x: 663
-                width : 350
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 280
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignRight
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#FFFFFF"
-                text: (caribratinModel.currWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
-
-            }
-
-            UiInputFloat{
-                id : inputCurrWeight
-                visible: false
-                min : 0.1
-                max : 9999.9
-
-                isDisable: true
-                realValue:  caribratinModel.currWeight / 1000
-
-            }
-
-            UiButton{
-                width: 200
-                height: 80
-                textValue: qsTr("Set ref weight")
-                anchors.right: parent.right
-                anchors.rightMargin: 20
-                anchors.verticalCenter: textCurrWeight.verticalCenter
-
-                onSignalEventClicked:
-                {
-                    caribratinModel.onCommandSetRefWeight(caribratinModel.currWeight)
-                }
-            }
-
-            UiButton{
-                width: 200
-                height: 80
-                textValue: qsTr("ZERO")
-                anchors.left: parent.right
-                anchors.rightMargin: 0
-                anchors.verticalCenter: textCurrWeight.verticalCenter
-
-                onSignalEventClicked:
-                {
-                    caribratinModel.onCommandZERO()
-                }
-            }
-
-        }
-
-        Item{
-            id: boxRefWeight
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: boxMovingWeight.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
-
-            Text{
-                x: 600
-                width : 663
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· Reference weight")
-
-            }
-
-            Text{
-                id : textRefWeight
-                x: 663
-                width : 350
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 280
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignRight
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#FFFFFF"
-                text: (caribratinModel.refWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN + 1).slice(0, -1) + " g"
-
-
-            }
-
-            UiInputFloat{
-                id : inputRefWeight
-                visible: false
-                min : 0.1
-                max : 9999.9
-
-                realValue:  caribratinModel.refWeight / 1000
-                onSignalChangeValue: {
-                    caribratinModel.onCommandSetRefWeight((value * 1000) + 0.5)
-                }
-            }
-
-            /*
-
-            UiButton{
-                width: 200
-                height: 80
-                textValue: qsTr("Edit")
-                anchors.right: parent.right
-                anchors.rightMargin: 20
-                anchors.verticalCenter: textRefWeight.verticalCenter
-
-                onSignalEventClicked: {
-                    ViewManager.keypad.showKeypad(inputRefWeight.getVInputText())
-                }
-            }
-            */
-
-        }
-
-        Item{
-            id: boxMovingWeight
-            width: 1000
-            height: parent.height/6
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 0
-
-            Text{
-                x: 600
-                width : 663
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignLeft
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#ACACAC"
-                text: qsTr("· Try count")
-
-            }
-
-            Text{
-                id : textDynamicWeight
-                x: 668
-                width : 350
-                anchors.top : parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 280
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment : Text.AlignRight
-                font.pixelSize: 40
-                font.family: FontManager.nanumGothicName
-                elide: Text.ElideRight
-
-                color : "#FFFFFF"
-                text: (caribratinModel.tryCount) + " / 5"
-
-            }
-
-            /*
-            UiButton{
-                x: 1260
-                width: 200
-                height: 80
-                textValue: qsTr("Measurement")
-                anchors.right: parent.right
-                anchors.rightMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
-
-                onSignalEventClicked: {
-                    caribratinModel.onCommandRemeasurement();
-                }
-            }
-            */
+            color : "#FFFFFF"
+            text: "" + caribratinModel.tryCount + " / 5"
         }
     }
 
@@ -527,8 +425,8 @@ UiPanel {
         height: 80
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 40
-        anchors.right: btnCaribraion.left
-        anchors.rightMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 40
         width: 200
 
         textValue: qsTr("Close")
@@ -536,24 +434,6 @@ UiPanel {
         onSignalEventClicked: {
             panel.signalEventCloseClicked()
             caribratinModel.onCommandClosed()
-        }
-    }
-
-    UiButton{
-        id: btnCaribraion
-        height: 80
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-        width: 200
-
-        textValue: qsTr("Calibraion")
-
-        type: QmlEnumDef.BUTTON_TYPE_BLUE
-
-        onSignalEventClicked: {
-            caribratinModel.onCommandCaribration();
         }
     }
 

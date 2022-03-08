@@ -240,6 +240,7 @@ public:
         dummy.mSeq = 0;
         dummy.mName = " ";
         dummy.mDspForm.mCommSetting.mProductNum = pdNewNum;
+        dummy.mDspForm.mWCSetting.mDynamicFactor = 10000000;
         return dummy;
     }
 

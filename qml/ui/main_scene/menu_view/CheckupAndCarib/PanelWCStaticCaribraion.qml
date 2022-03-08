@@ -148,11 +148,11 @@ UiPanel {
 
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment : Text.AlignHCenter
-                    font.pixelSize: 100
+                    font.pixelSize: 30
                     font.family: FontManager.nanumGothicName
                     elide: Text.ElideRight
 
-                    color : caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_COMPLETED_ERR ? "#D9001B" : "FFFFFF"
+                    color : caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_COMPLETED_ERR ? "#D9001B" : "#FFFFFF"
                     text: caribratinModel.step === QmlEnumDef.STATIC_CARIB_STEP_CARIB_COMPLETED_ERR ? qsTr("Incorrect calibration. Please recalibrate.") : qsTr("Calibration is complete.")
                 }
             }

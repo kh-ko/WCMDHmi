@@ -21,12 +21,6 @@ HistoryBackupThread::~HistoryBackupThread()
 
 void HistoryBackupThread::onCommandBackup(int deviceNumber, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, bool *pCancle)
 {
-    if(QFile::exists("/dev/sda1") == false)
-    {
-        backupComplete(QmlEnumDef::BackupResult::USB_ERROR);
-        return;
-    }
-
     startUsbCheckTimer();
 
     mDevNum = deviceNumber;
@@ -64,6 +58,14 @@ void HistoryBackupThread::checkUsb()
         return;
     }
 
+    /*
+    if(QFile::exists("/dev/sda1") == false)
+    {
+        backupComplete(QmlEnumDef::BackupResult::USB_ERROR);
+        return;
+    }
+    */
+
     if(output.contains("/dev/sda1") == true)
     {
         stopUsbCheckTimer();
@@ -73,10 +75,21 @@ void HistoryBackupThread::checkUsb()
 
 void HistoryBackupThread::mkdirBackupFolder(QString deviceNum)
 {
-    QDir("/home/pi/usb/novasen").removeRecursively();
+    if(!QDir().exists(QString("/home/pi/usb/novasen").arg(deviceNum)))
+    {
+        QDir().mkdir("/home/pi/usb/novasen");
+    }
 
-    QDir().mkdir("/home/pi/usb/novasen");
-    QDir().mkdir("/home/pi/usb/novasen/backup");
+    if(!QDir().exists(QString("/home/pi/usb/novasen/backup")))
+    {
+        QDir().mkdir("/home/pi/usb/novasen/backup");
+    }
+
+    if(QDir().exists(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum)))
+    {
+        QDir(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum)).removeRecursively();
+    }
+
     QDir().mkdir(QString("/home/pi/usb/novasen/backup/%1").arg(deviceNum));
 }
 

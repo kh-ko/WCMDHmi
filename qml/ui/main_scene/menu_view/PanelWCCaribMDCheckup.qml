@@ -21,6 +21,12 @@ UiPanel
     width : 1519
     height: 997
 
+    function moveDynamicCarib()
+    {
+        viewContainer.clear()
+        viewContainer.push(panelWCDynamicCaribraion)
+    }
+
 
     ColumnLayout {
         id: columnLayout

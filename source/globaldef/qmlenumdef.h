@@ -15,6 +15,7 @@ class QmlEnumDef: public QObject{
   Q_ENUMS(MDCheckUpStep)
   Q_ENUMS(MDCheckUpState)
   Q_ENUMS(StaticCaribStep)
+  Q_ENUMS(DynamicCaribStep)
   Q_ENUMS(SearchFilter)
   Q_ENUMS(Company)
 
@@ -118,6 +119,13 @@ public:
       STATIC_CARIB_STEP_CARIB_ING           = 3,
       STATIC_CARIB_STEP_CARIB_COMPLETED     = 4,
       STATIC_CARIB_STEP_CARIB_COMPLETED_ERR = 5
+  };
+
+  enum DynamicCaribStep{
+      DYNAMIC_CARIB_STEP_INIT           = 0,
+      DYNAMIC_CARIB_STEP_ZERO           = 1,
+      DYNAMIC_CARIB_STEP_STD_SETTING    = 2,
+      DYNAMIC_CARIB_STEP_CARIB_ING      = 3,
   };
 
   enum SearchFilter{

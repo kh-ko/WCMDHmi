@@ -10,6 +10,7 @@
 class PanelWCDynamicCalibrationModel : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(quint32  step          READ getStep          NOTIFY signalEventChangedStep         )
     Q_PROPERTY(bool    isRemeasure    READ getIsRemeasure   NOTIFY signalEventChangedIsRemeasure  )
     Q_PROPERTY(quint16 pdNum          READ getPdNum         NOTIFY signalEventChangedPdNum        )
     Q_PROPERTY(QString pdName         READ getPdName        NOTIFY signalEventChangedPdName       )
@@ -22,6 +23,7 @@ class PanelWCDynamicCalibrationModel : public QObject
 
 public:
     quint64 mDspSeq       = 0;
+    quint32  mStep        = QmlEnumDef::DYNAMIC_CARIB_STEP_INIT;
     bool    mIsRemeasure  ;
     quint16 mPdNum        ;
     QString mPdName       ;
@@ -33,6 +35,7 @@ public:
     quint32 mTareWeight   ;
 
     bool    getIsRemeasure  (){ return mIsRemeasure  ;}
+    quint32 getStep         (){ return mStep         ;}
     quint16 getPdNum        (){ return mPdNum        ;}
     QString getPdName       (){ return mPdName       ;}
     quint32 getDynamicFactor(){ return mDynamicFactor;}
@@ -43,6 +46,7 @@ public:
     quint32 getTareWeight   (){ return mTareWeight   ;}
 
     void    setIsRemeasure  (bool    value){ if(value == mIsRemeasure  ) return; mIsRemeasure   = value; emit signalEventChangedIsRemeasure  (value);}
+    void    setStep         (quint32 value){ if(value == mStep         ) return; mStep          = value; emit signalEventChangedStep         (value);}
     void    setPdNum        (quint16 value){ if(value == mPdNum        ) return; mPdNum         = value; emit signalEventChangedPdNum        (value);}
     void    setPdName       (QString value){ if(value == mPdName       ) return; mPdName        = value; emit signalEventChangedPdName       (value);}
     void    setDynamicFactor(quint32 value){ if(value == mDynamicFactor) return; mDynamicFactor = value; emit signalEventChangedDynamicFactor(value);}
@@ -54,8 +58,9 @@ public:
 
     explicit PanelWCDynamicCalibrationModel(QObject *parent = nullptr) : QObject(parent)
     {
+        setStep((quint32)QmlEnumDef::DYNAMIC_CARIB_STEP_INIT);
         setCurrWeight(0);
-        setRefWeight(pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight);
+        setRefWeight(0);//pLSettingSP->mDevSetting.mDspForm.mWCSetting.mDynamicBaseWeight);
         setMovingWeight(0);
         setTryCount(0);
         setTareWeight(pProductSP->mCurrPD.mDspForm.mWCSetting.mTareWeight);
@@ -79,6 +84,7 @@ public:
     }
 
 signals:
+    void    signalEventChangedStep         (quint32 value);
     void    signalEventChangedIsRemeasure  (bool    value);
     void    signalEventChangedPdNum        (quint16 value);
     void    signalEventChangedPdName       (QString value);
@@ -92,12 +98,17 @@ signals:
     void    signalEventInvalidCalibration  (             );
 
 public slots:
+    Q_INVOKABLE void onCommandPDConfirm()
+    {
+        qDebug() << "[khko_debug]onCommandPDConfirm";
+        setStep((quint32)QmlEnumDef::DYNAMIC_CARIB_STEP_ZERO);
+    }
     Q_INVOKABLE void onCommandZERO()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
         pDspSP->sendZeroCmd(mDspSeq);
-        //pDspSP->sendWCCaribCmd(mDspSeq, EnumDef::WC_CALIB_TYPE_DYNAMIC);
+        setStep((quint32)QmlEnumDef::DYNAMIC_CARIB_STEP_STD_SETTING);
     }
 
     Q_INVOKABLE void onCommandCaribration()
@@ -113,6 +124,7 @@ public slots:
         dto.mDspForm.mWCSetting.mDynamicBaseWeight =value;
         pLSettingSP->setDevSetting(dto);
         setRefWeight(value);
+        setStep((quint32)QmlEnumDef::DYNAMIC_CARIB_STEP_CARIB_ING);
     }
 
     Q_INVOKABLE void onCommandRemeasurement()

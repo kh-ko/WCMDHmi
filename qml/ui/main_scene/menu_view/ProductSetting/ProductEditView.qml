@@ -14,6 +14,7 @@ UiPanel {
     property bool isEnableWC : true
     property bool isEnableMD : true
     property bool isAdmin    : false
+    signal signalEventMoveDynamicCarib();
     signal signalEventAddCliecked();
     signal signalEventCancleCliecked();
     signal signalEventRemoveCliecked();
@@ -568,7 +569,7 @@ UiPanel {
         anchors.topMargin: 10
 
         isDisable : panel.isViewMode
-        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC && panel.isAdmin === true
+        visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC && (panel.isAdmin === true || (itemModel.dynamicFactor === 10000000 && !itemModel.isNew))
 
         bgColor: panel.bgColor
         labelText : qsTr("· Dynamic factor")
@@ -581,6 +582,31 @@ UiPanel {
         onSignalChangeValue:
         {
             itemModel.onCommandSetDynamicFactor((value * 10000000) + 0.5)
+        }
+
+        UiLabelContent{
+            height: 60; width: inputDyniamicFactor.inputWidth - 40
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            visible: itemModel.dynamicFactor == 10000000
+            horizontalAlignment : Text.AlignLeft
+            textColor: "#FF0000"
+            textValue: qsTr("is not set")
+        }
+
+        Rectangle{
+            anchors.fill: parent
+            color: "#00000000"
+
+            visible:panel.isAdmin === false && itemModel.dynamicFactor === 10000000 && !itemModel.isNew
+
+            MouseArea{
+                anchors.fill: parent
+
+                onClicked: {
+                    panel.signalEventMoveDynamicCarib()
+                }
+            }
         }
     }
 
@@ -620,7 +646,7 @@ UiPanel {
         anchors.rightMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
-        anchors.top: panel.isAdmin === true ? inputDyniamicFactor.bottom : inputTare.bottom
+        anchors.top: inputDyniamicFactor.visible ? inputDyniamicFactor.bottom : inputTare.bottom
         anchors.topMargin: 10
 
         visible: (itemModel.seq !== 0 || itemModel.isNew) && isEnableWC

@@ -19,6 +19,9 @@ UiPanel {
     width : 1518
     height : 997
 
+    signal signalAddedProduct()
+    signal signalMoveDynamicCarib()
+
     function loadList()
     {
         var selectIdx = 0;
@@ -48,6 +51,13 @@ UiPanel {
     {
         id : productSettingModel
 
+        onSignalEventAddedProduct:
+        {
+            console.debug("[khko_debug]add new pd")
+            if(isEnableWC)
+                panel.signalAddedProduct()
+        }
+
         onSignalEventResultSaveProductSetting: {
             //busyIndi.visible = false;
 
@@ -55,7 +65,8 @@ UiPanel {
             {
                 loadList()
 
-                ViewManager.toast.show(qsTr("Your settings have been saved."))
+                if(!isEnableWC)
+                    ViewManager.toast.show(qsTr("Your settings have been saved."))
             }
             else if(isInvalidWC == true)
             {
@@ -216,6 +227,10 @@ UiPanel {
         isEnableMD: productSettingModel.isEnableMD
         isViewMode : panel.isViewMode
         itemModel : productSettingModel.onCommandGetEditViewItemModel()
+
+        onSignalEventMoveDynamicCarib: {
+            panel.signalMoveDynamicCarib()
+        }
 
         onSignalEventAddCliecked: {
             productSettingModel.onCommandApplyProduct()

@@ -188,5 +188,6 @@
         <file>ui/main_scene/img/indicator/inet_enable_indi.png</file>
         <file>ui/main_scene/menu_view/CheckupAndCarib/PanelADCAutoCalibSetting.qml</file>
         <file>ui/intro_scene/soluray_logo.png</file>
+        <file>ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml</file>
     </qresource>
 </RCC>

@@ -15,6 +15,15 @@ Item {
     property int  selDevice  : QmlEnumDef.DEVICE_WEIGHT_CHECKER
     property int  selMenu    : QmlEnumDef.MENU_PRODUCT_SETTING
 
+    function moveDynamicCarib()
+    {
+        selMenu = QmlEnumDef.MENU_CHECK_UP
+
+        viewContainer.clear()
+        viewContainer.push(panelWCCaribMDCheckUp, {"isWCEnable" : element.isWCEnable, "isMDEnable" : element.isMDEnable})
+        viewContainer.get(0).moveDynamicCarib();
+    }
+
     id: element
 
     width : 1769
@@ -271,7 +280,28 @@ Item {
         anchors.topMargin: 0
     }
 
-    Component{ id : panelProductSetting;  PanelProductSetting  {anchors.fill: parent}}
+    PopupMoveWCDynamicCarib{
+        id : popupMoveWCDynamicCarib
+
+        onSignalEventMove: {
+            element.moveDynamicCarib();
+        }
+    }
+
+    Component{
+        id : panelProductSetting;
+        PanelProductSetting{
+            anchors.fill: parent
+
+            onSignalMoveDynamicCarib:{
+                element.moveDynamicCarib();
+            }
+
+            onSignalAddedProduct: {
+                popupMoveWCDynamicCarib.visible = true;
+            }
+        }
+    }
     Component{ id : panelLoggingData;     PanelLoggingData     {anchors.fill: parent}}
     Component
     {

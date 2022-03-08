@@ -143,12 +143,12 @@
 <context>
     <name>MenuView</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="87"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="96"/>
         <source>PRODUCT&lt;br&gt;SETTING</source>
         <translation>제품설정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="108"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="117"/>
         <source>LOGGING&lt;br&gt;DATA</source>
         <translation>운영이력</translation>
     </message>
@@ -157,7 +157,7 @@
         <translation type="vanished">보정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="129"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="138"/>
         <source>CHECKUP</source>
         <translation>점검</translation>
     </message>
@@ -166,32 +166,32 @@
         <translation type="vanished">최대오차</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="175"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="184"/>
         <source>DEVICE&lt;br&gt;SETTING</source>
         <translation>장비설정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="241"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="250"/>
         <source>INFORMATION</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="198"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="207"/>
         <source>GRAPH</source>
         <translation>그래프</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="129"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="138"/>
         <source>CALIBRATION&lt;br&gt;/ CHECKUP</source>
         <translation>보정&lt;br&gt;/점검</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="151"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="160"/>
         <source>MAX ERROR</source>
         <translation>최대오차</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="220"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="229"/>
         <source>CLOCK&lt;br&gt;SETTING</source>
         <translation>시간설정</translation>
     </message>
@@ -783,12 +783,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="391"/>
         <source>Mitsubishi</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitsubishi</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="399"/>
         <source>Schneider</source>
-        <translation type="unfinished"></translation>
+        <translation>Schneider</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="570"/>
@@ -1272,7 +1272,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="313"/>
         <source>· VNC SERVER IP</source>
-        <translation type="unfinished"></translation>
+        <translation>· VNC SERVER IP</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="351"/>
@@ -1673,7 +1673,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="742"/>
         <source>Wait until the next step is ready. </source>
-        <translation>다음 단계가 준비될때 까지 기다리세요.</translation>
+        <translation>다음 단계가 준비될때 까지 기다리세요. </translation>
     </message>
 </context>
 <context>
@@ -2018,22 +2018,22 @@
         <translation type="obsolete">저장완료</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="82"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="93"/>
         <source>SQL error is occured.</source>
         <translation>SQL구문 오류가 발생하였습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="70"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="81"/>
         <source>This product dose not exist.</source>
         <translation>존재하지 않은 제품입니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="74"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="85"/>
         <source>The Product no already exists.</source>
         <translation>이미 존재하는 제품 번호입니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="66"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="77"/>
         <source>Please enter product no.</source>
         <translation>제품번호를 입력해 주세요.</translation>
     </message>
@@ -2042,7 +2042,7 @@
         <translation type="vanished">제품 속도가 잘못 되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="62"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="73"/>
         <source>Invalid weight checker setting.</source>
         <translation>중량선별기 설정이 잘못 되었습니다.</translation>
     </message>
@@ -2051,27 +2051,27 @@
         <translation type="vanished">금속검출기 설정이 잘못되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="78"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="89"/>
         <source>can not remove selected product.</source>
         <translation>운전에 선택된 제품은 삭제할 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="58"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="69"/>
         <source>Your settings have been saved.</source>
         <translation>설정이 저장되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="109"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="120"/>
         <source>Order by name</source>
         <translation>이름순</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="113"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="124"/>
         <source>Order by number</source>
         <translation>번호순</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="196"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="207"/>
         <source>New product</source>
         <translation>새 제품</translation>
     </message>
@@ -2244,22 +2244,22 @@
 <context>
     <name>PanelWCCaribMDCheckup</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="41"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="47"/>
         <source>Weight checker static calibration</source>
         <translation>중량 정보정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="57"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="63"/>
         <source>Weight checker dynamic calibration</source>
         <translation>중량 동보정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="73"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="79"/>
         <source>Metal detector checkup</source>
         <translation>금속검출기 점검</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="91"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCCaribMDCheckup.qml" line="97"/>
         <source>ADC auto calibration setting</source>
         <translation>ADC 자동보정 설정</translation>
     </message>
@@ -2285,49 +2285,103 @@
         <translation>보정이 잘못되었습니다.&lt;br&gt;다시 보정을 해주십시요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="75"/>
         <source>1. Check the reference weight and press the &apos;calibration&apos; button.&lt;br&gt;2. If the conveyer run, let the product through.</source>
-        <translation>1. 기준중량을 확인 후 &apos;보정&apos; 버튼을 눌러주세요.&lt;br&gt;2. 벨트가 움직이면 제품을 통과 시켜주세요.</translation>
+        <translation type="vanished">1. 기준중량을 확인 후 &apos;보정&apos; 버튼을 눌러주세요.&lt;br&gt;2. 벨트가 움직이면 제품을 통과 시켜주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="149"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="98"/>
         <source>· Product</source>
         <translation>· 제품</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="202"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="127"/>
         <source>· Dynamic factor</source>
         <translation>· 동중량계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="254"/>
-        <source>· tare weight</source>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="304"/>
+        <source>· Tare weight</source>
         <translation>· 용기무게</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="307"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="334"/>
+        <source>· Reference weight (tare weight included)</source>
+        <translation>· 기준 중량 ( 용기 중량 포함 )</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="210"/>
+        <source>1. After emptying the product on the scale, press &apos;ZERO&apos; button.</source>
+        <translation>1. 저울 위를 비워주시고, &apos;영점&apos;버튼을 선택해 주세요.</translation>
+    </message>
+    <message>
+        <source>· tare weight</source>
+        <translation type="vanished">· 용기무게</translation>
+    </message>
+    <message>
         <source>· current weight</source>
-        <translation>· 실시간 중량</translation>
+        <translation type="vanished">· 실시간 중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="347"/>
         <source>Set ref weight</source>
-        <translation>기준중량설정</translation>
+        <translation type="vanished">기준중량설정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="361"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="217"/>
         <source>ZERO</source>
         <translation>영점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="399"/>
-        <source>· Reference weight</source>
-        <translation>· 기준 중량</translation>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="244"/>
+        <source>2. Put the product on the scale and press &apos;Standard setting&apos; button.</source>
+        <translation>2. 저울 위에 제품을 올리고 &apos;기준설정&apos; 버튼을 눌러주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="481"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="252"/>
+        <source>Standard setting</source>
+        <translation>기준설정</translation>
+    </message>
+    <message>
+        <source>· (tare weight included) Current weight</source>
+        <oldsource>· Current weight(tare weight included)</oldsource>
+        <translation type="vanished">· (용기 무게 포함) 현재중량</translation>
+    </message>
+    <message>
+        <source>· (tare weight included) Reference weight</source>
+        <oldsource>· Reference weight(tare weight included)</oldsource>
+        <translation type="vanished">· (용기 무게 포함) 기준중량</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="275"/>
+        <source>· Current weight</source>
+        <translation>· 현재중량</translation>
+    </message>
+    <message>
+        <source>· Reference weight</source>
+        <translation type="vanished">· 기준 중량</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="376"/>
+        <source>3. After emptying the product on the scale, press &apos;Caribration&apos; button.&lt;br&gt;   If the conveyer run, let the product through.</source>
+        <translation>3. 저울 위를 비워주시고, &apos;보정&apos;버튼을 눌러주세요.&lt;br&gt;벨트가 움직이면 제품을 통과시켜주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="383"/>
+        <source>Caribration</source>
+        <translation>보정</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="408"/>
+        <source>Try count</source>
+        <translation>시도 횟수</translation>
+    </message>
+    <message>
+        <source>· Please enter reference weight</source>
+        <oldsource>Please enter reference weight</oldsource>
+        <translation type="vanished">· 기준 중량을 입력해 주세요</translation>
+    </message>
+    <message>
         <source>· Try count</source>
-        <translation>· 측정 횟수</translation>
+        <translation type="vanished">· 측정 횟수</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -2346,14 +2400,13 @@
         <translation type="obsolete">재측정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="534"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="434"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="551"/>
         <source>Calibraion</source>
-        <translation>보정</translation>
+        <translation type="vanished">보정</translation>
     </message>
 </context>
 <context>
@@ -2753,6 +2806,29 @@
     </message>
 </context>
 <context>
+    <name>PopupMoveWCDynamicCarib</name>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="50"/>
+        <source>A new product has been added.</source>
+        <translation>새 제품이 추가되었습니다.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="58"/>
+        <source>Do you want to perform dynamic caribration?</source>
+        <translation>동보정을 수행하시겠습니까?</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="72"/>
+        <source>Yes</source>
+        <translation>예</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="90"/>
+        <source>No</source>
+        <translation>아니오</translation>
+    </message>
+</context>
+<context>
     <name>PopupSelectMenu</name>
     <message>
         <source>Select device</source>
@@ -2839,107 +2915,107 @@
 <context>
     <name>ProductEditView</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="40"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="41"/>
         <source>General</source>
         <translation>공통</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="57"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="58"/>
         <source>· Product No</source>
         <translation>· 제품번호</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="83"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="84"/>
         <source>· Product Name</source>
         <translation>· 제품이름</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="108"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="109"/>
         <source>· Length</source>
         <translation>· 길이</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="136"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="137"/>
         <source>· Speed</source>
         <translation>· 벨트속도</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="156"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="157"/>
         <source>Max speed : </source>
-        <translation>최대 속도:</translation>
+        <translation>최대 속도: </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="172"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="173"/>
         <source>· Group</source>
         <translation>· 그룹</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="189"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="190"/>
         <source>  Count</source>
         <translation>  갯수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="216"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="217"/>
         <source>Motion</source>
         <translation>동작</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="234"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="711"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="772"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="834"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1114"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="235"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="737"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="798"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="860"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1140"/>
         <source>Sorter 01</source>
         <translation>선별기 1</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="238"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="715"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="776"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="838"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1118"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="239"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="741"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="802"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="864"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1144"/>
         <source>Sorter 02</source>
         <translation>선별기 2</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="242"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="719"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="780"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="842"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1122"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="243"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="745"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="806"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="868"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1148"/>
         <source>Sorter 03</source>
         <translation>선별기 3</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="246"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="723"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="784"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="846"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1126"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="247"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="749"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="810"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="872"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1152"/>
         <source>Sorter 04</source>
         <translation>선별기 4</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="270"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="645"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1150"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="271"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="671"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1176"/>
         <source>Lamp</source>
         <translation>램프</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="292"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="663"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1173"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="293"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="689"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1199"/>
         <source>Buzzer</source>
         <translation>부져</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="322"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="323"/>
         <source>Weight checker</source>
         <translation>중량선별기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="518"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="519"/>
         <source>· Under</source>
         <translation>· 하한</translation>
     </message>
@@ -2948,7 +3024,7 @@
         <translation type="obsolete">· 미달경고중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="455"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="456"/>
         <source>· Normal</source>
         <translation>· 정량</translation>
     </message>
@@ -2957,12 +3033,12 @@
         <translation type="obsolete">· 초과경고중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="393"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="394"/>
         <source>· Over</source>
         <translation>· 상한</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="548"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="549"/>
         <source>· Tare</source>
         <translation>· 용기</translation>
     </message>
@@ -2971,34 +3047,34 @@
         <translation type="obsolete">· 평균계산 개수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="574"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="575"/>
         <source>· Dynamic factor</source>
         <translation>· 동중량계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="632"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="693"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="754"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="816"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1095"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="658"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="719"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="780"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="842"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1121"/>
         <source>· NG motion</source>
         <translation>· 검출동작</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="226"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="703"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="764"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="826"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1106"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="227"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="729"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="790"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="852"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1132"/>
         <source>None</source>
         <translation>없음</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="230"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="707"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="768"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="830"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1110"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="231"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="733"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="794"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="856"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1136"/>
         <source>Stop</source>
         <translation>벨트정지</translation>
     </message>
@@ -3015,74 +3091,79 @@
         <translation type="vanished">· 오류 검출</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="340"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1020"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="341"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1046"/>
         <source>ON</source>
         <translation>켜기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="362"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1042"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="363"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1068"/>
         <source>OFF</source>
         <translation>끄기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="681"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="594"/>
+        <source>is not set</source>
+        <translation>설정 안됨</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="707"/>
         <source>- Over</source>
         <translation>-초과</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="742"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="768"/>
         <source>- Under</source>
         <translation>-미달</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="803"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="829"/>
         <source>- Etc</source>
         <translation>-기타</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="931"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="957"/>
         <source>Motor</source>
         <translation>모터</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="948"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="974"/>
         <source>· Motor acc</source>
         <translation>· 모터 가속</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="977"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1003"/>
         <source>· Motor dec</source>
         <translation>· 모터 감속</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1004"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1030"/>
         <source>Metal detector</source>
         <translation>금속검출기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1065"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1091"/>
         <source>· Senstivity</source>
         <translation>· 감도</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1222"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1248"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1243"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1269"/>
         <source>Cancle</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1262"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1288"/>
         <source>Remove</source>
         <translation>삭제</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1263"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1289"/>
         <source>Do you want to remove this product?</source>
         <translation>제품설정정보를 삭제하시겠습니까?</translation>
     </message>
