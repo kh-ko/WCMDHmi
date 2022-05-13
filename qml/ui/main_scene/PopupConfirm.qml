@@ -76,7 +76,7 @@ Rectangle {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
 
-            textValue: qsTr("Cancle")
+            textValue: qsTr("Cancel")
             type : QmlEnumDef.BUTTON_TYPE_BLUE
 
             onSignalEventClicked:

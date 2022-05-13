@@ -1779,7 +1779,7 @@ UiPanel {
 
         visible : btnApply.visible
 
-        textValue: qsTr("Cancle")
+        textValue: qsTr("Cancel")
 
         onSignalEventClicked:
         {

@@ -58,7 +58,7 @@ Rectangle {
             id : closeBtn
             height: 60
             width: 180
-            textValue : qsTr("Cancle")
+            textValue : qsTr("Cancel")
             type : QmlEnumDef.BUTTON_TYPE_UP_PANEL
             anchors.top: parent.top
             anchors.topMargin: 20

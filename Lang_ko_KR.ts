@@ -2,6 +2,59 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ko_KR">
 <context>
+    <name>EthernetSettingDlg</name>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="76"/>
+        <source>Cancel</source>
+        <translation type="unfinished">취소</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="92"/>
+        <source>Apply</source>
+        <translation type="unfinished">적용</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="133"/>
+        <source>· IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="156"/>
+        <source>· Subnet mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="178"/>
+        <source>· Route</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="200"/>
+        <source>· Metric</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="218"/>
+        <source>· Target IPs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="227"/>
+        <source>DSP IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="242"/>
+        <source>Del</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="263"/>
+        <source>Target IPs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FactoryResetView</name>
     <message>
         <location filename="qml/ui/main_scene/factoryreset_view/FactoryResetView.qml" line="79"/>
@@ -376,8 +429,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelBackup.qml" line="288"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
 </context>
 <context>
@@ -412,8 +466,9 @@
     <name>PanelCalendar</name>
     <message>
         <location filename="qml/ui/main_scene/PanelCalendar.qml" line="58"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
 </context>
 <context>
@@ -1065,8 +1120,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1782"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
 </context>
 <context>
@@ -1306,33 +1362,51 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="577"/>
-        <source>HMI out</source>
-        <translation>나가기</translation>
+        <source>HMI&lt;br&gt;Out</source>
+        <oldsource>HMI out</oldsource>
+        <translation type="unfinished">나가기</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="593"/>
-        <source>Factory&lt;br&gt;reset</source>
+        <source>Alarm&lt;br&gt;Reset</source>
+        <oldsource>Factory&lt;br&gt;reset</oldsource>
+        <translation>알람&lt;br&gt;초기화</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="609"/>
+        <source>Factory&lt;br&gt;Reset</source>
         <translation>공장&lt;br&gt;초기화</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="594"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="610"/>
         <source>Do you want factory reset ?</source>
         <translation>공장초기화를 진행하시겠습니까?</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="609"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="625"/>
         <source>Remote Ctrl&lt;br&gt;disconnect</source>
         <translation>원격제어 끊기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="609"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="625"/>
         <source>Remote Ctrl&lt;br&gt;connect</source>
         <translation>원격제어 연결</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="626"/>
-        <source>WIFI Setting</source>
-        <translation>WIFI 설정</translation>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="642"/>
+        <source>WIFI&lt;br&gt;Setting</source>
+        <oldsource>WIFI Setting</oldsource>
+        <translation type="unfinished">WIFI&lt;br&gt;설정</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="660"/>
+        <source>Eth&lt;br&gt;Setting</source>
+        <translation type="unfinished">유선랜&lt;br&gt;설정</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="716"/>
+        <source>Cancel</source>
+        <translation>취소</translation>
     </message>
     <message>
         <source>Remote Ctrl</source>
@@ -1374,14 +1448,13 @@
         <translation type="obsolete">· 포토와 센서간 거리</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="660"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="694"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="680"/>
         <source>Cancle</source>
-        <translation>취소</translation>
+        <translation type="vanished">취소</translation>
     </message>
 </context>
 <context>
@@ -1594,8 +1667,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="213"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelMDCheckup.qml" line="249"/>
@@ -2299,12 +2373,12 @@
         <translation>· 동중량계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="304"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="302"/>
         <source>· Tare weight</source>
         <translation>· 용기무게</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="334"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="332"/>
         <source>· Reference weight (tare weight included)</source>
         <translation>· 기준 중량 ( 용기 중량 포함 )</translation>
     </message>
@@ -2351,7 +2425,7 @@
         <translation type="vanished">· (용기 무게 포함) 기준중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="275"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="274"/>
         <source>· Current weight</source>
         <translation>· 현재중량</translation>
     </message>
@@ -2360,17 +2434,17 @@
         <translation type="vanished">· 기준 중량</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="376"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="374"/>
         <source>3. After emptying the product on the scale, press &apos;Caribration&apos; button.&lt;br&gt;   If the conveyer run, let the product through.</source>
         <translation>3. 저울 위를 비워주시고, &apos;보정&apos;버튼을 눌러주세요.&lt;br&gt;벨트가 움직이면 제품을 통과시켜주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="383"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="381"/>
         <source>Caribration</source>
         <translation>보정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="408"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="406"/>
         <source>Try count</source>
         <translation>시도 횟수</translation>
     </message>
@@ -2400,7 +2474,7 @@
         <translation type="obsolete">재측정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="434"/>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="432"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
@@ -2512,8 +2586,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="109"/>
@@ -2743,8 +2818,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupConfirm.qml" line="79"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
 </context>
 <context>
@@ -2895,8 +2971,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupTrendsOption.qml" line="212"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
 </context>
 <context>
@@ -3154,8 +3231,9 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1269"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1288"/>
@@ -3180,8 +3258,9 @@
     <name>SearchSSIDDlg</name>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/SearchSSIDDlg.qml" line="61"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/SearchSSIDDlg.qml" line="83"/>
@@ -3246,8 +3325,9 @@
     <name>UiKeypad</name>
     <message>
         <location filename="qml/control/UiKeypad.qml" line="97"/>
-        <source>Cancle</source>
-        <translation>취소</translation>
+        <source>Cancel</source>
+        <oldsource>Cancle</oldsource>
+        <translation type="unfinished">취소</translation>
     </message>
     <message>
         <location filename="qml/control/UiKeypad.qml" line="117"/>

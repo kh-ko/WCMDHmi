@@ -30,6 +30,7 @@
 #include "source/qmlmodel/wcmd/menu_scene/maxerrorsetting/panelmaxerrorsettingmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/information/searchdspdlgmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/information/searchssiddlgmodel.h"
+#include "source/qmlmodel/wcmd/menu_scene/information/ethernetsettingdlgmodel.h"
 #include "source/qmlmodel/wcmd/menu_scene/checkup/paneladcautocalibsettingmodel.h"
 #include "source/service/coreservice.h"
 #include "source/util/mouseeventspy.h"
@@ -63,6 +64,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterUncreatableType<QmlEnumDef>("QmlEnumDef", 1, 0, "QmlEnumDef", "");
     qmlRegisterUncreatableType<EnumDef>("EnumDef", 1, 0, "EnumDef", "");
+    //qmlRegisterUncreatableType<EthernetSettingEnumDef>("EthernetSettingEnumDef", 1, 0, "EthernetSettingEnumDef", "");
 
 
     qRegisterMetaType<DevSettingDto>();
@@ -112,6 +114,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<PanelMaxErrorSettingModel>("PanelMaxErrorSettingModel", 1, 0, "PanelMaxErrorSettingModel");
     qmlRegisterType<SearchDspDlgModel>("SearchDspDlgModel", 1, 0, "SearchDspDlgModel");
     qmlRegisterType<SearchSSIDDlgModel>("SearchSSIDDlgModel", 1, 0, "SearchSSIDDlgModel");
+    qmlRegisterType<EthernetSettingDlgModel>("EthernetSettingDlgModel", 1, 0, "EthernetSettingDlgModel");
+    qmlRegisterType<EthernetSettingItemModel>("EthernetSettingItemModel", 1, 0, "EthernetSettingItemModel");
     qmlRegisterType<PanelADCAutoCalibSettingModel>("PanelADCAutoCalibSettingModel", 1, 0, "PanelADCAutoCalibSettingModel");
 
     qmlRegisterSingletonType<MouseEventSpy>("MouseEventSpy", 1, 0, "MouseEventSpy", MouseEventSpy::singletonProvider);

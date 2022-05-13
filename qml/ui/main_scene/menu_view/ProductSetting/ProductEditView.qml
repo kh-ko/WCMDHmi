@@ -1266,7 +1266,7 @@ UiPanel {
         visible : btnApply.visible
 
         type : QmlEnumDef.BUTTON_TYPE_UP_PANEL
-        textValue: qsTr("Cancle")
+        textValue: qsTr("Cancel")
 
         onSignalEventClicked:
         {

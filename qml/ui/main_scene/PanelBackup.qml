@@ -285,7 +285,7 @@ Item{
         UiButton{
             width: (parent.width / 2) - 40
             height: 80
-            textValue: qsTr("Cancle")
+            textValue: qsTr("Cancel")
             anchors.right: parent.right
             anchors.rightMargin: 20
             anchors.bottom: parent.bottom

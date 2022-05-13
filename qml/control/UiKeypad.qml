@@ -94,7 +94,7 @@ Item {
     }
 
     UiButton{
-        textValue :qsTr("Cancle")
+        textValue :qsTr("Cancel")
 
         width :  140
         height : 80

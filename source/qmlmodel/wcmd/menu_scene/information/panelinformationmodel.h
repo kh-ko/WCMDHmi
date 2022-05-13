@@ -272,6 +272,11 @@ signals:
 
 
 public slots:
+    Q_INVOKABLE void onCommandAlramReset()
+    {
+        pDspSP->sendAllRunCmd(EnumDef::RUN_MODE_ALRAM_RESET);
+    }
+
     Q_INVOKABLE void onCommandRemoteCtrl()
     {
         if(pVncSP->isRun())

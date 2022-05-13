@@ -140,7 +140,7 @@ public:
         RUN_MODE_RUN = 1,
         RUN_MODE_CHECKUP_RUN = 2,
         RUN_MODE_DETECT_OFF_RUN = 3,
-        RUN_MODE_ROUND_RUN = 4
+        RUN_MODE_ALRAM_RESET = 4
     };
 
     enum eWCGPointType{

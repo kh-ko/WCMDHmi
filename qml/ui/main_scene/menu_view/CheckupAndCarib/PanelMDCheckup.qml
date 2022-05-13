@@ -210,7 +210,7 @@ UiPanel {
         UiButton{
             id : btnCancle
             height: 80
-            textValue: qsTr("Cancle")
+            textValue: qsTr("Cancel")
             anchors.verticalCenterOffset: 60
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right

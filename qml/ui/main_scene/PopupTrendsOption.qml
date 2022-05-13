@@ -209,7 +209,7 @@ Item {
             anchors.bottomMargin: 20
 
             type : QmlEnumDef.BUTTON_TYPE_POPUP
-            textValue: qsTr("Cancle")
+            textValue: qsTr("Cancel")
 
             onSignalEventClicked: {
                 popup.visible = false;

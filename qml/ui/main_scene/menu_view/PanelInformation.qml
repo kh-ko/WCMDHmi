@@ -551,7 +551,7 @@ UiPanel {
 
     UiButton{
         id : btnRefVoltageReset
-        width: 164
+        width: 146
         height: 80
         anchors.verticalCenter: btnApply.verticalCenter
         anchors.right: btnHMIOut.left
@@ -567,30 +567,46 @@ UiPanel {
 
     UiButton{
         id : btnHMIOut
-        width: 164
+        width: 100
         height: 80
         anchors.verticalCenter: btnApply.verticalCenter
-        anchors.right: btnFactoryReset.left
+        anchors.right: btnReset.left
         anchors.rightMargin: 20
 
         visible: uiPanel.isAdmin
-        textValue: qsTr("HMI out")
+        textValue: qsTr("HMI<br>Out")
 
         onSignalEventClicked: {
             ViewManager.minimizeWindow()
         }
     }
 
+    UiButton{
+        id : btnReset
+        width: 100
+        height: 80
+        anchors.verticalCenter: btnApply.verticalCenter
+        anchors.right: btnFactoryReset.left
+        anchors.rightMargin: 20
+
+        visible: uiPanel.isAdmin
+        textValue: qsTr("Alarm<br>Reset")
+
+        onSignalEventClicked: {
+            informationModel.onCommandAlramReset();
+        }
+    }
+
     UiButtonConfirm{
         id : btnFactoryReset
-        width: 164
+        width: 146
         height: 80
         anchors.verticalCenter: btnApply.verticalCenter
         anchors.right: divider.right
         anchors.rightMargin: 20
 
         visible: uiPanel.isAdmin
-        textValue: qsTr("Factory<br>reset")
+        textValue: qsTr("Factory<br>Reset")
         textConfirmMsg: qsTr("Do you want factory reset ?")
         onSignalEventClicked: {
             ViewManager.mainScene.factoryReset(false);
@@ -616,18 +632,36 @@ UiPanel {
 
     UiButton{
         id : btnWIFI
-        width : 200
+        width : 100
         height : 80
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
         anchors.left: btnRemoteCtrl.right
         anchors.leftMargin: 10
 
-        textValue: qsTr("WIFI Setting")
+        textValue: qsTr("WIFI<br>Setting")
 
         onSignalEventClicked:
         {
             searchSSIDDlg.show();
+        }
+    }
+
+    UiButton{
+        id : btnEthernet
+        width : 100
+        height : 80
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.left: btnWIFI.right
+        anchors.leftMargin: 10
+
+        visible: uiPanel.isAdmin
+        textValue: qsTr("Eth<br>Setting")
+
+        onSignalEventClicked:
+        {
+            ethernetSettingDlg.show();
         }
     }
 
@@ -662,6 +696,8 @@ UiPanel {
         onSignalEventClicked:
         {
            informationModel.onCommandSave()
+
+            ethernetSettingDlg.setDspIP(informationModel.ip)
         }
 
     }
@@ -677,7 +713,7 @@ UiPanel {
 
         visible : btnApply.visible
 
-        textValue: qsTr("Cancle")
+        textValue: qsTr("Cancel")
 
         onSignalEventClicked:
         {
@@ -692,6 +728,11 @@ UiPanel {
         onSignalEventConnectedAP: {
          close()
         }
+    }
+
+    EthernetSettingDlg
+    {
+        id : ethernetSettingDlg
     }
 
     Component{

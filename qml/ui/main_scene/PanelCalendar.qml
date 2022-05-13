@@ -55,7 +55,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: 20
 
-            textValue: qsTr("Cancle")
+            textValue: qsTr("Cancel")
 
             onSignalEventClicked:
             {

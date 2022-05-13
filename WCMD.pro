@@ -60,6 +60,7 @@ HEADERS += \
     source/qmlmodel/wcmd/menu_scene/graph/metaldetectorgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/panelmdgraphmodel.h \
     source/qmlmodel/wcmd/menu_scene/graph/panelwcgraphmodel.h \
+    source/qmlmodel/wcmd/menu_scene/information/ethernetsettingdlgmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/panelinformationmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/searchdspdlgmodel.h \
     source/qmlmodel/wcmd/menu_scene/information/searchssiddlgmodel.h \
