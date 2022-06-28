@@ -224,6 +224,7 @@ public:
     void setFilterCoefficient       (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mFilterCoefficient      ) return; mModel.mDspForm.mWCSetting.mFilterCoefficient       = value;  setIsEditFilterCoefficient (true); emit signalEventChangedFilterCoefficient        (value);}
     void setMeasureCueSign          (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mMeasureCueSign         ) return; mModel.mDspForm.mWCSetting.mMeasureCueSign          = value;  setIsEditMeasureCueSign    (true); emit signalEventChangedMeasureCueSign           (value);}
     void setMeasureSection          (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mMeasureSection         ) return; mModel.mDspForm.mWCSetting.mMeasureSection          = value;  setIsEditMeasureSection    (true); emit signalEventChangedMeasureSection           (value);}
+    void setWCAutoSetting           (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mAutoSetting            ) return; mModel.mDspForm.mWCSetting.mAutoSetting             = value;                                                                                             }
     void setMDSenstivity            (quint16 value){ if(value == mModel.mDspForm.mMDSetting.mSenstivity             ) return; mModel.mDspForm.mMDSetting.mSenstivity              = value;  setIsEditMDSenstivity      (true); emit signalEventChangedMDSenstivity             (value);}
     void setMDNGMotion              (quint16 value){ if(value == mModel.mDspForm.mMDSetting.mNGMotion               ) return; mModel.mDspForm.mMDSetting.mNGMotion                = value;  setIsEditMDNGMotion        (true); emit signalEventChangedMDNGMotion               (value);}
     void setMDNGLamp                (quint16 value){ if(value == mModel.mDspForm.mMDSetting.mNGLamp                 ) return; mModel.mDspForm.mMDSetting.mNGLamp                  = value;  setIsEditMDNGLamp          (true); emit signalEventChangedMDNGLamp                 (value);}
@@ -407,6 +408,7 @@ public:
             setMDNGMotion              (0 );
             setMDNGLamp                (0 );
             setMDNGBuzzer              (0 );
+            setWCAutoSetting           (false);
         }
         else
         {
@@ -437,6 +439,7 @@ public:
             setFilterCoefficient (pPDSetting->mDspForm.mWCSetting.mFilterCoefficient      );
             setMeasureCueSign    (pPDSetting->mDspForm.mWCSetting.mMeasureCueSign         );
             setMeasureSection    (pPDSetting->mDspForm.mWCSetting.mMeasureSection         );
+            setWCAutoSetting     (pPDSetting->mDspForm.mWCSetting.mAutoSetting            );
             setMDSenstivity      (pPDSetting->mDspForm.mMDSetting.mSenstivity             );
             setMDNGMotion        (pPDSetting->mDspForm.mMDSetting.mNGMotion               );
             setMDNGLamp          (pPDSetting->mDspForm.mMDSetting.mNGLamp                 );
@@ -505,6 +508,7 @@ public:
         setFilterCoefficient (newProduct.mDspForm.mWCSetting.mFilterCoefficient      );
         setMeasureCueSign    (newProduct.mDspForm.mWCSetting.mMeasureCueSign         );
         setMeasureSection    (newProduct.mDspForm.mWCSetting.mMeasureSection         );
+        setWCAutoSetting     (newProduct.mDspForm.mWCSetting.mAutoSetting            );
         setMDSenstivity      (newProduct.mDspForm.mMDSetting.mSenstivity             );
         setMDNGMotion        (newProduct.mDspForm.mMDSetting.mNGMotion               );
         setMDNGLamp          (newProduct.mDspForm.mMDSetting.mNGLamp                 );

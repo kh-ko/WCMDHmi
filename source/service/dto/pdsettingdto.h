@@ -75,7 +75,6 @@ public:
         mDspForm.mMDSetting.mNGMotion                = pDefaultSP->PD_SETTING_MD_NGMOTION               ;
         mDspForm.mMDSetting.mNGLamp                  = pDefaultSP->PD_SETTING_MD_NG_LAMP                ;
         mDspForm.mMDSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_MD_NG_BUZZER              ;
-
     }
 
     bool setValue(QString value, QString divider)
