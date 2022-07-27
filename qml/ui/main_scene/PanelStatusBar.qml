@@ -9,12 +9,14 @@ Item {
     property string textCompany : "NOVASEN"
     property string textTel : "T 051 - 581 - 7071"
     property string textClock : "2020/03/27 23:05:01"
+    property string currWeight : ""
     property bool   isZeroProc : false
     property bool   isRun : true
     property bool   isComm : true
     property bool   isAlarm : true
     property bool   isNeedBackup : false
     property bool   isInet : false
+    property bool   isWCEnable : true
 
     signal signalEventAlarmClicked()
 
@@ -36,6 +38,7 @@ Item {
     }
 
     UiLabelSystemSmall{
+        id : labelClock
         width: 364
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
@@ -46,7 +49,42 @@ Item {
         textValue: textClock
     }
 
+    Rectangle{
+        color: "#59000000"
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 5
+        anchors.top: parent.top
+        anchors.topMargin: 5
+        anchors.left: labelClock.right
+        anchors.leftMargin: 40
+        anchors.right: inidZero.left
+        anchors.rightMargin: 40
+
+        radius: 10
+
+        visible: isWCEnable
+
+        UiLabelSystemSmall{
+            height: parent.height
+            width : 200
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+
+            textValue : qsTr("Current weight")
+        }
+
+        UiLabelContent{
+            height: parent.height
+            width: 200
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            horizontalAlignment : Text.AlignRight
+            textValue: currWeight
+        }
+    }
+
     Image{
+        id : inidZero
         width: 30
         height: 30
         anchors.verticalCenter: parent.verticalCenter

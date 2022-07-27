@@ -16,6 +16,7 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    isMDEnable         READ getIsMDEnable          NOTIFY signalEventChangedIsMDEnable        )
     Q_PROPERTY(QString company            READ getCompany             NOTIFY signalEventChangedCompany           )
     Q_PROPERTY(QString tel                READ getTel                 NOTIFY signalEventChangedTel               )
+    Q_PROPERTY(qint32  wcCurrWeight       READ getWCCurrWeight        NOTIFY signalEventChangedWCCurrWeight      )
     Q_PROPERTY(bool    isWait             READ getIsWait              NOTIFY signalEventChangedIsWait            )
     Q_PROPERTY(bool    isZeroProc         READ getIsZeroProc          NOTIFY signalEventChangedIsZeroProc        )
     Q_PROPERTY(bool    isRun              READ getIsRun               NOTIFY signalEventChangedIsRun             )
@@ -44,6 +45,7 @@ public:
     bool    mIsMDEnable        = true;
     QString mCompany           = "";
     QString mTel               = "";
+    qint32  mWCCurrWeight      = 0;
     bool    mIsWait            = false;
     bool    mIsZeroProc        = false;
     bool    mIsRun             = false;
@@ -71,6 +73,7 @@ public:
     bool     getIsMDEnable       (){ return mIsMDEnable       ;}
     QString  getCompany          (){ return mCompany          ;}
     QString  getTel              (){ return mTel              ;}
+    qint32   getWCCurrWeight     (){ return mWCCurrWeight     ;}
     bool     getIsWait           (){ return mIsWait           ;}
     bool     getIsZeroProc       (){ return mIsZeroProc       ;}
     bool     getIsRun            (){ return mIsRun            ;}
@@ -98,6 +101,7 @@ public:
     void     setIsWait           (bool    value){ if(value == getIsWait()       )return; mIsWait            = value; emit signalEventChangedIsWait           (value);}
     void     setIsZeroProc       (bool    value){ if(value == mIsZeroProc       )return; mIsZeroProc        = value; emit signalEventChangedIsZeroProc       (value);}
     void     setTel              (QString value){ if(value == getTel    ()      )return; mTel               = value; emit signalEventChangedTel              (value);}
+    void     setWCCurrWeight     (qint32  value){ if(value == mWCCurrWeight     )return; mWCCurrWeight      = value; emit signalEventChangedWCCurrWeight     (value);}
     void     setIsRun            (bool    value){ if(value == getIsRun  ()      )return; mIsRun             = value; emit signalEventChangedIsRun            (value);}
     void     setIsComm           (bool    value){ if(value == getIsComm ()      )return; mIsComm            = value; emit signalEventChangedIsComm           (value);}
     void     setIsInet           (bool    value){ if(value == getIsInet ()      )return; mIsInet            = value; emit signalEventChangedIsInet           (value);}
@@ -121,6 +125,7 @@ signals:
     void signalEventChangedIsMDEnable       (bool    value);
     void signalEventChangedCompany          (QString value);
     void signalEventChangedTel              (QString value);
+    void signalEventChangedWCCurrWeight     (qint32  value);
     void signalEventChangedIsWait           (bool    value);
     void signalEventChangedIsZeroProc       (bool    value);
     void signalEventChangedIsRun            (bool    value);
@@ -234,6 +239,7 @@ public slots:
         setIsMDPhotoAlarm   ( dto.getIsMDPhotoAlarm   ());
         setIsMDMortorAlarm  ( dto.getIsMDMortorAlarm  ());
         setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm());
+        setWCCurrWeight     ( dto.mWCStatus.mCurrWeight );
 
         setIsZeroProc       ( dto.mWCStatus.mZeroProc == 1);
 

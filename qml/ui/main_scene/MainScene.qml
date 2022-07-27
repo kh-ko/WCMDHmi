@@ -180,6 +180,7 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 0
 
+        currWeight  : (model.wcCurrWeight / 1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
         textCompany : model.company
         textTel: model.tel
         textClock: model.clock
@@ -189,6 +190,7 @@ Item {
         isAlarm : model.isAlarm
         isInet: model.isInet
         isNeedBackup : paenlBackup.isNeedBackup
+        isWCEnable : model.isWCEnable
         onSignalEventAlarmClicked :{
             panelDebug.visible = true;
         }

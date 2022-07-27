@@ -6,12 +6,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="76"/>
         <source>Cancel</source>
-        <translation type="unfinished">취소</translation>
+        <translation>취소</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="92"/>
         <source>Apply</source>
-        <translation type="unfinished">적용</translation>
+        <translation>적용</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="133"/>
@@ -173,14 +173,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="276"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="327"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="277"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="328"/>
         <source>Please enter your password.</source>
         <translation>비밀번호를 입력해 주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="296"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="341"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="297"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="342"/>
         <source>Please check password</source>
         <oldsource>Invaild password</oldsource>
         <translation>비밀번호가 잘못되었습니다</translation>
@@ -2148,6 +2148,14 @@
         <location filename="qml/ui/main_scene/menu_view/PanelProductSetting.qml" line="207"/>
         <source>New product</source>
         <translation>새 제품</translation>
+    </message>
+</context>
+<context>
+    <name>PanelStatusBar</name>
+    <message>
+        <location filename="qml/ui/main_scene/PanelStatusBar.qml" line="70"/>
+        <source>Current weight</source>
+        <translation>현재중량</translation>
     </message>
 </context>
 <context>
