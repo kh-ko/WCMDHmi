@@ -79,6 +79,10 @@ public:
     {
         return ((mMDStatus.mAlarm & 0x08) == 0x08);
     }
+    bool getIsEEPROMAlarm()
+    {
+        return ((mMDStatus.mAlarm & 0x10) == 0x10);
+    }
 };
 
 Q_DECLARE_METATYPE(DspStatusDto);

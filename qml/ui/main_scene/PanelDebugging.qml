@@ -1,6 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.5
 import QmlEnumDef 1.0
 import EnumDef 1.0
 import ViewManager 1.0
@@ -8,6 +9,7 @@ import FontManager 1.0
 import MainViewModel 1.0
 import "../../control/"
 import PanelDebuggingModel 1.0
+import DebuggingItemModel 1.0
 import MainSceneModel 1.0
 
 Rectangle {
@@ -30,6 +32,15 @@ Rectangle {
 
     PanelDebuggingModel{
         id: debuggingModel
+
+        Component.onCompleted: {
+            var itemCount = onCommandGetItemCount();
+
+            for(var i = 0; i < itemCount; i ++)
+            {
+                pdItemComponent.createObject(containerItem, {"itemIdx": i})
+            }
+        }
     }
 
     Rectangle
@@ -212,17 +223,123 @@ Rectangle {
             anchors.left: mdRJMotorAlarmValue.right; anchors.leftMargin: 40
         }
 
-
-        UiLabelTitle {
-            width: 200
+        Text{
+            id : eepromAlarmValue
             height: 60
+            color: mainSceneModel.isEEPROMAlarm ? "#FF0000" :"#acacac"
+            text: qsTr("EEPROM alarm")
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment : Text.AlignLeft
+            font.pixelSize: 25
+            font.family: FontManager.nanumGothicName
+            elide: Text.ElideRight
+
+            anchors.topMargin: 0
             anchors.left: parent.left
-            anchors.top: parent.top
-            textValue: qsTr("DSP Setting")
-            anchors.topMargin: 193
+            anchors.top: mdSensorAlarmValue.bottom
             anchors.leftMargin: 40
         }
 
+        UiLabelTitle {
+            id : dspSettingTitle
+            width: 200
+            height: 60
+            anchors.left: parent.left
+            anchors.top: eepromAlarmValue.bottom
+            textValue: qsTr("DSP Setting")
+            anchors.topMargin: 40
+            anchors.leftMargin: 40
+        }
+
+        UiScrollView{
+            id : scrollView
+            clip: true
+            anchors.top :dspSettingTitle.bottom
+            anchors.topMargin: 20
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.bottom: closeBtn.top
+            anchors.bottomMargin: 20
+
+            ScrollBar.horizontal.interactive: false
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+            Flow{
+                id : containerItem
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.left : parent.left
+                anchors.leftMargin: 20
+
+                width: scrollView.width - 20
+
+                spacing: 0
+            }
+        }
+
+        UiButton{
+            id : closeBtn
+            height: 60
+            textValue: qsTr("Close")
+            anchors.right: parent.right
+            anchors.rightMargin: 40
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            type : QmlEnumDef.BUTTON_TYPE_BLUE
+
+            onSignalEventClicked:
+            {
+                panel.visible = false
+            }
+        }
+    }
+
+    Component{
+        id : pdItemComponent
+
+        Item{
+            id : debuggingItem
+
+            property int itemIdx
+            property DebuggingItemModel itemModel : debuggingModel.onCommandGetParamItem(itemIdx)
+
+            width: parent.width
+            height: 80
+            visible: debuggingItem.itemModel.mIsMatch == false
+
+            Text {
+                width: parent.width
+                height: 40
+                anchors.top: parent.top; anchors.left: parent.left
+
+                color:  "#acacac"
+                font.family: FontManager.nanumGothicName
+                font.pixelSize: 25
+                verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+
+                text: debuggingItem.itemModel.mName
+            }
+
+            Text {
+                width: parent.width
+                height: 40
+                anchors.bottom: parent.bottom; anchors.left: parent.left
+
+                color:  "#FF0000"
+                font.family: FontManager.nanumGothicName
+                font.pixelSize: 25
+                verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignLeft
+
+                text: "remote = " + debuggingItem.itemModel.mRemoteValue + ", local = " + debuggingItem.itemModel.mLocalValue
+            }
+        }
+    }
+}
+
+/*
         Text {
             width: (parent.width - 80) / 3
             height: 40
@@ -287,23 +404,6 @@ Rectangle {
             anchors.leftMargin: 40
         }
 
-        /*
-        Text {
-            width: 483
-            height: 40
-            color: debuggingModel.mDiffIsDebugMode ? "#FF0000" :"#acacac"
-            text: qsTr("Is Debug Mode : ") + (debuggingModel.mIsDebugMode ? "true" : "false")
-            font.family: FontManager.nanumGothicName
-            anchors.top: parent.top
-            anchors.left: parent.left
-            font.pixelSize: 25
-            verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 443
-            horizontalAlignment: Text.AlignLeft
-            elide: Text.ElideRight
-            anchors.leftMargin: 40
-        }
-        */
         Text {
             width: 473
             height: 40
@@ -319,40 +419,6 @@ Rectangle {
             anchors.leftMargin: 40
             elide: Text.ElideRight
         }
-
-        /*
-        Text {
-            width: 473
-            height: 40
-            color: debuggingModel.mDiffDistanceToRejector ? "#FF0000" :"#acacac"
-            text: qsTr("Dist to rejector : ") + debuggingModel.mDistanceToRejector.toLocaleString(ViewManager.locale, 'f', 0) + " mm"
-            font.family: FontManager.nanumGothicName
-            anchors.top: parent.top
-            anchors.left: parent.left
-            font.pixelSize: 25
-            verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 489
-            horizontalAlignment: Text.AlignLeft
-            elide: Text.ElideRight
-            anchors.leftMargin: 40
-        }
-
-
-        Text {
-            width: 473
-            height: 40
-            color: debuggingModel.mDiffRejectorRunTimeRatio ? "#FF0000" :"#acacac"
-            text: qsTr("Rejector run time ratio : ") + (debuggingModel.mRejectorRunTimeRatio/ 10) + " %"
-            font.family: FontManager.nanumGothicName
-            anchors.left: parent.left
-            anchors.top: parent.top
-            font.pixelSize: 25
-            verticalAlignment: Text.AlignVCenter
-            anchors.topMargin: 627
-            horizontalAlignment: Text.AlignLeft
-            anchors.leftMargin: 40
-            elide: Text.ElideRight
-        }   */
 
         Text {
             width: 473
@@ -754,21 +820,6 @@ Rectangle {
             anchors.leftMargin: 1003
         }
 
-        UiButton{
-            height: 60
-            textValue: qsTr("Close")
-            anchors.right: parent.right
-            anchors.rightMargin: 40
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            type : QmlEnumDef.BUTTON_TYPE_BLUE
-
-            onSignalEventClicked:
-            {
-                panel.visible = false
-            }
-        }
-
         Text {
             width: 473
             height: 40
@@ -863,9 +914,7 @@ Rectangle {
             elide: Text.ElideRight
             font.pixelSize: 25
             anchors.leftMargin: 524
-        }
-    }
-}
+        }*/
 
 /*##^##
 Designer {

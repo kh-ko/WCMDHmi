@@ -102,6 +102,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<PanelInformationModel>("PanelInformationModel", 1, 0, "PanelInformationModel");
     qmlRegisterType<PanelBackupModel>("PanelBackupModel", 1, 0, "PanelBackupModel");
     qmlRegisterType<PanelDebuggingModel>("PanelDebuggingModel", 1, 0, "PanelDebuggingModel");
+    qmlRegisterType<DebuggingItemModel>("DebuggingItemModel", 1, 0, "DebuggingItemModel");
     qmlRegisterType<FactoryResetViewModel>("FactoryResetViewModel", 1, 0, "FactoryResetViewModel");
     qmlRegisterType<PanelMDCheckupModel>("PanelMDCheckupModel", 1, 0, "PanelMDCheckupModel");
     qmlRegisterType<PanelWCStaticCaribrationModel>("PanelWCStaticCaribrationModel", 1, 0, "PanelWCStaticCaribrationModel");

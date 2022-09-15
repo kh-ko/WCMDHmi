@@ -19,7 +19,6 @@ class QmlEnumDef: public QObject{
   Q_ENUMS(SearchFilter)
   Q_ENUMS(Company)
 
-
 public:
   enum VInputMode{
       INT_MODE = 0,

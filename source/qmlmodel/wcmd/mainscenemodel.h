@@ -23,6 +23,7 @@ class MainSceneModel : public QObject
     Q_PROPERTY(bool    isComm             READ getIsComm              NOTIFY signalEventChangedIsComm            )
     Q_PROPERTY(bool    isInet             READ getIsInet              NOTIFY signalEventChangedIsInet            )
     Q_PROPERTY(bool    isAlarm            READ getIsAlarm             NOTIFY signalEventChangedIsAlarm           )
+    Q_PROPERTY(bool    isEEPROMAlarm      READ getIsEEPROMAlarm       NOTIFY signalEventChangedIsEEPROMAlarm     )
     Q_PROPERTY(bool    isWCSensorAlarm    READ getIsWCSensorAlarm     NOTIFY signalEventChangedIsWCSensorAlarm   )
     Q_PROPERTY(bool    isWCPhotoAlarm     READ getIsWCPhotoAlarm      NOTIFY signalEventChangedIsWCPhotoAlarm    )
     Q_PROPERTY(bool    isWCMortorAlarm    READ getIsWCMortorAlarm     NOTIFY signalEventChangedIsWCMortorAlarm   )
@@ -52,6 +53,7 @@ public:
     bool    mIsComm            = false;
     bool    mIsInet            = false;
     bool    mIsAlarm           = false;
+    bool    mIsEEPROMAlarm     = false;
     bool    mIsWCSensorAlarm   = false;
     bool    mIsWCPhotoAlarm    = false;
     bool    mIsWCMortorAlarm   = false;
@@ -80,6 +82,7 @@ public:
     bool     getIsComm           (){ return mIsComm           ;}
     bool     getIsInet           (){ return mIsInet           ;}
     bool     getIsAlarm          (){ return (mIsAlarm || mIsMDSpeedAlarm);}
+    bool     getIsEEPROMAlarm    (){ return mIsEEPROMAlarm    ;}
     bool     getIsWCSensorAlarm  (){ return mIsWCSensorAlarm  ;}
     bool     getIsWCPhotoAlarm   (){ return mIsWCPhotoAlarm   ;}
     bool     getIsWCMortorAlarm  (){ return mIsWCMortorAlarm  ;}
@@ -106,6 +109,7 @@ public:
     void     setIsComm           (bool    value){ if(value == getIsComm ()      )return; mIsComm            = value; emit signalEventChangedIsComm           (value);}
     void     setIsInet           (bool    value){ if(value == getIsInet ()      )return; mIsInet            = value; emit signalEventChangedIsInet           (value);}
     void     setIsAlarm          (bool    value){ if(value == mIsAlarm          )return; mIsAlarm           = value; emit signalEventChangedIsAlarm          (getIsAlarm());}
+    void     setIsEEPROMAlarm    (bool    value){ if(value == mIsEEPROMAlarm    )return; mIsEEPROMAlarm     = value; emit signalEventChangedIsEEPROMAlarm    (value);}
     void     setIsWCSensorAlarm  (bool    value){ if(value == mIsWCSensorAlarm  )return; mIsWCSensorAlarm   = value; emit signalEventChangedIsWCSensorAlarm  (value);}
     void     setIsWCPhotoAlarm   (bool    value){ if(value == mIsWCPhotoAlarm   )return; mIsWCPhotoAlarm    = value; emit signalEventChangedIsWCPhotoAlarm   (value);}
     void     setIsWCMortorAlarm  (bool    value){ if(value == mIsWCMortorAlarm  )return; mIsWCMortorAlarm   = value; emit signalEventChangedIsWCMortorAlarm  (value);}
@@ -132,6 +136,7 @@ signals:
     void signalEventChangedIsComm           (bool    value);
     void signalEventChangedIsInet           (bool    value);
     void signalEventChangedIsAlarm          (bool    value);
+    void signalEventChangedIsEEPROMAlarm    (bool    value);
     void signalEventChangedIsWCSensorAlarm  (bool    value);
     void signalEventChangedIsWCPhotoAlarm   (bool    value);
     void signalEventChangedIsWCMortorAlarm  (bool    value);
@@ -230,6 +235,7 @@ public slots:
         setIsRun            ( dto.mCommStatus.mRun != EnumDef::RUN_MODE_STOP                   );
 
         setIsAlarm          ( dto.getAlarm() || pDsp->mIsDevSettingAlarm || pDsp->mIsPDSettingAlarm || mIsMDSpeedAlarm);
+        setIsEEPROMAlarm    ( dto.getIsEEPROMAlarm    ());
         setIsWCSensorAlarm  ( dto.getIsWCSensorAlarm  ());
         setIsWCPhotoAlarm   ( dto.getIsWCPhotoAlarm   ());
         setIsWCMortorAlarm  ( dto.getIsWCMortorAlarm  ());
