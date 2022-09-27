@@ -21,6 +21,7 @@
 #include "source/service/remoteconsole/rtumodbusslave.h"
 #include "source/service/remoteconsole/httpclientservice.h"
 #include "source/service/vnc/vncsprovider.h"
+#include "source/service/printer/printersprovider.h"
 
 #define pCoreService CoreService::getInstance()
 
@@ -53,6 +54,7 @@ public:
     }
     void stop()
     {
+        pPrinterSP->stop();
         pHttpClientSvc->stop();
         pVncSP->stop();
         pDevInfoBC->stop();
@@ -95,6 +97,9 @@ public slots:
 
         if(pDefaultSP->CCP_SERVER_IS_USE)
             pHttpClientSvc->start();
+
+        if(pDefaultSP->PRINTER_IS_USE)
+            pPrinterSP->start();
 
         emit signalEventStarted();
     }

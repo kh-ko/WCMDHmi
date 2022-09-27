@@ -17,6 +17,8 @@ Item {
     property bool   isNeedBackup : false
     property bool   isInet : false
     property bool   isWCEnable : true
+    property bool   isPrinterEnable : false
+    property bool   isConnectedPrinter : false
 
     signal signalEventAlarmClicked()
 
@@ -88,13 +90,29 @@ Item {
         width: 30
         height: 30
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: indiBackup.left
+        anchors.right: indiPrinter.visible ? indiPrinter.left : indiBackup.left
         anchors.rightMargin: 20
 
         source: "/ui/main_scene/main_view/img_wcstatus/image-zeroproc-sel.png"
         visible: panel.isZeroProc
     }
 
+    UiIndicate{
+        id : indiPrinter
+        width: 30
+        height: 30
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: indiBackup.left
+        anchors.rightMargin: 20
+
+        glowOnColor: "#59FF0000"
+        offImage: "img/indicator/printer_connect.png"
+        onImage: "img/indicator/printer_disconnect.png"
+        isOn : !panel.isConnectedPrinter
+
+        visible: panel.isPrinterEnable
+
+    }
 
     UiIndicate{
         id : indiBackup

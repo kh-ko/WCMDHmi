@@ -154,6 +154,13 @@ public:
     QSerialPort::DataBits             RTU_MODBUS_DATABITS                = QSerialPort::Data8                    ;
     QSerialPort::StopBits             RTU_MODBUS_STOPBITS                = QSerialPort::OneStop                  ;
 
+    bool                              PRINTER_IS_USE                     = false                                 ;
+    QString                           PRINTER_PORT                       = "ttyUSB0"                             ;
+    QSerialPort::BaudRate             PRINTER_BAUDRATE                   = QSerialPort::Baud9600                 ;
+    QSerialPort::DataBits             PRINTER_DATABITS                   = QSerialPort::Data8                    ;
+    QSerialPort::StopBits             PRINTER_STOPBITS                   = QSerialPort::OneStop                  ;
+    QSerialPort::Parity               PRINTER_PARITY                     = QSerialPort::NoParity                 ;
+
     QString                           VNC_VIEW_IP                        = "121.175.173.236"                     ;
     bool                              CCP_SERVER_IS_USE                  = false                                 ;
     QString                           CCP_SERVER_URL                     = "http://121.175.173.236:17071/DevDataCollect/WriteRealTimeData";
@@ -287,6 +294,12 @@ public:
             else if(key == "RTU_MODBUS_BAUDRATE"                ){ RTU_MODBUS_BAUDRATE                = (QSerialPort::BaudRate)value.toInt()             ;}
             else if(key == "RTU_MODBUS_DATABITS"                ){ RTU_MODBUS_DATABITS                = (QSerialPort::DataBits)value.toInt()             ;}
             else if(key == "RTU_MODBUS_STOPBITS"                ){ RTU_MODBUS_STOPBITS                = (QSerialPort::StopBits)value.toInt()             ;}
+            else if(key == "PRINTER_IS_USE"                     ){ PRINTER_IS_USE                     = value.toUInt() == 1 ? true : false               ;}
+            else if(key == "PRINTER_PORT"                       ){ PRINTER_PORT                       = value                                            ;}
+            else if(key == "PRINTER_BAUDRATE"                   ){ PRINTER_BAUDRATE                   = (QSerialPort::BaudRate  )value.toInt()           ;}
+            else if(key == "PRINTER_DATABITS"                   ){ PRINTER_DATABITS                   = (QSerialPort::DataBits)value.toInt()             ;}
+            else if(key == "PRINTER_STOPBITS"                   ){ PRINTER_STOPBITS                   = (QSerialPort::StopBits)value.toInt()             ;}
+            else if(key == "PRINTER_PARITY"                     ){ PRINTER_PARITY                     = (QSerialPort::Parity)value.toInt()               ;}
             else if(key == "VNC_VIEW_IP"                        ){ VNC_VIEW_IP                        = value                                            ;}
             else if(key == "CCP_SERVER_IS_USE"                  ){ CCP_SERVER_IS_USE                  = value.toUInt() == 1 ? true : false               ;}
             else if(key == "CCP_SERVER_URL"                     ){ CCP_SERVER_URL                     = value                                            ;}

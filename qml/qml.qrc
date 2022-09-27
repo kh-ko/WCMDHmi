@@ -190,5 +190,7 @@
         <file>ui/intro_scene/soluray_logo.png</file>
         <file>ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml</file>
         <file>ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml</file>
+        <file>ui/main_scene/img/indicator/printer_connect.png</file>
+        <file>ui/main_scene/img/indicator/printer_disconnect.png</file>
     </qresource>
 </RCC>

@@ -111,6 +111,7 @@ HEADERS += \
     source/service/includesvcdto.h \
     source/service/localsetting/languagehelper.h \
     source/service/localsetting/localsettingsprovider.h \
+    source/service/printer/printersprovider.h \
     source/service/productsetting/productsprovider.h \
     source/service/remoteconsole/deviceinfobrodcaster.h \
     source/service/remoteconsole/dto/devicesocketdto.h \

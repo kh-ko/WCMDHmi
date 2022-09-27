@@ -17,6 +17,8 @@ class MainSceneModel : public QObject
     Q_PROPERTY(QString company            READ getCompany             NOTIFY signalEventChangedCompany           )
     Q_PROPERTY(QString tel                READ getTel                 NOTIFY signalEventChangedTel               )
     Q_PROPERTY(qint32  wcCurrWeight       READ getWCCurrWeight        NOTIFY signalEventChangedWCCurrWeight      )
+    Q_PROPERTY(bool    isEanblePrinter    READ getIsEanblePrinter     NOTIFY signalEventChangedIsEanblePrinter   )
+    Q_PROPERTY(bool    isConnectedPrinter READ getIsConnectedPrinter  NOTIFY signalEventChangedIsConnectedPrinter)
     Q_PROPERTY(bool    isWait             READ getIsWait              NOTIFY signalEventChangedIsWait            )
     Q_PROPERTY(bool    isZeroProc         READ getIsZeroProc          NOTIFY signalEventChangedIsZeroProc        )
     Q_PROPERTY(bool    isRun              READ getIsRun               NOTIFY signalEventChangedIsRun             )
@@ -47,6 +49,8 @@ public:
     QString mCompany           = "";
     QString mTel               = "";
     qint32  mWCCurrWeight      = 0;
+    bool    mIsEanblePrinter   = false;
+    bool    mIsConnectedPrinter= false;
     bool    mIsWait            = false;
     bool    mIsZeroProc        = false;
     bool    mIsRun             = false;
@@ -69,86 +73,92 @@ public:
     QString mPassword          = "";
     int     mWeightFixedN      = 1;
 
-    int      getLanguage         (){ return mLanguage         ;}
-    bool     getSWPowerOff       (){ return mSWPowerOff       ;}
-    bool     getIsWCEnable       (){ return mIsWCEnable       ;}
-    bool     getIsMDEnable       (){ return mIsMDEnable       ;}
-    QString  getCompany          (){ return mCompany          ;}
-    QString  getTel              (){ return mTel              ;}
-    qint32   getWCCurrWeight     (){ return mWCCurrWeight     ;}
-    bool     getIsWait           (){ return mIsWait           ;}
-    bool     getIsZeroProc       (){ return mIsZeroProc       ;}
-    bool     getIsRun            (){ return mIsRun            ;}
-    bool     getIsComm           (){ return mIsComm           ;}
-    bool     getIsInet           (){ return mIsInet           ;}
-    bool     getIsAlarm          (){ return (mIsAlarm || mIsMDSpeedAlarm);}
-    bool     getIsEEPROMAlarm    (){ return mIsEEPROMAlarm    ;}
-    bool     getIsWCSensorAlarm  (){ return mIsWCSensorAlarm  ;}
-    bool     getIsWCPhotoAlarm   (){ return mIsWCPhotoAlarm   ;}
-    bool     getIsWCMortorAlarm  (){ return mIsWCMortorAlarm  ;}
-    bool     getIsWCRJMortorAlarm(){ return mIsWCRJMortorAlarm;}
-    bool     getIsWCMeasureAlarm (){ return mIsWCMeasureAlarm ;}
-    bool     getIsMDSensorAlarm  (){ return mIsMDSensorAlarm  ;}
-    bool     getIsMDPhotoAlarm   (){ return mIsMDPhotoAlarm   ;}
-    bool     getIsMDMortorAlarm  (){ return mIsMDMortorAlarm  ;}
-    bool     getIsMDRJMortorAlarm(){ return mIsMDRJMortorAlarm;}
-    bool     getIsMDSpeedAlarm   (){ return mIsMDSpeedAlarm   ;}
-    QString  getClock            (){ return mClock            ;}
-    int      getWeightFixedN     (){ return mWeightFixedN     ;}
+    int      getLanguage          (){ return mLanguage          ;}
+    bool     getSWPowerOff        (){ return mSWPowerOff        ;}
+    bool     getIsWCEnable        (){ return mIsWCEnable        ;}
+    bool     getIsMDEnable        (){ return mIsMDEnable        ;}
+    QString  getCompany           (){ return mCompany           ;}
+    QString  getTel               (){ return mTel               ;}
+    qint32   getWCCurrWeight      (){ return mWCCurrWeight      ;}
+    bool     getIsEanblePrinter   (){ return mIsEanblePrinter   ;}
+    bool     getIsConnectedPrinter(){ return mIsConnectedPrinter;}
+    bool     getIsWait            (){ return mIsWait            ;}
+    bool     getIsZeroProc        (){ return mIsZeroProc        ;}
+    bool     getIsRun             (){ return mIsRun             ;}
+    bool     getIsComm            (){ return mIsComm            ;}
+    bool     getIsInet            (){ return mIsInet            ;}
+    bool     getIsAlarm           (){ return (mIsAlarm || mIsMDSpeedAlarm);}
+    bool     getIsEEPROMAlarm     (){ return mIsEEPROMAlarm     ;}
+    bool     getIsWCSensorAlarm   (){ return mIsWCSensorAlarm   ;}
+    bool     getIsWCPhotoAlarm    (){ return mIsWCPhotoAlarm    ;}
+    bool     getIsWCMortorAlarm   (){ return mIsWCMortorAlarm   ;}
+    bool     getIsWCRJMortorAlarm (){ return mIsWCRJMortorAlarm ;}
+    bool     getIsWCMeasureAlarm  (){ return mIsWCMeasureAlarm  ;}
+    bool     getIsMDSensorAlarm   (){ return mIsMDSensorAlarm   ;}
+    bool     getIsMDPhotoAlarm    (){ return mIsMDPhotoAlarm    ;}
+    bool     getIsMDMortorAlarm   (){ return mIsMDMortorAlarm   ;}
+    bool     getIsMDRJMortorAlarm (){ return mIsMDRJMortorAlarm ;}
+    bool     getIsMDSpeedAlarm    (){ return mIsMDSpeedAlarm    ;}
+    QString  getClock             (){ return mClock             ;}
+    int      getWeightFixedN      (){ return mWeightFixedN      ;}
 
-    void     setLanguage         (int     value){ if(value == mLanguage         )return; mLanguage          = value; emit signalEventChangedLanguage         (value);}
-    void     setSWPowerOff       (bool    value){ if(value == mSWPowerOff       )return; mSWPowerOff        = value; emit signalEventChangedSWPowerOff       (value);}
-    void     setIsWCEnable       (bool    value){ if(value == mIsWCEnable       )return; mIsWCEnable        = value; emit signalEventChangedIsWCEnable       (value);}
-    void     setIsMDEnable       (bool    value){ if(value == mIsMDEnable       )return; mIsMDEnable        = value; emit signalEventChangedIsMDEnable       (value);}
-    void     setCompany          (QString value){ if(value == getCompany()      )return; mCompany           = value; emit signalEventChangedCompany          (value);}
-    void     setIsWait           (bool    value){ if(value == getIsWait()       )return; mIsWait            = value; emit signalEventChangedIsWait           (value);}
-    void     setIsZeroProc       (bool    value){ if(value == mIsZeroProc       )return; mIsZeroProc        = value; emit signalEventChangedIsZeroProc       (value);}
-    void     setTel              (QString value){ if(value == getTel    ()      )return; mTel               = value; emit signalEventChangedTel              (value);}
-    void     setWCCurrWeight     (qint32  value){ if(value == mWCCurrWeight     )return; mWCCurrWeight      = value; emit signalEventChangedWCCurrWeight     (value);}
-    void     setIsRun            (bool    value){ if(value == getIsRun  ()      )return; mIsRun             = value; emit signalEventChangedIsRun            (value);}
-    void     setIsComm           (bool    value){ if(value == getIsComm ()      )return; mIsComm            = value; emit signalEventChangedIsComm           (value);}
-    void     setIsInet           (bool    value){ if(value == getIsInet ()      )return; mIsInet            = value; emit signalEventChangedIsInet           (value);}
-    void     setIsAlarm          (bool    value){ if(value == mIsAlarm          )return; mIsAlarm           = value; emit signalEventChangedIsAlarm          (getIsAlarm());}
-    void     setIsEEPROMAlarm    (bool    value){ if(value == mIsEEPROMAlarm    )return; mIsEEPROMAlarm     = value; emit signalEventChangedIsEEPROMAlarm    (value);}
-    void     setIsWCSensorAlarm  (bool    value){ if(value == mIsWCSensorAlarm  )return; mIsWCSensorAlarm   = value; emit signalEventChangedIsWCSensorAlarm  (value);}
-    void     setIsWCPhotoAlarm   (bool    value){ if(value == mIsWCPhotoAlarm   )return; mIsWCPhotoAlarm    = value; emit signalEventChangedIsWCPhotoAlarm   (value);}
-    void     setIsWCMortorAlarm  (bool    value){ if(value == mIsWCMortorAlarm  )return; mIsWCMortorAlarm   = value; emit signalEventChangedIsWCMortorAlarm  (value);}
-    void     setIsWCRJMortorAlarm(bool    value){ if(value == mIsWCRJMortorAlarm)return; mIsWCRJMortorAlarm = value; emit signalEventChangedIsWCRJMortorAlarm(value);}
-    void     setIsWCMeasureAlarm (bool    value){ if(value == mIsWCMeasureAlarm )return; mIsWCMeasureAlarm  = value; emit signalEventChangedIsWCMeasureAlarm (value);}
-    void     setIsMDSensorAlarm  (bool    value){ if(value == mIsMDSensorAlarm  )return; mIsMDSensorAlarm   = value; emit signalEventChangedIsMDSensorAlarm  (value);}
-    void     setIsMDPhotoAlarm   (bool    value){ if(value == mIsMDPhotoAlarm   )return; mIsMDPhotoAlarm    = value; emit signalEventChangedIsMDPhotoAlarm   (value);}
-    void     setIsMDMortorAlarm  (bool    value){ if(value == mIsMDMortorAlarm  )return; mIsMDMortorAlarm   = value; emit signalEventChangedIsMDMortorAlarm  (value);}
-    void     setIsMDRJMortorAlarm(bool    value){ if(value == mIsMDRJMortorAlarm)return; mIsMDRJMortorAlarm = value; emit signalEventChangedIsMDRJMortorAlarm(value);}
-    void     setIsMDSpeedAlarm   (bool    value){ if(value == mIsMDSpeedAlarm   )return; mIsMDSpeedAlarm    = value; emit signalEventChangedIsMDSpeedAlarm   (value);}
-    void     setClock            (QString value){ if(value == getClock  ()      )return; mClock             = value; emit signalEventChangedClock            (value);}
-    void     setWeightFixedN     (int     value){ if(value == mWeightFixedN     )return; mWeightFixedN      = value; emit signalEventChangedWeightFixedN     (value);}
+    void     setLanguage          (int     value){ if(value == mLanguage          )return; mLanguage           = value; emit signalEventChangedLanguage          (value);}
+    void     setSWPowerOff        (bool    value){ if(value == mSWPowerOff        )return; mSWPowerOff         = value; emit signalEventChangedSWPowerOff        (value);}
+    void     setIsWCEnable        (bool    value){ if(value == mIsWCEnable        )return; mIsWCEnable         = value; emit signalEventChangedIsWCEnable        (value);}
+    void     setIsMDEnable        (bool    value){ if(value == mIsMDEnable        )return; mIsMDEnable         = value; emit signalEventChangedIsMDEnable        (value);}
+    void     setCompany           (QString value){ if(value == getCompany()       )return; mCompany            = value; emit signalEventChangedCompany           (value);}
+    void     setIsWait            (bool    value){ if(value == getIsWait()        )return; mIsWait             = value; emit signalEventChangedIsWait            (value);}
+    void     setIsZeroProc        (bool    value){ if(value == mIsZeroProc        )return; mIsZeroProc         = value; emit signalEventChangedIsZeroProc        (value);}
+    void     setTel               (QString value){ if(value == getTel    ()       )return; mTel                = value; emit signalEventChangedTel               (value);}
+    void     setWCCurrWeight      (qint32  value){ if(value == mWCCurrWeight      )return; mWCCurrWeight       = value; emit signalEventChangedWCCurrWeight      (value);}
+    void     setIsEanblePrinter   (bool    value){ if(value == mIsEanblePrinter   )return; mIsEanblePrinter    = value; emit signalEventChangedIsEanblePrinter   (value);}
+    void     setIsConnectedPrinter(bool    value){ if(value == mIsConnectedPrinter)return; mIsConnectedPrinter = value; emit signalEventChangedIsConnectedPrinter(value);}
+    void     setIsRun             (bool    value){ if(value == getIsRun  ()       )return; mIsRun              = value; emit signalEventChangedIsRun             (value);}
+    void     setIsComm            (bool    value){ if(value == getIsComm ()       )return; mIsComm             = value; emit signalEventChangedIsComm            (value);}
+    void     setIsInet            (bool    value){ if(value == getIsInet ()       )return; mIsInet             = value; emit signalEventChangedIsInet            (value);}
+    void     setIsAlarm           (bool    value){ if(value == mIsAlarm           )return; mIsAlarm            = value; emit signalEventChangedIsAlarm           (getIsAlarm());}
+    void     setIsEEPROMAlarm     (bool    value){ if(value == mIsEEPROMAlarm     )return; mIsEEPROMAlarm      = value; emit signalEventChangedIsEEPROMAlarm     (value);}
+    void     setIsWCSensorAlarm   (bool    value){ if(value == mIsWCSensorAlarm   )return; mIsWCSensorAlarm    = value; emit signalEventChangedIsWCSensorAlarm   (value);}
+    void     setIsWCPhotoAlarm    (bool    value){ if(value == mIsWCPhotoAlarm    )return; mIsWCPhotoAlarm     = value; emit signalEventChangedIsWCPhotoAlarm    (value);}
+    void     setIsWCMortorAlarm   (bool    value){ if(value == mIsWCMortorAlarm   )return; mIsWCMortorAlarm    = value; emit signalEventChangedIsWCMortorAlarm   (value);}
+    void     setIsWCRJMortorAlarm (bool    value){ if(value == mIsWCRJMortorAlarm )return; mIsWCRJMortorAlarm  = value; emit signalEventChangedIsWCRJMortorAlarm (value);}
+    void     setIsWCMeasureAlarm  (bool    value){ if(value == mIsWCMeasureAlarm  )return; mIsWCMeasureAlarm   = value; emit signalEventChangedIsWCMeasureAlarm  (value);}
+    void     setIsMDSensorAlarm   (bool    value){ if(value == mIsMDSensorAlarm   )return; mIsMDSensorAlarm    = value; emit signalEventChangedIsMDSensorAlarm   (value);}
+    void     setIsMDPhotoAlarm    (bool    value){ if(value == mIsMDPhotoAlarm    )return; mIsMDPhotoAlarm     = value; emit signalEventChangedIsMDPhotoAlarm    (value);}
+    void     setIsMDMortorAlarm   (bool    value){ if(value == mIsMDMortorAlarm   )return; mIsMDMortorAlarm    = value; emit signalEventChangedIsMDMortorAlarm   (value);}
+    void     setIsMDRJMortorAlarm (bool    value){ if(value == mIsMDRJMortorAlarm )return; mIsMDRJMortorAlarm  = value; emit signalEventChangedIsMDRJMortorAlarm (value);}
+    void     setIsMDSpeedAlarm    (bool    value){ if(value == mIsMDSpeedAlarm    )return; mIsMDSpeedAlarm     = value; emit signalEventChangedIsMDSpeedAlarm    (value);}
+    void     setClock             (QString value){ if(value == getClock  ()       )return; mClock              = value; emit signalEventChangedClock             (value);}
+    void     setWeightFixedN      (int     value){ if(value == mWeightFixedN      )return; mWeightFixedN       = value; emit signalEventChangedWeightFixedN      (value);}
 signals:
-    void signalEventChangedLanguage         (int     value);
-    void signalEventChangedSWPowerOff       (bool    value);
-    void signalEventChangedIsWCEnable       (bool    value);
-    void signalEventChangedIsMDEnable       (bool    value);
-    void signalEventChangedCompany          (QString value);
-    void signalEventChangedTel              (QString value);
-    void signalEventChangedWCCurrWeight     (qint32  value);
-    void signalEventChangedIsWait           (bool    value);
-    void signalEventChangedIsZeroProc       (bool    value);
-    void signalEventChangedIsRun            (bool    value);
-    void signalEventChangedIsComm           (bool    value);
-    void signalEventChangedIsInet           (bool    value);
-    void signalEventChangedIsAlarm          (bool    value);
-    void signalEventChangedIsEEPROMAlarm    (bool    value);
-    void signalEventChangedIsWCSensorAlarm  (bool    value);
-    void signalEventChangedIsWCPhotoAlarm   (bool    value);
-    void signalEventChangedIsWCMortorAlarm  (bool    value);
-    void signalEventChangedIsWCRJMortorAlarm(bool    value);
-    void signalEventChangedIsWCMeasureAlarm (bool    value);
-    void signalEventChangedIsMDSensorAlarm  (bool    value);
-    void signalEventChangedIsMDPhotoAlarm   (bool    value);
-    void signalEventChangedIsMDMortorAlarm  (bool    value);
-    void signalEventChangedIsMDRJMortorAlarm(bool    value);
-    void signalEventChangedIsMDSpeedAlarm   (bool    value);
-    void signalEventChangedClock            (QString value);
-    void signalEventChangedWeightFixedN     (int     value);
+    void signalEventChangedLanguage          (int     value);
+    void signalEventChangedSWPowerOff        (bool    value);
+    void signalEventChangedIsWCEnable        (bool    value);
+    void signalEventChangedIsMDEnable        (bool    value);
+    void signalEventChangedCompany           (QString value);
+    void signalEventChangedTel               (QString value);
+    void signalEventChangedWCCurrWeight      (qint32  value);
+    void signalEventChangedIsEanblePrinter   (bool    value);
+    void signalEventChangedIsConnectedPrinter(bool    value);
+    void signalEventChangedIsWait            (bool    value);
+    void signalEventChangedIsZeroProc        (bool    value);
+    void signalEventChangedIsRun             (bool    value);
+    void signalEventChangedIsComm            (bool    value);
+    void signalEventChangedIsInet            (bool    value);
+    void signalEventChangedIsAlarm           (bool    value);
+    void signalEventChangedIsEEPROMAlarm     (bool    value);
+    void signalEventChangedIsWCSensorAlarm   (bool    value);
+    void signalEventChangedIsWCPhotoAlarm    (bool    value);
+    void signalEventChangedIsWCMortorAlarm   (bool    value);
+    void signalEventChangedIsWCRJMortorAlarm (bool    value);
+    void signalEventChangedIsWCMeasureAlarm  (bool    value);
+    void signalEventChangedIsMDSensorAlarm   (bool    value);
+    void signalEventChangedIsMDPhotoAlarm    (bool    value);
+    void signalEventChangedIsMDMortorAlarm   (bool    value);
+    void signalEventChangedIsMDRJMortorAlarm (bool    value);
+    void signalEventChangedIsMDSpeedAlarm    (bool    value);
+    void signalEventChangedClock             (QString value);
+    void signalEventChangedWeightFixedN      (int     value);
 
 public slots:
     Q_INVOKABLE bool onCommandComparePwd(QString value)
@@ -291,6 +301,11 @@ public slots:
         setIsInet(value);
     }
 
+    void onChangedPrinterIsConnect(bool value)
+    {
+        setIsConnectedPrinter(value);
+    }
+
     void onChangedRefVoltage(quint64 dspSeq, qint32 value)
     {
         qDebug() << "[debug]onChangedRefVoltage = " << value;
@@ -359,6 +374,9 @@ public:
         ENABLE_SLOT_VNC_CHANGED_IS_CONN_INTERNET;
         onVncChangedIsConnInternet(pVncSP->isConnInternet());
 
+        ENABLE_SLOT_PRINTER_CHANGED_IS_CONNECT;
+        onChangedPrinterIsConnect(pPrinterSP->getIsConnected());
+
         ENABLE_SLOT_TIMER_TICK;
 
         ENABLE_SLOT_DSP_CHANGED_DSP_STATUS;
@@ -374,6 +392,8 @@ public:
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
         onChangedDspStatus(mDspSeq, pDsp->mRcvDataStore.getStatusDto());
         onChangedDspIsConnect(mDspSeq, pDsp->mIsConnect);
+
+        setIsEanblePrinter(pDefaultSP->PRINTER_IS_USE);
     }
 
 private:

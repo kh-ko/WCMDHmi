@@ -55,4 +55,5 @@
 #define ENABLE_SLOT_TIMER_STOP  connect(TimerSProvider::getInstance(), SIGNAL(signalEventStopped()     ), this, SLOT(onStoppedTimerSProvider()))
 #define ENABLE_SLOT_TIMER_TICK  connect(TimerSProvider::getInstance(), SIGNAL(signalTimeTick(QDateTime)), this, SLOT(onTimeTick(QDateTime)    ))
 
+#define ENABLE_SLOT_PRINTER_CHANGED_IS_CONNECT     connect(PrinterSProvider::getInstance(), SIGNAL(signalEventChangedIsConnected(bool)), this, SLOT(onChangedPrinterIsConnect(bool)))
 #endif // SPROVIDERCONNECTUTIL_H

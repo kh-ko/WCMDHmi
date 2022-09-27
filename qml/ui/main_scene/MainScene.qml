@@ -191,6 +191,8 @@ Item {
         isInet: model.isInet
         isNeedBackup : paenlBackup.isNeedBackup
         isWCEnable : model.isWCEnable
+        isPrinterEnable : model.isEanblePrinter
+        isConnectedPrinter : model.isConnectedPrinter
         onSignalEventAlarmClicked :{
             panelDebug.visible = true;
         }
