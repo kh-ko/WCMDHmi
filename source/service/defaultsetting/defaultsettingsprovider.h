@@ -160,6 +160,8 @@ public:
     QSerialPort::DataBits             PRINTER_DATABITS                   = QSerialPort::Data8                    ;
     QSerialPort::StopBits             PRINTER_STOPBITS                   = QSerialPort::OneStop                  ;
     QSerialPort::Parity               PRINTER_PARITY                     = QSerialPort::NoParity                 ;
+    bool                              PRINTER_INCLUDE_BLANK_LINE         = true                                  ;
+    bool                              PRINTER_INCLUDE_DIVIDER            = true                                  ;
 
     QString                           VNC_VIEW_IP                        = "121.175.173.236"                     ;
     bool                              CCP_SERVER_IS_USE                  = false                                 ;
@@ -300,6 +302,8 @@ public:
             else if(key == "PRINTER_DATABITS"                   ){ PRINTER_DATABITS                   = (QSerialPort::DataBits)value.toInt()             ;}
             else if(key == "PRINTER_STOPBITS"                   ){ PRINTER_STOPBITS                   = (QSerialPort::StopBits)value.toInt()             ;}
             else if(key == "PRINTER_PARITY"                     ){ PRINTER_PARITY                     = (QSerialPort::Parity)value.toInt()               ;}
+            else if(key == "PRINTER_INCLUDE_BLANK_LINE"         ){ PRINTER_INCLUDE_BLANK_LINE         = value.toUInt() == 1 ? true : false               ;}
+            else if(key == "PRINTER_INCLUDE_DIVIDER"            ){ PRINTER_INCLUDE_DIVIDER            = value.toUInt() == 1 ? true : false               ;}
             else if(key == "VNC_VIEW_IP"                        ){ VNC_VIEW_IP                        = value                                            ;}
             else if(key == "CCP_SERVER_IS_USE"                  ){ CCP_SERVER_IS_USE                  = value.toUInt() == 1 ? true : false               ;}
             else if(key == "CCP_SERVER_URL"                     ){ CCP_SERVER_URL                     = value                                            ;}

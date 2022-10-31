@@ -58,8 +58,10 @@ public slots:
         open();
     }
 
-    void onPrintData(QString msg)
+    void onPrintData(bool bIncludeBlankLine, bool bIncludeDivider, QString msg)
     {
+        //qDebug() << "[" << Q_FUNC_INFO << "]print msg: " << msg;
+
         if(getIsConnected() == false)
             open();
 
@@ -80,8 +82,15 @@ public slots:
         packet.append(headerData,17);
         packet.append(msg.toUtf8());
         packet.append(metalData,11);
-        packet.append(newLineData,12);
-        packet.append(dividerData,32);
+
+        if(bIncludeBlankLine)
+        {
+            packet.append(newLineData,12);
+        }
+        if(bIncludeDivider)
+        {
+            packet.append(dividerData,32);
+        }
         packet.append(tailData,4);
 
         if(mpComport == nullptr)
@@ -154,16 +163,27 @@ private:
     QThread * mpThread = nullptr;
     PrinterWorker * mpWorker = nullptr;
     bool mIsConnected = false;
+    bool  mInclueBlankLine = true;
+    bool  mInclueDivider = true;
 
 signals:
     // external signals
     void signalEventChangedIsConnected(bool value);
 
     // internal signals
-    void signalPrintData(QString msg);
+    void signalPrintData(bool bIncludeBlankLine, bool bIncludeDivider, QString msg);
     void signalPrintConnect();
 
 public:
+    void setIncludeBlankLine(bool value)
+    {
+        mInclueBlankLine = value;
+    }
+    void setIncludeDivider(bool value)
+    {
+        mInclueDivider = value;
+    }
+
     bool getIsConnected(){ return mIsConnected;}
     void setIsConnected(bool value){if(mIsConnected == value)return; mIsConnected = value; emit signalEventChangedIsConnected(value);}
 
@@ -196,7 +216,7 @@ public:
 
         connect(mpThread, &QThread::finished, mpWorker, &QObject::deleteLater);
         connect(mpThread, &QThread::started , mpWorker, &PrinterWorker::onStarted);
-        connect(this, SIGNAL(signalPrintData(QString)), mpWorker, SLOT(onPrintData(QString)));
+        connect(this, SIGNAL(signalPrintData(bool,bool,QString)), mpWorker, SLOT(onPrintData(bool,bool,QString)));
         connect(this, SIGNAL(signalPrintConnect())    , mpWorker, SLOT(onPrintConnect())    );
         connect(mpWorker, SIGNAL(signalEventChangedIsConnected(bool)) , this, SLOT(onPrinterChangedIsConnected(bool)));
 
@@ -237,7 +257,7 @@ public slots:
         if(EventDto::isMetalDetectEvent(dto.mEType))
         {
             //qDebug() << "[khko_debug][" << Q_FUNC_INFO << "]" << dto.toString();
-            emit signalPrintData(QString("%1 [%2] ").arg(dto.mDateTime.toString(DATE_TIME_PRINT_FMT)).arg(dto.mPDSeq, 3, 10, QChar('0')));
+            emit signalPrintData(mInclueBlankLine, mInclueDivider,QString("%1 [%2] ").arg(dto.mDateTime.toString(DATE_TIME_PRINT_FMT)).arg(dto.mPDNum, 3, 10, QChar('0')));
         }
     }
 

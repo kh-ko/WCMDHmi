@@ -137,6 +137,7 @@ public slots:
         convertEvent.mDateTime = now;
         convertEvent.mDspSeq   = dspSeq;
         convertEvent.mPDSeq    = pProductSP->mCurrPD.mSeq;
+        convertEvent.mPDNum    = pProductSP->mCurrPD.mDspForm.mCommSetting.mProductNum;
         convertEvent.mPDHisIdx = mPHManager.mEventCnt;
         convertEvent.mEType    = dto.mEvent.mEventType;
         convertEvent.mEValue   = dto.mEvent.mEventValue;

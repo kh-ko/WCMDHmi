@@ -99,7 +99,11 @@ public slots:
             pHttpClientSvc->start();
 
         if(pDefaultSP->PRINTER_IS_USE)
+        {
+            pPrinterSP->setIncludeBlankLine(pDefaultSP->PRINTER_INCLUDE_BLANK_LINE);
+            pPrinterSP->setIncludeDivider(pDefaultSP->PRINTER_INCLUDE_DIVIDER);
             pPrinterSP->start();
+        }
 
         emit signalEventStarted();
     }

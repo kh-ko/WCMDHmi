@@ -11,6 +11,7 @@ public:
     QDateTime  mDateTime;
     quint64    mDspSeq  ;
     quint64    mPDSeq   ;
+    int        mPDNum   ;  // only use for printer service
     int        mPDHisIdx;
     quint16    mEType   ;
     quint32    mEValue  ;
@@ -243,6 +244,7 @@ public:
         mDateTime(copy.mDateTime),
         mDspSeq  (copy.mDspSeq  ),
         mPDSeq   (copy.mPDSeq   ),
+        mPDNum   (copy.mPDNum   ),
         mPDHisIdx(copy.mPDHisIdx),
         mEType   (copy.mEType   ),
         mEValue  (copy.mEValue  ){}
@@ -253,6 +255,7 @@ public:
         mDateTime = other.mDateTime;
         mDspSeq   = other.mDspSeq  ;
         mPDSeq    = other.mPDSeq   ;
+        mPDNum    = other.mPDNum   ;
         mPDHisIdx = other.mPDHisIdx;
         mEType    = other.mEType   ;
         mEValue   = other.mEValue  ;
