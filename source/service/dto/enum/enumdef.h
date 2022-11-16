@@ -38,7 +38,8 @@ public:
 
     enum eLang{
         LANG_ENG = 0,
-        LANG_KOR = 1
+        LANG_KOR = 1,
+        LANG_CHN = 2,
     };
 
     enum eViewMode{

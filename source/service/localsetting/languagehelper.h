@@ -63,6 +63,19 @@ public:
                     break;
                 }
             }
+            else if(lang == EnumDef::LANG_CHN)
+            {
+                if(mTranslator.load(":/Lang_zh_CN"))
+                {
+                    qDebug() << "load : Lang_zh_CN";
+                    qApp->installTranslator(&(mTranslator));
+                    qDebug() << "load : end";
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             mLang = lang;
 

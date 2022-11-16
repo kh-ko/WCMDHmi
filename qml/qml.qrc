@@ -109,6 +109,7 @@
         <file>ui/main_scene/menu_view/LoggingData/img_eventicon/md_checkup_pass.png</file>
         <file>ui/main_scene/menu_view/LoggingData/img_eventicon/static_calib.png</file>
         <file>Lang_ko_KR.qm</file>
+        <file>Lang_zh_CN.qm</file>
         <file>ui/main_scene/main_view/img_btn/btn_statistics_n.png</file>
         <file>ui/main_scene/main_view/img_btn/btn_statistics_s.png</file>
         <file>ui/main_scene/main_view/img_panelevent/metaldetect.png</file>

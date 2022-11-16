@@ -130,7 +130,7 @@ Item {
         id : model
 
         Component.onCompleted: {
-            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_ENG ? "en_GB" : "ko_KR")
+            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_KOR ? "ko_KR" : "en_GB")
         }
 
         onSignalEventChangedWeightFixedN :
@@ -140,7 +140,7 @@ Item {
 
         onLanguageChanged:
         {
-            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_ENG ? "en_GB" : "ko_KR")
+            VirtualKeyboardSettings.locale = (language === EnumDef.LANG_KOR ? "ko_KR" : "en_GB")
         }
 
         onSignalEventChangedIsWait: {

@@ -75,6 +75,10 @@ UiPanel {
                 itemText : "한국어"
                 itemIdx : 1
             }
+            ListElement {
+                itemText : "中國"
+                itemIdx : 2
+            }
         }
 
         onSignalEventChangedSel: {
