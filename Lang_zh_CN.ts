@@ -6,12 +6,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="76"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="92"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml" line="133"/>
@@ -78,7 +78,7 @@
         <location filename="qml/ui/main_scene/menu_view/LoggingData/LoggingDataListItem.qml" line="56"/>
         <location filename="qml/ui/main_scene/menu_view/LoggingData/LoggingDataListItem.qml" line="70"/>
         <source>PASS</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/LoggingData/LoggingDataListItem.qml" line="57"/>
@@ -173,14 +173,14 @@
 <context>
     <name>MainScene</name>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="280"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="331"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="282"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="333"/>
         <source>Please enter your password.</source>
         <translation>请输入您的密码。</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="300"/>
-        <location filename="qml/ui/main_scene/MainScene.qml" line="345"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="302"/>
+        <location filename="qml/ui/main_scene/MainScene.qml" line="347"/>
         <source>Please check password</source>
         <translation>请检查密码</translation>
     </message>
@@ -188,47 +188,47 @@
 <context>
     <name>MenuView</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="96"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="97"/>
         <source>PRODUCT&lt;br&gt;SETTING</source>
         <translation>产品设置</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="117"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="118"/>
         <source>LOGGING&lt;br&gt;DATA</source>
         <translation>操作历史</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="138"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="139"/>
         <source>CALIBRATION&lt;br&gt;/ CHECKUP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="138"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="139"/>
         <source>CHECKUP</source>
         <translation>检查</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="160"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="161"/>
         <source>MAX ERROR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="184"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="185"/>
         <source>DEVICE&lt;br&gt;SETTING</source>
         <translation>设备设置</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="207"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="208"/>
         <source>GRAPH</source>
         <translation>图形</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="229"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="230"/>
         <source>CLOCK&lt;br&gt;SETTING</source>
         <translation>时钟设置</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="250"/>
+        <location filename="qml/ui/main_scene/menu_view/MenuView.qml" line="251"/>
         <source>INFORMATION</source>
         <translation>信息</translation>
     </message>
@@ -276,12 +276,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelADCAutoCalibSetting.qml" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelADCAutoCalibSetting.qml" line="120"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
 </context>
 <context>
@@ -289,12 +289,12 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelAutoProductSetting.qml" line="52"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelAutoProductSetting.qml" line="70"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelAutoProductSetting.qml" line="98"/>
@@ -433,12 +433,12 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelBeltSetting.qml" line="96"/>
         <source>Pre</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelBeltSetting.qml" line="107"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
@@ -557,7 +557,7 @@
     <message>
         <location filename="qml/ui/main_scene/PanelDebugging.qml" line="286"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
 </context>
 <context>
@@ -585,17 +585,17 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="64"/>
         <source>· Lanugage</source>
-        <translation>· 语</translation>
+        <translation>· 语言</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="101"/>
         <source>· PWD</source>
-        <translation>旧密码</translation>
+        <translation>· 旧密码</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="123"/>
         <source>· New PWD</source>
-        <translation>新密码</translation>
+        <translation>· 新密码</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="145"/>
@@ -685,7 +685,8 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="574"/>
-        <source>· Sorter(run ratio : open time : Vib numbers)</source>
+        <source>· RJ(run ratio : open time : Vib numbers)</source>
+        <oldsource>· Rj(run ratio : open time : Vib numbers)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -830,7 +831,7 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="180"/>
         <source>Detect</source>
-        <translation>发现</translation>
+        <translation>检测</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="330"/>
@@ -838,17 +839,17 @@
         <translation>申请</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="416"/>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="417"/>
         <source>Please enter your password.</source>
         <translation>请输入您的密码。</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="422"/>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="423"/>
         <source>Your settings have been saved.</source>
         <translation>您的设置已保存。</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="426"/>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="427"/>
         <source>Please check password</source>
         <translation>请检查密码</translation>
     </message>
@@ -858,17 +859,17 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGeneralSetting.qml" line="30"/>
         <source>· Product No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 产品编号</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGeneralSetting.qml" line="52"/>
         <source>· Product Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 产品名称</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGeneralSetting.qml" line="71"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
@@ -876,7 +877,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelGraph.qml" line="48"/>
         <source>Metal detector</source>
-        <translation type="unfinished"></translation>
+        <translation>金属探测器</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelGraph.qml" line="52"/>
@@ -899,52 +900,72 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="63"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">皮带不间断</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="67"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">皮带停止</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="71"/>
-        <source>Sorter 01</source>
+        <source>RJ 01</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="75"/>
-        <source>Sorter 02</source>
+        <source>RJ 02</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="79"/>
-        <source>Sorter 03</source>
+        <source>RJ 03</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="83"/>
-        <source>Sorter 04</source>
+        <source>RJ 04</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rejector 01</source>
+        <oldsource>Sorter 01</oldsource>
+        <translation type="obsolete">拒收 1</translation>
+    </message>
+    <message>
+        <source>Rejector 02</source>
+        <oldsource>Sorter 02</oldsource>
+        <translation type="obsolete">拒收 2</translation>
+    </message>
+    <message>
+        <source>Rejector 03</source>
+        <oldsource>Sorter 03</oldsource>
+        <translation type="obsolete">拒收 3</translation>
+    </message>
+    <message>
+        <source>Rejector 04</source>
+        <oldsource>Sorter 04</oldsource>
+        <translation type="obsolete">拒收 4</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="106"/>
         <source>Lamp</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灯</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="127"/>
         <source>Buzzer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">蜂鸣器</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="141"/>
         <source>Pre</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelGroupSetting.qml" line="152"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
@@ -1041,17 +1062,18 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="464"/>
-        <source>⑤ Distance to Sorter</source>
+        <source>⑤ Distance to Rejector</source>
+        <oldsource>⑤ Distance to Sorter</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="464"/>
-        <source>④ Distance to Sorter</source>
+        <source>④ Distance to Rejector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="464"/>
-        <source>② Distance to Sorter</source>
+        <source>② Distance to Rejector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1092,7 +1114,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="642"/>
         <source>WIFI&lt;br&gt;Setting</source>
-        <translation>无线网络&lt;br&gt;设置</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelInformation.qml" line="660"/>
@@ -1120,7 +1142,7 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelLastError.qml" line="97"/>
         <source>Metal detect</source>
-        <translation>金属探测器</translation>
+        <translation>金属发现</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelLastError.qml" line="98"/>
@@ -1133,17 +1155,17 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelLengthSetting.qml" line="30"/>
         <source>· Length</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 长度</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelLengthSetting.qml" line="49"/>
         <source>Pre</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelLengthSetting.qml" line="60"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
@@ -1151,7 +1173,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="59"/>
         <source>Metal detector</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">金属探测器</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelLoggingData.qml" line="63"/>
@@ -1227,14 +1249,18 @@
 <context>
     <name>PanelMD</name>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelMD.qml" line="59"/>
+        <location filename="qml/ui/main_scene/main_view/PanelMD.qml" line="60"/>
         <source>Metal detector</source>
         <translation>金属探测器</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelMD.qml" line="111"/>
+        <location filename="qml/ui/main_scene/main_view/PanelMD.qml" line="113"/>
+        <source>Sensitivity</source>
+        <translation>灵敏度</translation>
+    </message>
+    <message>
         <source>Metal</source>
-        <translation>金属</translation>
+        <translation type="vanished">金属</translation>
     </message>
 </context>
 <context>
@@ -1529,7 +1555,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="74"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="87"/>
@@ -1549,7 +1575,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="153"/>
         <source>Min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">分</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="175"/>
@@ -1569,12 +1595,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="288"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">皮带停止</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelMaxErrorSetting.qml" line="302"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">开始</translation>
     </message>
 </context>
 <context>
@@ -1582,63 +1608,63 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="47"/>
         <source>· Graph Range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 图形范围</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="77"/>
         <source>· Max</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 最大</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="100"/>
         <source>· Min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 最小</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="129"/>
         <source>· Senstivity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 灵敏度</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="199"/>
         <source>S1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灵敏度1</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="214"/>
         <source>S2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灵敏度2</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="229"/>
         <source>S3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灵敏度3</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="244"/>
         <source>S4</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灵敏度4</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="259"/>
         <source>S5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">灵敏度5</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="750"/>
         <source>Pre</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelMetalSenstivitySetting.qml" line="761"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
     <name>PanelProductName</name>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelProductName.qml" line="25"/>
+        <location filename="qml/ui/main_scene/main_view/PanelProductName.qml" line="28"/>
         <source>Product</source>
         <translation>产品</translation>
     </message>
@@ -1743,28 +1769,33 @@
 <context>
     <name>PanelStatusWC</name>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="61"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="66"/>
         <source>Total</source>
         <translation>总数</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="87"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="93"/>
         <source>Metal NG</source>
         <translation>发现</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="116"/>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="122"/>
         <source>Weight NG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="156"/>
-        <source>Trade total</source>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="162"/>
+        <source>Max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="181"/>
-        <source>Trade average</source>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="188"/>
+        <source>Actual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/main_view/PanelStatusWC.qml" line="215"/>
+        <source>Average</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1960,7 +1991,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="432"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
 </context>
 <context>
@@ -1968,7 +1999,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="51"/>
         <source>· Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 模式</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="64"/>
@@ -1988,26 +2019,29 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="109"/>
         <source>· Min</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 最小</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="132"/>
         <source>· Max</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">· 最大</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="163"/>
-        <source>· Max PD</source>
+        <source>· Max PPM</source>
+        <oldsource>· Max PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="183"/>
-        <source>· Mmt PD</source>
+        <source>· Act PPM</source>
+        <oldsource>· Mmt PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="203"/>
-        <source>· Min PD</source>
+        <source>· Avg PPM</source>
+        <oldsource>· Min PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2058,12 +2092,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="557"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="566"/>
         <source>Your settings have been saved.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">您的设置已保存。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="570"/>
@@ -2073,12 +2107,12 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="574"/>
         <source>This product dose not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">该产品不存在。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
 </context>
 <context>
@@ -2086,7 +2120,7 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/PanelWCNGNotify.qml" line="128"/>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确认</translation>
     </message>
 </context>
 <context>
@@ -2094,17 +2128,17 @@
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="29"/>
         <source>Your settings have been saved.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">您的设置已保存。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="33"/>
         <source>This product dose not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">该产品不存在。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="37"/>
         <source>The Product no already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">产品号已经存在。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="41"/>
@@ -2124,12 +2158,12 @@
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="69"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="89"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PanelWCSettingInHome.qml" line="119"/>
@@ -2167,7 +2201,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="108"/>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确认</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="129"/>
@@ -2197,7 +2231,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCStaticCaribraion.qml" line="203"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
 </context>
 <context>
@@ -2235,12 +2269,12 @@
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelWeightSetting.qml" line="163"/>
         <source>Pre</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">前</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/main_view/autoproductsetting/PanelWeightSetting.qml" line="174"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
 </context>
 <context>
@@ -2261,17 +2295,17 @@
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="44"/>
         <source>Your settings have been saved.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">您的设置已保存。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="48"/>
         <source>This product dose not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">该产品不存在。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="52"/>
         <source>The Product no already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">产品号已经存在。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="56"/>
@@ -2291,12 +2325,12 @@
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="84"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="104"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="127"/>
@@ -2306,12 +2340,12 @@
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="146"/>
         <source>Please enter your password.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">请输入您的密码。</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupGroupSettingInHome.qml" line="155"/>
         <source>Please check password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">请检查密码</translation>
     </message>
 </context>
 <context>
@@ -2329,7 +2363,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="72"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">是的</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PopupMoveWCDynamicCarib.qml" line="90"/>
@@ -2377,12 +2411,12 @@
     <message>
         <location filename="qml/ui/main_scene/PopupTrendsOption.qml" line="194"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">申请</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/PopupTrendsOption.qml" line="212"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
 </context>
 <context>
@@ -2395,237 +2429,261 @@
     <message>
         <location filename="qml/ui/main_scene/PopupZeroProc.qml" line="57"/>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确认</translation>
     </message>
 </context>
 <context>
     <name>ProductEditView</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="41"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="42"/>
         <source>General</source>
         <translation>一般的</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="58"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="59"/>
         <source>· Product No</source>
         <translation>· 产品编号</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="84"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="85"/>
         <source>· Product Name</source>
         <translation>· 产品名称</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="109"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="110"/>
         <source>· Length</source>
         <translation>· 长度</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="137"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="138"/>
         <source>· Speed</source>
         <translation>· 速度</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="157"/>
         <source>Max speed : </source>
-        <translation>最大速度 ： </translation>
+        <translation type="vanished">最大速度 ： </translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="173"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="175"/>
         <source>· Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="190"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="192"/>
         <source>  Count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="217"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="219"/>
         <source>Motion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="227"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="729"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="790"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="852"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1132"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="229"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="731"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="792"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="854"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1134"/>
         <source>None</source>
         <translation>皮带不间断</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="231"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="733"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="794"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="856"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1136"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="233"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="735"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="796"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="858"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1138"/>
         <source>Stop</source>
         <translation>皮带停止</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="235"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="737"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="798"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="860"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1140"/>
-        <source>Sorter 01</source>
+        <source>Rejector 01</source>
+        <oldsource>Sorter 01</oldsource>
+        <translation type="vanished">拒收 1</translation>
+    </message>
+    <message>
+        <source>Rejector 02</source>
+        <oldsource>Sorter 02</oldsource>
+        <translation type="vanished">拒收 2</translation>
+    </message>
+    <message>
+        <source>Rejector 03</source>
+        <oldsource>Sorter 03</oldsource>
+        <translation type="vanished">拒收 3</translation>
+    </message>
+    <message>
+        <source>Rejector 04</source>
+        <oldsource>Sorter 04</oldsource>
+        <translation type="vanished">拒收 4</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="159"/>
+        <source>Max PPM: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="237"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="739"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="800"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="862"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1142"/>
+        <source>RJ 01</source>
         <translation>拒收 1</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="239"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="741"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="802"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="864"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1144"/>
-        <source>Sorter 02</source>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="241"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="743"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="804"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="866"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1146"/>
+        <source>RJ 02</source>
         <translation>拒收 2</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="243"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="745"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="806"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="868"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1148"/>
-        <source>Sorter 03</source>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="245"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="747"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="808"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="870"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1150"/>
+        <source>RJ 03</source>
         <translation>拒收 3</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="247"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="749"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="810"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="872"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1152"/>
-        <source>Sorter 04</source>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="249"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="751"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="812"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="874"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1154"/>
+        <source>RJ 04</source>
         <translation>拒收 4</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="271"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="671"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1176"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="273"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="673"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1178"/>
         <source>Lamp</source>
         <translation>灯</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="293"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="689"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1199"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="295"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="691"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1201"/>
         <source>Buzzer</source>
         <translation>蜂鸣器</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="323"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="325"/>
         <source>Weight checker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="341"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1046"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="343"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1048"/>
         <source>ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="363"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1068"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="365"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1070"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="394"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="396"/>
         <source>· Over</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="456"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="458"/>
         <source>· Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="519"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="521"/>
         <source>· Under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="549"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="551"/>
         <source>· Tare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="575"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="577"/>
         <source>· Dynamic factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="594"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="596"/>
         <source>is not set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="658"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="719"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="780"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="842"/>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1121"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="660"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="721"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="782"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="844"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1123"/>
         <source>· NG motion</source>
         <translation>· 检测动作</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="707"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="709"/>
         <source>- Over</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="768"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="770"/>
         <source>- Under</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="829"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="831"/>
         <source>- Etc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="957"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="959"/>
         <source>Motor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="974"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="976"/>
         <source>· Motor acc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1003"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1005"/>
         <source>· Motor dec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1030"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1032"/>
         <source>Metal detector</source>
         <translation>金属探测器</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1091"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1093"/>
         <source>· Senstivity</source>
         <translation>· 灵敏度</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1248"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1250"/>
         <source>Apply</source>
         <translation>申请</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1269"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1271"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1288"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1290"/>
         <source>Remove</source>
         <translation>消除</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1289"/>
+        <location filename="qml/ui/main_scene/menu_view/ProductSetting/ProductEditView.qml" line="1291"/>
         <source>Do you want to remove this product?</source>
         <translation>您要删除此产品吗？</translation>
     </message>
@@ -2635,7 +2693,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/SearchDspDlg.qml" line="31"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关</translation>
     </message>
 </context>
 <context>
@@ -2643,7 +2701,7 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/SearchSSIDDlg.qml" line="61"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/Infomation/SearchSSIDDlg.qml" line="83"/>
@@ -2701,7 +2759,7 @@
     <message>
         <location filename="qml/control/UiDigitalLabel.qml" line="57"/>
         <source>Metal detect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">金属发现</translation>
     </message>
 </context>
 <context>

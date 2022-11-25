@@ -571,7 +571,7 @@ UiPanel {
         anchors.rightMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· Sorter(run ratio : open time : Vib numbers)")
+        textValue: qsTr("· RJ(run ratio : open time : Vib numbers)")
     }
 
     UiLabelSystem{

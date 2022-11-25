@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
+import EnumDef 1.0
 import ViewManager 1.0
 
 Item {
@@ -22,6 +23,8 @@ Item {
         id : bg
         width: 1500
         anchors.fill: parent
+
+        customFontSize: ViewManager.language === EnumDef.LANG_CHN ? 40 : 30
         title: qsTr("Product")
 
         UiLabelContentBig{

@@ -6,7 +6,7 @@ Item {
     property alias textValue           : textContent.text
     property int   rightMargin         : 0
     property int   leftMargin          : 0
-
+    property int   customFontSize      : 25
     id : control
 
     Text{
@@ -20,7 +20,7 @@ Item {
 
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment : Text.AlignLeft
-        font.pixelSize: 25
+        font.pixelSize: control.customFontSize//25
         font.family: FontManager.nanumGothicName
         elide: Text.ElideRight
 

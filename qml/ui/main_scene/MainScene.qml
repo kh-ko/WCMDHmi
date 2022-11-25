@@ -130,6 +130,7 @@ Item {
         id : model
 
         Component.onCompleted: {
+            ViewManager.language = language
             VirtualKeyboardSettings.locale = (language === EnumDef.LANG_KOR ? "ko_KR" : "en_GB")
         }
 
@@ -140,6 +141,7 @@ Item {
 
         onLanguageChanged:
         {
+            ViewManager.language = language
             VirtualKeyboardSettings.locale = (language === EnumDef.LANG_KOR ? "ko_KR" : "en_GB")
         }
 
@@ -403,6 +405,10 @@ Item {
 
         MainView{
             anchors.fill: parent
+
+            maxPdCntPerMin  : model.maxPDCntPerMin
+            currPdCntPerMin : model.currPDCntPerMin
+            pdCntPerMin     : model.pdCntPerMin
         }
     }
 
@@ -412,6 +418,8 @@ Item {
 
         MenuView{
             anchors.fill: parent
+
+            maxPPM: model.maxPDCntPerMin
         }
     }
 

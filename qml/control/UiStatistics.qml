@@ -4,6 +4,7 @@ import ViewManager 1.0
 import "."
 
 Item {
+    property int    customFontSize: 25
     property bool   isIcon        : true
     property alias  imgSrc        : imageIcon.source
     property string title         : "Metal"
@@ -85,6 +86,7 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: 0
 
+        customFontSize: panel.customFontSize
         textValue: panel.title
     }
 

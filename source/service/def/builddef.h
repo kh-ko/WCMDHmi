@@ -1,6 +1,6 @@
 #ifndef BUILDDEF_H
 #define BUILDDEF_H
 
-#define BUILD_HMI_VERSION "1.4.15"
+#define BUILD_HMI_VERSION "1.4.16"
 
 #endif // BUILDDEF_H

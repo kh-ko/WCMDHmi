@@ -8,6 +8,9 @@ import ViewManager 1.0
 import MainViewModel 1.0
 
 Item {
+    property int maxPdCntPerMin  : 0
+    property int currPdCntPerMin : 0
+    property int pdCntPerMin     : 0
 
     signal signalEventClickedProductName()
     signal signalEventClickedLastError()
@@ -65,13 +68,16 @@ Item {
         anchors.left: panelProductName.right
         anchors.leftMargin: 10
 
-        isDetail     : model.isDetail
-        mdNGCnt      : model.mdDetectCnt
-        wcEtcMDErrCnt: model.wCEtcMDErrorCnt
-        wcNGCnt      : model.wcNGCnt
-        totalCnt     : model.isEnableWC ? model.wcTotalCnt : model.mdTotalCnt
-        tradeCnt     : model.wcTradeCnt
-        tradeWeight  : model.wcTradeTotalWeight
+        isDetail        : model.isDetail
+        mdNGCnt         : model.mdDetectCnt
+        wcEtcMDErrCnt   : model.wCEtcMDErrorCnt
+        wcNGCnt         : model.wcNGCnt
+        totalCnt        : model.isEnableWC ? model.wcTotalCnt : model.mdTotalCnt
+        tradeCnt        : model.wcTradeCnt
+        tradeWeight     : model.wcTradeTotalWeight
+        maxPdCntPerMin  : panel.maxPdCntPerMin
+        currPdCntPerMin : panel.currPdCntPerMin
+        pdCntPerMin     : panel.pdCntPerMin
         isEnableWC   : model.isEnableWC
         isEnableMD   : model.isEnableMD
 

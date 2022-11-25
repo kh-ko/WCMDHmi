@@ -17,6 +17,9 @@ class MainSceneModel : public QObject
     Q_PROPERTY(QString company            READ getCompany             NOTIFY signalEventChangedCompany           )
     Q_PROPERTY(QString tel                READ getTel                 NOTIFY signalEventChangedTel               )
     Q_PROPERTY(qint32  wcCurrWeight       READ getWCCurrWeight        NOTIFY signalEventChangedWCCurrWeight      )
+    Q_PROPERTY(qint16  maxPDCntPerMin     READ getMaxPDCntPerMin      NOTIFY signalEventChangedMaxPDCntPerMin    )
+    Q_PROPERTY(qint16  currPDCntPerMin    READ getCurrPDCntPerMin     NOTIFY signalEventChangedCurrPDCntPerMin   )
+    Q_PROPERTY(qint16  pdCntPerMin        READ getPDCntPerMin         NOTIFY signalEventChangedPDCntPerMin       )
     Q_PROPERTY(bool    isEanblePrinter    READ getIsEanblePrinter     NOTIFY signalEventChangedIsEanblePrinter   )
     Q_PROPERTY(bool    isConnectedPrinter READ getIsConnectedPrinter  NOTIFY signalEventChangedIsConnectedPrinter)
     Q_PROPERTY(bool    isWait             READ getIsWait              NOTIFY signalEventChangedIsWait            )
@@ -49,6 +52,9 @@ public:
     QString mCompany           = "";
     QString mTel               = "";
     qint32  mWCCurrWeight      = 0;
+    qint16  mMaxPDCntPerMin    = 0;
+    qint16  mCurrPDCntPerMin   = 0;
+    qint16  mPDCntPerMin       = 0;
     bool    mIsEanblePrinter   = false;
     bool    mIsConnectedPrinter= false;
     bool    mIsWait            = false;
@@ -80,6 +86,9 @@ public:
     QString  getCompany           (){ return mCompany           ;}
     QString  getTel               (){ return mTel               ;}
     qint32   getWCCurrWeight      (){ return mWCCurrWeight      ;}
+    qint16   getMaxPDCntPerMin    (){ return mMaxPDCntPerMin    ;}
+    qint16   getCurrPDCntPerMin   (){ return mCurrPDCntPerMin   ;}
+    qint16   getPDCntPerMin       (){ return mPDCntPerMin       ;}
     bool     getIsEanblePrinter   (){ return mIsEanblePrinter   ;}
     bool     getIsConnectedPrinter(){ return mIsConnectedPrinter;}
     bool     getIsWait            (){ return mIsWait            ;}
@@ -111,6 +120,9 @@ public:
     void     setIsZeroProc        (bool    value){ if(value == mIsZeroProc        )return; mIsZeroProc         = value; emit signalEventChangedIsZeroProc        (value);}
     void     setTel               (QString value){ if(value == getTel    ()       )return; mTel                = value; emit signalEventChangedTel               (value);}
     void     setWCCurrWeight      (qint32  value){ if(value == mWCCurrWeight      )return; mWCCurrWeight       = value; emit signalEventChangedWCCurrWeight      (value);}
+    void     setMaxPDCntPerMin    (qint16  value){ if(value == mMaxPDCntPerMin    )return; mMaxPDCntPerMin     = value; emit signalEventChangedMaxPDCntPerMin    (value);}
+    void     setCurrPDCntPerMin   (qint16  value){ if(value == mCurrPDCntPerMin   )return; mCurrPDCntPerMin    = value; emit signalEventChangedCurrPDCntPerMin   (value);}
+    void     setPDCntPerMin       (qint16  value){ if(value == mPDCntPerMin       )return; mPDCntPerMin        = value; emit signalEventChangedPDCntPerMin       (value);}
     void     setIsEanblePrinter   (bool    value){ if(value == mIsEanblePrinter   )return; mIsEanblePrinter    = value; emit signalEventChangedIsEanblePrinter   (value);}
     void     setIsConnectedPrinter(bool    value){ if(value == mIsConnectedPrinter)return; mIsConnectedPrinter = value; emit signalEventChangedIsConnectedPrinter(value);}
     void     setIsRun             (bool    value){ if(value == getIsRun  ()       )return; mIsRun              = value; emit signalEventChangedIsRun             (value);}
@@ -138,6 +150,9 @@ signals:
     void signalEventChangedCompany           (QString value);
     void signalEventChangedTel               (QString value);
     void signalEventChangedWCCurrWeight      (qint32  value);
+    void signalEventChangedMaxPDCntPerMin    (qint16  value);
+    void signalEventChangedCurrPDCntPerMin   (qint16  value);
+    void signalEventChangedPDCntPerMin       (qint16  value);
     void signalEventChangedIsEanblePrinter   (bool    value);
     void signalEventChangedIsConnectedPrinter(bool    value);
     void signalEventChangedIsWait            (bool    value);
@@ -245,17 +260,20 @@ public slots:
         setIsRun            ( dto.mCommStatus.mRun != EnumDef::RUN_MODE_STOP                   );
 
         setIsAlarm          ( dto.getAlarm() || pDsp->mIsDevSettingAlarm || pDsp->mIsPDSettingAlarm || mIsMDSpeedAlarm);
-        setIsEEPROMAlarm    ( dto.getIsEEPROMAlarm    ());
-        setIsWCSensorAlarm  ( dto.getIsWCSensorAlarm  ());
-        setIsWCPhotoAlarm   ( dto.getIsWCPhotoAlarm   ());
-        setIsWCMortorAlarm  ( dto.getIsWCMortorAlarm  ());
-        setIsWCRJMortorAlarm( dto.getIsWCRJMortorAlarm());
-        setIsWCMeasureAlarm ( dto.getIsWCMeasureAlarm ());
-        setIsMDSensorAlarm  ( dto.getIsMDSensorAlarm  ());
-        setIsMDPhotoAlarm   ( dto.getIsMDPhotoAlarm   ());
-        setIsMDMortorAlarm  ( dto.getIsMDMortorAlarm  ());
-        setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm());
-        setWCCurrWeight     ( dto.mWCStatus.mCurrWeight );
+        setIsEEPROMAlarm    ( dto.getIsEEPROMAlarm    ()    );
+        setIsWCSensorAlarm  ( dto.getIsWCSensorAlarm  ()    );
+        setIsWCPhotoAlarm   ( dto.getIsWCPhotoAlarm   ()    );
+        setIsWCMortorAlarm  ( dto.getIsWCMortorAlarm  ()    );
+        setIsWCRJMortorAlarm( dto.getIsWCRJMortorAlarm()    );
+        setIsWCMeasureAlarm ( dto.getIsWCMeasureAlarm ()    );
+        setIsMDSensorAlarm  ( dto.getIsMDSensorAlarm  ()    );
+        setIsMDPhotoAlarm   ( dto.getIsMDPhotoAlarm   ()    );
+        setIsMDMortorAlarm  ( dto.getIsMDMortorAlarm  ()    );
+        setIsMDRJMortorAlarm( dto.getIsMDRJMortorAlarm()    );
+        setWCCurrWeight     ( dto.mWCStatus.mCurrWeight     );
+        setMaxPDCntPerMin   ( dto.mWCStatus.mMaxPDCntPerMin );
+        setCurrPDCntPerMin  ( dto.mWCStatus.mCurrPDCntPerMin);
+        setPDCntPerMin      ( dto.mWCStatus.mPDCntPerMin    );
 
         setIsZeroProc       ( dto.mWCStatus.mZeroProc == 1);
 

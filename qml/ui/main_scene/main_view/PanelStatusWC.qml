@@ -3,17 +3,21 @@ import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
 import ViewManager 1.0
+import EnumDef 1.0
 
 Item {
-    property bool isEnableWC   : true
-    property bool isEnableMD   : true
-    property bool isDetail     : false
-    property int  mdNGCnt      : 999999
-    property int  wcNGCnt      : 999999
-    property int  wcEtcMDErrCnt: 0
-    property int  totalCnt     : 999999
-    property var  tradeWeight  : 0
-    property int  tradeCnt     : 0
+    property bool isEnableWC      : true
+    property bool isEnableMD      : true
+    property bool isDetail        : false
+    property int  mdNGCnt         : 999999
+    property int  wcNGCnt         : 999999
+    property int  wcEtcMDErrCnt   : 0
+    property int  totalCnt        : 999999
+    property var  tradeWeight     : 0
+    property int  tradeCnt        : 0
+    property int  maxPdCntPerMin  : 0
+    property int  currPdCntPerMin : 0
+    property int  pdCntPerMin     : 0
 
     property string tradeWeightPostFix : panel.tradeWeight > 999999999 ? " t" :
                                          panel.tradeWeight > 999999    ? " kg": " g"
@@ -58,6 +62,7 @@ Item {
             anchors.left: imageTitle.right
             anchors.leftMargin: panel.isEnableWC === false ? 100 :20
 
+            customFontSize: ViewManager.language === EnumDef.LANG_CHN ? 35 : 25
             textValue: qsTr("Total")
         }
 
@@ -84,6 +89,7 @@ Item {
             anchors.left: imageTitle.right
             anchors.leftMargin: panel.isEnableWC === false ? 100 :20
 
+            customFontSize: ViewManager.language === EnumDef.LANG_CHN ? 35 : 25
             textValue: qsTr("Metal NG")
 
             visible: panel.isEnableMD
@@ -144,7 +150,7 @@ Item {
         }
 
         UiLabelSystem{
-            id : labelTradeTotal
+            id : labelMaxPPM
             width : 167
             height : 30
             anchors.top: parent.top
@@ -153,24 +159,25 @@ Item {
             anchors.leftMargin: 20
 
             visible: panel.isEnableWC
-            textValue: qsTr("Trade total")
+            textValue: qsTr("Max")
         }
 
         UiLabelContent{
             height : 30
-            anchors.left: labelTradeTotal.right
+            anchors.left: labelMaxPPM.right
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: 20
-            anchors.verticalCenter: labelTradeTotal.verticalCenter
+            anchors.verticalCenter: labelMaxPPM.verticalCenter
 
             visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
-            textValue : convertedTradeWeight.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + tradeWeightPostFix
+            //textValue : convertedTradeWeight.toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + tradeWeightPostFix
+            textValue : maxPdCntPerMin + " ppm"
         }
 
         UiLabelSystem{
-            id : labelTradeAverage
+            id : labelActualPPM
             width : 167
             height : 30
             anchors.verticalCenter: parent.verticalCenter
@@ -178,20 +185,48 @@ Item {
             anchors.leftMargin: 20
 
             visible: panel.isEnableWC
-            textValue: qsTr("Trade average")
+            textValue: qsTr("Actual")
         }
 
         UiLabelContent{
             height : 30
-            anchors.left: labelTradeAverage.right
+            anchors.left: labelActualPPM.right
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: 20
-            anchors.verticalCenter: labelTradeAverage.verticalCenter
+            anchors.verticalCenter: labelActualPPM.verticalCenter
 
             visible: panel.isEnableWC
             horizontalAlignment : Text.AlignRight
-            textValue : tradeCnt === 0 ? (0).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+            //textValue : tradeCnt === 0 ? (0).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+            textValue: currPdCntPerMin + " ppm"
+        }
+
+        UiLabelSystem{
+            id : labelAveragePPM
+            width : 167
+            height : 30
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            anchors.left: divider.right
+            anchors.leftMargin: 20
+
+            visible: panel.isEnableWC
+            textValue: qsTr("Average")
+        }
+
+        UiLabelContent{
+            height : 30
+            anchors.left: labelAveragePPM.right
+            anchors.leftMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.verticalCenter: labelAveragePPM.verticalCenter
+
+            visible: panel.isEnableWC
+            horizontalAlignment : Text.AlignRight
+            //textValue : tradeCnt === 0 ? (0).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g" : ((tradeWeight/tradeCnt)/1000).toLocaleString(ViewManager.locale, 'f', ViewManager.weightFixedN) + " g"
+            textValue:  pdCntPerMin + " ppm"
         }
 
     }

@@ -10,6 +10,7 @@ import ProductSettingItemModel 1.0
 
 UiPanel {
     property ProductSettingItemModel itemModel : null
+    property int  maxPPM     : 0
     property bool isViewMode : false
     property bool isEnableWC : true
     property bool isEnableMD : true
@@ -153,8 +154,9 @@ UiPanel {
         anchors.top: inputSpeed.bottom; anchors.topMargin: 7; anchors.right: inputSpeed.right
         font.pixelSize: 20; font.family: FontManager.nanumGothicName
 
-        color : itemModel.maxSpeed < itemModel.speed ? "#D9001B" : "#ACACAC"
-        text: qsTr("Max speed : ") + itemModel.maxSpeed + " m/min"
+        //color : itemModel.maxSpeed < itemModel.speed ? "#D9001B" : "#ACACAC"
+        color : "#ACACAC"
+        text: qsTr("Max PPM: ") + panel.maxPPM
 
         visible: itemModel.maxSpeed !== -1
     }
@@ -232,19 +234,19 @@ UiPanel {
                 itemIdx : 1
             }
             ListElement {
-                itemText : qsTr("Sorter 01")
+                itemText : qsTr("RJ 01")
                 itemIdx : 2
             }
             ListElement {
-                itemText : qsTr("Sorter 02")
+                itemText : qsTr("RJ 02")
                 itemIdx : 3
             }
             ListElement {
-                itemText : qsTr("Sorter 03")
+                itemText : qsTr("RJ 03")
                 itemIdx : 4
             }
             ListElement {
-                itemText : qsTr("Sorter 04")
+                itemText : qsTr("RJ 04")
                 itemIdx : 5
             }
         }
@@ -734,19 +736,19 @@ UiPanel {
                             itemIdx : 1
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 01")
+                            itemText : qsTr("RJ 01")
                             itemIdx : 2
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 02")
+                            itemText : qsTr("RJ 02")
                             itemIdx : 3
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 03")
+                            itemText : qsTr("RJ 03")
                             itemIdx : 4
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 04")
+                            itemText : qsTr("RJ 04")
                             itemIdx : 5
                         }
                     }
@@ -795,19 +797,19 @@ UiPanel {
                             itemIdx : 1
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 01")
+                            itemText : qsTr("RJ 01")
                             itemIdx : 2
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 02")
+                            itemText : qsTr("RJ 02")
                             itemIdx : 3
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 03")
+                            itemText : qsTr("RJ 03")
                             itemIdx : 4
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 04")
+                            itemText : qsTr("RJ 04")
                             itemIdx : 5
                         }
                     }
@@ -857,19 +859,19 @@ UiPanel {
                             itemIdx : 1
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 01")
+                            itemText : qsTr("RJ 01")
                             itemIdx : 2
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 02")
+                            itemText : qsTr("RJ 02")
                             itemIdx : 3
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 03")
+                            itemText : qsTr("RJ 03")
                             itemIdx : 4
                         }
                         ListElement {
-                            itemText : qsTr("Sorter 04")
+                            itemText : qsTr("RJ 04")
                             itemIdx : 5
                         }
                     }
@@ -1137,19 +1139,19 @@ UiPanel {
                 itemIdx : 1
             }
             ListElement {
-                itemText : qsTr("Sorter 01")
+                itemText : qsTr("RJ 01")
                 itemIdx : 2
             }
             ListElement {
-                itemText : qsTr("Sorter 02")
+                itemText : qsTr("RJ 02")
                 itemIdx : 3
             }
             ListElement {
-                itemText : qsTr("Sorter 03")
+                itemText : qsTr("RJ 03")
                 itemIdx : 4
             }
             ListElement {
-                itemText : qsTr("Sorter 04")
+                itemText : qsTr("RJ 04")
                 itemIdx : 5
             }
         }

@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 import ViewManager 1.0
 import QmlEnumDef 1.0
 Item {
-
+    property int customFontSize : 30
     property int type : QmlEnumDef.PANEL_TYPE_DEFAULT
     property string title : ""
     property int titleHeight : title == "" ? 0 : labelTitle.height
@@ -100,6 +100,7 @@ Item {
         anchors.leftMargin: 0
         leftMargin : 20
 
+        customFontSize : control.customFontSize
         textValue: title
 
     }

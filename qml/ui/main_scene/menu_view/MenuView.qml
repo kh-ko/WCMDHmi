@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.3
 import QmlEnumDef 1.0
 
 Item {
+    property int  maxPPM     : 0
     property bool isProductVew : false
     property bool isLoggingVew : false
     property bool isSuper    : true
@@ -292,6 +293,8 @@ Item {
         id : panelProductSetting;
         PanelProductSetting{
             anchors.fill: parent
+
+            maxPPM: element.maxPPM
 
             onSignalMoveDynamicCarib:{
                 element.moveDynamicCarib();

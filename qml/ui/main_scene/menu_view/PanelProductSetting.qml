@@ -11,7 +11,7 @@ import PanelProductSettingModel 1.0
 import ProductSettingItemModel 1.0
 
 UiPanel {
-
+    property int  maxPPM     : 0
     property bool isViewMode : false
     property bool isAdmin    : false
     id: panel
@@ -222,6 +222,7 @@ UiPanel {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
 
+        maxPPM: panel.maxPPM
         isAdmin: panel.isAdmin
         isEnableWC: productSettingModel.isEnableWC
         isEnableMD: productSettingModel.isEnableMD

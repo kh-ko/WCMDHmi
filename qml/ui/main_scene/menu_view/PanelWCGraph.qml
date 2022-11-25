@@ -160,7 +160,7 @@ PDCntPerMin
             height: 60; width: 110
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0
 
-            textValue: qsTr("· Max PD")
+            textValue: qsTr("· Max PPM")
         }
 
         UiLabelContent {
@@ -180,7 +180,7 @@ PDCntPerMin
             height: 60; width: 118
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textMaxPDCntPerMin.right; anchors.leftMargin: 10
 
-            textValue: qsTr("· Mmt PD")
+            textValue: qsTr("· Act PPM")
         }
 
         UiLabelContent {
@@ -200,7 +200,7 @@ PDCntPerMin
             height: 60; width: 105
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textCurrPDCntPerMin.right; anchors.leftMargin: 10
 
-            textValue: qsTr("· Min PD")
+            textValue: qsTr("· Avg PPM")
         }
 
         UiLabelContent {

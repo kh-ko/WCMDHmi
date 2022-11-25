@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "../../../control"
 import QtQuick.Layouts 1.3
 import "."
+import EnumDef 1.0
 import QmlEnumDef 1.0
 import ViewManager 1.0
 
@@ -106,9 +107,10 @@ Item {
                 anchors.top: parent.top
                 anchors.topMargin: 0
 
+                customFontSize : ViewManager.language === EnumDef.LANG_CHN ? 35 : 25
                 isDetail      : panel.isDetail
                 imgSrc        : "img_panelevent/metaldetect.png"
-                title         : qsTr("Metal")
+                title         : qsTr("Sensitivity")
                 value01       : ""+ panel.senstivity + " mv"
                 total         : panel.total
                 value02       : panel.detect

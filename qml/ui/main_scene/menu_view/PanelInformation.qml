@@ -461,7 +461,7 @@ UiPanel {
         anchors.left: divider.right
         anchors.leftMargin: 40
 
-        textValue: uiPanel.isMDEnable ? ( uiPanel.isWCEnable ? qsTr("⑤ Distance to Sorter") : qsTr("④ Distance to Sorter")) : qsTr("② Distance to Sorter")
+        textValue: uiPanel.isMDEnable ? ( uiPanel.isWCEnable ? qsTr("⑤ Distance to Rejector") : qsTr("④ Distance to Rejector")) : qsTr("② Distance to Rejector")
     }
 
     UiInputNumber{

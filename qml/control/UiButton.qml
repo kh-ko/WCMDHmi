@@ -6,6 +6,7 @@ import FontManager 1.0
 
 Item {
     property int    type : 0
+    property int    customFontSize : 25
     property bool   isImage : false
     property string textValue : "test"
     property alias  imageSource : imageIcon.source
@@ -63,7 +64,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         anchors.fill: parent
-        font.pixelSize: 25
+        font.pixelSize: control.customFontSize
         font.family: FontManager.nanumGothicName
 
         color : control.textColor

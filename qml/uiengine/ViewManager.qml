@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "../ui/main_scene/."
 Item {
     property  var windows : null
+    property int language : 0
     property MainScene mainScene : null
     property PopupTrendsOption popupTrendsOption : null
     property PanelVKeypad keypad : null

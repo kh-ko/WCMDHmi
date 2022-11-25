@@ -68,19 +68,19 @@ UiPanel {
                 itemIdx : 1
             }
             ListElement {
-                itemText : qsTr("Sorter 01")
+                itemText : qsTr("RJ 01")
                 itemIdx : 2
             }
             ListElement {
-                itemText : qsTr("Sorter 02")
+                itemText : qsTr("RJ 02")
                 itemIdx : 3
             }
             ListElement {
-                itemText : qsTr("Sorter 03")
+                itemText : qsTr("RJ 03")
                 itemIdx : 4
             }
             ListElement {
-                itemText : qsTr("Sorter 04")
+                itemText : qsTr("RJ 04")
                 itemIdx : 5
             }
         }

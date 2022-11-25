@@ -336,6 +336,7 @@ Item {
                     anchors.left: parent.left
                     anchors.leftMargin: 0
 
+                    customFontSize: ViewManager.language === EnumDef.LANG_CHN ? 35 : 25
                     onSignalEventClicked: {
                         inputPassword.textValue = ""
                         ViewManager.keypad.showKeypad(inputPassword.getVInputText())
