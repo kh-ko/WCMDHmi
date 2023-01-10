@@ -403,6 +403,10 @@ UiPanel {
                 itemText : qsTr("Schneider")
                 itemIdx : 2
             }
+            ListElement {
+                itemText : qsTr("BLDC(R)")
+                itemIdx : 3
+            }
         }
 
         onSignalEventChangedSel: {
@@ -571,7 +575,7 @@ UiPanel {
         anchors.rightMargin: 20
 
         visible: panel.isAdmin
-        textValue: qsTr("· RJ(run ratio : open time : Vib numbers)")
+        textValue: qsTr("· RJ(open : prepare : vibration)")
     }
 
     UiLabelSystem{

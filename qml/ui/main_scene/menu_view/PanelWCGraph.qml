@@ -157,7 +157,7 @@ PDCntPerMin
         {
             id : labelMaxPDCntPerMin
 
-            height: 60; width: 110
+            height: 60; width: 125
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: parent.left; anchors.leftMargin: 0
 
             textValue: qsTr("· Max PPM")
@@ -165,7 +165,7 @@ PDCntPerMin
 
         UiLabelContent {
             id: textMaxPDCntPerMin
-            width: 115
+            width: 114
             height: 60
             textValue: model.maxPDCntPerMin
             anchors.left: labelMaxPDCntPerMin.right
@@ -177,7 +177,7 @@ PDCntPerMin
         {
             id : labelCurrPDCntPerMin
 
-            height: 60; width: 118
+            height: 60; width: 125
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textMaxPDCntPerMin.right; anchors.leftMargin: 10
 
             textValue: qsTr("· Act PPM")
@@ -185,7 +185,7 @@ PDCntPerMin
 
         UiLabelContent {
             id: textCurrPDCntPerMin
-            width: 115
+            width: 114
             height: 60
             textValue: model.currPDCntPerMin
             anchors.left: labelCurrPDCntPerMin.right
@@ -197,7 +197,7 @@ PDCntPerMin
         {
             id : labelPDCntPerMin
 
-            height: 60; width: 105
+            height: 60; width: 125
             anchors.top: inputMinMax.bottom; anchors.topMargin: 10; anchors.left: textCurrPDCntPerMin.right; anchors.leftMargin: 10
 
             textValue: qsTr("· Avg PPM")
@@ -205,7 +205,7 @@ PDCntPerMin
 
         UiLabelContent {
             id: textPDCntPerMin
-            width: 115
+            width: 114
             height: 60
             textValue: model.pdCntPerMin
             anchors.left: labelPDCntPerMin.right
