@@ -95,7 +95,7 @@ signals:
     void    signalEventChangedTryCount     (quint32 value);
     void    signalEventChangedTareWeight   (quint32 value);
     void    signalEventCompleteCalibration (             );
-    void    signalEventInvalidCalibration  (             );
+    void    signalEventInvalidCalibration  (quint32 value);
 
 public slots:
     Q_INVOKABLE void onCommandPDConfirm()
@@ -167,18 +167,22 @@ public slots:
 
             qDebug() << "[debug] df = " << dto.mEvent.mEventValue;
 
+            //if(dto.mEvent.mEventValue < 5000000 || dto.mEvent.mEventValue > 15000000)
+            //{
+            //    setting.mDspForm.mWCSetting.mDynamicFactor = 10000000;
+            //    pProductSP->editPD(setting);
+            //    emit signalEventInvalidCalibration();
+            //}
+            //else
+            //{
+            setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
+            pProductSP->editPD(setting);
+            emit signalEventCompleteCalibration();
             if(dto.mEvent.mEventValue < 5000000 || dto.mEvent.mEventValue > 15000000)
             {
-                setting.mDspForm.mWCSetting.mDynamicFactor = 10000000;
-                pProductSP->editPD(setting);
-                emit signalEventInvalidCalibration();
+                emit signalEventInvalidCalibration(dto.mEvent.mEventValue);
             }
-            else
-            {
-                setting.mDspForm.mWCSetting.mDynamicFactor = dto.mEvent.mEventValue;
-                pProductSP->editPD(setting);
-                emit signalEventCompleteCalibration();
-            }
+            //}
 
         }
     }

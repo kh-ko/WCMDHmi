@@ -29,7 +29,7 @@ UiPanel {
         }
 
         onSignalEventInvalidCalibration: {
-            var msg = qsTr("Calibration is invalid.<br>Please perform the calibration again.")
+            var msg = qsTr("Please check dynamic factor<br>Dynamic factor is too high or too low.")
             var msgBox = messageBox.createObject(panel,{"message":msg,"textColor":"#D9001B"})
             msgBox.open();
         }

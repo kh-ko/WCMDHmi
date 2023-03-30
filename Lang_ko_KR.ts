@@ -2379,13 +2379,17 @@
         <translation type="vanished">측정된 중량을 보정하려면, &apos;보정&apos;버튼을 눌러주세요.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="32"/>
         <source>Calibration is invalid.&lt;br&gt;Please perform the calibration again.</source>
-        <translation>보정이 잘못되었습니다.&lt;br&gt;다시 보정을 해주십시요.</translation>
+        <translation type="vanished">보정이 잘못되었습니다.&lt;br&gt;다시 보정을 해주십시요.</translation>
     </message>
     <message>
         <source>1. Check the reference weight and press the &apos;calibration&apos; button.&lt;br&gt;2. If the conveyer run, let the product through.</source>
         <translation type="vanished">1. 기준중량을 확인 후 &apos;보정&apos; 버튼을 눌러주세요.&lt;br&gt;2. 벨트가 움직이면 제품을 통과 시켜주세요.</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="32"/>
+        <source>Please check dynamic factor&lt;br&gt;Dynamic factor is too high or too low.</source>
+        <translation>동중량 계수를 확인해 주세요.&lt;br&gt;동중량 계수가 너무 높거나 낮습니다.</translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="98"/>

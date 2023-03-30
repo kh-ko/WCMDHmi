@@ -1929,7 +1929,7 @@
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/CheckupAndCarib/PanelWCDynamicCaribraion.qml" line="32"/>
-        <source>Calibration is invalid.&lt;br&gt;Please perform the calibration again.</source>
+        <source>Please check dynamic factor&lt;br&gt;Dynamic factor is too high or too low.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
