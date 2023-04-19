@@ -6,7 +6,6 @@ import QmlEnumDef 1.0
 import ViewManager 1.0
 
 Item {
-
     id : panel
 
     height : 340

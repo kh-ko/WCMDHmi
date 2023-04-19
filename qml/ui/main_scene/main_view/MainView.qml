@@ -42,6 +42,8 @@ Item {
         {
             if(model.isEnableWC && model.isEnableMD)
                 notifyMDDetect.show()
+            else if(model.isEnableWC == false && model.mdDetectMode == EnumDef.SENS_MODE_EACH)
+                notifyFullMDDetectEx.show(detectChannel);
         }
     }
 
@@ -158,6 +160,9 @@ Item {
         anchors.leftMargin: model.isEnableMD ? 10 : 0
     }
 
+    PanelFullMDDetectExNotify{
+        id : notifyFullMDDetectEx
+    }
 
     Component
     {

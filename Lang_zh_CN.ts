@@ -610,16 +610,16 @@
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="180"/>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="235"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1189"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1442"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1193"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1446"/>
         <source>ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="200"/>
         <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="255"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1209"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1462"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1213"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1466"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
@@ -634,193 +634,198 @@
         <translation>· 灯</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="299"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="301"/>
         <source>· Buzzer</source>
         <translation>· 蜂鸣器</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="325"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="329"/>
         <source>· m/min → Hz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="350"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="354"/>
         <source>· Transfer</source>
         <translation>· 运输方向</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="358"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="362"/>
         <source>Left ← right</source>
         <translation>左←右</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="362"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="366"/>
         <source>Left → right</source>
         <translation>左→右</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="387"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="391"/>
         <source>· Motor type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="395"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="399"/>
         <source>Mitsubishi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="399"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="403"/>
         <source>BLDC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="403"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="407"/>
         <source>Schneider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="407"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="411"/>
         <source>BLDC(R)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="428"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="432"/>
         <source>· Motor RPM ratio ( MD : WC : RJ)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="578"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="582"/>
         <source>· RJ(open : prepare : vibration)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="591"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="595"/>
         <source>· 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="665"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="669"/>
         <source>· 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="739"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="743"/>
         <source>· 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="813"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="817"/>
         <source>· 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="888"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="892"/>
         <source>Weight checker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1001"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1005"/>
         <source>· Min static weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1026"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1030"/>
         <source>· Min dynamic weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1052"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1056"/>
         <source>· Display unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1078"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1082"/>
         <source>· Static factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1174"/>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1427"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1178"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1431"/>
         <source>· Photo mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1232"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1236"/>
         <source>· Ref Voltage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1263"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1267"/>
         <source>Metal detecotor</source>
         <translation>金属探测器</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1277"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1281"/>
         <source>· Sensor mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1299"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1303"/>
         <source>Independent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1303"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1307"/>
         <source>noise reduction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1356"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1311"/>
+        <source>each</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1360"/>
         <source>· Detect-Detect time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1380"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1384"/>
         <source>· Run-Detect time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1404"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1408"/>
         <source>· Signal delay time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1484"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1488"/>
         <source>· Sensor count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1508"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1512"/>
         <source>· Metal Senstivity 01</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1532"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1536"/>
         <source>· Metal Senstivity 02</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1556"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1560"/>
         <source>· Metal Senstivity 03</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1580"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1584"/>
         <source>· Metal Senstivity 04</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1604"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1608"/>
         <source>· Metal Senstivity 05</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1770"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1774"/>
         <source>Apply</source>
         <translation>申请</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1790"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelDeviceSetting.qml" line="1794"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -856,6 +861,29 @@
         <location filename="qml/ui/main_scene/main_view/PanelFullMD.qml" line="427"/>
         <source>Please check password</source>
         <translation>请检查密码</translation>
+    </message>
+</context>
+<context>
+    <name>PanelFullMDDetectExNotify</name>
+    <message>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMDDetectExNotify.qml" line="156"/>
+        <source>Metal is detected on all channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMDDetectExNotify.qml" line="157"/>
+        <source>Metal is detected on channel 01.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMDDetectExNotify.qml" line="157"/>
+        <source>Metal is detected on channel 02.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/main_view/PanelFullMDDetectExNotify.qml" line="171"/>
+        <source>Confirm</source>
+        <translation type="unfinished">确认</translation>
     </message>
 </context>
 <context>
@@ -1405,12 +1433,12 @@
 <context>
     <name>PanelMDDetectNotify</name>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelMDDetectNotify.qml" line="101"/>
+        <location filename="qml/ui/main_scene/main_view/PanelMDDetectNotify.qml" line="100"/>
         <source>Detect</source>
         <translation>发现</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/main_view/PanelMDDetectNotify.qml" line="115"/>
+        <location filename="qml/ui/main_scene/main_view/PanelMDDetectNotify.qml" line="114"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>

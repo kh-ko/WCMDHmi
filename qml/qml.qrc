@@ -193,5 +193,9 @@
         <file>ui/main_scene/menu_view/Infomation/EthernetSettingDlg.qml</file>
         <file>ui/main_scene/img/indicator/printer_connect.png</file>
         <file>ui/main_scene/img/indicator/printer_disconnect.png</file>
+        <file>ui/main_scene/main_view/PanelFullMDDetectExNotify.qml</file>
+        <file>ui/main_scene/main_view/img_panelmetaldetector/md_detect01.png</file>
+        <file>ui/main_scene/main_view/img_panelmetaldetector/md_detect02.png</file>
+        <file>ui/main_scene/main_view/img_panelmetaldetector/md_detect03.png</file>
     </qresource>
 </RCC>

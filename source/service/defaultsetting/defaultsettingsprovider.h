@@ -89,7 +89,7 @@ public:
     quint32                           DEV_SETTING_LAMPTIME               = 1000                                  ;
     quint32                           DEV_SETTING_SPEED_CONVERTER        = 2110000                               ;
     EnumDef::eMotorDirection          DEV_SETTING_MOTOR_DIR              = EnumDef::MOTOR_DIRECTION_RIGHT_TO_LEFT;
-    EnumDef::eMotorType               DEV_SETTING_MOTOR_TYPE             = EnumDef::MOTORTYPE_MOTOR_3_PHASE      ;
+    EnumDef::eMotorType               DEV_SETTING_MOTOR_TYPE             = EnumDef::MOTORTYPE_MOTOR_MITSUBISHI   ;
     quint16                           DEV_SETTING_MOTOR_MD_RATIO         = 100                                   ;
     quint16                           DEV_SETTING_MOTOR_WC_RATIO         = 100                                   ;
     quint16                           DEV_SETTING_MOTOR_RJ_RATIO         = 100                                   ;

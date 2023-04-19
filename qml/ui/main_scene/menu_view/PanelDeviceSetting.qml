@@ -276,6 +276,8 @@ UiPanel {
         labelText : qsTr("· Lamp")
         postfix: "s"
         inputWidth: 230
+        min : 0
+        max : 99
 
         realValue: settingModel.lampTime / 1000.0
 
@@ -299,6 +301,8 @@ UiPanel {
         labelText : qsTr("· Buzzer")
         postfix: "s"
         inputWidth: 230
+        min : 0
+        max : 99
 
         realValue: settingModel.buzzerTime / 1000.0
 
@@ -406,6 +410,10 @@ UiPanel {
             ListElement {
                 itemText : qsTr("BLDC(R)")
                 itemIdx : 3
+            }
+            ListElement {
+                itemText : qsTr("None")
+                itemIdx : 4
             }
         }
 
@@ -1303,10 +1311,10 @@ UiPanel {
                 itemText : qsTr("noise reduction")
                 itemIdx : 1
             }
-           // ListElement {
-           //     itemText : "noise reduction"
-           //     itemIdx : 2
-           // }
+            ListElement {
+                itemText : qsTr("each")
+                itemIdx : 2
+            }
         }
 
         onSignalEventChangedSel: {

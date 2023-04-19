@@ -9,15 +9,15 @@
 class PanelFullMDModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(quint16 mPDSeq          READ getPDSeq          NOTIFY signalEventChangedPDSeq         )
-    Q_PROPERTY(quint16 mPDNum          READ getPDNum          NOTIFY signalEventChangedPDNum         )
-    Q_PROPERTY(QString mPDName         READ getPDName         NOTIFY signalEventChangedPDName        )
-    Q_PROPERTY(quint16 mSenstivity     READ getSenstivity     NOTIFY signalEventChangedSenstivity    )
-    Q_PROPERTY(quint16 mTempSenstivity READ getTempSenstivity NOTIFY signalEventChangedTempSenstivity)
-    Q_PROPERTY(quint16 mCurrSignal     READ getCurrSignal     NOTIFY signalEventChangedCurrSignal    )
-    Q_PROPERTY(int     mTotalCnt       READ getTotalCnt       NOTIFY signalEventChangedTotalCnt      )
-    Q_PROPERTY(int     mDetectCnt      READ getDetectCnt      NOTIFY signalEventChangedDetectCnt     )
-    Q_PROPERTY(int     mGraphMaxCnt    READ getGraphMaxCnt    NOTIFY signalEventChangedGraphMaxCnt   )
+    Q_PROPERTY(quint16 mPDSeq               READ getPDSeq               NOTIFY signalEventChangedPDSeq              )
+    Q_PROPERTY(quint16 mPDNum               READ getPDNum               NOTIFY signalEventChangedPDNum              )
+    Q_PROPERTY(QString mPDName              READ getPDName              NOTIFY signalEventChangedPDName             )
+    Q_PROPERTY(quint16 mSenstivity          READ getSenstivity          NOTIFY signalEventChangedSenstivity         )
+    Q_PROPERTY(quint16 mTempSenstivity      READ getTempSenstivity      NOTIFY signalEventChangedTempSenstivity     )
+    Q_PROPERTY(quint16 mCurrSignal          READ getCurrSignal          NOTIFY signalEventChangedCurrSignal         )
+    Q_PROPERTY(int     mTotalCnt            READ getTotalCnt            NOTIFY signalEventChangedTotalCnt           )
+    Q_PROPERTY(int     mDetectCnt           READ getDetectCnt           NOTIFY signalEventChangedDetectCnt          )
+    Q_PROPERTY(int     mGraphMaxCnt         READ getGraphMaxCnt         NOTIFY signalEventChangedGraphMaxCnt        )
 
 public:
     quint64 mDspSeq         = 0;
@@ -34,36 +34,36 @@ public:
     int     mDetectCnt      = 0;
     int     mGraphMaxCnt    = MDTR_LIMIT;
 
-    quint64 getPDSeq         (){ return mPDSeq         ;}
-    quint16 getPDNum         (){ return mPDNum         ;}
-    QString getPDName        (){ return mPDName        ;}
-    quint16 getSenstivity    (){ return mSenstivity    ;}
-    quint16 getTempSenstivity(){ return mTempSenstivity;}
-    quint16 getCurrSignal    (){ return mCurrSignal    ;}
-    int     getTotalCnt      (){ return mTotalCnt      ;}
-    int     getDetectCnt     (){ return mDetectCnt     ;}
-    int     getGraphMaxCnt   (){ return mGraphMaxCnt   ;}
+    quint64 getPDSeq           (){ return mPDSeq          ;}
+    quint16 getPDNum           (){ return mPDNum          ;}
+    QString getPDName          (){ return mPDName         ;}
+    quint16 getSenstivity      (){ return mSenstivity     ;}
+    quint16 getTempSenstivity  (){ return mTempSenstivity ;}
+    quint16 getCurrSignal      (){ return mCurrSignal     ;}
+    int     getTotalCnt        (){ return mTotalCnt       ;}
+    int     getDetectCnt       (){ return mDetectCnt      ;}
+    int     getGraphMaxCnt     (){ return mGraphMaxCnt    ;}
 
-    void setPDSeq         (quint64 value){ if( mPDSeq          == value ) return; mPDSeq          = value; emit signalEventChangedPDSeq         (mPDSeq         ); }
-    void setPDNum         (quint16 value){ if( mPDNum          == value ) return; mPDNum          = value; emit signalEventChangedPDNum         (mPDNum         ); }
-    void setPDName        (QString value){ if( mPDName         == value ) return; mPDName         = value; emit signalEventChangedPDName        (mPDName        ); }
-    void setSenstivity    (quint16 value){ if( mSenstivity     == value ) return; mSenstivity     = value; emit signalEventChangedSenstivity    (mSenstivity    ); setTempSenstivity(value); }
-    void setTempSenstivity(quint16 value){ if( mTempSenstivity == value ) return; mTempSenstivity = value; emit signalEventChangedTempSenstivity(mTempSenstivity); }
-    void setCurrSignal    (quint16 value){ if( mCurrSignal     == value ) return; mCurrSignal     = value; emit signalEventChangedCurrSignal    (mCurrSignal    ); }
-    void setTotalCnt      (int     value){ if( mTotalCnt       == value ) return; mTotalCnt       = value; emit signalEventChangedTotalCnt      (mTotalCnt      ); }
-    void setDetectCnt     (int     value){ if( mDetectCnt      == value ) return; mDetectCnt      = value; emit signalEventChangedDetectCnt     (mDetectCnt     ); }
-    void setGraphMaxCnt   (int     value){ if( mGraphMaxCnt    == value ) return; mGraphMaxCnt    = value; emit signalEventChangedGraphMaxCnt   (mGraphMaxCnt   ); }
+    void setPDSeq           (quint64 value){ if( mPDSeq            == value ) return; mPDSeq            = value; emit signalEventChangedPDSeq           (mPDSeq         ); }
+    void setPDNum           (quint16 value){ if( mPDNum            == value ) return; mPDNum            = value; emit signalEventChangedPDNum           (mPDNum         ); }
+    void setPDName          (QString value){ if( mPDName           == value ) return; mPDName           = value; emit signalEventChangedPDName          (mPDName        ); }
+    void setSenstivity      (quint16 value){ if( mSenstivity       == value ) return; mSenstivity       = value; emit signalEventChangedSenstivity      (mSenstivity    ); setTempSenstivity(value); }
+    void setTempSenstivity  (quint16 value){ if( mTempSenstivity   == value ) return; mTempSenstivity   = value; emit signalEventChangedTempSenstivity  (mTempSenstivity); }
+    void setCurrSignal      (quint16 value){ if( mCurrSignal       == value ) return; mCurrSignal       = value; emit signalEventChangedCurrSignal      (mCurrSignal    ); }
+    void setTotalCnt        (int     value){ if( mTotalCnt         == value ) return; mTotalCnt         = value; emit signalEventChangedTotalCnt        (mTotalCnt      ); }
+    void setDetectCnt       (int     value){ if( mDetectCnt        == value ) return; mDetectCnt        = value; emit signalEventChangedDetectCnt       (mDetectCnt     ); }
+    void setGraphMaxCnt     (int     value){ if( mGraphMaxCnt      == value ) return; mGraphMaxCnt      = value; emit signalEventChangedGraphMaxCnt     (mGraphMaxCnt   ); }
 
 signals:
-    void signalEventChangedPDSeq         (quint64 value);
-    void signalEventChangedPDNum         (quint16 value);
-    void signalEventChangedPDName        (QString value);
-    void signalEventChangedSenstivity    (quint16 value);
-    void signalEventChangedTempSenstivity(quint16 value);
-    void signalEventChangedCurrSignal    (quint16 value);
-    void signalEventChangedTotalCnt      (int     value);
-    void signalEventChangedDetectCnt     (int     value);
-    void signalEventChangedGraphMaxCnt   (int     value);
+    void signalEventChangedPDSeq           (quint64 value);
+    void signalEventChangedPDNum           (quint16 value);
+    void signalEventChangedPDName          (QString value);
+    void signalEventChangedSenstivity      (quint16 value);
+    void signalEventChangedTempSenstivity  (quint16 value);
+    void signalEventChangedCurrSignal      (quint16 value);
+    void signalEventChangedTotalCnt        (int     value);
+    void signalEventChangedDetectCnt       (int     value);
+    void signalEventChangedGraphMaxCnt     (int     value);
 
     void signalEventAddedValue           (quint16 type, quint32 value);
     void signalEventTimeTick             (             );

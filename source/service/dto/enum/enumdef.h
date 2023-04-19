@@ -72,8 +72,11 @@ public:
     };
 
     enum eMotorType{
-        MOTORTYPE_MOTOR_3_PHASE = 0,
-        MOTORTYPE_MOTOR_BLDC    = 1,
+        MOTORTYPE_MOTOR_MITSUBISHI = 0,
+        MOTORTYPE_MOTOR_BLDC       = 1,
+        MOTORTYPE_MOTOR_SCHNEIDER  = 2,
+        MOTORTYPE_MOTOR_BLDC_R     = 3,
+        MOTORTYPE_MOTOR_NONE       = 4,
     };
 
     enum eMachineMode{
@@ -85,7 +88,7 @@ public:
     enum eSensorMode{
       SENS_MODE_INDEPENDENT = 0,
       SENS_MODE_NOISE_REDUCTION_MODE = 1,
-      SENS_MODE_PARALLEL = 2
+      SENS_MODE_EACH = 2
     };
 
     enum ePDError{
@@ -125,6 +128,7 @@ public:
         ET_WEIGHT_ETC_METAL_ERROR       = 23,
         ET_WEIGHT_ETC_METAL_ERROR_CHECK = 24,
         ET_WEIGHT_REF_VOLTAGE           = 25,
+        ET_METAL_DETECT_2               = 26,
     };
 
     enum eNGMotion{
