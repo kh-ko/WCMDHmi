@@ -14,6 +14,7 @@ Item {
 
     signal signalEventClickedProductName()
     signal signalEventClickedLastError()
+    signal signalEventClickMDDetectExConfirm()
 
     id: panel
     width: 1759
@@ -162,6 +163,10 @@ Item {
 
     PanelFullMDDetectExNotify{
         id : notifyFullMDDetectEx
+
+        onSignalEventClicked: {
+            panel.signalEventClickMDDetectExConfirm();
+        }
     }
 
     Component

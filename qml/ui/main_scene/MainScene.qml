@@ -409,6 +409,10 @@ Item {
             maxPdCntPerMin  : model.maxPDCntPerMin
             currPdCntPerMin : model.currPDCntPerMin
             pdCntPerMin     : model.pdCntPerMin
+
+            onSignalEventClickMDDetectExConfirm: {
+                model.onCommandMDDetectExConfirm();
+            }
         }
     }
 

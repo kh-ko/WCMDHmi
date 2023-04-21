@@ -14,39 +14,15 @@ public:
     DspEventDto(){}
     DspEventDto(const DspEventDto& copy)
     {
+        mMdDetectChannel = copy.mMdDetectChannel;
         memcpy(&mEvent, &(copy.mEvent), sizeof(StDspEvent));
-        if(copy.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT)
-        {
-            mMdDetectChannel = 1;
-        }
-        else if(copy.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT_2)
-        {
-            mMdDetectChannel = 2;
-            mEvent.mEventType = (int)EnumDef::ET_METAL_DETECT;
-        }
-        else
-        {
-            mMdDetectChannel = 0;
-        }
     }
     ~DspEventDto(){}
 
     DspEventDto& operator=(const DspEventDto& other)
     {
+        mMdDetectChannel = other.mMdDetectChannel;
         memcpy(&mEvent, &(other.mEvent), sizeof(StDspEvent));
-        if(other.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT)
-        {
-            mMdDetectChannel = 1;
-        }
-        else if(other.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT_2)
-        {
-            mMdDetectChannel = 2;
-            mEvent.mEventType = (int)EnumDef::ET_METAL_DETECT;
-        }
-        else
-        {
-            mMdDetectChannel = 0;
-        }
 
         return *this;
     }

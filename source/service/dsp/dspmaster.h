@@ -99,6 +99,7 @@ public :
         DspSendQueueItem * pItem = new (DspSendQueueItem);
         mSndDataStore.setCmdRun(value);
 
+        qDebug() << "[DspModbusMaster::sendRun]";
         pItem->mPacket.setFuncCode(DSP_FUNCCODE_MULTIBLOCK_WRITE);
         pItem->mPacket.addWriteBlock(mSndDataStore.mCommandBlock .mTag.mGroupID, DSP_COMMANDBLOCK_STARTADDR_RUN, 1, mSndDataStore.mCommandBlock.mTag.mDataPtr);
         if(mSendQueue.push(pItem))
@@ -626,7 +627,7 @@ private:
             {
                 DspEventDto dto = mRcvDataStore.getEventDto(i);
 
-                qDebug() << "[debug]onRecevie : event Type = " << dto.mEvent.mEventType;
+                //qDebug() << "[debug]onRecevie : event Type = " << dto.mEvent.mEventType;
 
                 if(dto.mEvent.mEventType == EnumDef::ET_WEIGHT_REF_VOLTAGE)
                 {
@@ -634,6 +635,15 @@ private:
                 }
                 else
                 {
+                    if(dto.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT)
+                    {
+                        dto.mMdDetectChannel = 1;
+                    }
+                    else if(dto.mEvent.mEventType == (int)EnumDef::ET_METAL_DETECT_2)
+                    {
+                        dto.mMdDetectChannel = 2;
+                        dto.mEvent.mEventType = (int)EnumDef::ET_METAL_DETECT;
+                    }
                     emit signalEventAddedEvent(mSeq, dto);
                 }
             }

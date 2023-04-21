@@ -24,6 +24,8 @@ Item {
     opacity : 0
     visible : false
 
+    signal signalEventClicked()
+
     function show(detectChannel)
     {
         if(detectChannel === 1)
@@ -175,6 +177,7 @@ Item {
             {
                 ch01Detect = false;
                 ch02Detect = false;
+                panel.signalEventClicked();
                 closeAni.start()
             }
         }

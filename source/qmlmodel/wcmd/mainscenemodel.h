@@ -213,6 +213,17 @@ public slots:
         pDspSP->sendRunCmd(mDspSeq, runValue);
     }
 
+    Q_INVOKABLE void onCommandMDDetectExConfirm()
+    {
+        CHECK_FALSE_RETURN((mDspSeq != 0));
+
+        DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
+
+        qDebug() << "[MainSceneModel][onCommandMDDetectExConfirm]";
+
+        pDspSP->sendRunCmd(mDspSeq, pDsp->mRcvDataStore.mCommStatusBlock.mData.mRun);
+    }
+
     Q_INVOKABLE void onCommandResetGroupCount()
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
