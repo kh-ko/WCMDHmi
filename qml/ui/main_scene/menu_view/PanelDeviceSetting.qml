@@ -1299,7 +1299,9 @@ UiPanel {
         visible: panel.isAdmin && settingModel.isEnableMD
         isHighlight: settingModel.isEditMode
         bgColor: panel.bgColor
-        selIdx: settingModel.mode
+        selIdx: settingModel.mode === 10 ? 3 :
+                settingModel.mode === 11 ? 4 :
+                settingModel.mode === 12 ? 5 : settingModel.mode
         listModel: comboModeOption
         ListModel {
             id : comboModeOption
@@ -1314,6 +1316,18 @@ UiPanel {
             ListElement {
                 itemText : qsTr("each")
                 itemIdx : 2
+            }
+            ListElement {
+                itemText : qsTr("Independent(legacy)")
+                itemIdx : 10
+            }
+            ListElement {
+                itemText : qsTr("noise reduction(legacy)")
+                itemIdx : 11
+            }
+            ListElement {
+                itemText : qsTr("each(legacy)")
+                itemIdx : 12
             }
         }
 
