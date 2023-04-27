@@ -8,6 +8,8 @@ import ViewManager 1.0
 
 Item {
 
+    property int  lampTime;
+    property bool mdDetect   : false
     property bool ch01Detect : false
     property bool ch02Detect : false
 
@@ -29,9 +31,21 @@ Item {
     function show(detectChannel)
     {
         if(detectChannel === 1)
+        {
+            mdDetect = false;
             ch01Detect = true;
+        }
         else if(detectChannel === 2)
+        {
+            mdDetect = false;
             ch02Detect = true;
+        }
+        else if(detectChannel === 0)
+        {
+            mdDetect = true;
+            ch01Detect = false;
+            ch02Detect = false;
+        }
         else
             return;
 
@@ -44,16 +58,18 @@ Item {
         panel.opacity = 0;
         panel.anchors.bottomMargin = panel.height;
 
-        //timer.start();
+        if(lampTime < 99000)
+            timer.start();
+
         showAni.start();
     }
 
     Timer {
         id : timer
-        interval: 4000; running: false; repeat: false
+        interval: lampTime; running: false; repeat: false
         onTriggered:
         {
-            //closeAni.start()
+            closeAni.start()
         }
     }
 
@@ -150,12 +166,13 @@ Item {
         UiLabelAlarm{
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 580
+            anchors.leftMargin: mdDetect ? 40 : 580
             anchors.right: parent.right
             anchors.rightMargin: 40
             height: parent.height
 
-            textValue: ch01Detect == true && ch02Detect == true ? qsTr("Metal is detected on all channels.") :
+            textValue: mdDetect ? qsTr("Metal is detected") :
+                       ch01Detect == true && ch02Detect == true ? qsTr("Metal is detected on all channels.") :
                        ch01Detect == true && ch02Detect == false? qsTr("Metal is detected on channel 01.")   :
                        ch01Detect == false && ch02Detect == true?qsTr("Metal is detected on channel 02.") : ""
         }

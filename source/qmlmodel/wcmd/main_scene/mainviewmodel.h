@@ -14,6 +14,7 @@ class MainViewModel : public QObject
     Q_PROPERTY(bool    isEnableWC             READ getIsEnableWC              NOTIFY signalEventChangedIsEnableWC          )
     Q_PROPERTY(bool    isEnableMD             READ getIsEnableMD              NOTIFY signalEventChangedIsEnableMD          )
     Q_PROPERTY(int     mdDetectMode           READ getMDDetectMode            NOTIFY signalEventChangedMDDetectMode        )
+    Q_PROPERTY(int     lampTime               READ getLampTime                NOTIFY signalEventChangedLampTime            )
     Q_PROPERTY(int     wcTrendsLastNValue     READ getWCTrendsLastNValue      NOTIFY signalEventChangedWCTrendsLastNValue  )
     Q_PROPERTY(int     wcTrendsOptionH        READ getWCTrendsOptionH         NOTIFY signalEventChangedWCTrendsOptionH     )
     Q_PROPERTY(int     wcTrendsOptionFilter   READ getWCTrendsOptionFilter    NOTIFY signalEventChangedWCTrendsOptionFilter)
@@ -64,6 +65,7 @@ public:
     bool    mIsEnableWC          ;
     bool    mIsEnableMD          ;
     int     mMDDetectMode        ;
+    int     mLampTime            ;
     int     mWCTrendsLastNValue  ;
     int     mWCTrendsOptionH     ;
     int     mWCTrendsOptionFilter;
@@ -105,6 +107,7 @@ public:
     bool    getIsEnableWC          (){ return mIsEnableWC          ;}
     bool    getIsEnableMD          (){ return mIsEnableMD          ;}
     int     getMDDetectMode        (){ return mMDDetectMode        ;}
+    int     getLampTime            (){ return mLampTime            ;}
     int     getWCTrendsLastNValue  (){ return mWCTrendsLastNValue  ;}
     int     getWCTrendsOptionH     (){ return mWCTrendsOptionH     ;}
     int     getWCTrendsOptionFilter(){ return mWCTrendsOptionFilter;}
@@ -146,6 +149,7 @@ public:
     void setIsEnableWC          (bool    value){ if(mIsEnableWC           == value)return; mIsEnableWC           = value; emit signalEventChangedIsEnableWC          (value);}
     void setIsEnableMD          (bool    value){ if(mIsEnableMD           == value)return; mIsEnableMD           = value; emit signalEventChangedIsEnableMD          (value);}
     void setMDDetectMode        (int     value){ if(mMDDetectMode         == value)return; mMDDetectMode         = value; emit signalEventChangedMDDetectMode        (value);}
+    void setLampTime            (int     value){ if(mLampTime             == value)return; mLampTime             = value; emit signalEventChangedLampTime            (value);}
     void setWCTrendsLastNValue  (int     value){ if(mWCTrendsLastNValue   == value)return; mWCTrendsLastNValue   = value; emit signalEventChangedWCTrendsLastNValue  (value);}
     void setWCTrendsOptionH     (int     value){ if(mWCTrendsOptionH      == value)return; mWCTrendsOptionH      = value; emit signalEventChangedWCTrendsOptionH     (value);}
     void setWCTrendsOptionFilter(int     value){ if(mWCTrendsOptionFilter == value)return; mWCTrendsOptionFilter = value; emit signalEventChangedWCTrendsOptionFilter(value);}
@@ -188,6 +192,7 @@ signals:
     void signalEventChangedIsEnableWC          (bool    value);
     void signalEventChangedIsEnableMD          (bool    value);
     void signalEventChangedMDDetectMode        (int     value);
+    void signalEventChangedLampTime            (int     value);
     void signalEventChangedWCTrendsLastNValue  (int     value);
     void signalEventChangedWCTrendsOptionH     (int     value);
     void signalEventChangedWCTrendsOptionFilter(int     value);
@@ -415,6 +420,7 @@ public slots:
         setIsEnableWC(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_ALU);
         setIsEnableMD(dto.mDspForm.mCommSetting.mMachineMode != EnumDef::MACHINE_MODE_WC);
         setMDDetectMode(dto.mDspForm.mMDSetting.mDetectMode);
+        setLampTime(dto.mDspForm.mCommSetting.mLampTime);
     }
     void onChangedCurrPDSetting(PDSettingDto dto)
     {
