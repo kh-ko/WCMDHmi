@@ -100,6 +100,7 @@ public slots:
         mItemList.at(PD_WC_NG_LAMP         )->setValue(remote.mWCSetting.mNGLamp                 , pProductSP->mCurrPD.mDspForm.mWCSetting.mNGLamp                 );
         mItemList.at(PD_WC_NGBuzzer        )->setValue(remote.mWCSetting.mNGBuzzer               , pProductSP->mCurrPD.mDspForm.mWCSetting.mNGBuzzer               );
         mItemList.at(PD_WC_FILTER_COEFF    )->setValue(remote.mWCSetting.mFilterCoefficient      , pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient      );
+        mItemList.at(PD_WC_ZERO_DELAY_TIME )->setValue(remote.mWCSetting.mZeroDelayTime          , pProductSP->mCurrPD.mDspForm.mWCSetting.mZeroDelayTime          );
         mItemList.at(PD_WC_MEASURE_CUE_SIGN)->setValue(remote.mWCSetting.mMeasureCueSign         , pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign         );
         mItemList.at(PD_WC_MEASURE_SECTION )->setValue(remote.mWCSetting.mMeasureSection         , pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection         );
         mItemList.at(PD_WC_AUTO_SETTING    )->setValue(remote.mWCSetting.mAutoSetting            , pProductSP->mCurrPD.mDspForm.mWCSetting.mAutoSetting            );
@@ -231,7 +232,8 @@ private:
         PD_WC_NG_LAMP              = PD_WC_ENABLE_ETC_ERR       + 1,
         PD_WC_NGBuzzer             = PD_WC_NG_LAMP              + 1,
         PD_WC_FILTER_COEFF         = PD_WC_NGBuzzer             + 1,
-        PD_WC_MEASURE_CUE_SIGN     = PD_WC_FILTER_COEFF         + 1,
+        PD_WC_ZERO_DELAY_TIME      = PD_WC_FILTER_COEFF         + 1,
+        PD_WC_MEASURE_CUE_SIGN     = PD_WC_ZERO_DELAY_TIME      + 1,
         PD_WC_MEASURE_SECTION      = PD_WC_MEASURE_CUE_SIGN     + 1,
         PD_WC_AUTO_SETTING         = PD_WC_MEASURE_SECTION      + 1,
         PD_WC_UNDER_MOTION         = PD_WC_AUTO_SETTING         + 1,
@@ -310,6 +312,7 @@ private:
              "Product WC NG lamp"                 ,    //PD_WC_NG_LAMP
              "Product WC NG buzzer"               ,    //PD_WC_NGBuzzer
              "Product WC filter coefficient"      ,    //PD_WC_FILTER_COEFF
+             "Product WC Zero delay time"         ,    //PD_WC_ZERO_DELAY_TIME
              "Product WC measure cue sign"        ,    //PD_WC_MEASURE_CUE_SIGN
              "Product WC measure section"         ,    //PD_WC_MEASURE_SECTION
              "Product WC auto setting"            ,    //PD_WC_AUTO_SETTING

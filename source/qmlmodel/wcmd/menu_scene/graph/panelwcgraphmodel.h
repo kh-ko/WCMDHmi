@@ -37,11 +37,13 @@ class PanelWCGraphModel : public QObject
     Q_PROPERTY(quint16  graphPointCnt           READ      getGraphPointCnt               NOTIFY      signalEventChangedGraphPointCnt          )
     Q_PROPERTY(quint16  autoSetting             READ      getAutoSetting                 NOTIFY      signalEventChangedAutoSetting            )
     Q_PROPERTY(qint16   filterCoefficient       READ      getFilterCoefficient           NOTIFY      signalEventChangedFilterCoefficient      )
+    Q_PROPERTY(qint16   zeroDelayTime           READ      getZeroDelayTime               NOTIFY      signalEventChangedZeroDelayTime          )
     Q_PROPERTY(qint32   measureCueSign          READ      getMeasureCueSign              NOTIFY      signalEventChangedMeasureCueSign         )
     Q_PROPERTY(qint32   measureSection          READ      getMeasureSection              NOTIFY      signalEventChangedMeasureSection         )
     Q_PROPERTY(bool     isEditGraphPointCnt     READ      getIsEditGraphPointCnt         NOTIFY      signalEventChangedIsEditGraphPointCnt    )
     Q_PROPERTY(quint16  isEditAutoSetting       READ      getIsEditAutoSetting           NOTIFY      signalEventChangedIsEditAutoSetting      )
     Q_PROPERTY(bool     isEditFilterCoefficient READ      getIsEditFilterCoefficient     NOTIFY      signalEventChangedIsEditFilterCoefficient)
+    Q_PROPERTY(bool     isEditZeroDelayTime     READ      getIsEditZeroDelayTime         NOTIFY      signalEventChangedIsEditZeroDelayTime    )
     Q_PROPERTY(bool     isEditMeasureCueSign    READ      getIsEditMeasureCueSign        NOTIFY      signalEventChangedIsEditMeasureCueSign   )
     Q_PROPERTY(bool     isEditMeasureSection    READ      getIsEditMeasureSection        NOTIFY      signalEventChangedIsEditMeasureSection   )
 
@@ -78,12 +80,14 @@ public:
     quint16         mGraphPointCnt          = 10;
     quint16         mAutoSetting            = 0;
     quint16         mFilterCoefficient      = 0;
+    quint16         mZeroDelayTime          = 0;
     quint32         mMeasureCueSign         = 0;
     quint32         mMeasureSection         = 0;
 
     bool            mIsEditGraphPointCnt    = false;
     bool            mIsEditAutoSetting      = false;
     bool            mIsEditFilterCoefficient= false;
+    bool            mIsEditZeroDelayTime    = false;
     bool            mIsEditMeasureCueSign   = false;
     bool            mIsEditMeasureSection   = false;
     int             mTempMeasuredStartIdx       = -1;
@@ -123,11 +127,13 @@ public:
     quint16  getGraphPointCnt           (){return mGraphPointCnt            ;}
     quint16  getAutoSetting             (){return mAutoSetting              ;}
     quint16  getFilterCoefficient       (){return mFilterCoefficient        ;}
+    quint16  getZeroDelayTime           (){return mZeroDelayTime            ;}
     quint32  getMeasureCueSign          (){return mMeasureCueSign           ;}
     quint32  getMeasureSection          (){return mMeasureSection           ;}
     bool     getIsEditGraphPointCnt     (){return mIsEditGraphPointCnt      ;}
     bool     getIsEditAutoSetting       (){return mIsEditAutoSetting        ;}
     bool     getIsEditFilterCoefficient (){return mIsEditFilterCoefficient  ;}
+    bool     getIsEditZeroDelayTime     (){return mIsEditZeroDelayTime      ;}
     bool     getIsEditMeasureCueSign    (){return mIsEditMeasureCueSign     ;}
     bool     getIsEditMeasureSection    (){return mIsEditMeasureSection     ;}
 
@@ -190,6 +196,7 @@ public:
     void setGraphPointCnt          (int     value){if(value == mGraphPointCnt          ) return; mGraphPointCnt           = value; setIsEditGraphPointCnt(true)   ;  emit signalEventChangedGraphPointCnt    (value);}
     void setAutoSetting            (quint16 value){if(value == mAutoSetting            ) return; mAutoSetting             = value; setIsEditAutoSetting(true)     ;  emit signalEventChangedAutoSetting      (value);}
     void setFilterCoefficient      (quint16 value){if(value == mFilterCoefficient      ) return; mFilterCoefficient       = value; setIsEditFilterCoefficient(true); emit signalEventChangedFilterCoefficient(value);}
+    void setZeroDelayTime          (quint16 value){if(value == mZeroDelayTime          ) return; mZeroDelayTime           = value; setIsEditZeroDelayTime(true)   ;  emit signalEventChangedZeroDelayTime    (value);}
     void setMeasureCueSign         (quint32 value)
     {
         mMeasureCueSign          = value;
@@ -216,6 +223,7 @@ public:
     void setIsEditGraphPointCnt    (bool    value){if(value == mIsEditGraphPointCnt    ) return; mIsEditGraphPointCnt     = value; emit signalEventChangedIsEditGraphPointCnt    (value);}
     void setIsEditAutoSetting      (bool    value){if(value == mIsEditAutoSetting      ) return; mIsEditAutoSetting       = value; emit signalEventChangedIsEditAutoSetting      (value);}
     void setIsEditFilterCoefficient(bool    value){if(value == mIsEditFilterCoefficient) return; mIsEditFilterCoefficient = value; emit signalEventChangedIsEditFilterCoefficient(value);}
+    void setIsEditZeroDelayTime    (bool    value){if(value == mIsEditZeroDelayTime    ) return; mIsEditZeroDelayTime     = value; emit signalEventChangedIsEditZeroDelayTime    (value);}
     void setIsEditMeasureCueSign   (bool    value){if(value == mIsEditMeasureCueSign   ) return; mIsEditMeasureCueSign    = value; emit signalEventChangedIsEditMeasureCueSign   (value);}
     void setIsEditMeasureSection   (bool    value){if(value == mIsEditMeasureSection   ) return; mIsEditMeasureSection    = value; emit signalEventChangedIsEditMeasureSection   (value);}
 
@@ -242,11 +250,13 @@ signals:
     void signalEventChangedGraphPointCnt          (quint16 value);
     void signalEventChangedAutoSetting            (quint16 value);
     void signalEventChangedFilterCoefficient      (quint16 value);
+    void signalEventChangedZeroDelayTime          (quint16 value);
     void signalEventChangedMeasureCueSign         (quint32 value);
     void signalEventChangedMeasureSection         (quint32 value);
     void signalEventChangedIsEditGraphPointCnt    (bool    value);
     void signalEventChangedIsEditAutoSetting      (bool    value);
     void signalEventChangedIsEditFilterCoefficient(bool    value);
+    void signalEventChangedIsEditZeroDelayTime    (bool    value);
     void signalEventChangedIsEditMeasureCueSign   (bool    value);
     void signalEventChangedIsEditMeasureSection   (bool    value);
 
@@ -280,6 +290,7 @@ public slots:
 
         pdSetting.mDspForm.mWCSetting.mAutoSetting        = mAutoSetting;
         pdSetting.mDspForm.mWCSetting.mFilterCoefficient  = mFilterCoefficient;
+        pdSetting.mDspForm.mWCSetting.mZeroDelayTime      = mZeroDelayTime;
         pdSetting.mDspForm.mWCSetting.mMeasureCueSign     = mMeasureCueSign;
         pdSetting.mDspForm.mWCSetting.mMeasureSection     = mMeasureSection;
 
@@ -287,6 +298,7 @@ public slots:
 
         setIsEditAutoSetting(false);
         setIsEditFilterCoefficient(false);
+        setIsEditZeroDelayTime(false);
         setIsEditMeasureCueSign(false);
         setIsEditMeasureSection(false);
 
@@ -326,6 +338,10 @@ public slots:
     Q_INVOKABLE void onCommandSetFilterCoefficient(quint16 value)
     {
         setFilterCoefficient(value);
+    }
+    Q_INVOKABLE void onCommandSetZeroDelayTime(quint16 value)
+    {
+        setZeroDelayTime(value);
     }
 
     Q_INVOKABLE void onCommandSetMeasureCueSignLineIdx(int value)
@@ -523,11 +539,13 @@ public :
     {
         setAutoSetting      (pProductSP->mCurrPD.mDspForm.mWCSetting.mAutoSetting);
         setFilterCoefficient(pProductSP->mCurrPD.mDspForm.mWCSetting.mFilterCoefficient);
+        setZeroDelayTime    (pProductSP->mCurrPD.mDspForm.mWCSetting.mZeroDelayTime);
         setMeasureCueSign   (pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureCueSign);
         setMeasureSection   (pProductSP->mCurrPD.mDspForm.mWCSetting.mMeasureSection);
 
         setIsEditAutoSetting(false);
         setIsEditFilterCoefficient(false);
+        setIsEditZeroDelayTime(false);
         setIsEditMeasureCueSign(false);
         setIsEditMeasureSection(false);
     }

@@ -2572,121 +2572,126 @@
         <translation type="vanished">중량선별기</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="51"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="72"/>
         <source>· Mode</source>
         <translation>· 모드</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="64"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="85"/>
         <source>Raw OFF</source>
         <translation>Raw OFF</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="64"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="85"/>
         <source>Raw ON</source>
         <translation>Raw ON</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="245"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="266"/>
         <source>· Runtime graph</source>
         <translation>· 실시간 그래프</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="163"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="184"/>
         <source>· Max PPM</source>
         <oldsource>· Max PD</oldsource>
         <translation>· 최대 PPM</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="183"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="204"/>
         <source>· Act PPM</source>
         <oldsource>· Mmt PD</oldsource>
         <translation>· 순간 PPM</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="203"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="224"/>
         <source>· Avg PPM</source>
         <oldsource>· Min PD</oldsource>
         <translation>· 평균 PPM</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="258"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="279"/>
         <source>ADC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="359"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="380"/>
         <source>· Filter coefficient</source>
         <translation>· 필터계수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="79"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="100"/>
         <source>· Graph count</source>
         <translation>· 그래프 갯수</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="338"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="40"/>
+        <source>· Zero delay time</source>
+        <translation>· 영점 지연 시간</translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="359"/>
         <source>· Tare weight</source>
         <translation>· 용기무게</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="382"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="403"/>
         <source>Auto setting</source>
         <translation>자동설정</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="406"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="427"/>
         <source>· Cue sign</source>
         <translation>· 측정시점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="461"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="482"/>
         <source>· Section</source>
         <translation>· 측정구간</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="532"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="553"/>
         <source>ZERO</source>
         <translation>영점</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="557"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="579"/>
         <source>Apply</source>
         <translation>적용</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="566"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="588"/>
         <source>Your settings have been saved.</source>
         <translation>설정이 저장되었습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="570"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
         <source>SQL error is occured.</source>
         <translation>SQL구문 오류가 발생하였습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="574"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="596"/>
         <source>This product dose not exist.</source>
         <translation>해당제품이 존재하지 않습니다.</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="614"/>
         <source>Cancel</source>
         <oldsource>Cancle</oldsource>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="109"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="130"/>
         <source>· Min</source>
         <translation>· 최소</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="132"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="153"/>
         <source>· Max</source>
         <translation>· 최대</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="316"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="337"/>
         <source>· Timing graph</source>
         <translation>· 타이밍 그래프</translation>
     </message>

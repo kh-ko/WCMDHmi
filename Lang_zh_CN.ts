@@ -2054,120 +2054,125 @@
 <context>
     <name>PanelWCGraph</name>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="51"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="40"/>
+        <source>· Zero delay time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="72"/>
         <source>· Mode</source>
         <translation type="unfinished">· 模式</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="64"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="85"/>
         <source>Raw OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="64"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="85"/>
         <source>Raw ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="79"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="100"/>
         <source>· Graph count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="109"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="130"/>
         <source>· Min</source>
         <translation type="unfinished">· 最小</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="132"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="153"/>
         <source>· Max</source>
         <translation type="unfinished">· 最大</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="163"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="184"/>
         <source>· Max PPM</source>
         <oldsource>· Max PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="183"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="204"/>
         <source>· Act PPM</source>
         <oldsource>· Mmt PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="203"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="224"/>
         <source>· Avg PPM</source>
         <oldsource>· Min PD</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="245"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="266"/>
         <source>· Runtime graph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="258"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="279"/>
         <source>ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="316"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="337"/>
         <source>· Timing graph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="338"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="359"/>
         <source>· Tare weight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="359"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="380"/>
         <source>· Filter coefficient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="382"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="403"/>
         <source>Auto setting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="406"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="427"/>
         <source>· Cue sign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="461"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="482"/>
         <source>· Section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="532"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="553"/>
         <source>ZERO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="557"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="579"/>
         <source>Apply</source>
         <translation type="unfinished">申请</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="566"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="588"/>
         <source>Your settings have been saved.</source>
         <translation type="unfinished">您的设置已保存。</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="570"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
         <source>SQL error is occured.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="574"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="596"/>
         <source>This product dose not exist.</source>
         <translation type="unfinished">该产品不存在。</translation>
     </message>
     <message>
-        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="592"/>
+        <location filename="qml/ui/main_scene/menu_view/PanelWCGraph.qml" line="614"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>

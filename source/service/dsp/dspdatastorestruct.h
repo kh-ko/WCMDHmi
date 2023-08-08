@@ -114,6 +114,7 @@ struct StDspPDWCSetting{
     unsigned short mUnderMotion            ;
     unsigned short mOverMotion             ;
     unsigned short mEtcMotion              ;
+    unsigned short mZeroDelayTime          ;
 };
 
 struct StDspPDMDSetting{

@@ -39,6 +39,7 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(quint16              mdNGLamp                   READ getMDNGLamp                    NOTIFY signalEventChangedMDNGLamp                 )
     Q_PROPERTY(quint16              mdNGBuzzer                 READ getMDNGBuzzer                  NOTIFY signalEventChangedMDNGBuzzer               )
     Q_PROPERTY(quint16              filterCoefficient          READ getFilterCoefficient           NOTIFY signalEventChangedFilterCoefficient        )
+    Q_PROPERTY(quint16              zeroDelayTime              READ getZeroDelayTime               NOTIFY signalEventChangedZeroDelayTime            )
     Q_PROPERTY(quint32              measureCueSign             READ getMeasureCueSign              NOTIFY signalEventChangedMeasureCueSign           )
     Q_PROPERTY(quint32              measureSection             READ getMeasureSection              NOTIFY signalEventChangedMeasureSection           )
     Q_PROPERTY(qint32               maxSpeed                   READ getMaxSpeed                    NOTIFY signalEventChangedMaxSpeed                 )
@@ -71,6 +72,7 @@ class ProductSettingItemModel : public QObject
     Q_PROPERTY(bool                 isEditMDNGLamp             READ getIsEditMDNGLamp              NOTIFY signalEventChangedIsEditMDNGLamp           )
     Q_PROPERTY(bool                 isEditMDNGBuzzer           READ getIsEditMDNGBuzzer            NOTIFY signalEventChangedIsEditMDNGBuzzer         )
     Q_PROPERTY(bool                 isEditFilterCoefficient    READ getIsEditFilterCoefficient     NOTIFY signalEventChangedIsEditFilterCoefficient  )
+    Q_PROPERTY(bool                 isEditZeroDelayTime        READ getIsEditZeroDelayTime         NOTIFY signalEventChangedIsEditZeroDelayTime      )
     Q_PROPERTY(bool                 isEditMeasureCueSign       READ getIsEditMeasureCueSign        NOTIFY signalEventChangedIsEditMeasureCueSign     )
     Q_PROPERTY(bool                 isEditMeasureSection       READ getIsEditMeasureSection        NOTIFY signalEventChangedIsEditMeasureSection     )
 
@@ -107,6 +109,7 @@ public:
     bool         mIsEditMDNGLamp           ;
     bool         mIsEditMDNGBuzzer         ;
     bool         mIsEditFilterCoefficient  ;
+    bool         mIsEditZeroDelayTime      ;
     bool         mIsEditMeasureCueSign     ;
     bool         mIsEditMeasureSection     ;
 
@@ -136,6 +139,7 @@ public:
     quint16 getWCEnableEtcError        (){return mModel.mDspForm.mWCSetting.mEnableEtcError         ;}
     int     getDynamicFactor           (){return mModel.mDspForm.mWCSetting.mDynamicFactor          ;}
     quint16 getFilterCoefficient       (){return mModel.mDspForm.mWCSetting.mFilterCoefficient      ;}
+    quint16 getZeroDelayTime           (){return mModel.mDspForm.mWCSetting.mZeroDelayTime          ;}
     quint32 getMeasureCueSign          (){return mModel.mDspForm.mWCSetting.mMeasureCueSign         ;}
     quint32 getMeasureSection          (){return mModel.mDspForm.mWCSetting.mMeasureSection         ;}
     quint16 getMDSenstivity            (){return mModel.mDspForm.mMDSetting.mSenstivity             ;}
@@ -189,6 +193,7 @@ public:
     bool    getIsEditWCEnableEtcError  (){return mIsEditWCEnableEtcError   ;}
     bool    getIsEditDynamicFactor     (){return mIsEditDynamicFactor      ;}
     bool    getIsEditFilterCoefficient (){return mIsEditFilterCoefficient  ;}
+    bool    getIsEditZeroDelayTime     (){return mIsEditZeroDelayTime      ;}
     bool    getIsEditMeasureCueSign    (){return mIsEditMeasureCueSign     ;}
     bool    getIsEditMeasureSection    (){return mIsEditMeasureSection     ;}
     bool    getIsEditMDSenstivity      (){return mIsEditMDSenstivity       ;}
@@ -222,6 +227,7 @@ public:
     void setWCEnableEtcError        (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mEnableEtcError         ) return; mModel.mDspForm.mWCSetting.mEnableEtcError          = value;  setIsEditWCEnableEtcError  (true); emit signalEventChangedWCEnableEtcError         (value);}
     void setDynamicFactor           (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mDynamicFactor          ) return; mModel.mDspForm.mWCSetting.mDynamicFactor           = value;  setIsEditDynamicFactor     (true); emit signalEventChangedDynamicFactor            (value);}
     void setFilterCoefficient       (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mFilterCoefficient      ) return; mModel.mDspForm.mWCSetting.mFilterCoefficient       = value;  setIsEditFilterCoefficient (true); emit signalEventChangedFilterCoefficient        (value);}
+    void setZeroDelayTime           (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mZeroDelayTime          ) return; mModel.mDspForm.mWCSetting.mZeroDelayTime           = value;  setIsEditZeroDelayTime     (true); emit signalEventChangedZeroDelayTime            (value);}
     void setMeasureCueSign          (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mMeasureCueSign         ) return; mModel.mDspForm.mWCSetting.mMeasureCueSign          = value;  setIsEditMeasureCueSign    (true); emit signalEventChangedMeasureCueSign           (value);}
     void setMeasureSection          (quint32 value){ if(value == mModel.mDspForm.mWCSetting.mMeasureSection         ) return; mModel.mDspForm.mWCSetting.mMeasureSection          = value;  setIsEditMeasureSection    (true); emit signalEventChangedMeasureSection           (value);}
     void setWCAutoSetting           (quint16 value){ if(value == mModel.mDspForm.mWCSetting.mAutoSetting            ) return; mModel.mDspForm.mWCSetting.mAutoSetting             = value;                                                                                             }
@@ -255,6 +261,7 @@ public:
     void setIsEditWCEnableEtcError  (bool    value){ if(value == mIsEditWCEnableEtcError   ) return; mIsEditWCEnableEtcError   = value; emit signalEventChangedIsEditWCEnableEtcError   (value);}
     void setIsEditDynamicFactor     (bool    value){ if(value == mIsEditDynamicFactor      ) return; mIsEditDynamicFactor      = value; emit signalEventChangedIsEditDynamicFactor      (value);}
     void setIsEditFilterCoefficient (bool    value){ if(value == mIsEditFilterCoefficient  ) return; mIsEditFilterCoefficient  = value; emit signalEventChangedIsEditFilterCoefficient  (value);}
+    void setIsEditZeroDelayTime     (bool    value){ if(value == mIsEditZeroDelayTime      ) return; mIsEditZeroDelayTime      = value; emit signalEventChangedIsEditZeroDelayTime      (value);}
     void setIsEditMeasureCueSign    (bool    value){ if(value == mIsEditMeasureCueSign     ) return; mIsEditMeasureCueSign     = value; emit signalEventChangedIsEditMeasureCueSign     (value);}
     void setIsEditMeasureSection    (bool    value){ if(value == mIsEditMeasureSection     ) return; mIsEditMeasureSection     = value; emit signalEventChangedIsEditMeasureSection     (value);}
     void setIsEditMDSenstivity      (bool    value){ if(value == mIsEditMDSenstivity       ) return; mIsEditMDSenstivity       = value; emit signalEventChangedIsEditMDSenstivity       (value);}
@@ -293,6 +300,7 @@ signals:
     void signalEventChangedWCEnableEtcError         (quint16 value);
     void signalEventChangedDynamicFactor            (int     value);
     void signalEventChangedFilterCoefficient        (quint16 value);
+    void signalEventChangedZeroDelayTime            (quint16 value);
     void signalEventChangedMeasureCueSign           (quint32 value);
     void signalEventChangedMeasureSection           (quint32 value);
     void signalEventChangedMDSenstivity             (quint16 value);
@@ -325,6 +333,7 @@ signals:
     void signalEventChangedIsEditWCEnableEtcError   (bool    value);
     void signalEventChangedIsEditDynamicFactor      (bool    value);
     void signalEventChangedIsEditFilterCoefficient  (bool    value);
+    void signalEventChangedIsEditZeroDelayTime      (bool    value);
     void signalEventChangedIsEditMeasureCueSign     (bool    value);
     void signalEventChangedIsEditMeasureSection     (bool    value);
     void signalEventChangedIsEditMDSenstivity       (bool    value);
@@ -358,6 +367,7 @@ public slots:
     Q_INVOKABLE void onCommandSetWCEnableEtcError        (bool    value){ setWCEnableEtcError  (value == true ? 1 : 0);}
     Q_INVOKABLE void onCommandSetDynamicFactor           (int     value){ setDynamicFactor     (value);}
     Q_INVOKABLE void onCommandSetFilterCoefficient       (quint16 value){ setFilterCoefficient (value);}
+    Q_INVOKABLE void onCommandSetZeroDelayTime           (quint16 value){ setZeroDelayTime     (value);}
     Q_INVOKABLE void onCommandSetMeasureCueSign          (quint32 value){ setMeasureCueSign    (value);}
     Q_INVOKABLE void onCommandSetMeasureSection          (quint32 value){ setMeasureSection    (value);}
     Q_INVOKABLE void onCommandSetMDSenstivity            (quint16 value){ setMDSenstivity      (value);}
@@ -402,6 +412,7 @@ public:
             setWCEnableEtcError        (1 );
             setDynamicFactor           (0 );
             setFilterCoefficient       (0 );
+            setZeroDelayTime           (0 );
             setMeasureCueSign          (0 );
             setMeasureSection          (0 );
             setMDSenstivity            (0 );
@@ -437,6 +448,7 @@ public:
             setWCEnableEtcError  (pPDSetting->mDspForm.mWCSetting.mEnableEtcError         );
             setDynamicFactor     (pPDSetting->mDspForm.mWCSetting.mDynamicFactor          );
             setFilterCoefficient (pPDSetting->mDspForm.mWCSetting.mFilterCoefficient      );
+            setZeroDelayTime     (pPDSetting->mDspForm.mWCSetting.mZeroDelayTime          );
             setMeasureCueSign    (pPDSetting->mDspForm.mWCSetting.mMeasureCueSign         );
             setMeasureSection    (pPDSetting->mDspForm.mWCSetting.mMeasureSection         );
             setWCAutoSetting     (pPDSetting->mDspForm.mWCSetting.mAutoSetting            );
@@ -471,6 +483,7 @@ public:
         setIsEditWCEnableEtcError  (false);
         setIsEditDynamicFactor     (false);
         setIsEditFilterCoefficient (false);
+        setIsEditZeroDelayTime     (false);
         setIsEditMeasureCueSign    (false);
         setIsEditMeasureSection    (false);
         setIsEditMDSenstivity      (false);
@@ -506,6 +519,7 @@ public:
         setWCEnableEtcError  (newProduct.mDspForm.mWCSetting.mEnableEtcError         );
         setDynamicFactor     (newProduct.mDspForm.mWCSetting.mDynamicFactor          );
         setFilterCoefficient (newProduct.mDspForm.mWCSetting.mFilterCoefficient      );
+        setZeroDelayTime     (newProduct.mDspForm.mWCSetting.mZeroDelayTime          );
         setMeasureCueSign    (newProduct.mDspForm.mWCSetting.mMeasureCueSign         );
         setMeasureSection    (newProduct.mDspForm.mWCSetting.mMeasureSection         );
         setWCAutoSetting     (newProduct.mDspForm.mWCSetting.mAutoSetting            );
@@ -539,6 +553,7 @@ public:
         setIsEditWCEnableEtcError  (true);
         setIsEditDynamicFactor     (true);
         setIsEditFilterCoefficient (true);
+        setIsEditZeroDelayTime     (true);
         setIsEditMeasureCueSign    (true);
         setIsEditMeasureSection    (true);
         setIsEditMDSenstivity      (true);

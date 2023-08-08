@@ -65,6 +65,7 @@ public:
         mDspForm.mWCSetting.mEtcMotion               = pDefaultSP->PD_SETTING_WC_NGMOTION               ;
         mDspForm.mWCSetting.mNGLamp                  = pDefaultSP->PD_SETTING_WC_NG_LAMP                ;
         mDspForm.mWCSetting.mNGBuzzer                = pDefaultSP->PD_SETTING_WC_NG_BUZZER              ;
+        mDspForm.mWCSetting.mZeroDelayTime           = pDefaultSP->PD_SETTING_WC_ZERO_DELAY_TIME        ;
         mDspForm.mWCSetting.mDynamicFactor           = pDefaultSP->PD_SETTING_DYNAMIC_FAC               ;
         mDspForm.mWCSetting.mEnableEtcError          = pDefaultSP->PD_SETTING_ENABLE_ETC_ERR            ;
         mDspForm.mWCSetting.mFilterCoefficient       = pDefaultSP->PD_DEFAULT_SETTING_FILTER_COEFFICIENT;
@@ -124,6 +125,7 @@ public:
             else if(key == "MeasureCueSign"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureCueSign          = value.toUInt()     ;}
             else if(key == "MeasureSection"       ){ findFieldCnt++; mDspForm.mWCSetting.mMeasureSection          = value.toUInt()     ;}
             else if(key == "AutoSetting"          ){ findFieldCnt++; mDspForm.mWCSetting.mAutoSetting             = value.toUInt()     ;}
+            else if(key == "ZeroDelayTime"        ){ findFieldCnt++; mDspForm.mWCSetting.mZeroDelayTime           = value.toUInt()     ;}
         }
 
         return findFieldCnt == 0 ? false : true;
@@ -156,7 +158,8 @@ public:
                        "FilterCoefficient:%57%58"
                        "MeasureCueSign:%59%60"
                        "MeasureSection:%61%62"
-                       "AutoSetting:%63")
+                       "AutoSetting:%63%64"
+                       "ZeroDelayTime:%65")
                 .arg(mSeq                                        ).arg(divider)
                 .arg(mDspForm.mCommSetting.mProductNum           ).arg(divider)
                 .arg(mName                                       ).arg(divider)
@@ -188,7 +191,8 @@ public:
                 .arg(mDspForm.mWCSetting.mFilterCoefficient      ).arg(divider)
                 .arg(mDspForm.mWCSetting.mMeasureCueSign         ).arg(divider)
                 .arg(mDspForm.mWCSetting.mMeasureSection         ).arg(divider)
-                .arg(mDspForm.mWCSetting.mAutoSetting            );
+                .arg(mDspForm.mWCSetting.mAutoSetting            ).arg(divider)
+                .arg(mDspForm.mWCSetting.mZeroDelayTime          );
     }
 };
 

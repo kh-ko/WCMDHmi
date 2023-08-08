@@ -59,6 +59,7 @@ public:
     EnumDef::eNGMotion                PD_SETTING_WC_NGMOTION             = EnumDef::NG_MOTION_SORTER_01;
     quint16                           PD_SETTING_WC_NG_LAMP              = 1;
     quint16                           PD_SETTING_WC_NG_BUZZER            = 1;
+    quint16                           PD_SETTING_WC_ZERO_DELAY_TIME      = 0;
     quint32                           PD_SETTING_DYNAMIC_FAC             = 10000000;
     quint16                           PD_SETTING_ENABLE_ETC_ERR          = 1;
     quint16                           PD_SETTING_WC_AUTO_SETTING         = 1;
@@ -108,9 +109,9 @@ public:
     EnumDef::eMachineMode             DEV_SETTING_MACHINE_MODE           = EnumDef::MACHINE_MODE_COMBI           ;
     quint32                           DEV_SETTING_DP_STABILITY           = 1                                     ;
     quint32                           DEV_SETTING_MEASURE_CUE_SIGN       = 300                                   ;
-    quint32                           DEV_SETTING_MIN_STATIC_WEIGHT      = 5000                                  ;
-    quint32                           DEV_SETTING_MIN_DYNAMIC_WEIGHT     = 10000                                 ;
-    quint32                           DEV_SETTING_SCALER                 = 200                                   ;
+    quint32                           DEV_SETTING_MIN_STATIC_WEIGHT      = 500                                   ;
+    quint32                           DEV_SETTING_MIN_DYNAMIC_WEIGHT     = 100                                   ;
+    quint32                           DEV_SETTING_SCALER                 = 100                                   ;
     quint32                           DEV_SETTING_STATIC_FACTOR          = 998932                                ;
     quint16                           DEV_SETTING_WC_PHOTO_IS_ON         = true                                  ;
     quint32                           DEV_SETTING_STATIC_STANDARD_WEIGHT = 10000                                 ;
@@ -120,7 +121,7 @@ public:
     EnumDef::eSensorMode              DEV_SETTING_DETECT_MODE            = EnumDef::SENS_MODE_INDEPENDENT        ;
     quint32                           DEV_SETTING_DETECT_DETECT_TIME     = 500                                   ;
     quint32                           DEV_SETTING_RUN_DETECT_TIME        = 1000                                  ;
-    quint32                           DEV_SETTING_SIGNAL_DELAY_TIME      = 0                                     ;
+    quint32                           DEV_SETTING_SIGNAL_DELAY_TIME      = 45                                     ;
     quint16                           DEV_SETTING_MD_PHOTO_IS_ON         = true                                  ;
     quint16                           DEV_SETTING_SENSOR_CNT             = 1                                     ;
     quint16                           DEV_SETTING_SENSOR_LEN             = 540                                   ;
@@ -209,6 +210,7 @@ public:
             else if(key == "PD_SETTING_DYNAMIC_FAC"             ){ PD_SETTING_DYNAMIC_FAC             = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_ENABLE_ETC_ERR"          ){ PD_SETTING_ENABLE_ETC_ERR          = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_WC_AUTO_SETTING"         ){ PD_SETTING_WC_AUTO_SETTING         = value.toUInt()                                   ;}
+            else if(key == "PD_SETTING_WC_ZERO_DELAY_TIME"      ){ PD_SETTING_WC_ZERO_DELAY_TIME      = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_MD_SENSTIVITY"           ){ PD_SETTING_MD_SENSTIVITY           = value.toUInt()                                   ;}
             else if(key == "PD_SETTING_MD_NGMOTION"             ){ PD_SETTING_MD_NGMOTION             = (EnumDef::eNGMotion)value.toUInt()               ;}
             else if(key == "PD_SETTING_MD_NG_LAMP"              ){ PD_SETTING_MD_NG_LAMP              = value.toUInt()                                   ;}

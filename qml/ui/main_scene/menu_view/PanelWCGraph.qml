@@ -30,6 +30,27 @@ UiPanel {
         id : model
     }
 
+    UiInputNumber {
+        id : inputZeroDelayTime
+        height: 60; width: 400
+
+        anchors.top: parent.top; anchors.topMargin: 20; anchors.right: panelRuntimeGraph.right
+        inputWidth: 180
+        postfix: "ms"
+        labelText: qsTr("· Zero delay time")
+        min : 0
+        max : 9999
+
+        numberValue: model.zeroDelayTime
+        //isDisable: ! model.isEditable
+        isHighlight: model.isEditZeroDelayTime
+
+        onSignalChangeValue:
+        {
+            model.onCommandSetZeroDelayTime(value)
+        }
+    }
+
     Item {
         id : panelRuntimeGraph
         anchors.fill: parent
@@ -551,7 +572,8 @@ PDCntPerMin
                  model.isEditMeasureCueSign       ||
                  model.isEditMeasureSection       ||
                  model.isEditGraphPointCnt        ||
-                 model.isEditAutoSetting
+                 model.isEditAutoSetting          ||
+                 model.isEditZeroDelayTime
 
         type : QmlEnumDef.BUTTON_TYPE_BLUE
         textValue: qsTr("Apply")
