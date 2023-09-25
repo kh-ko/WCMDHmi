@@ -570,6 +570,8 @@ private:
 
     void procReadData(DspPacket * pPacket)
     {
+        static bool lastRun = false;
+
         mRcvDataStore.setDataFromPacket(pPacket);
 
         if(mRcvDataStore.mDevCommSettingBlock.mTag.mIsUpdated ||
@@ -609,6 +611,18 @@ private:
                  qDebug() << "[debug] diff md graph status";
                 sendMDGraphOn(mSndDataStore.getCmdMDGraphOn());
             }
+
+            bool bRun = (dto.mCommStatus.mRun > (int)EnumDef::RUN_MODE_STOP && dto.mCommStatus.mRun < (int)EnumDef::RUN_MODE_ALRAM_RESET ) ? true : false;
+
+            if(lastRun != bRun)
+            {
+                DspEventDto runEventDto;
+                runEventDto.mEvent.mEventType = bRun ? EnumDef::ET_RUN : EnumDef::ET_STOP;
+                runEventDto.mEvent.mEventValue = 0;
+                emit signalEventAddedEvent(mSeq, runEventDto);
+            }
+
+            lastRun = bRun;
 
             emit signalEventChangedStatus(mSeq, dto);
         }
