@@ -97,6 +97,11 @@ public:
 
         QDir(FileDef::WORK_DIR()).removeRecursively();
 
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
+
         stop();
     }
 
@@ -123,6 +128,13 @@ public:
 
 
         mLastErrEvent.reset();
+
+
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
+
         emit signalEventChangedLastErr(mLastErrEvent);
 
     }
@@ -175,6 +187,14 @@ public slots:
         }
 
         write(dto.toString());
+
+        if(dto.mEType == (int)EnumDef::ET_STOP)
+        {
+            QString mountCmd = "sudo sync";
+            QProcess proc;
+            proc.start(mountCmd);
+            proc.waitForFinished(-1);
+        }
 
         if((dto.isWeightNGEvent() && dto.mEType != EnumDef::ET_WEIGHT_ETC_METAL_ERROR) || dto.isMetalDetectEvent())
         {

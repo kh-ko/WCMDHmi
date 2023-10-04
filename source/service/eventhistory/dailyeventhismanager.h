@@ -2,6 +2,7 @@
 #define EVENTHISMANAGER_H
 
 #include <QObject>
+#include <QProcess>
 #include <QDateTime>
 #include <QApplication>
 #include "source/service/productsetting/productsprovider.h"

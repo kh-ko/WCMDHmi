@@ -73,6 +73,12 @@ public:
         ENABLE_SLOT_PDSETTING_CHANGED_CURR_PD;
         ENABLE_SLOT_PDSETTING_ADD_PD;
 
+
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
+
         emit signalEventStarted();
     }
 
@@ -89,6 +95,11 @@ public:
         mpSetting->clear();
         QDir(FileDef::HISTORY_DIR()).removeRecursively();
         stop();
+
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
     }
 
 signals:
@@ -118,11 +129,22 @@ public slots:
 
         mPHManager.addPDHis(dto);
         mPSManager.editPDStatsItem(dto);
+
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
     }
 
     void onAddedPDSetting(PDSettingDto dto)
     {
         mPSManager.addPDStatsItem(dto);
+
+        QString mountCmd = "sudo sync";
+        QProcess proc;
+        proc.start(mountCmd);
+        proc.waitForFinished(-1);
+
     }
 
     void onAddedDspEvent(quint64 dspSeq, DspEventDto dto)
@@ -145,6 +167,13 @@ public slots:
         mEHManager.addEventHis(convertEvent);
         mPSManager.addEvent(convertEvent);
 
+        if(convertEvent.mEType == (int)EnumDef::ET_STOP)
+        {
+            QString mountCmd = "sudo sync";
+            QProcess proc;
+            proc.start(mountCmd);
+            proc.waitForFinished(-1);
+        }
         emit siganlEventAddedEventHistory(convertEvent);
     }
 

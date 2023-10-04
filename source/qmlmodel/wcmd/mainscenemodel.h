@@ -196,6 +196,9 @@ public slots:
     {
         CHECK_FALSE_RETURN((mDspSeq != 0));
 
+        if(value == false)
+            fileTest();
+
         quint16 runValue = value == false ? EnumDef::RUN_MODE_STOP : EnumDef::RUN_MODE_RUN;
 
         DspMaster * pDsp = pDspSP->findDspMaster(mDspSeq);
@@ -458,6 +461,28 @@ private:
             return true;
 
         return false;
+    }
+
+    void fileTest()
+    {
+        //QString fullName = QString("%1/copy_ori.txt").arg(QApplication::applicationDirPath());
+        //QString copyName = QString("%1/copy_after.txt").arg(QApplication::applicationDirPath());
+        // QFile * pFile = new QFile(fullName,this);
+        // pFile->open(QFile::WriteOnly);
+        //
+        // QString writeLine = QString("copy test");
+        //
+        // pFile->write(writeLine.toUtf8());
+        // pFile->flush();
+        // pFile->close();
+        //
+        // pFile->deleteLater();
+        // QFile::copy(fullName, copyName);
+
+         //QString mountCmd = "sudo sync";
+         //QProcess proc;
+         //proc.start(mountCmd);
+         //proc.waitForFinished(-1);
     }
 };
 
