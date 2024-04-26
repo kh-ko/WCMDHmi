@@ -51,6 +51,10 @@ public:
         {
             setCompany(QmlEnumDef::COMPANY_SOLURAY);
         }
+        else if(pDefaultSP->COMPANY == EnumDef::COMPANY_INTECH)
+        {
+            setCompany(QmlEnumDef::COMPANY_INTECH);
+        }
         else
         {
             setCompany(QmlEnumDef::COMPANY_NOVASEN);
