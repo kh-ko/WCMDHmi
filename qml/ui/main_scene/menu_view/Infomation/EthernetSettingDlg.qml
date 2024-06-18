@@ -129,6 +129,7 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.rightMargin: 20
 
+                    maxLength : 20
                     inputWidth: 300
                     labelText: qsTr("· IP")
 

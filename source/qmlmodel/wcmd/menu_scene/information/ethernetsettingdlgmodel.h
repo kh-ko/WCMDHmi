@@ -212,7 +212,7 @@ private:
     {
         EthernetSettingItemModel * pItem = nullptr;
         QString metric = "metric";
-        QString ip     = "inform";
+        QString ip     = "static ip_address=";
         QString router = "static routers=";
 
         qDebug() << "[" << Q_FUNC_INFO << "]";
@@ -361,7 +361,7 @@ private:
         QStringList readeLine;
 
         QString metric = "metric";
-        QString ip     = "inform";
+        //QString ip     = "static ip_address=";
         QString router = "static routers=";
 
         qDebug() << "[" << Q_FUNC_INFO << "]";
@@ -436,7 +436,7 @@ private:
             if(mItemList[2]->getMetric().length() > 0)
                 file.write(QString("\nmetric %1").arg(mItemList[2]->getMetric()).toUtf8());
             if(mItemList[2]->getIP().length() > 0)
-                file.write(QString("\ninform %1").arg(mItemList[2]->getIP()).toUtf8());
+                file.write(QString("\nstatic ip_address=%1").arg(mItemList[2]->getIP()).toUtf8());
             if(mItemList[2]->getRoute().length() > 0)
                 file.write(QString("\nstatic routers=%1").arg(mItemList[2]->getRoute()).toUtf8());
         }
@@ -454,7 +454,7 @@ private:
             if(mItemList[1]->getMetric().length() > 0)
                 file.write(QString("\nmetric %1").arg(mItemList[1]->getMetric()).toUtf8());
             if(mItemList[1]->getIP().length() > 0)
-                file.write(QString("\ninform %1").arg(mItemList[1]->getIP()).toUtf8());
+                file.write(QString("\nstatic ip_address=%1").arg(mItemList[1]->getIP()).toUtf8());
             if(mItemList[1]->getRoute().length() > 0)
                 file.write(QString("\nstatic routers=%1").arg(mItemList[1]->getRoute()).toUtf8());
         }
@@ -472,7 +472,7 @@ private:
             if(mItemList[0]->getMetric().length() > 0)
                 file.write(QString("\nmetric %1").arg(mItemList[0]->getMetric()).toUtf8());
             if(mItemList[0]->getIP().length() > 0)
-                file.write(QString("\ninform %1").arg(mItemList[0]->getIP()).toUtf8());
+                file.write(QString("\nstatic ip_address=%1").arg(mItemList[0]->getIP()).toUtf8());
             if(mItemList[0]->getRoute().length() > 0)
                 file.write(QString("\nstatic routers=%1").arg(mItemList[0]->getRoute()).toUtf8());
         }
